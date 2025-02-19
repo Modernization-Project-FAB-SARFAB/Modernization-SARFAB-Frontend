@@ -7,28 +7,18 @@ const RecruitmentView = lazy(() => import ('@/views/personal/recruitment').then(
 
 const coreRoutes = [
     {
-        path: '/voluntarios',
+        path: '/volunteers',
         title:'Voluntarios',
         component: VoluntaryView
     },
     {
-        path: '/voluntarios/create',
+        path: '/volunteers/create',
+        title:'Voluntarios',
+        component: CreateAfiliationView
+    },
+    {
+        path: '/recruitment',
         title:'Agregar afiliación',
-        component: CreateAfiliationView
-    },
-    {
-        path: '/reclutamiento/aspirantes',
-        title:'Aspirantes',
-        component: CreateAfiliationView
-    },
-    {
-        path: '/reclutamiento/aspirantes/create',
-        title:'Agregar aspirantes a recluta',
-        component: CreateAfiliationView
-    },
-    {
-        path: '/reclutamiento',
-        title:'Reclutas activos',
         component: RecruitmentView
     }
 ]

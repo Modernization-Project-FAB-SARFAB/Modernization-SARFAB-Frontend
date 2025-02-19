@@ -4,9 +4,9 @@ const menuItemsConfiguration: MenuItem[] = [
     {
         label: "Administración",
         icon: <RiUserSettingsFill size={18} color="white" />,
-        path: "/administración",
+        path: "/administration",
         subItems: [
-            { label: "Usuarios", path: "/administración/usuarios" },
+            { label: "Usuarios", path: "/administration/users" },
         ],
     }
 ];

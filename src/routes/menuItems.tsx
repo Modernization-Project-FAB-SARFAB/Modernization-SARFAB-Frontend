@@ -10,78 +10,78 @@ const menuItems: MenuItem[] = [
     {
         label: "Reclutamiento",
         icon: <RiUserCommunityFill size={18} color="white" />,
-        path: "/reclutas",
+        path: "/recruitment",
         subItems: [
-            { label: "Lista de reclutas", path: "/reclutas" },
-            { label: "Aprobar / Rechazar reclutas", path: "/reclutas/approve-or-deny" },
-            { label: "Registrar recluta", path: "/reclutas/create" },
+            { label: "Lista de reclutas", path: "/recruitment" },
+            { label: "Aprobar / Rechazar reclutas", path: "/recruitment/approve-or-deny" },
+            { label: "Registrar recluta", path: "/recruitment/create" },
         ],
     },
     {
         label: "Voluntarios",
         icon: <RiAccountBox2Fill size={18} color="white" />,
-        path: "/voluntarios",
+        path: "/volunteers",
         subItems: [
-            { label: "Ver voluntarios activos", path: "/voluntarios" },
-            { label: "Historico de voluntarios", path: "/voluntarios/volunteer-history" },
-            { label: "Añadir nueva afiliación", path: "/voluntarios/create" },
+            { label: "Ver voluntarios activos", path: "/volunteers" },
+            { label: "Historico de voluntarios", path: "/volunteers/volunteer-history" },
+            { label: "Añadir nueva afiliación", path: "/volunteers/create" },
         ],
     },
     {
         label: "Personal militar",
         icon: <span className="material-symbols-outlined">military_tech</span>,
-        path: "/personal-militar",
+        path: "/military-personnel",
         subItems: [
-            { label: "Ver personal militar", path: "/personal-militar" },
-            { label: "Registrar personal militar", path: "/personal-militar/create" },
+            { label: "Ver personal militar", path: "/military personnel" },
+            { label: "Registrar personal militar", path: "/military personnel/create" },
         ],
     },
     {
         label: "Operaciones",
         icon: <RiAlarmWarningFill size={18} color="white" />,
-        path: "/operaciones",
+        path: "/operations",
         subItems: [
-            { label: "Lista de operaciones", path: "/operaciones" },
-            { label: "Crear operación", path: "/operaciones/create" },
+            { label: "Lista de operaciones", path: "/operations" },
+            { label: "Crear operación", path: "/operations/create" },
         ],
     },
     {
         label: "Guardias",
         icon: <RiShieldFill size={18} color="white" />,
-        path: "/guardias",
+        path: "/guards",
         subItems: [
-            { label: "Lista de guardias", path: "/guardias" },
-            { label: "Crear guardia", path: "/guardias/create" },
+            { label: "Lista de guardias", path: "/guards" },
+            { label: "Crear guardia", path: "/guards/create" },
         ],
     },
     {
         label: "Inventario",
         icon: <RiFileLine size={18} color="white"/>,
-        path: "/inventario",
+        path: "/inventory",
         subItems: [
-            { label: "Lista de inventario", path: "/inventario" },
-            { label: "Registrar nuevo elemento", path: "/inventario/create" },
-            { label: "Registrar extracción", path: "/inventario/register-extraction" },
-            { label: "Registrar devolución", path: "/inventario/register-return" },
+            { label: "Lista de inventario", path: "/inventory" },
+            { label: "Registrar nuevo elemento", path: "/inventory/create" },
+            { label: "Registrar extracción", path: "/inventory/register-extraction" },
+            { label: "Registrar devolución", path: "/inventory/register-return" },
         ]
     },
     {
         label: "Sanidad",
         icon: <RiFirstAidKitFill size={18} color="white" />,
-        path: "/sanidad",
+        path: "/health-service",
         subItems: [
-            { label: "Lista de tratamientos", path: "/sanidad" },
-            { label: "Registrar tratamiento", path: "/sanidad/create" },
+            { label: "Lista de tratamientos", path: "/health-service" },
+            { label: "Registrar tratamiento", path: "/health-service/create" },
         ]
     },
     {
         label: "Configuración",
         icon: <RiSettings2Fill size={18} color="white" />,
-        path: "/configuracion",
+        path: "/configuration",
         subItems: [
-            { label: "Tipos y categorias de operativo", path: "/configuracion/types-and-categories" },
-            { label: "Cursos", path: "/configuracion/courses" },
-            { label: "Solicitantes", path: "/configuracion/applicant" },
+            { label: "Tipos y categorias de operativo", path: "/configuration/types-and-categories" },
+            { label: "Cursos", path: "/configuration/courses" },
+            { label: "Solicitantes", path: "/configuration/applicant" },
         ]
     },
 ];
