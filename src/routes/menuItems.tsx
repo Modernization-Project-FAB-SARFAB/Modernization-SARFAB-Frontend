@@ -1,5 +1,5 @@
-import { RiHome2Fill } from '@remixicon/react';
-import { RiSettings2Fill, RiUserFill, RiUserCommunityFill, RiCustomerService2Fill, RiFileLine, RiFirstAidKitFill } from 'react-icons/ri';
+import { RiAccountBox2Fill, RiAlarmWarningFill, RiHome2Fill, RiShieldFill } from '@remixicon/react';
+import { RiSettings2Fill, RiUserCommunityFill, RiFileLine, RiFirstAidKitFill } from 'react-icons/ri';
 
 const menuItems: MenuItem[] = [
     {
@@ -8,43 +8,81 @@ const menuItems: MenuItem[] = [
         icon: <RiHome2Fill size={18} color="white" />,
     },
     {
-        label: "Voluntarios",
-        icon: <RiUserFill size={18} color="white" />,
-        path: "/voluntarios",
+        label: "Reclutamiento",
+        icon: <RiUserCommunityFill size={18} color="white" />,
+        path: "/reclutas",
         subItems: [
-            { label: "Ver voluntarios", path: "/voluntarios" },
-            { label: "Añadir afiliación", path: "/voluntarios/create" },
+            { label: "Lista de reclutas", path: "/reclutas" },
+            { label: "Aprobar / Rechazar reclutas", path: "/reclutas/approve-or-deny" },
+            { label: "Registrar recluta", path: "/reclutas/create" },
         ],
     },
     {
-        label: "Reclutamiento",
-        path: "/reclutamiento",
-        icon: <RiUserCommunityFill size={18} color="white" />,
+        label: "Voluntarios",
+        icon: <RiAccountBox2Fill size={18} color="white" />,
+        path: "/voluntarios",
         subItems: [
-            { label: "Ver aspirantes", path: "/reclutamiento/listar-aspirantes" },
-            { label: "Añadir recluta", path: "/reclutamiento/agregar-recluta" },
-            { label: "Ver reclutas activos", path: "/reclutamiento" },
+            { label: "Ver voluntarios activos", path: "/voluntarios" },
+            { label: "Historico de voluntarios", path: "/voluntarios/volunteer-history" },
+            { label: "Añadir nueva afiliación", path: "/voluntarios/create" },
+        ],
+    },
+    {
+        label: "Personal militar",
+        icon: <span className="material-symbols-outlined">military_tech</span>,
+        path: "/personal-militar",
+        subItems: [
+            { label: "Ver personal militar", path: "/personal-militar" },
+            { label: "Registrar personal militar", path: "/personal-militar/create" },
         ],
     },
     {
         label: "Operaciones",
+        icon: <RiAlarmWarningFill size={18} color="white" />,
         path: "/operaciones",
-        icon: <RiCustomerService2Fill size={18} color="white" />,
+        subItems: [
+            { label: "Lista de operaciones", path: "/operaciones" },
+            { label: "Crear operación", path: "/operaciones/create" },
+        ],
     },
     {
-        label: "Logística e Inventario",
-        path: "/reclutas",
-        icon: <RiFileLine size={18} color="white" />,
+        label: "Guardias",
+        icon: <RiShieldFill size={18} color="white" />,
+        path: "/guardias",
+        subItems: [
+            { label: "Lista de guardias", path: "/guardias" },
+            { label: "Crear guardia", path: "/guardias/create" },
+        ],
+    },
+    {
+        label: "Inventario",
+        icon: <RiFileLine size={18} color="white"/>,
+        path: "/inventario",
+        subItems: [
+            { label: "Lista de inventario", path: "/inventario" },
+            { label: "Registrar nuevo elemento", path: "/inventario/create" },
+            { label: "Registrar extracción", path: "/inventario/register-extraction" },
+            { label: "Registrar devolución", path: "/inventario/register-return" },
+        ]
     },
     {
         label: "Sanidad",
-        path: "/reclutas",
         icon: <RiFirstAidKitFill size={18} color="white" />,
+        path: "/sanidad",
+        subItems: [
+            { label: "Lista de tratamientos", path: "/sanidad" },
+            { label: "Registrar tratamiento", path: "/sanidad/create" },
+        ]
     },
     {
         label: "Configuración",
-        path: "/configuracion",
         icon: <RiSettings2Fill size={18} color="white" />,
+        path: "/configuracion",
+        subItems: [
+            { label: "Tipos y categorias de operativo", path: "/configuracion/types-and-categories" },
+            { label: "Cursos", path: "/configuracion/courses" },
+            { label: "Solicitantes", path: "/configuracion/applicant" },
+        ]
     },
 ];
 
