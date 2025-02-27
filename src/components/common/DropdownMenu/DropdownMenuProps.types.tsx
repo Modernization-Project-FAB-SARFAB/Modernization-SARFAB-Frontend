@@ -1,0 +1,4 @@
+
+type DropdownMenuProps = {
+    items: DropdownItem[];
+  };

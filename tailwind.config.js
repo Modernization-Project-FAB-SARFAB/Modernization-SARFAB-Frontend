@@ -20,7 +20,7 @@ export default {
       bodydark1: '#DEE4EE',
       bodydark2: '#8A99AF',
       primary: '#3C50E0',
-      secondary: '#80CAEE',
+      secondary: '#171A4A',
       stroke: '#E2E8F0',
       gray: '#EFF4FB',
       graydark: '#333A48',

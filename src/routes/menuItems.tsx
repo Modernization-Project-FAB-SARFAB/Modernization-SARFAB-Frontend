@@ -12,7 +12,7 @@ const menuItems: MenuItem[] = [
         icon: <RiUserCommunityFill size={18} color="white" />,
         path: "/recruitment",
         subItems: [
-            { label: "Lista de reclutas", path: "/recruitment" },
+            { label: "Lista de reclutas", path: "/recruitment/list" },
             { label: "Aprobar / Rechazar reclutas", path: "/recruitment/approve-or-deny" },
             { label: "Registrar recluta", path: "/recruitment/create" },
         ],
@@ -22,7 +22,7 @@ const menuItems: MenuItem[] = [
         icon: <RiAccountBox2Fill size={18} color="white" />,
         path: "/volunteers",
         subItems: [
-            { label: "Ver voluntarios activos", path: "/volunteers" },
+            { label: "Ver voluntarios activos", path: "/volunteers/list" },
             { label: "Historico de voluntarios", path: "/volunteers/volunteer-history" },
             { label: "Añadir nueva afiliación", path: "/volunteers/create" },
         ],

@@ -13,7 +13,13 @@
       "@/assets/*": ["assets/*"],
       "@/layouts/*": ["layouts/*"],
       "@/routes/*":["routes/*"],
-      "@/views/*":["views/*"]
+      "@/views/*":["views/*"],
+      "@/api/*":["api/*"],
+      "@/types/*":["types/*"],
+      "@/lib/*":["lib/*"],
+      "@/context/*":["context/*"],
+      "@/constants/*":["constants/*"],
+      "@/utils/*":["utils/*"],
     },
 
     /* Bundler mode */

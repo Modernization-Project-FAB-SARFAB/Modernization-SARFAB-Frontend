@@ -2,10 +2,38 @@ import COVER_IMAGE from '@/assets/images/signIn/sarfab2.png'
 import LOGO from '@/assets/images/signIn/logo.png'
 import ESCUDO from '@/assets/images/signIn/escudo.png'
 import '@/views/Auth/singIn.css'
+import ErrorMessage from '@/components/common/ErrorGeneralMessage/ErrorGeneralMessage';
+import { UserLoginForm } from '@/types/index';
+import { useForm } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
+import { authenticateUser } from '@/api/AuthApi';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
+  const navigate = useNavigate();
+
+  const initialValues: UserLoginForm = {
+    username: '',
+    password: '',
+  }
+  const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues })
+
+  const { mutate } = useMutation({
+    mutationFn: authenticateUser,
+    onError: (error) => {
+      toast.error(error.message)
+    },
+    onSuccess: () => {
+      toast.success("Inicio de sesión exitoso");
+      navigate('/recruitment/list');
+    }
+  })
+
+  const handleLogin = (formData: UserLoginForm) => mutate(formData);
+
   return (
-    <div className="w-full h-screen flex items-start">
+    <form onSubmit={handleSubmit(handleLogin)} className="w-full h-screen flex items-start" noValidate>
       <div className="hidden xl:block xl:w-1/2 ">
         <div className="image-container relative h-full flex flex-col">
           <div className="absolute overlay overlay_2 flex flex-col">
@@ -39,14 +67,32 @@ const SignIn = () => {
               </div>
 
               <div className='w-full flex flex-col'>
-                <input
-                  type='email'
-                  placeholder='Correo Electronico'
-                  className='w-full text-black py-4 my-2 bg-transparent border-b border-black outline-none focus:outline-none' />
-                <input
-                  type='password'
-                  placeholder='Contraseña'
-                  className='w-full text-black py-4 my-2 bg-transparent border-b border-black outline-none focus:outline-none' />
+                <div className='flex flex-col'>
+                  <input
+                    id="username"
+                    type="username"
+                    placeholder='Nombre de usuario'
+                    className='w-full text-black py-4 my-2 bg-transparent border-b border-black outline-none focus:outline-none'
+                    {...register("username", {
+                      required: "El nombre de usuario es obligatorio",
+                    })} />
+                  {errors.username && (
+                    <ErrorMessage>{errors.username.message}</ErrorMessage>
+                  )}
+                </div>
+                <div className='flex flex-col'>
+                  <input
+                    id="password"
+                    type='password'
+                    placeholder='Contraseña'
+                    className='w-full text-black py-4 my-2 bg-transparent border-b border-black outline-none focus:outline-none'
+                    {...register("password", {
+                      required: "El Password es obligatorio",
+                    })} />
+                  {errors.password && (
+                    <ErrorMessage>{errors.password.message}</ErrorMessage>
+                  )}
+                </div>
               </div>
 
               <div className='w-full flex items-conter justify-between'>
@@ -60,14 +106,14 @@ const SignIn = () => {
             </div>
 
             <div className='w-full flex flex-col'>
-              <button className='w-full text-white my-4 bg-[#060606] rounded-md p-4 text-center flex items-center justify-center'>
+              <button type="submit" className='w-full text-white my-4 bg-[#060606] rounded-md p-4 text-center flex items-center justify-center'>
                 Iniciar Sesión
               </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

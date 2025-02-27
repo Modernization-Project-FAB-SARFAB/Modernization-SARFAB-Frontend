@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 const Breadcrumb = ({ items }: BreadcrumbProps) => {
   return (
-    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <h2 className="text-title-md2 font-semibold text-black dark:text-white">
-        {items[items.length - 1]?.label}
+    <div className="my-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <h2 className="text-title-xsm font-semibold uppercase text-secondary dark:text-white">
+        {items[0]?.label}
       </h2>
 
       <nav>
