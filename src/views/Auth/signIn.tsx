@@ -25,8 +25,7 @@ const SignIn = () => {
       toast.error(error.message)
     },
     onSuccess: () => {
-      toast.success("Inicio de sesión exitoso");
-      navigate('/recruitment/list');
+      navigate('/');
     }
   })
 

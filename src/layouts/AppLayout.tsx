@@ -1,13 +1,21 @@
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import Sidebar from '@/components/common/Sidebar/Sidebar'
 import Header from '@/components/common/Header/Header'
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '@/hooks/auth/useAuth';
 
 export default function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [breadcrumbItems, setBreadcrumbItems] = useState<{ label: string; path?: string }[]>([]);
+
+  /*const { data, isError , isLoading } = useAuth();
+
+  if(isLoading) return 'Cargando...';
+  if(isError) {
+    return <Navigate to='/auth/signin'/>
+  }*/
 
   return (
     <>

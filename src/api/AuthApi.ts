@@ -14,3 +14,15 @@ export async function authenticateUser(formData: UserLoginForm) {
         }
      }
 }
+
+export async function getUser() {
+   try {
+      const url = '/Auth/User';
+      const { data } = await api.get(url);
+      return data;
+   } catch (error) {
+      if (isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.message);
+      }
+   }
+}

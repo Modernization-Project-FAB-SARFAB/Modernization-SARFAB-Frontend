@@ -1,11 +1,9 @@
 import { getRecruitment } from '@/api/RecruitmentAPI';
-import Table from '@/components/common/Table/Table';
-import { Recruit } from '@/types/index';
-import { RiAddLine, RiCheckboxCircleFill, RiCloseCircleFill, RiEdit2Line} from '@remixicon/react';
+import { RiAddLine } from '@remixicon/react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { recruitmentColumns as columns } from "@/constants/RecruitmentColumns";
-import DropdownMenu from '@/components/common/DropdownMenu/DropdownMenu';
+import { recruitmentColumnsDef } from "@/constants/RecruitmentColumnsDef";
+import SortableTable from '@/components/common/SortableTable/SortableTable';
 
 function RecruitmentView() {
 
@@ -13,16 +11,6 @@ function RecruitmentView() {
     queryKey: ['recruitment'],
     queryFn: getRecruitment
   });
-
-  const renderActions = (row: Recruit) => (
-      <DropdownMenu
-        items={[
-          { type: "link", label: "Editar recluta", href: `/recruitment/${row.recruitmentId}/edit` , icon:<RiEdit2Line size={20} />},
-          { type: "link", label: "Rechazar recluta", href: `` , icon:<RiCloseCircleFill size={20} />, ref:"text-danger"},
-          { type: "link", label: "Aprobar recluta", href: ``, icon:<RiCheckboxCircleFill size={20} />, ref:"text-success" }
-        ]}
-      />
-  );
 
   if (isLoading) return 'Cargando...'
 
@@ -40,7 +28,9 @@ function RecruitmentView() {
       </nav>
       {
         data.length ? (
-          <Table columns={columns} data={data} renderActions={renderActions} />
+          <>
+            <SortableTable columns={recruitmentColumnsDef} data={data}/>
+          </>
         ) : (
           <p className='text-center py-20 '>No hay reclutas por el momento
             <Link to="/recruitment/create" className='text-primary font-bold'>Crear recluta</Link>
