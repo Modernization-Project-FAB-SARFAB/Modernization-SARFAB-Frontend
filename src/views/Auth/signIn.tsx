@@ -9,6 +9,7 @@ import { useMutation } from '@tanstack/react-query';
 import { authenticateUser } from '@/api/AuthApi';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import Button from '@/components/common/Button/Button';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -105,9 +106,7 @@ const SignIn = () => {
             </div>
 
             <div className='w-full flex flex-col'>
-              <button type="submit" className='w-full text-white my-4 bg-[#060606] rounded-md p-4 text-center flex items-center justify-center'>
-                Iniciar Sesión
-              </button>
+              <Button type='submit' label='Iniciar Sesión' variant='dark'/>
             </div>
           </div>
         </div>

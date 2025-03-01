@@ -1,4 +1,3 @@
-import { EditRecruitView } from '@/views/personal/recruitment';
 import { lazy } from 'react';
 
 const VoluntaryView = lazy(() => import('@/views/personal/volunteers').then(module => ({ default: module.VoluntariesView })));

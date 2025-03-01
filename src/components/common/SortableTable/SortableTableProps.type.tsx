@@ -1,6 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 
-export type SortableTableProps<T> = {
+export interface SortableTableProps<T> {
   columns: ColumnDef<T>[];
   data: T[];
 }

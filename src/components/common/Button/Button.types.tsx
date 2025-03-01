@@ -1,6 +1,8 @@
-interface ButtonProps {
+import { VARIANT_STYLES } from "@/constants/common/VariantButtonStyles";
+
+export interface ButtonProps {
     label: string;
     onClick?: () => void;
-    variant?: "primary" | "secondary";
-    type?: "submit" | "reset" | "button"; 
+    variant?: keyof typeof VARIANT_STYLES;
+    type?: "submit" | "reset" | "button";
 }

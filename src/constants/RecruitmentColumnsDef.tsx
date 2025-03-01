@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { Recruit } from "../types";
+import { Recruit } from "@/types/index";
 import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
 import { RiCheckboxCircleFill, RiCloseCircleFill, RiEdit2Line } from "@remixicon/react";
 

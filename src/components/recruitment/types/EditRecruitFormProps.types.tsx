@@ -1,6 +1,6 @@
 import { Recruit, RecruitmentFormData } from "@/types/index"
 
-export type EditRecruitFormProps = {
+export interface EditRecruitFormProps {
     data: RecruitmentFormData;
     recruitId: Recruit['recruitmentId']
 }

@@ -1,7 +1,6 @@
 import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
-import { SortableTableProps } from './SortableTableProps.type';
 import { useState } from 'react';
-import Loader from '../Loader';
+import { SortableTableProps } from './SortableTableProps.type';
 
 const SortableTable = <T,>({ columns, data }: SortableTableProps<T>) => {
     const [sorting, setSorting] = useState<SortingState>([]);

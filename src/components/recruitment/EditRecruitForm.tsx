@@ -1,13 +1,13 @@
 import { RecruitmentFormData } from "@/types/index";
-import BackLink from "../common/BackLink/BackLink";
-import ButtonGroup from "../common/ButtonGroup/ButtonGroup";
-import RecruitForm from "./RecruitForm";
+import BackLink from "@/components/common/BackLink/BackLink";
+import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
+import RecruitForm from "@/components/recruitment/RecruitForm";
 import { useForm } from "react-hook-form";
-import { EditRecruitFormProps } from "./types/EditRecruitFormProps.types";
 import { useMutation } from "@tanstack/react-query";
 import { updateRecruit } from "@/api/RecruitmentAPI";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { EditRecruitFormProps } from "@/components/recruitment/types/EditRecruitFormProps.types";
 
 export default function EditRecruitForm({ data, recruitId }: EditRecruitFormProps) {
     const navigate = useNavigate();
@@ -27,8 +27,8 @@ export default function EditRecruitForm({ data, recruitId }: EditRecruitFormProp
         onError: () => {
             toast.error("Ocurrió un error al registrar el recluta");
         },
-        onSuccess: () => {
-            toast.success("Recluta registrado correctamente");
+        onSuccess: (data) => {
+            toast.success(data);
             navigate('/recruitment/list');
         }
     })

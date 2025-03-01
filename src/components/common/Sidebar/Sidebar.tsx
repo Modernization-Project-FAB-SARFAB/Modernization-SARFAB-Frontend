@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import Logo from '@/assets/images/logo/logo-sar-sidebar.webp';
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import React from "react";
-import { RiArrowDownSLine, RiCustomerService2Fill, RiFileLine, RiFirstAidKitFill, RiHome2Fill, RiSettings2Fill, RiUserCommunityFill, RiUserFill, RiUserSettingsFill } from '@remixicon/react'
+import { RiArrowDownSLine } from '@remixicon/react'
 import menuItems from "@/routes/menuItems";
 import menuItemsConfiguration from "@/routes/menuItemsConfiguration";
 

@@ -1,8 +1,8 @@
-import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
-import FormCheckbox from "../common/FormCheckbox/FormCheckbox";
-import FormDate from "../common/FormDate/FormDate";
-import FormInput from "../common/FormInput/FormInput";
-import { RecruitFormProps } from "./types/RecruitFormProps.types";
+import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
+import FormCheckbox from "@/components/common/FormCheckbox/FormCheckbox";
+import FormDate from "@/components/common/FormDate/FormDate";
+import FormInput from "@/components/common/FormInput/FormInput";
+import { RecruitFormProps } from "@/components/recruitment/types/RecruitFormProps.types";
 
 export default function RecruitForm({ errors, register, control }: RecruitFormProps) {
 

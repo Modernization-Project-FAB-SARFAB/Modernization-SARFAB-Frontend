@@ -1,5 +1,4 @@
-
-export type FilterSearchBoxProps = {
+interface FilterSearchBoxProps {
     name:string;
     value?: string;
     onChange?: (value: string) => void;

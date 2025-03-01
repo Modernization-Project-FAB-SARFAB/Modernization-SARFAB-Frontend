@@ -1,5 +1,4 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
-import { FilterSearchBoxProps } from "./FilterSearchBoxProps.type";
 
 const FilterSearchBox: React.FC<FilterSearchBoxProps> = ({
     name,

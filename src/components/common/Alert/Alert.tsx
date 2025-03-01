@@ -1,7 +1,6 @@
 import { RiCheckLine, RiCloseCircleLine, RiErrorWarningLine } from "@remixicon/react";
 
 const Alert: React.FC<AlertProps> = ({ type, title, message, icon }) => {
-    // Definir los colores y estilos de acuerdo con el tipo de alerta
     const alertClasses = {
         warning: 'border-warning bg-warning bg-opacity-15 text-[#9D5425]',
         success: 'border-[#34D399] bg-[#34D399] bg-opacity-15 text-black',

@@ -1,4 +1,4 @@
-type DropdownItem = {
+interface DropdownItem {
   type: "link" | "button";
   icon?: JSX.Element;
   label: string;

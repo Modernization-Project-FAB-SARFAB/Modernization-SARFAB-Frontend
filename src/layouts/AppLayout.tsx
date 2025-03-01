@@ -1,10 +1,9 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import Sidebar from '@/components/common/Sidebar/Sidebar'
 import Header from '@/components/common/Header/Header'
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAuth } from '@/hooks/auth/useAuth';
 import Footer from '@/components/common/Footer/Footer';
 
 export default function AppLayout() {

@@ -3,9 +3,9 @@ interface FormInputProps {
     placeholder: string;
     type?: string;
     required?: boolean;
-    icon?: React.ReactNode; // Permitir iconos o botones
+    icon?: React.ReactNode;
     
-    register: any; // Esta propiedad es pasada desde react-hook-form
-    errors?: any; // Errores de validación
+    register: any;
+    errors?: any;
     name: string;
 }

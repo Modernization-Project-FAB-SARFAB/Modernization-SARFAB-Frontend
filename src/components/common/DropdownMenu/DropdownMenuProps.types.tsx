@@ -1,4 +1,3 @@
-
-type DropdownMenuProps = {
-    items: DropdownItem[];
-  };
+interface DropdownMenuProps {
+  items: DropdownItem[];
+};
