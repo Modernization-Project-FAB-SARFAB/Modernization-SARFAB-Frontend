@@ -12,7 +12,7 @@ const menuItems: MenuItem[] = [
         icon: <RiUserCommunityFill size={18} color="white" />,
         path: "/recruitment",
         subItems: [
-            { label: "Lista de reclutas", path: "/recruitment/list" },
+            { label: "Lista de reclutas pendientes", path: "/recruitment/list" },
             { label: "Aprobar / Rechazar reclutas", path: "/recruitment/approve-or-deny" },
             { label: "Registrar recluta", path: "/recruitment/create" },
         ],

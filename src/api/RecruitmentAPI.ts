@@ -1,7 +1,6 @@
 import { listRecruitmentSchema, Recruit, RecruitmentFormData } from "@/types/index";
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
-import { EditRecruitFormProps } from "@/components/recruitment/types/EditRecruitFormProps.types";
 import { RecruitAPIType } from "./types/RecruitAPIType.type";
 
 export async function createRecruitment(formData: RecruitmentFormData) {
@@ -15,9 +14,9 @@ export async function createRecruitment(formData: RecruitmentFormData) {
     }
 }
 
-export async function getRecruitment() {
+export async function getRecruitment(queryParams?: Record<string, any>) {
     try {
-        const { data } = await api.get('/Recruitment')
+        const { data } = await api.get('/Recruitment', { params: queryParams })
         const response = listRecruitmentSchema.safeParse(data.data);
         if (response.success) {
             return response.data;   

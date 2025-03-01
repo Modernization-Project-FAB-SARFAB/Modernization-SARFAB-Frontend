@@ -1,6 +1,7 @@
-import { flexRender, getCoreRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
 import { SortableTableProps } from './SortableTableProps.type';
 import { useState } from 'react';
+import Loader from '../Loader';
 
 const SortableTable = <T,>({ columns, data }: SortableTableProps<T>) => {
     const [sorting, setSorting] = useState<SortingState>([]);
@@ -10,13 +11,14 @@ const SortableTable = <T,>({ columns, data }: SortableTableProps<T>) => {
         data,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
-        onSortingChange: setSorting,
+        getFilteredRowModel: getFilteredRowModel(),
         state: { sorting },
+        onSortingChange: setSorting,
         initialState: {
             columnVisibility: {
                 recruitmentId: false,
             },
-        }
+        },
     });
 
     return (
@@ -54,15 +56,17 @@ const SortableTable = <T,>({ columns, data }: SortableTableProps<T>) => {
                         ))}
                     </thead>
                     <tbody>
-                        {table.getRowModel().rows.slice(0, 10).map(row => (
-                            <tr key={row.id} className="border-b border-[#eee] dark:border-strokedark">
-                                {row.getVisibleCells().map(cell => (
-                                    <td key={cell.id} className={`py-5 px-4 text-black dark:text-white`}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </td>
+                            <>
+                                {table.getRowModel().rows.slice(0, 10).map(row => (
+                                    <tr key={row.id} className="border-b border-[#eee] dark:border-strokedark">
+                                        {row.getVisibleCells().map(cell => (
+                                            <td key={cell.id} className={`py-5 px-4 text-black dark:text-white`}>
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </td>
+                                        ))}
+                                    </tr>
                                 ))}
-                            </tr>
-                        ))}
+                            </>
                     </tbody>
                     <tfoot>
                         {table.getRowModel().rows.length.toLocaleString()} Rows

@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAuth } from '@/hooks/auth/useAuth';
+import Footer from '@/components/common/Footer/Footer';
 
 export default function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,16 +25,12 @@ export default function AppLayout() {
           <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
             <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} breadcrumbItems={breadcrumbItems} />
-            <main>
-              <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <main className="flex-grow">
+              <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10 ">
                 <Outlet context={{ setBreadcrumbItems }} />
               </div>
-            </main>
-            <footer>
-              <p className='text-center'>
-                Univalle, todos los derechos reservados {new Date().getFullYear()}
-              </p>
-            </footer>
+            </main>  
+            <Footer/>
           </div>
         </div>
       </div>
