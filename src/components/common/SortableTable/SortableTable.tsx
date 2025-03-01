@@ -1,9 +1,13 @@
-import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, SortingState, useReactTable } from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, PaginationState, SortingState, useReactTable } from '@tanstack/react-table';
 import { useState } from 'react';
 import { SortableTableProps } from './SortableTableProps.type';
 
 const SortableTable = <T,>({ columns, data }: SortableTableProps<T>) => {
     const [sorting, setSorting] = useState<SortingState>([]);
+    const [pagination, setPagination] = useState<PaginationState>({
+        pageIndex: 0,
+        pageSize: 10,
+    })
 
     const table = useReactTable({
         columns,
@@ -11,7 +15,9 @@ const SortableTable = <T,>({ columns, data }: SortableTableProps<T>) => {
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
-        state: { sorting },
+        getPaginationRowModel: getPaginationRowModel(),
+        onPaginationChange: setPagination,
+        state: { sorting, pagination },
         onSortingChange: setSorting,
         initialState: {
             columnVisibility: {
@@ -55,22 +61,87 @@ const SortableTable = <T,>({ columns, data }: SortableTableProps<T>) => {
                         ))}
                     </thead>
                     <tbody>
-                            <>
-                                {table.getRowModel().rows.slice(0, 10).map(row => (
-                                    <tr key={row.id} className="border-b border-[#eee] dark:border-strokedark">
-                                        {row.getVisibleCells().map(cell => (
-                                            <td key={cell.id} className={`py-5 px-4 text-black dark:text-white`}>
-                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                            </td>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </>
+                        <>
+                            {table.getRowModel().rows.slice(0, 10).map(row => (
+                                <tr key={row.id} className="border-b border-[#eee] dark:border-strokedark">
+                                    {row.getVisibleCells().map(cell => (
+                                        <td key={cell.id} className={`py-5 px-4 text-black dark:text-white`}>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </>
                     </tbody>
-                    <tfoot>
-                        {table.getRowModel().rows.length.toLocaleString()} Rows
-                    </tfoot>
                 </table>
+                <div className="h-2" />
+                <div className="flex items-center gap-2 my-5">
+                    <button
+                        className="border rounded p-1"
+                        onClick={() => table.firstPage()}
+                        disabled={!table.getCanPreviousPage()}
+                    >
+                        {'<<'}
+                    </button>
+                    <button
+                        className="border rounded p-1"
+                        onClick={() => table.previousPage()}
+                        disabled={!table.getCanPreviousPage()}
+                    >
+                        {'<'}
+                    </button>
+                    <button
+                        className="border rounded p-1"
+                        onClick={() => table.nextPage()}
+                        disabled={!table.getCanNextPage()}
+                    >
+                        {'>'}
+                    </button>
+                    <button
+                        className="border rounded p-1"
+                        onClick={() => table.lastPage()}
+                        disabled={!table.getCanNextPage()}
+                    >
+                        {'>>'}
+                    </button>
+                    <span className="flex items-center gap-1">
+                        <div>Page</div>
+                        <strong>
+                            {table.getState().pagination.pageIndex + 1} of{' '}
+                            {table.getPageCount().toLocaleString()}
+                        </strong>
+                    </span>
+                    <span className="flex items-center gap-1">
+                        | Go to page:
+                        <input
+                            type="number"
+                            min="1"
+                            max={table.getPageCount()}
+                            defaultValue={table.getState().pagination.pageIndex + 1}
+                            onChange={e => {
+                                const page = e.target.value ? Number(e.target.value) - 1 : 0
+                                table.setPageIndex(page)
+                            }}
+                            className="border p-1 rounded w-16"
+                        />
+                    </span>
+                    <select
+                        value={table.getState().pagination.pageSize}
+                        onChange={e => {
+                            table.setPageSize(Number(e.target.value))
+                        }}
+                    >
+                        {[10, 20, 30, 40, 50].map(pageSize => (
+                            <option key={pageSize} value={pageSize}>
+                                Show {pageSize}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    Showing {table.getRowModel().rows.length.toLocaleString()} of{' '}
+                    {table.getRowCount().toLocaleString()} Rows
+                </div>
             </div>
         </div>
     )

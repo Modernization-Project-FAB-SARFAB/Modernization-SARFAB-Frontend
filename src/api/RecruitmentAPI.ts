@@ -16,7 +16,7 @@ export async function createRecruitment(formData: RecruitmentFormData) {
 
 export async function getRecruitment(queryParams?: Record<string, any>) {
     try {
-        const { data } = await api.get('/Recruitment', { params: queryParams })
+        const { data } = await api.get('/Recruitment?page=1&pageSize=29', { params: queryParams })
         const response = listRecruitmentSchema.safeParse(data.data);
         if (response.success) {
             return response.data;   
