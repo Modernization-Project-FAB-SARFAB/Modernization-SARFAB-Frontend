@@ -4,19 +4,34 @@ import { useQuery } from '@tanstack/react-query';
 import { getRecruitment } from '@/api/RecruitmentAPI';
 import { keepPreviousData } from '@tanstack/react-query';
 
-const DEFAULT_PAGE_INDEX = 1;
-const DEFAULT_PAGE_SIZE = 10;
-const DEFAULT_RECRUIT_WAIT_REVISION = '2';
+const DEFAULTS = {
+  pageIndex: 1,
+  pageSize: 10,
+  statusFilter: "",
+};
 
-export function useRecruitment() {
-  const [searchValue, setSearchValue] = useState('');
-  const [statusFilter, setStatusFilter] = useState(DEFAULT_RECRUIT_WAIT_REVISION);
+interface UseRecruitmentOptions {
+  initialSearchValue?: string;
+  initialStatusFilter?: string;
+  initialPageIndex?: number;
+  initialPageSize?: number;
+}
 
-  const [pageIndex, setPageIndex] = useState(DEFAULT_PAGE_INDEX);
-  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+export function useRecruitment({
+  initialSearchValue = "",
+  initialStatusFilter = DEFAULTS.statusFilter,
+  initialPageIndex = DEFAULTS.pageIndex,
+  initialPageSize = DEFAULTS.pageSize,
+}: UseRecruitmentOptions = {}) {
+
+  const [searchValue, setSearchValue] = useState(initialSearchValue);
+  const [statusFilter, setStatusFilter] = useState(initialStatusFilter);
+  const [pageIndex, setPageIndex] = useState(initialPageIndex);
+  const [pageSize, setPageSize] = useState(initialPageSize);
 
   const [debouncedSearch] = useDebounce(searchValue, 500);
   const [debouncedStatus] = useDebounce(statusFilter, 500);
+
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['recruitment', { searchTerm: debouncedSearch, status: debouncedStatus, page: pageIndex, pageSize }],

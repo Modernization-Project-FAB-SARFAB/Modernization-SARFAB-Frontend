@@ -1,6 +1,6 @@
 import { RiAddLine } from '@remixicon/react';
 import { Link } from 'react-router-dom';
-import { recruitmentColumnsDef } from "@/constants/RecruitmentColumnsDef";
+import { recruitmentColumnsDef } from "@/constants/recruitment/RecruitmentColumnsDef";
 import SortableTable from '@/components/common/SortableTable/SortableTable';
 import FilterSearchBox from '@/components/common/FilterSearchBox/FilterSearchBox';
 import FilterSelect from '@/components/common/FilterSelect/FilterSelect';
@@ -9,7 +9,7 @@ import { useBreadcrumb } from '@/hooks/components/useBreadcrumb';
 import { useRecruitment } from '@/hooks/recruitment/useRecruitment';
 
 function RecruitmentView() {
-  useBreadcrumb([ { label: "Reclutamiento", path: "/recruitment/list" },{ label: "Listado de reclutas pendientes" },]);
+  useBreadcrumb([{ label: "Reclutamiento", path: "/recruitment/list" }, { label: "Listado de reclutas pendientes" },]);
 
   const {
     data,
@@ -23,13 +23,15 @@ function RecruitmentView() {
     setPageIndex,
     pageSize,
     setPageSize,
-  } = useRecruitment();
+  } = useRecruitment({
+    initialStatusFilter: '3'
+  });
 
   const statusOptions = [
-    { value: '0', label: 'No apto' , isSelected: false},
-    { value: '1', label: 'En proceso', isSelected: false },
+    { value: '0', label: 'Rechazado', isSelected: false },
+    { value: '1', label: 'Pendiente de aprobación', isSelected: false },
     { value: '2', label: 'Apto - Pendiendte de registro de voluntario', isSelected: false },
-    { value: '3', label: 'Apto - Registrado como voluntario', isSelected: true}
+    { value: '3', label: 'Apto - Registrado como voluntario', isSelected: true }
   ];
 
   return (
