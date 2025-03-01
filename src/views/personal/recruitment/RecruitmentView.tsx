@@ -1,40 +1,39 @@
-import { getRecruitment } from '@/api/RecruitmentAPI';
 import { RiAddLine } from '@remixicon/react';
-import { useQuery } from '@tanstack/react-query';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { recruitmentColumnsDef } from "@/constants/RecruitmentColumnsDef";
 import SortableTable from '@/components/common/SortableTable/SortableTable';
-import { useEffect, useState } from 'react';
 import FilterSearchBox from '@/components/common/FilterSearchBox/FilterSearchBox';
 import FilterSelect from '@/components/common/FilterSelect/FilterSelect';
-import { useDebounce } from 'use-debounce';
 import Loader from '@/components/common/Loader';
+import { useBreadcrumb } from '@/hooks/components/useBreadcrumb';
+import { useRecruitment } from '@/hooks/recruitment/useRecruitment';
 
 function RecruitmentView() {
-  const { setBreadcrumbItems } = useOutletContext<{ setBreadcrumbItems: Function }>();
+  useBreadcrumb([ { label: "Reclutamiento", path: "/recruitment/list" },{ label: "Listado de reclutas pendientes" },]);
 
-  const [searchValue, setSearchValue] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
+  const {
+    data,
+    isLoading,
+    refetch,
+    searchValue,
+    setSearchValue,
+    statusFilter,
+    setStatusFilter,
+    pageIndex,
+    setPageIndex,
+    pageSize,
+    setPageSize,
+  } = useRecruitment();
 
-  const [debouncedSearch] = useDebounce(searchValue, 500);
-  const [debouncedStatus] = useDebounce(statusFilter, 500);
-
-  const { data, isLoading } = useQuery({
-    queryKey: ['recruitment', { searchTerm: debouncedSearch, status: debouncedStatus }],
-    queryFn: () => getRecruitment({ searchTerm: debouncedSearch, status: debouncedStatus }),
-    retry: 1
-  });
-
-  useEffect(() => {
-    setBreadcrumbItems([
-      { label: "Reclutamiento", path: "/recruitment/list" },
-      { label: "Lista de reclutas pendientes" },
-    ]);
-  }, [setBreadcrumbItems]);
+  const statusOptions = [
+    { value: '0', label: 'No apto' , isSelected: false},
+    { value: '1', label: 'En proceso', isSelected: false },
+    { value: '2', label: 'Apto - Pendiendte de registro de voluntario', isSelected: false },
+    { value: '3', label: 'Apto - Registrado como voluntario', isSelected: true}
+  ];
 
   return (
     <div>
-      {/* Botón para añadir nuevo recluta */}
       <nav>
         <Link
           to="/recruitment/create"
@@ -56,24 +55,28 @@ function RecruitmentView() {
             placeholder="Buscar por nombre o carnet de identidad"
           />
         </div>
-        <div className='w-full sm:w-1/3'>
+        <div className='w-full sm:w-1/2'>
           <FilterSelect
             name='status'
             label="Seleccionar por estado"
-            options={[
-              { value: '', label: 'Todos' },
-              { value: '0', label: 'Recluta pendiente de revisión' },
-              { value: '1', label: 'Recluta aprobado' },
-            ]}
+            options={statusOptions}
             value={statusFilter}
             onChange={setStatusFilter}
           />
         </div>
       </div>
 
+      {/* Tabla */}
       {isLoading ? (<Loader />)
-        : data?.length ? (
-          <SortableTable columns={recruitmentColumnsDef} data={data} />
+        : data?.data.length ? (
+          <SortableTable columns={recruitmentColumnsDef} data={data.data}
+            pagination={{ pageIndex, pageSize }}
+            totalPages={data.totalPages}
+            onPaginationChange={({ pageIndex, pageSize }) => {
+              setPageIndex(pageIndex);
+              setPageSize(pageSize);
+              refetch();
+            }} />
         ) : (
           <div className='h-fit'>
             <p className='text-center py-20'>

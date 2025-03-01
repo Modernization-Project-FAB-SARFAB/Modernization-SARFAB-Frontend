@@ -2,28 +2,24 @@ import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel
 import { useState } from 'react';
 import { SortableTableProps } from './SortableTableProps.type';
 
-const SortableTable = <T,>({ columns, data }: SortableTableProps<T>) => {
+const SortableTable = <T,>({ columns, data, pagination, totalPages, onPaginationChange }: SortableTableProps<T>) => {
     const [sorting, setSorting] = useState<SortingState>([]);
-    const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: 10,
-    })
 
     const table = useReactTable({
         columns,
         data,
+        state: { sorting, pagination },
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        onPaginationChange: setPagination,
-        state: { sorting, pagination },
+        manualPagination: true,
         onSortingChange: setSorting,
         initialState: {
             columnVisibility: {
                 recruitmentId: false,
             },
-        },
+        }
     });
 
     return (
@@ -75,73 +71,47 @@ const SortableTable = <T,>({ columns, data }: SortableTableProps<T>) => {
                     </tbody>
                 </table>
                 <div className="h-2" />
-                <div className="flex items-center gap-2 my-5">
-                    <button
-                        className="border rounded p-1"
-                        onClick={() => table.firstPage()}
-                        disabled={!table.getCanPreviousPage()}
-                    >
-                        {'<<'}
-                    </button>
-                    <button
-                        className="border rounded p-1"
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                    >
-                        {'<'}
-                    </button>
-                    <button
-                        className="border rounded p-1"
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        {'>'}
-                    </button>
-                    <button
-                        className="border rounded p-1"
-                        onClick={() => table.lastPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        {'>>'}
-                    </button>
-                    <span className="flex items-center gap-1">
-                        <div>Page</div>
-                        <strong>
-                            {table.getState().pagination.pageIndex + 1} of{' '}
-                            {table.getPageCount().toLocaleString()}
-                        </strong>
-                    </span>
-                    <span className="flex items-center gap-1">
-                        | Go to page:
-                        <input
-                            type="number"
-                            min="1"
-                            max={table.getPageCount()}
-                            defaultValue={table.getState().pagination.pageIndex + 1}
-                            onChange={e => {
-                                const page = e.target.value ? Number(e.target.value) - 1 : 0
-                                table.setPageIndex(page)
-                            }}
-                            className="border p-1 rounded w-16"
-                        />
-                    </span>
-                    <select
-                        value={table.getState().pagination.pageSize}
-                        onChange={e => {
-                            table.setPageSize(Number(e.target.value))
-                        }}
-                    >
-                        {[10, 20, 30, 40, 50].map(pageSize => (
-                            <option key={pageSize} value={pageSize}>
-                                Show {pageSize}
-                            </option>
-                        ))}
-                    </select>
+                <div className="flex justify-between  my-4">
+                    <div >
+                        Mostrando {table.getRowModel().rows.length.toLocaleString()} de{' '}
+                        {table.getRowCount().toLocaleString()} Filas
+                    </div>
+                    <div className='flex  items-center gap-2'>
+                        <button
+                            className="border rounded p-1"
+                            onClick={() => onPaginationChange({ pageIndex: pagination.pageIndex - 1, pageSize: pagination.pageSize })}
+                            disabled={pagination.pageIndex === 1}
+                        >
+                            {'<'}
+                        </button>
+                        <span className="flex items-center gap-1">
+                            Página <strong>{pagination.pageIndex}</strong>
+                        </span>
+                        <button
+                            className="border rounded p-1"
+                            onClick={() => onPaginationChange({ pageIndex: pagination.pageIndex + 1, pageSize: pagination.pageSize })}
+                            disabled={pagination.pageIndex >= totalPages}
+                        >
+                            {'>'}
+                        </button>
+                        <span className="flex items-center gap-1">
+                            | Ir a página:
+                            <input
+                                type="number"
+                                min="1"
+                                max={totalPages}
+                                defaultValue={pagination.pageIndex}
+                                value={pagination.pageIndex}
+                                onChange={(e) => {
+                                    const page = Number(e.target.value);
+                                    onPaginationChange({ pageIndex: page, pageSize: pagination.pageSize });
+                                }}
+                                className="border p-1 rounded w-16"
+                            />
+                        </span>
+                    </div>
                 </div>
-                <div>
-                    Showing {table.getRowModel().rows.length.toLocaleString()} of{' '}
-                    {table.getRowCount().toLocaleString()} Rows
-                </div>
+
             </div>
         </div>
     )
