@@ -8,9 +8,12 @@ import { RecruitmentFormData } from "@/types/index";
 import { createRecruitment } from "@/api/RecruitmentAPI";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 
 function CreateRecruitView() {
   const navigate = useNavigate();
+  useBreadcrumb([{ label: "Reclutamiento", path: "/recruitment/list" },{ label: "Registrar nuevo recluta" },]);
+
   const { setBreadcrumbItems } = useOutletContext<{ setBreadcrumbItems: Function }>();
 
   const initialValues: RecruitmentFormData = {
@@ -38,14 +41,7 @@ function CreateRecruitView() {
   const handleForm = async (formData: RecruitmentFormData) => {
     await mutation.mutateAsync(formData)
   }
-
-  useEffect(() => {
-    setBreadcrumbItems([
-      { label: "Reclutamiento", path: "/recruitment/list" },
-      { label: "Registrar nuevo recluta" },
-    ]);
-  }, [setBreadcrumbItems]);
-
+  
   return (
     <>
       <div className="">
@@ -61,7 +57,7 @@ function CreateRecruitView() {
               Registro de nuevo recluta
             </h3>
             <form onSubmit={handleSubmit(handleForm)} noValidate>
-              <RecruitForm errors={errors} register={register} control={control}/>
+              <RecruitForm errors={errors} register={register} control={control} />
               <div className="p-6.5">
                 <ButtonGroup label={"Registrar recluta"} onPrimaryClick={handleSubmit(handleForm)} cancelLink='/recruitment/list' isPrimarySubmit={true} />
               </div>

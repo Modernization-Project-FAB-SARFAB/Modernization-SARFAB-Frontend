@@ -5,7 +5,11 @@ import UserOne from '@/assets/images/user/user-02.png';
 import { RiArrowDownSLine, RiSettings2Line, RiUser3Line } from '@remixicon/react';
 import { RiLogoutBoxLine } from 'react-icons/ri';
 
-const DropdownUser = () => {
+interface DropdownUserProps {
+  username: string;
+}
+
+const DropdownUser = ({ username }: DropdownUserProps) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -47,7 +51,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            John Doe
+            {username}
           </span>
           <span className="block text-xs">Administrador</span>
         </span>

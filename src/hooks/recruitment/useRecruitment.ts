@@ -37,7 +37,7 @@ export function useRecruitment({
     queryKey: ['recruitment', { searchTerm: debouncedSearch, status: debouncedStatus, page: pageIndex, pageSize }],
     queryFn: () => getRecruitment({ searchTerm: debouncedSearch, status: debouncedStatus, page: pageIndex, pageSize }),
     placeholderData: keepPreviousData,
-    retry: 1,
+    retry: false,
   });
 
   return {

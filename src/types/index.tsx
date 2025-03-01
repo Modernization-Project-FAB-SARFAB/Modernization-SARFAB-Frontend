@@ -9,6 +9,17 @@ const authSchema = z.object({
 type AuthForm = z.infer<typeof authSchema>;
 export type UserLoginForm = Pick<AuthForm, 'username' | 'password'>;
 
+/**Users */
+export const userSchema = authSchema.pick({
+  username: true
+}).extend({
+  id: z.number(),
+  email: z.string(),
+  name: z.string(),
+  lastName: z.string()
+})
+export type User = z.infer<typeof userSchema>;
+
 /** Proyects */
 export const recruitmentSchema = z.object({
     recruitmentId: z.number(),
