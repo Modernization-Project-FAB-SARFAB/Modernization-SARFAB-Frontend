@@ -7,12 +7,11 @@ import FilterSelect from '@/components/common/FilterSelect/FilterSelect';
 import Loader from '@/components/common/Loader';
 import { useBreadcrumb } from '@/hooks/components/useBreadcrumb';
 import { useRecruitment } from '@/hooks/recruitment/useRecruitment';
-import ApproveRecruitModal from '@/components/recruitment/approveRecruitModal';
-import { useState } from 'react';
+import ApproveRecruitModal from '@/components/recruitment/ApproveRecruitModal';
+import DenyRecruitModal from '@/components/recruitment/DenyRecruitModal';
 
 function RecruitmentView() {
   useBreadcrumb([{ label: "Reclutamiento", path: "/recruitment/approve-or-deny" }, { label: "Aprobar / Rechazar reclutas" },]);
-  const [isModalOpen, setIsModalOpen] = useState(true); // Estado del modal
 
   const {
     data,
@@ -93,8 +92,8 @@ function RecruitmentView() {
           )}
       </div>
       {/* Modal de aprobación */}
-      <ApproveRecruitModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
+      <ApproveRecruitModal />
+      <DenyRecruitModal />
     </>
   );
 }

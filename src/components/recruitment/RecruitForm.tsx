@@ -17,7 +17,7 @@ export default function RecruitForm({ errors, register, control }: RecruitFormPr
                                     register={register} 
                                     errors={errors}
                                     name="firstName"
-                                    type="text" />
+                                    type="text"/>
                                 {errors.firstName && (
                                     <ErrorFormMessage>{errors.firstName.message}</ErrorFormMessage>
                                 )}
@@ -26,7 +26,7 @@ export default function RecruitForm({ errors, register, control }: RecruitFormPr
                                 <FormInput label="Apellidos" placeholder="Ingresa los apellidos" required
                                     register={register}
                                     name="lastName"
-                                    type="text" />
+                                    type="text"/>
                                 {errors.lastName && (
                                     <ErrorFormMessage>{errors.lastName?.message}</ErrorFormMessage>
                                 )}

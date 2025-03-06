@@ -30,7 +30,7 @@ export async function getRecruitment(queryParams?: Record<string, any>) {
 
 export async function getRecruitById(id: Recruit['recruitmentId']) {
     try {
-        const { data } = await api.get(`/Recruitment/${id}`);
+        const { data } = await api(`/Recruitment/${id}`);
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {

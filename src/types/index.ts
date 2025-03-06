@@ -28,7 +28,7 @@ export const recruitmentSchema = z.object({
     ci: z.string().min(1, "El documento de identidad es obligatorio"),
     birthDate:  z.string(),
     wantsMilitaryService: z.boolean(),
-    status: z.number(),
+    status: z.number()
 })
 
 

@@ -1,4 +1,17 @@
-const FormInput: React.FC<FormInputProps> = ({ label, placeholder, register, required, name, icon, type}) => {
+import clsx from "clsx";
+
+const FormInput: React.FC<FormInputProps> = ({
+    label,
+    placeholder,
+    register,
+    required,
+    name,
+    icon,
+    type = "text",
+    readonly = false,
+    className,
+    defaultValue = ""
+}) => {
     return (
         <div className="w-full">
             <label htmlFor={name} className="mb-2.5 block text-black dark:text-white">
@@ -9,10 +22,12 @@ const FormInput: React.FC<FormInputProps> = ({ label, placeholder, register, req
                     id={name}
                     type={type}
                     placeholder={placeholder}
-                    {...register(name, {
+                    defaultValue={defaultValue}
+                    {...(readonly ? {} : register(name, {
                         required: required ? `${label} es obligatorio` : false,
-                    })}
-                    className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 pr-10 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    }))}
+                    className={clsx("w-full rounded border-[1.5px] border-stroke py-3 px-5 pr-10 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default :bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary", className)}
+                    readOnly={readonly} 
                 />
                 {icon && <span className="absolute right-3 top-1/2 transform -translate-y-1/2">{icon}</span>}
             </div>

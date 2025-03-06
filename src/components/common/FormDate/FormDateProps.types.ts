@@ -3,6 +3,9 @@ interface FormDateProps {
     placeholder: string;
     type?: string;
     required?: boolean;
-    register: any; 
+    register?: any; 
     name: string;
+    readonly?: boolean;
+    className?: string;
+    defaultValue?: string
 }

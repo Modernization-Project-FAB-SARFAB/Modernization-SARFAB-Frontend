@@ -1,65 +1,123 @@
 import { Dialog, Transition } from "@headlessui/react";
+import { RiIdCardLine } from "@remixicon/react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Fragment } from "react/jsx-runtime";
-
-interface ApproveRecruitModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
+import { Fragment } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getRecruitById } from "@/api/RecruitmentAPI";
+import FormInput from "../common/FormInput/FormInput";
+import FormDate from "../common/FormDate/FormDate";
+import Modal from "../common/Modal/Modal";
 
 export default function ApproveRecruitModal() {
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const modalApprove = queryParams.get('approveRecruit')
-    const show = modalApprove ? true : false;
+    const modalApprove = queryParams.get('approveRecruit');
+    const recruitId = queryParams.get('recruitId');
 
-    return (<Transition appear show={show} as={Fragment}>
-        <Dialog as="div" className="relative z-50" onClose={() => navigate('', {})}>
-            {/* Fondo oscuro */}
-            <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-            >
-                <div className="fixed inset-0 bg-black/60" />
-            </Transition.Child>
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['editRecruit', recruitId],
+        queryFn: () => getRecruitById(Number(recruitId)),
+        enabled: !!recruitId,
+        retry: false
+    });
 
-            {/* Contenedor principal */}
-            <div className="fixed inset-0 flex items-center justify-center p-4">
-                <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                >
-                    <Dialog.Panel className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-8">
-                        <Dialog.Title className="font-black text-3xl text-gray-800 mb-4">
-                            Aprobar recluta
-                        </Dialog.Title>
+    if (isLoading) {
+        return <p>Cargando...</p>;
+    }
 
-                        <p className="text-lg font-semibold text-gray-600 mb-6">
-                            Parece que quieres aprobar a un recluta.{" "}
-                            <span className="text-fuchsia-600">¿Estás seguro de que desea aprobar a este recluta?</span>
-                        </p>
+    if (error || !data) {
+        return <p>Error al cargar los datos del reclutamiento.</p>;
+    }
 
-                        {/* Botón de cierre */}
-                        <button
-                            onClick={() => navigate('', {})}
-                            className=""
-                        >
-                            Cerrar
-                        </button>
-                    </Dialog.Panel>
-                </Transition.Child>
+    return (
+        <Modal title="Aprobar recluta" isOpen={!!modalApprove} onClose={() => navigate(location.pathname, { replace: true })}>
+            <p className="text-lg font-semibold text-gray-600 mb-6">
+                Parece que quieres aprobar a un recluta.{" "}
+                <span className="text-fuchsia-600">¿Estás seguro de que desea aprobar a este recluta?</span>
+            </p>
+
+            <div className="p-7">
+                <div className="mb-5.5 flex flex-col gap-5.5 sm:flex-row">
+                    <div className="w-full sm:w-1/2">
+                        <FormInput
+                            label="Nombres"
+                            placeholder="Ingresa los nombres"
+                            name="firstName"
+                            type="text"
+                            readonly={true}
+                            defaultValue={data.firstName}
+                            className="bg-gray"
+                        />
+                    </div>
+
+                    <div className="w-full sm:w-1/2">
+                        <FormInput
+                            label="Apellidos"
+                            placeholder="Ingresa los apellidos"
+                            name="lastName"
+                            type="text"
+                            readonly={true}
+                            defaultValue={data.lastName}
+                            className="bg-gray"
+                        />
+                    </div>
+                </div>
+
+                <div className="mb-5.5">
+                    <FormInput
+                        label="Documento de identidad - C.I."
+                        placeholder="Ingresa el documento de identidad"
+                        name="ci"
+                        type="text"
+                        readonly={true}
+                        defaultValue={data.ci}
+                        className="bg-gray"
+                        icon={<RiIdCardLine />}
+                    />
+                </div>
+
+                <div className="mb-5.5">
+                    <FormDate
+                        label="Fecha de nacimiento"
+                        placeholder="Ingresa la fecha de nacimiento del recluta"
+                        name="birthDate"
+                        readonly={true}
+                        defaultValue={data.birthDate}
+                        className="bg-gray"
+                    />
+                </div>
+                <div className="mb-5.5">
+                    <FormInput
+                        label="¿Desea realizar el servicio militar?"
+                        placeholder="Sí / No"
+                        name="wantsMilitaryService"
+                        type="text"
+                        readonly={true}
+                        defaultValue={data.wantsMilitaryService ? "Sí" : "No"}
+                        className="bg-gray"
+                    />
+                </div>
+
+                <div className="flex justify-end gap-4.5">
+                    <button
+                        className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1"
+                        type="submit"
+                        disabled
+                    >
+                        APROBAR RECLUTA
+                    </button>
+                    <button
+                        className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
+                        onClick={() => navigate(location.pathname, { replace: true })}
+                        type="button"
+                    >
+                        Cancelar
+                    </button>
+
+                </div>
             </div>
-        </Dialog>
-    </Transition>)
+        </Modal>
+
+    );
 }

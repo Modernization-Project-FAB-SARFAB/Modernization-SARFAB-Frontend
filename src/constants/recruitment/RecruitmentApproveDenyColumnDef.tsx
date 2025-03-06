@@ -21,14 +21,14 @@ const ActionsColumn = ({ row }: { row: any }) => {
         { 
           type: "link", 
           label: "Rechazar recluta", 
-          onClick: () => navigate('?denyRecruit=true'), 
+          onClick: () => navigate(`?denyRecruit=true&recruitId=${row.original.recruitmentId}`), 
           icon: <RiCloseCircleFill size={20} />, 
           ref: "text-danger" 
         },
         { 
           type: "link", 
           label: "Aprobar recluta", 
-          onClick: () => navigate('?approveRecruit=true'), 
+          onClick: () => navigate(`?approveRecruit=true&recruitId=${row.original.recruitmentId}`), 
           icon: <RiCheckboxCircleFill size={20} />, 
           ref: "text-success" 
         }

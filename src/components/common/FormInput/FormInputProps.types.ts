@@ -5,7 +5,11 @@ interface FormInputProps {
     required?: boolean;
     icon?: React.ReactNode;
     
-    register: any;
+    register?: any;
     errors?: any;
     name: string;
+
+    readonly?: boolean;
+    className?: string;
+    defaultValue?: string;
 }
