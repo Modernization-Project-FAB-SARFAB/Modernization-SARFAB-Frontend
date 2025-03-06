@@ -1,6 +1,6 @@
 interface FormDateProps {
     label: string;
-    placeholder: string;
+    placeholder?: string;
     type?: string;
     required?: boolean;
     register?: any; 

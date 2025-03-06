@@ -1,20 +1,15 @@
 import BackLink from "@/components/common/BackLink/BackLink";
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
-import { useEffect } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 import RecruitForm from "@/components/recruitment/RecruitForm";
 import { RecruitmentFormData } from "@/types/index";
-import { createRecruitment } from "@/api/RecruitmentAPI";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
+import { useRecruitForm, useCreateRecruit } from "@/hooks/recruitment";
 
 function CreateRecruitView() {
-  const navigate = useNavigate();
-  useBreadcrumb([{ label: "Reclutamiento", path: "/recruitment/list" },{ label: "Registrar nuevo recluta" },]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { setBreadcrumbItems } = useOutletContext<{ setBreadcrumbItems: Function }>();
+  useBreadcrumb([{ label: "Reclutamiento", path: "/recruitment/list" }, { label: "Registrar nuevo recluta" },]);
 
   const initialValues: RecruitmentFormData = {
     firstName: "",
@@ -23,25 +18,15 @@ function CreateRecruitView() {
     birthDate: "",
     wantsMilitaryService: false
   };
-  const { register, handleSubmit, formState: { errors }, control } = useForm<RecruitmentFormData>({
-    defaultValues: initialValues
-  });
 
-  const mutation = useMutation({
-    mutationFn: createRecruitment,
-    onError: (error) => {
-      toast.error("Ocurrió un error al registrar el recluta");
-    },
-    onSuccess: (data) => {
-      toast.success("Recluta registrado correctamente");
-      navigate('/recruitment/list');
-    }
-  })
+  const { register, handleSubmit, formState: { errors }, control } = useRecruitForm(initialValues);
+  const mutation = useCreateRecruit();
 
   const handleForm = async (formData: RecruitmentFormData) => {
+    setIsSubmitting(true);
     await mutation.mutateAsync(formData)
   }
-  
+
   return (
     <>
       <div className="">
@@ -59,7 +44,11 @@ function CreateRecruitView() {
             <form onSubmit={handleSubmit(handleForm)} noValidate>
               <RecruitForm errors={errors} register={register} control={control} />
               <div className="p-6.5">
-                <ButtonGroup label={"Registrar recluta"} onPrimaryClick={handleSubmit(handleForm)} cancelLink='/recruitment/list' isPrimarySubmit={true} />
+                <ButtonGroup label={"Registrar recluta"}
+                  onPrimaryClick={handleSubmit(handleForm)}
+                  primaryDisabled={isSubmitting}
+                  primaryIsLoading={isSubmitting}
+                  cancelLink='/recruitment/list' isPrimarySubmit={true} />
               </div>
             </form>
           </div>

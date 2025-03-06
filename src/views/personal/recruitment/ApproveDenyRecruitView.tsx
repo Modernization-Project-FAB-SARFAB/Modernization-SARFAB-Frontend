@@ -6,24 +6,17 @@ import FilterSearchBox from '@/components/common/FilterSearchBox/FilterSearchBox
 import FilterSelect from '@/components/common/FilterSelect/FilterSelect';
 import Loader from '@/components/common/Loader';
 import { useBreadcrumb } from '@/hooks/components/useBreadcrumb';
-import { useRecruitment } from '@/hooks/recruitment/useRecruitment';
-import ApproveRecruitModal from '@/components/recruitment/ApproveRecruitModal';
-import DenyRecruitModal from '@/components/recruitment/DenyRecruitModal';
+import { useRecruitment } from '@/hooks/recruitment';
+import RecruitStatusModal from '@/components/recruitment/RecruitStatusModal';
 
 function RecruitmentView() {
   useBreadcrumb([{ label: "Reclutamiento", path: "/recruitment/approve-or-deny" }, { label: "Aprobar / Rechazar reclutas" },]);
 
-  const {
-    data,
-    isLoading,
-    refetch,
-    searchValue,
-    setSearchValue,
-    statusFilter,
-    setStatusFilter,
-    pageIndex,
-    setPageIndex,
-    pageSize,
+  const {data, isLoading,
+    refetch, searchValue,
+    setSearchValue, statusFilter,
+    setStatusFilter, pageIndex,
+    setPageIndex, pageSize,
     setPageSize,
   } = useRecruitment({
     initialStatusFilter: '1'
@@ -92,8 +85,7 @@ function RecruitmentView() {
           )}
       </div>
       {/* Modal de aprobación */}
-      <ApproveRecruitModal />
-      <DenyRecruitModal />
+      <RecruitStatusModal />
     </>
   );
 }

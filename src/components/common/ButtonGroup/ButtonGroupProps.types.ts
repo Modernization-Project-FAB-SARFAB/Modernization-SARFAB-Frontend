@@ -3,4 +3,6 @@ interface ButtonGroupProps {
     onPrimaryClick?: () => void;
     cancelLink?: string;
     isPrimarySubmit?: boolean; 
+    primaryDisabled?: boolean;
+    primaryIsLoading?: boolean;
 }

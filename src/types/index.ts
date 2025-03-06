@@ -20,7 +20,7 @@ export const userSchema = authSchema.pick({
 })
 export type User = z.infer<typeof userSchema>;
 
-/** Proyects */
+/** Recruitment */
 export const recruitmentSchema = z.object({
     recruitmentId: z.number(),
     firstName: z.string().min(1, "El nombre es obligatorio"),
@@ -49,3 +49,4 @@ export const listRecruitmentSchema = z.object({
 
 export type Recruit = z.infer<typeof recruitmentSchema>;
 export type RecruitmentFormData = Pick<Recruit, 'firstName' | 'lastName' | 'ci' | 'birthDate' | 'wantsMilitaryService'>
+export type RecruitDetails = Pick<Recruit, 'firstName' | 'lastName' | 'ci' | 'birthDate' | 'wantsMilitaryService'>

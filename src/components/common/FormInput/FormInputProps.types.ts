@@ -1,6 +1,6 @@
 interface FormInputProps {
     label: string;
-    placeholder: string;
+    placeholder?: string;
     type?: string;
     required?: boolean;
     icon?: React.ReactNode;

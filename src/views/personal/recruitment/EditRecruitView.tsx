@@ -1,9 +1,7 @@
-import { getRecruitById } from "@/api/RecruitmentAPI";
 import EditRecruitForm from "@/components/recruitment/EditRecruitForm";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useEditRecruit } from "@/hooks/recruitment";
+import { useParams } from "react-router-dom";
 
 function EditRecruitView() {
   useBreadcrumb([{ label: "Reclutamiento", path: "/recruitment/list" }, { label: "Editar recluta" }]);
@@ -11,11 +9,7 @@ function EditRecruitView() {
   const params = useParams();
   const recruitId = params.recruitId!;
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['editRecruit', recruitId],
-    queryFn: () => getRecruitById(Number(recruitId)),
-    retry: false
-  });
+  const { data, isLoading, isError } = useEditRecruit(recruitId);
 
   if (isLoading) return 'Cargando...';
   if (isError) return 'Error'; //<Navigate to="/404" />

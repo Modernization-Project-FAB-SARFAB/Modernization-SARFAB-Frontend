@@ -7,34 +7,30 @@ import FilterSelect from '@/components/common/FilterSelect/FilterSelect';
 import Loader from '@/components/common/Loader';
 import { useBreadcrumb } from '@/hooks/components/useBreadcrumb';
 import { useRecruitment } from '@/hooks/recruitment/useRecruitment';
+import DetailsRecruitModal from '@/components/recruitment/DetailsRecruitModal';
 
 function RecruitmentView() {
   useBreadcrumb([{ label: "Reclutamiento", path: "/recruitment/list" }, { label: "Listado de reclutas pendientes" },]);
 
-  const {
-    data,
-    isLoading,
-    refetch,
-    searchValue,
-    setSearchValue,
-    statusFilter,
-    setStatusFilter,
-    pageIndex,
-    setPageIndex,
-    pageSize,
+  const { data, isLoading,
+    refetch, searchValue,
+    setSearchValue, statusFilter,
+    setStatusFilter, pageIndex,
+    setPageIndex, pageSize,
     setPageSize,
   } = useRecruitment({
-    initialStatusFilter: '3'
+    initialStatusFilter: '2'
   });
 
   const statusOptions = [
     { value: '0', label: 'Rechazado', isSelected: false },
     { value: '1', label: 'Pendiente de aprobación', isSelected: false },
-    { value: '2', label: 'Apto - Pendiendte de registro de voluntario', isSelected: false },
-    { value: '3', label: 'Apto - Registrado como voluntario', isSelected: true }
+    { value: '2', label: 'Apto - Pendiendte de registro de voluntario', isSelected: true },
+    { value: '3', label: 'Apto - Registrado como voluntario', isSelected: false }
   ];
 
   return (
+    <>
     <div>
       <nav>
         <Link
@@ -88,6 +84,8 @@ function RecruitmentView() {
           </div>
         )}
     </div>
+    <DetailsRecruitModal />
+    </>
   );
 }
 

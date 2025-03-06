@@ -5,9 +5,8 @@ import { RiCheckboxCircleFill, RiCloseCircleFill, RiEdit2Line } from "@remixicon
 import { baseColumns } from "./baseColumns";
 import { useNavigate } from "react-router-dom";
 
-// Crea un componente funcional para manejar la navegación
 const ActionsColumn = ({ row }: { row: any }) => {
-  const navigate = useNavigate();  // Ahora `useNavigate` se usa correctamente dentro de un componente funcional
+  const navigate = useNavigate(); 
 
   return (
     <DropdownMenu
