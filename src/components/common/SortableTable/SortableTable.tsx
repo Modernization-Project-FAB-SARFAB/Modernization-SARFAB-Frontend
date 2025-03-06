@@ -106,7 +106,7 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                                     const page = Number(e.target.value);
                                     onPaginationChange({ pageIndex: page, pageSize: pagination.pageSize });
                                 }}
-                                className="border p-1 rounded w-16 bg-form-input"
+                                className="border p-1 rounded w-16 dark:bg-form-input"
                             />
                         </span>
                     </div>
