@@ -1,7 +1,7 @@
 import { RiAddLine } from '@remixicon/react'
 import { Link } from 'react-router-dom'
 
-function VoluntaryView() {
+export default function VoluntaryView() {
   return (
     <div>
       <Link
@@ -15,5 +15,3 @@ function VoluntaryView() {
     </div>
   )
 }
-
-export default VoluntaryView;

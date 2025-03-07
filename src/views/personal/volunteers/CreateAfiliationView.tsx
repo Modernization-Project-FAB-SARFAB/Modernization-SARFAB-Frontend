@@ -3,7 +3,7 @@ import FormInput from "@/components/common/FormInput/FormInput";
 import FormSelect from "@/components/common/FormSelect/FormSelect";
 import { RiUserLocationLine } from "@remixicon/react";
 
-function CreateAfiliationView() {
+export default function CreateAfiliationView() {
   return (
     <>
       <Breadcrumb items={[
@@ -94,5 +94,3 @@ function CreateAfiliationView() {
     </>
   )
 }
-
-export default CreateAfiliationView;
