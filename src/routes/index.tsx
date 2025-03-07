@@ -6,7 +6,9 @@ const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers/Cre
 const RecruitmentPendingView = lazy(() => import( '@/views/personal/Recruitment/RecruitmentPendingView'));
 const CreateRecruitmentView = lazy(() => import ('@/views/personal/Recruitment/CreateRecruitView'));
 const EditRecruitmentView = lazy(() => import ('@/views/personal/Recruitment/EditRecruitView'));
-const ApproveDenyRecruitView = lazy(() => import ('@/views/personal/Recruitment/ApproveDenyRecruitView'));
+const ApproveDenyRecruitView = lazy(() => import('@/views/personal/Recruitment/ApproveDenyRecruitView'));
+
+const MilitaryPersonnelView = lazy(() => import('@/views/personal/military-personnel/MilitaryPersonnelListView'));
 
 const coreRoutes = [
     {
@@ -38,7 +40,12 @@ const coreRoutes = [
         path: '/volunteers/create',
         title:'Voluntarios',
         component: CreateAfiliationView
-    },
+  },
+  {
+    path: '/military-personnel/list',
+    title: 'Personal militar',
+    component: MilitaryPersonnelView
+    }
     
 ]
 
