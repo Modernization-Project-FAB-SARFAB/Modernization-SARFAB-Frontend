@@ -7,8 +7,6 @@ const FormCheckbox: React.FC<FormCheckboxProps> = ({
     required = false, 
     register, 
     name, 
-    readOnly = false, 
-    className, 
     defaultValue 
 }) => {
     return (

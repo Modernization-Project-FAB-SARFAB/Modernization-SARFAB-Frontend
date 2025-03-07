@@ -1,13 +1,16 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { FilterSearchBoxProps } from "./FilterSearchBoxProps.type";
 
 const FilterSearchBox: React.FC<FilterSearchBoxProps> = ({
     name,
     value = '',
     onChange,
     onSearch,
+    onKeyUp,
     placeholder = 'Search...',
     disabled = false,
     className = '',
+    customInput,
 }) => {
     const [inputValue, setInputValue] = useState(value);
 
@@ -20,9 +23,12 @@ const FilterSearchBox: React.FC<FilterSearchBoxProps> = ({
         if (e.key === 'Enter' && onSearch) {
             onSearch();
         }
+        onKeyUp?.(e);
     };
 
-    return (
+    return customInput ? (
+        <div className={className}>{customInput}</div>
+    ) : (
         <input
             type="text"
             id={name}

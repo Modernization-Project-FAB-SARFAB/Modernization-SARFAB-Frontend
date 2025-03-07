@@ -1,15 +1,22 @@
 import clsx from "clsx";
 
-const FormDate: React.FC<FormDateProps> = ({ 
-    label, 
-    placeholder, 
-    required = false, 
-    register, 
-    name, 
-    readonly, 
-    className, 
-    defaultValue 
+const FormDate: React.FC<FormDateProps> = ({
+    label,
+    placeholder,
+    required = false,
+    register,
+    name,
+    readonly,
+    className,
+    defaultValue,
+    customValidation
 }) => {
+    const validationRules = customValidation
+        ? { validate: customValidation }
+        : required
+            ? { required: `${label} es obligatorio` }
+            : {};
+
     return (
         <div className="w-full">
             <label htmlFor={name} className="mb-3 block text-black dark:text-white">
@@ -20,15 +27,13 @@ const FormDate: React.FC<FormDateProps> = ({
                     id={name}
                     type="date"
                     placeholder={placeholder}
-                    defaultValue={defaultValue} // Se agrega el defaultValue aquí
-                    {...(readonly ? {} : register(name, {
-                        required: required ? `${label} es obligatorio` : false,
-                    }))} 
+                    defaultValue={defaultValue} 
+                    {...(readonly ? {} :  register(name, validationRules))}
                     className={clsx(
-                        "custom-input-date custom-input-date-1 w-full rounded border-[1.5px] border-stroke py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary", 
+                        "custom-input-date custom-input-date-1 w-full rounded border-[1.5px] border-stroke py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary",
                         className
                     )}
-                    readOnly={readonly} 
+                    readOnly={readonly}
                 />
             </div>
         </div>

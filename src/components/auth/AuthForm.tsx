@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import Button from "@/components/common/Button/Button";
-import ErrorMessage from "@/components/common/ErrorGeneralMessage/ErrorGeneralMessage";
 import { AuthFormProps } from "./types/AuthFormProps.types";
 import { UserLoginForm } from "@/types/index";
 import AuthHeader from "./AuthHeader";
+import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
 
 const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, isLoading }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<UserLoginForm>({
@@ -28,7 +28,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, isLoading }) => {
                                         required: "El nombre de usuario es obligatorio",
                                     })} />
                                 {errors.username && (
-                                    <ErrorMessage>* {errors.username.message}</ErrorMessage>
+                                    <ErrorFormMessage>{errors.username.message}</ErrorFormMessage>
                                 )}
                             </div>
                             <div className='flex flex-col mb-5.5'>
@@ -41,7 +41,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, isLoading }) => {
                                         required: "El Password es obligatorio",
                                     })} />
                                 {errors.password && (
-                                    <ErrorMessage>* {errors.password.message}</ErrorMessage>
+                                    <ErrorFormMessage>{errors.password.message}</ErrorFormMessage>
                                 )}
                             </div>
                         </div>
@@ -57,7 +57,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, isLoading }) => {
                     </div>
 
                     <div className='w-full flex flex-col'>
-                        <Button type='submit' label='Iniciar Sesión' variant='dark' />
+                        <Button type='submit' label='Iniciar Sesión' variant='dark' isLoading={isLoading} loadingLabel="Iniciando sessión..." classname="btn-lg"/>
                     </div>
                 </form>
             </div>

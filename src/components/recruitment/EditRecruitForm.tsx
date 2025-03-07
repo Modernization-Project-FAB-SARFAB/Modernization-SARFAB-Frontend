@@ -1,28 +1,11 @@
-import { RecruitmentFormData } from "@/types/index";
 import BackLink from "@/components/common/BackLink/BackLink";
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import RecruitForm from "@/components/recruitment/RecruitForm";
 import { EditRecruitFormProps } from "@/components/recruitment/types/EditRecruitFormProps.types";
-import { useState } from "react";
-import { useRecruitForm, useUpdateRecruit } from "@/hooks/recruitment";
+import { useEditRecruitForm } from "@/hooks/recruitment";
 
 export default function EditRecruitForm({ data, recruitId }: EditRecruitFormProps) {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const { register, handleSubmit, formState: { errors }, control } = useRecruitForm({
-        firstName: data.firstName,
-        lastName: data.lastName,
-        ci: data.ci,
-        birthDate: data.birthDate,
-        wantsMilitaryService: data.wantsMilitaryService
-    });
-
-    const { mutate } = useUpdateRecruit();
-
-    const handleForm = (formData: RecruitmentFormData) => {
-        setIsSubmitting(true);
-        mutate({ formData, recruitId }, { onSettled: () => setIsSubmitting(false) });
-    };
+    const { register, handleSubmit, errors, control, isSubmitting, handleForm } = useEditRecruitForm(data, recruitId);
 
     return (
         <>
@@ -38,12 +21,12 @@ export default function EditRecruitForm({ data, recruitId }: EditRecruitFormProp
                 <form onSubmit={handleSubmit(handleForm)} noValidate>
                     <RecruitForm errors={errors} register={register} control={control} />
                     <div className="p-6.5">
-                        <ButtonGroup label={"Editar recluta"}
-                            onPrimaryClick={handleSubmit(handleForm)}
-                            primaryDisabled={isSubmitting}
-                            primaryIsLoading={isSubmitting}
-                            cancelLink='/recruitment/list'
-                            isPrimarySubmit={true} />
+                        <ButtonGroup
+                            buttons={[
+                                { type: "button", label: "Editar recluta", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
+                                { type: "link", label: "Cancelar", to: "/recruitment/list" }
+                            ]}
+                        />
                     </div>
                 </form>
             </div>

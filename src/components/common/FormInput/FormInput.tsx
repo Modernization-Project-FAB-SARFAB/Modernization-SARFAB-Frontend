@@ -24,7 +24,7 @@ const FormInput: React.FC<FormInputProps> = ({
                     placeholder={placeholder}
                     defaultValue={defaultValue}
                     {...(readonly ? {} : register(name, {
-                        required: required ? `${label} es obligatorio` : false,
+                        reqauired: required ? `${label} es obligatorio` : false,
                     }))}
                     className={clsx("w-full rounded border-[1.5px] border-stroke py-3 px-5 pr-10 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default :bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary", className)}
                     readOnly={readonly} 

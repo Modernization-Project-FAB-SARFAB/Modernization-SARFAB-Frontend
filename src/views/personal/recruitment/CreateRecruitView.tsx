@@ -6,7 +6,7 @@ import { RecruitmentFormData } from "@/types/index";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useRecruitForm, useCreateRecruit } from "@/hooks/recruitment";
 
-function CreateRecruitView() {
+export default function CreateRecruitView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useBreadcrumb([{ label: "Reclutamiento", path: "/recruitment/list" }, { label: "Registrar nuevo recluta" },]);
@@ -44,11 +44,12 @@ function CreateRecruitView() {
             <form onSubmit={handleSubmit(handleForm)} noValidate>
               <RecruitForm errors={errors} register={register} control={control} />
               <div className="p-6.5">
-                <ButtonGroup label={"Registrar recluta"}
-                  onPrimaryClick={handleSubmit(handleForm)}
-                  primaryDisabled={isSubmitting}
-                  primaryIsLoading={isSubmitting}
-                  cancelLink='/recruitment/list' isPrimarySubmit={true} />
+                <ButtonGroup
+                  buttons={[
+                    { type: "button", label: "Registrar recluta", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading:isSubmitting },
+                    { type: "link", label: "Cancelar", to: "/recruitment/list" } 
+                  ]}
+                />
               </div>
             </form>
           </div>
@@ -57,5 +58,3 @@ function CreateRecruitView() {
     </>
   )
 }
-
-export default CreateRecruitView;

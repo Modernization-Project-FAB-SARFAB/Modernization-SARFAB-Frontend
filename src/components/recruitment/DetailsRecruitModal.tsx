@@ -1,19 +1,13 @@
-import { useLocation, useNavigate } from "react-router-dom";
 import Modal from "../common/Modal/Modal";
 import RecruitDetails from "./RecriutDetails";
-import { useRecruitData } from "@/hooks/recruitment";
+import { useRecruitData, useRecruitModal } from "@/hooks/recruitment";
 
 export default function DetailsRecruitModal() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const modalDeny = queryParams.get('viewRecruit');
-    const recruitId = queryParams.get('recruitId');
-
+    const { isModalOpen, recruitId, closeModal } = useRecruitModal("viewRecruit", "recruitId");
     const { data, isLoading, error } = useRecruitData(recruitId);
 
     return (
-        <Modal title="Detalles del recluta" isOpen={!!modalDeny} onClose={() => navigate(location.pathname, { replace: true })}>
+        <Modal title="Detalles del recluta" isOpen={!!isModalOpen} onClose={closeModal}>
             {
                 isLoading ?
                     <><p>Cargando...</p></> :

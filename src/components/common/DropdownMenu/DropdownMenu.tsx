@@ -23,12 +23,14 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ items }) => {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white dark:border-strokedark dark:bg-boxdark py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                         {items.map((item, index) => (
                             <Menu.Item key={index}>
-                                {({ active }) => (
-                                    item.type === "link" && item.href ? (
+                                {({ active }) =>
+                                    item.renderItem ? (
+                                        item.renderItem(active) // Usar render personalizado si está presente
+                                    ) : item.type === "link" && item.href ? (
                                         <Link
                                             to={item.href}
-                                            className={`px-3 py-1 text-sm leading-6 flex items-center gap-3.5 font-medium duration-300 ease-in-out lg:text-base
-                                                ${item.ref ? item.ref : ""}`}
+                                            className={`px-3 py-1 text-sm leading-6 flex items-center gap-3.5 font-medium duration-300 ease-in-out lg:text-base ${item.ref ? item.ref : ""
+                                                }`}
                                         >
                                             {item.icon && <span className="mr-2">{item.icon}</span>}
                                             {item.label}
@@ -36,14 +38,15 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ items }) => {
                                     ) : (
                                         <button
                                             type="button"
-                                            className={`px-3 py-1 text-sm leading-6 flex items-center gap-3.5 font-medium duration-300 ease-in-out lg:text-base ${item.ref ? item.ref : ""}`}
+                                            className={`px-3 py-1 text-sm leading-6 flex items-center gap-3.5 font-medium duration-300 ease-in-out lg:text-base ${item.ref ? item.ref : ""
+                                                }`}
                                             onClick={item.onClick}
                                         >
                                             {item.icon && <span className="mr-2">{item.icon}</span>}
                                             {item.label}
                                         </button>
                                     )
-                                )}
+                                }
                             </Menu.Item>
                         ))}
                     </Menu.Items>

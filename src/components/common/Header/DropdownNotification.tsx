@@ -44,16 +44,15 @@ const DropdownNotification = () => {
         <span className="absolute -top-0.5 right-0 z-1 h-2 w-2 rounded-full bg-meta-1">
           <span className="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-meta-1 opacity-75"></span>
         </span>
-        <RiNotification2Line size={20} className="fill-current duration-300 ease-in-out"/>
+        <RiNotification2Line size={20} className="fill-current duration-300 ease-in-out" />
       </Link>
 
       <div
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute -right-27 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-80 ${
-          dropdownOpen === true ? 'block' : 'hidden'
-        }`}
+        className={`absolute -right-27 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-80 ${dropdownOpen === true ? 'block' : 'hidden'
+          }`}
       >
         <div className="px-4.5 py-3">
           <h5 className="text-sm font-medium text-bodydark2">Notificaciones</h5>
@@ -67,10 +66,9 @@ const DropdownNotification = () => {
             >
               <p className="text-sm">
                 <span className="text-black dark:text-white">
-                  Edit your information in a swipe
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </span>{' '}
-                Sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim.
+                Duis iaculis dolor ut urna ultrices pharetra. Pellentesque faucibus placerat accumsan. Aenean aliquam in libero eu placerat.
               </p>
 
               <p className="text-xs">12 May, 2025</p>
@@ -83,9 +81,9 @@ const DropdownNotification = () => {
             >
               <p className="text-sm">
                 <span className="text-black dark:text-white">
-                  It is a long established fact
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </span>{' '}
-                that a reader will be distracted by the readable.
+                Duis iaculis dolor ut urna ultrices pharetra. Pellentesque faucibus placerat accumsan. Aenean aliquam in libero eu placerat.
               </p>
 
               <p className="text-xs">24 Feb, 2025</p>
@@ -98,10 +96,9 @@ const DropdownNotification = () => {
             >
               <p className="text-sm">
                 <span className="text-black dark:text-white">
-                  There are many variations
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </span>{' '}
-                of passages of Lorem Ipsum available, but the majority have
-                suffered
+                Duis iaculis dolor ut urna ultrices pharetra. Pellentesque faucibus placerat accumsan. Aenean aliquam in libero eu placerat.
               </p>
 
               <p className="text-xs">04 Jan, 2025</p>
@@ -114,13 +111,12 @@ const DropdownNotification = () => {
             >
               <p className="text-sm">
                 <span className="text-black dark:text-white">
-                  There are many variations
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 </span>{' '}
-                of passages of Lorem Ipsum available, but the majority have
-                suffered
+                Duis iaculis dolor ut urna ultrices pharetra. Pellentesque faucibus placerat accumsan. Aenean aliquam in libero eu placerat.
               </p>
 
-              <p className="text-xs">01 Dec, 2024</p>
+              <p className="text-xs">01 Dic, 2024</p>
             </Link>
           </li>
         </ul>

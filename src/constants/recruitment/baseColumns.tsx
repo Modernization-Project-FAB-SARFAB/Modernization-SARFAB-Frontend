@@ -12,7 +12,7 @@ export const baseColumns: ColumnDef<Recruit>[] = [
     accessorKey: "wantsMilitaryService",
     cell: ({ getValue }) => {
       const value = getValue<boolean>();
-      return (
+      return (  
         <span
           className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-semibold ${value ? 'bg-success text-success' : 'bg-danger text-danger'}`}
         >

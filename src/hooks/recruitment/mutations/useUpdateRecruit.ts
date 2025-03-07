@@ -9,8 +9,8 @@ export function useUpdateRecruit() {
   return useMutation({
     mutationFn: updateRecruit,
     onError: () => toast.error("Ocurrió un error al actualizar el recluta"),
-    onSuccess: (data) => {
-      toast.success(data);
+    onSuccess: () => {
+      toast.success("Recluta actualizado correctamente");
       navigate("/recruitment/list");
     },
   });

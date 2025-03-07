@@ -5,4 +5,6 @@ interface BreadcrumbItem {
 
 interface BreadcrumbProps {
     items: BreadcrumbItem[];
+    separator?: React.ReactNode;
+    renderItem?: (item: BreadcrumbItem, isLast: boolean) => React.ReactNode;
 }

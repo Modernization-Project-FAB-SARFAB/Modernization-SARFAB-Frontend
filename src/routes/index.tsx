@@ -1,18 +1,18 @@
 import { lazy } from 'react';
 
-const VoluntaryView = lazy(() => import('@/views/personal/volunteers').then(module => ({ default: module.VoluntariesView })));
-const CreateAfiliationView = lazy(() => import ('@/views/personal/volunteers').then(module => ({ default: module.CreateAfiliationView })));
+const VoluntaryView = lazy(() => import('@/views/personal/Volunteers').then(module => ({ default: module.VoluntariesView })));
+const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers').then(module => ({ default: module.CreateAfiliationView })));
 
-const RecruitmentView = lazy(() => import ('@/views/personal/recruitment').then(module => ({ default: module.RecruitmentView })));
-const CreateRecruitmentView = lazy(() => import ('@/views/personal/recruitment').then(module => ({ default: module.CreateRecruitView })));
-const EditRecruitmentView = lazy(() => import ('@/views/personal/recruitment').then(module => ({ default: module.EditRecruitView })));
-const ApproveDenyRecruitView = lazy(() => import ('@/views/personal/recruitment').then(module => ({ default: module.ApproveDenyRecruitView })));
+const RecruitmentPendingView = lazy(() => import( '@/views/personal/Recruitment/RecruitmentPendingView'));
+const CreateRecruitmentView = lazy(() => import ('@/views/personal/Recruitment/CreateRecruitView'));
+const EditRecruitmentView = lazy(() => import ('@/views/personal/Recruitment/EditRecruitView'));
+const ApproveDenyRecruitView = lazy(() => import ('@/views/personal/Recruitment/ApproveDenyRecruitView'));
 
 const coreRoutes = [
     {
         path: '/recruitment/list',
         title:'Reclutamiento',
-        component: RecruitmentView
+        component: RecruitmentPendingView
     },  
     {
         path: '/recruitment/approve-or-deny',

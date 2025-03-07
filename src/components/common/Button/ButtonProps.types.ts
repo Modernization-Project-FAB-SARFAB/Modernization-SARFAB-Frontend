@@ -7,4 +7,6 @@ export interface ButtonProps {
     type?: "submit" | "reset" | "button";
     disabled?: boolean;
     isLoading?: boolean;
+    loadingLabel?:string;
+    classname?:string;
 }
