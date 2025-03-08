@@ -8,7 +8,7 @@ export const baseColumns: ColumnDef<Military>[] = [
     id: "fullName",
     accessorFn: (row) => `${row.lastName} ${row.firstName}`,
   },
-  { header: "Teléfono", accessorKey: "cellphone" },
+  { header: "Teléfono", accessorKey: "mobilePhone" },
   { header: "Grado", accessorKey: "rankName" },
   {
     header: "Estado",
@@ -17,7 +17,7 @@ export const baseColumns: ColumnDef<Military>[] = [
       const value = getValue<number>();
 
       const statusConfig: Record<number, { text: string; className: string }> = {
-        0: { text: "Desactivado", className: "bg-danger text-danger" },
+        0: { text: "Desactivado", className: "bg-warning text-warning" },
         1: { text: "Habilitado", className: "bg-success text-success" }
       };
 

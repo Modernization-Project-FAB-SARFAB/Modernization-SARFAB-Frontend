@@ -5,7 +5,7 @@ const BaseMilitarySchema = z.object({
     id: z.number(),  
     firstName: z.string(),
     lastName: z.string(),
-    cellphone: z.string().nullable(),
+    mobilePhone: z.string().nullable(),
     militaryRankId: z.number(),
     status: z.number()
 });
@@ -28,7 +28,7 @@ export const ListMilitarySchema = z.object({
             id: true,
             firstName: true,
             lastName: true,
-            cellphone: true,
+            mobilePhone: true,
             rankName: true,
             status: true
         })

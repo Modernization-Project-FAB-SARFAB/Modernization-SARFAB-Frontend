@@ -66,6 +66,11 @@ export function useMilitary({
     retry: false,
   });
 
+  const rankOptionsForForms = rankOptions?.map(rank => ({
+    value: rank.value,
+    label: rank.label
+  })) || [];
+
   return {
     data,
     isLoading,
@@ -84,5 +89,6 @@ export function useMilitary({
     setRankFilter,
     rankOptions,
     isRanksLoading,
+    rankOptionsForForms
   };
 }
