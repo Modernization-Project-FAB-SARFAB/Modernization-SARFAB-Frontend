@@ -1,4 +1,4 @@
-interface MilitaryPersonnelListViewProps {
+interface MilitaryListViewProps {
   breadcrumb: { label: string; path?: string }[];
   initialStatusFilter: string;
   columns: any;

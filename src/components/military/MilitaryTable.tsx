@@ -1,8 +1,8 @@
 import Loader from "../common/Loader";
 import SortableTable from "../common/SortableTable/SortableTable";
-import { NoMilitaryPersonnelMessage } from "./NoMilitaryPersonnelMessage";
+import { NoMilitaryMessage } from "./NoMilitaryMessage";
 
-export function MilitaryPersonnelTable({
+export function MilitaryTable({
   isLoading,
   data,
   columns,
@@ -10,10 +10,12 @@ export function MilitaryPersonnelTable({
   pageSize,
   setPageIndex,
   setPageSize,
-  refetch
-}: MilitaryPersonnelTableProps) {
+  refetch,
+  hasFilters,
+}: MilitaryTableProps & { hasFilters: boolean }) {
+  
   if (isLoading) return <Loader />;
-  if (!data?.data.length) return <NoMilitaryPersonnelMessage />;
+  if (!data?.data.length) return <NoMilitaryMessage hasFilters={hasFilters} />;
 
   return (
     <SortableTable

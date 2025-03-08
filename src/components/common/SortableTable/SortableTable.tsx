@@ -18,7 +18,7 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
         initialState: {
             columnVisibility: {
                 recruitmentId: false,
-                
+                id: false,
             },
         }
     });

@@ -1,4 +1,4 @@
-interface MilitaryPersonnelTableProps {
+interface MilitaryTableProps {
   isLoading: boolean;
   data: any;
   columns: any;
