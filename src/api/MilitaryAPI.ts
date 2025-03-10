@@ -104,3 +104,15 @@ export async function getMilitaryRanks() {
     }
   }
 }
+
+export async function promoteMilitary(militaryId: number) {
+  try {
+    const { data } = await api.patch(`/MilitaryRankAssignment/${militaryId}/promote`);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.message || "Error al ascender militar");
+    }
+    throw error;
+  }
+}
