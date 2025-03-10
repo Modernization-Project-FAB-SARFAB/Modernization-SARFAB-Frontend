@@ -9,3 +9,13 @@ export type MilitaryStatusAPIType = {
   militaryId: Military['id'];
   status: number;
 };
+
+export interface GetMilitaryParams {
+  searchTerm?: string;
+  status?: number;
+  page?: number;
+  pageSize?: number;
+  orderByLastNameAsc?: boolean;
+  rankFilter?: number;
+  rankId?: number;
+}

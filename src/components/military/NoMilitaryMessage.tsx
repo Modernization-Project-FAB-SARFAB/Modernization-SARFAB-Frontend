@@ -9,7 +9,7 @@ export function NoMilitaryMessage({ hasFilters }: NoMilitaryMessageProps) {
     <div className="h-fit">
       <p className="text-center py-20">
         {hasFilters
-          ? "No se encontraron registros con los filtros seleccionados."
+          ? "No se encontraron registros con los filtros aplicados."
           : "No existe personal militar. "}
         {!hasFilters && (
           <Link to="/military/create" className="text-primary font-bold">

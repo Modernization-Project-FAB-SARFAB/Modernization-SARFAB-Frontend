@@ -1,8 +1,11 @@
-import { UseFormRegister, FieldErrors, Control } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 import { CreateMilitaryForm } from "@/types/index";
 
 export interface MilitaryFormProps {
-    errors: FieldErrors<CreateMilitaryForm>;
-    register: UseFormRegister<CreateMilitaryForm>;
-    control: Control<CreateMilitaryForm>;
+    form: UseFormReturn<CreateMilitaryForm>;
+    onSubmit: (data: CreateMilitaryForm) => void;
+    rankOptions: { label: string; value: number }[];
+    isLoading: boolean;
+    onClose: () => void;
+    militaryId?: number; 
 }

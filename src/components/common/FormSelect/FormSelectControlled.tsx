@@ -22,6 +22,7 @@ const FormSelectControlled: React.FC<FormSelectControlledProps> = ({ label, name
             <div className="relative z-20 bg-white dark:bg-form-input">
               <select
                 {...field}
+                onChange={(e) => field.onChange(Number(e.target.value))}
                 className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-4 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
               >
                 <option value="">Seleccione una opción</option>
