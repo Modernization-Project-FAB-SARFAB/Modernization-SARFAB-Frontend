@@ -30,9 +30,9 @@ const menuItems: MenuItem[] = [
     {
         label: "Personal militar",
         icon: <span className="material-symbols-outlined">military_tech</span>,
-        path: "/military-personnel",
+        path: "/military",
         subItems: [
-            { label: "Ver personal militar", path: "/military personnel" },
+            { label: "Ver personal militar", path: "/military/list" },
             { label: "Registrar personal militar", path: "/military personnel/create" },
         ],
     },

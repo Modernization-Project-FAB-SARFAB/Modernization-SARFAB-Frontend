@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import { ButtonGroupProps } from "./ButtonGroupProps.types";
 
 const ButtonGroup: React.FC<ButtonGroupProps> = ({ buttons }) => {
-    console.log(buttons);
+    // console.log(buttons);
     
   return (
     <div className="flex justify-end space-x-4">

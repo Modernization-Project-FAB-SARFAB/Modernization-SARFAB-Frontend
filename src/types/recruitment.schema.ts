@@ -22,7 +22,7 @@ export const listRecruitmentSchema = z.object({
         ci: true,
         birthDate: true,
         wantsMilitaryService: true,
-        status: true, // Incluyendo el campo status
+        status: true,
       })
     ),
     totalPages: z.number(),
