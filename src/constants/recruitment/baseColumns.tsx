@@ -3,8 +3,15 @@ import { Recruit } from "@/types/index";
 
 export const baseColumns: ColumnDef<Recruit>[] = [
   { header: "ID", accessorKey: "recruitmentId", enableHiding: true },
-  { header: "Nombre", accessorKey: "firstName" },
-  { header: "Apellido", accessorKey: "lastName" },
+  { 
+    header: "Nombre Completo", 
+    accessorKey: "fullName",
+    cell: ({ row }) => {
+      const firstName = row.original.firstName || "";
+      const lastName = row.original.lastName || "";
+      return `${lastName} ${firstName}`;
+    }
+  },
   { header: "CI", accessorKey: "ci" },
   { header: "Fecha de Nacimiento", accessorKey: "birthDate" },
   {
