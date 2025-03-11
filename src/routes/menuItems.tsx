@@ -56,7 +56,7 @@ const menuItems: MenuItem[] = [
     },
     {
         label: "Inventario",
-        icon: <RiFileLine size={18} color="white"/>,
+        icon: <RiFileLine size={18} color="white" />,
         path: "/inventory",
         subItems: [
             { label: "Lista de inventario", path: "/inventory" },
@@ -68,10 +68,10 @@ const menuItems: MenuItem[] = [
     {
         label: "Sanidad",
         icon: <RiFirstAidKitFill size={18} color="white" />,
-        path: "/health-service",
+        path: "/medical-treatment/list",
         subItems: [
-            { label: "Lista de tratamientos", path: "/health-service" },
-            { label: "Registrar tratamiento", path: "/health-service/create" },
+            { label: "Lista de tratamientos", path: "/medical-treatment/list" },
+            { label: "Registrar tratamiento", path: "/medical-treatment/create" },
         ]
     },
     {
