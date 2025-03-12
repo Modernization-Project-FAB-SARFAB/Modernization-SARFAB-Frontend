@@ -39,7 +39,6 @@ export function useMedicalTreatment({
     const { data, isLoading, refetch } = useQuery({
         queryKey: ['medicalTreatment', { query: debouncedSearch, startDate: debouncedStartDate, endDate: debouncedEndDate, page: pageIndex, pageSize }],
         queryFn: () => getMedicalTreatment({ query: debouncedSearch, startDate: debouncedStartDate, endDate: debouncedEndDate, page: pageIndex, pageSize }),
-        placeholderData: keepPreviousData,
         retry: false,
     });
 
@@ -49,9 +48,7 @@ export function useMedicalTreatment({
         refetch,
         searchValue,
         setSearchValue,
-        startDate,
         setStartDate,
-        endDate,
         setEndDate,
         pageIndex,
         setPageIndex,

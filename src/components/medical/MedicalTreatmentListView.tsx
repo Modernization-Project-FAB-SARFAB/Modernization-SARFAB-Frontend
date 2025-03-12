@@ -4,15 +4,14 @@ import { MedicalTreatmentTable } from "./MedicalTreatmenTable";
 import { MedicalTreatmentHeader } from "./MedicalHeader";
 import { MedicalTreatmentFilters } from "./MedicalTreatmentFilters";
 
-
 export default function MedicalTreatmentListView({ breadcrumb, columns }: MedicalListViewProps) {
     useBreadcrumb(breadcrumb);
 
     const {
         data, isLoading, refetch,
         searchValue, setSearchValue,
-        startDate, setStartDate,
-        endDate, setEndDate,
+        setStartDate,
+        setEndDate,
         pageIndex, setPageIndex,
         pageSize, setPageSize,
     } = useMedicalTreatment();
@@ -22,8 +21,8 @@ export default function MedicalTreatmentListView({ breadcrumb, columns }: Medica
             <MedicalTreatmentHeader />
             <MedicalTreatmentFilters
                 searchValue={searchValue} setSearchValue={setSearchValue}
-                startDate={startDate} setStartDate={setStartDate}
-                endDate={endDate} setEndDate={setEndDate} />
+                setStartDate={setStartDate}
+                setEndDate={setEndDate} />
             <MedicalTreatmentTable
                 isLoading={isLoading} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
