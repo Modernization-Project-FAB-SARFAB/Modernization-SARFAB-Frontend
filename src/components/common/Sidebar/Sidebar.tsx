@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Logo from '@/assets/images/logo/logo-sar-sidebar.webp';
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import React from "react";
@@ -9,7 +9,9 @@ import menuItemsConfiguration from "@/routes/menuItemsConfiguration";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     const location = useLocation();
-    const { pathname } = location;
+  const { pathname } = location;
+  const navigate = useNavigate();
+  const isModalOpen = location.search.includes("openMilitaryModal=true");
 
     const trigger = useRef<any>(null);
     const sidebar = useRef<any>(null);
@@ -115,19 +117,29 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                                             {item.subItems &&
                                                                 <>
-                                                                    {item.subItems.map((subItem) => (
+                                                                    {item.subItems?.map((subItem) => (
                                                                         <li key={subItem.label}>
-                                                                            <NavLink
-                                                                                to={subItem.path}
-                                                                                className={({ isActive }) =>
-                                                                                    'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
-                                                                                    (isActive ? '!text-white' : '')
-                                                                                }
+                                                                          {subItem.path === "?openMilitaryModal=true" ? (
+                                                                            <button
+                                                                              onClick={() => navigate("?openMilitaryModal=true")}
+                                                                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out hover:text-white 
+                                                                              ${isModalOpen ? "!text-white" : "text-bodydark2"}`}
                                                                             >
-                                                                                {subItem.label}
+                                                                              {subItem.label}
+                                                                            </button>
+                                                                          ) : (
+                                                                            <NavLink
+                                                                              to={subItem.path}
+                                                                              className={({ isActive }) =>
+                                                                                `group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out hover:text-white 
+                                                                                ${isActive ? "!text-white" : "text-bodydark2"}`
+                                                                              }
+                                                                            >
+                                                                              {subItem.label}
                                                                             </NavLink>
+                                                                          )}
                                                                         </li>
-                                                                    ))}
+                                                                      ))}
                                                                 </>}
                                                         </ul>
                                                     </div>

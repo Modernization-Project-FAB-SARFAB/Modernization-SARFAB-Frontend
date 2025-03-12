@@ -33,7 +33,7 @@ const menuItems: MenuItem[] = [
         path: "/military",
         subItems: [
             { label: "Ver personal militar", path: "/military/list" },
-            { label: "Registrar personal militar", path: "/military personnel/create" },
+            { label: "Registrar personal militar", path: "?openMilitaryModal=true" },
         ],
     },
     {

@@ -1,9 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RiAddLine } from '@remixicon/react';
 import { MilitaryFormModal } from '@/components/military';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 export function MilitaryHeader() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.search.includes('openMilitaryModal=true')) {
+      setIsModalOpen(true);
+    }
+  }, [location]);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    navigate('/military/list', { replace: true });
+  };
   return (
     <nav>
       <button
@@ -13,7 +28,7 @@ export function MilitaryHeader() {
         <RiAddLine className="me-2" /> Añadir nuevo personal militar
       </button>
       {isModalOpen && (
-        <MilitaryFormModal isOpen onClose={() => setIsModalOpen(false)} />
+        <MilitaryFormModal isOpen onClose={closeModal} />
       )}
     </nav>
   );

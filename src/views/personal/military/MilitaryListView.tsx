@@ -10,7 +10,6 @@ export default function MilitaryListView() {
       ]}
       initialStatusFilter="1"
       columns={columns}
-      modalComponent={<div>Detalles de militar (Placeholder)</div>}
     />
   );
 }

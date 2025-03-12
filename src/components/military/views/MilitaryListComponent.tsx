@@ -5,7 +5,7 @@ import type { MilitaryListViewProps } from '@/components/military/types';
 import { useMemo } from 'react';
 
 export function MilitaryListComponent(props: MilitaryListViewProps) {
-  const { breadcrumb, initialStatusFilter, columns, modalComponent } = props;
+  const { breadcrumb, initialStatusFilter, columns } = props;
   useBreadcrumb(breadcrumb);
 
   const military = useMilitary({ initialStatusFilter });
@@ -69,7 +69,6 @@ export function MilitaryListComponent(props: MilitaryListViewProps) {
         refetch={refetch}
         hasFilters={hasFilters}
       />
-      {modalComponent}
     </>
   );
 }
