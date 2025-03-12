@@ -1,8 +1,8 @@
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import FormDate from "@/components/common/FormDate/FormDate";
-import { MedicalTreatmentFormProps } from "./types/MedicalTreatmentFormProps.types";
 import FormSelectControlled from "../common/FormSelect/FormSelectControlled";
 import FormTextArea from "../common/FormTextArea/FormTextArea";
+import { EditMedicalTreatmentFormProps } from "./types/EditMedicalTreatmentFormProps.types";
 
 const options = [
     { value: 8, label: 'Juan Perez' },
@@ -10,7 +10,7 @@ const options = [
     { value: 11, label: 'Marco Perez' },
 ]
 
-export default function MedicalTreatmentForm({ errors, register, control }: MedicalTreatmentFormProps) {
+export default function EditMedicalTreatmentForm({ errors, register, control, readonly, watch }: EditMedicalTreatmentFormProps) {
     return (
         <>
             <div className="grid grid-cols-1 gap-9 sm:grid-cols-2 mx-5">
@@ -21,23 +21,37 @@ export default function MedicalTreatmentForm({ errors, register, control }: Medi
                     <div className="mb-4.5 flex flex-col">
                         <FormDate label="Fecha en la que se otorgó la atención" placeholder="Selecciona la fecha" required
                             register={register}
-                            name="treatmentDate" />
+                            name="treatmentDate"
+                            defaultValue={watch("treatmentDate")}
+                            readonly={readonly} />
                         {errors.treatmentDate && (
                             <ErrorFormMessage>{errors.treatmentDate.message}</ErrorFormMessage>
                         )}
                     </div>
                     <div className="mb-4.5 flex flex-col">
-                        <FormSelectControlled control={control} label="Persona que atendió" required
+                        <FormSelectControlled
+                            control={control}
+                            label="Persona que atendió"
+                            required
                             name="attendingPersonId"
-                            options={options} />
+                            options={options}
+                            defaultValue={watch("attendingPersonId")}
+                            readonly={readonly}
+                        />
                         {errors.attendingPersonId && (
                             <ErrorFormMessage>{errors.attendingPersonId.message}</ErrorFormMessage>
                         )}
                     </div>
                     <div className="mb-4.5 flex flex-col">
-                        <FormSelectControlled control={control} label="Persona que recibió el tratamiento" required
+                        <FormSelectControlled
+                            control={control}
+                            label="Persona que recibió el tratamiento"
+                            required
                             name="patientPersonId"
-                            options={options} />
+                            options={options}
+                            defaultValue={watch("patientPersonId")}
+                            readonly={readonly}
+                        />
                         {errors.patientPersonId && (
                             <ErrorFormMessage>{errors.patientPersonId.message}</ErrorFormMessage>
                         )}
@@ -52,7 +66,9 @@ export default function MedicalTreatmentForm({ errors, register, control }: Medi
                             register={register}
                             errors={errors}
                             name="diagnosis"
-                            className="h-70" />
+                            className="h-70"
+                            defaultValue={watch('diagnosis')}
+                            readonly={readonly} />
                         {errors.diagnosis && (
                             <ErrorFormMessage>{errors.diagnosis?.message}</ErrorFormMessage>
                         )}
@@ -62,7 +78,9 @@ export default function MedicalTreatmentForm({ errors, register, control }: Medi
                             register={register}
                             errors={errors}
                             name="description"
-                            className="h-70" />
+                            defaultValue={watch('description')}
+                            className="h-70"
+                            readonly={readonly} />
                         {errors.description && (
                             <ErrorFormMessage>{errors.description?.message}</ErrorFormMessage>
                         )}

@@ -1,11 +1,19 @@
-import { MedicalTreatment, MedicalTreatmentFormData, listMedicalTreatmentSchema } from "@/types/medical";
+import { MedicalTreatment, MedicalTreatmentFormData, listMedicalTreatmentSchema, medicalTreatmentFormSchema } from "@/types/medicalTreatment.schema";
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
 import { MedicalTreatmentAPIType } from "./types/MedicalTreatmentAPIType.type";
+import { convertTodDataBaseFormatDate } from "@/utils/common/formatDate";
 
 export async function createMedicalTreatment(formData: MedicalTreatmentFormData) {
     try {
-        const { data } = await api.post('/MedicalTreatment', formData)
+        const { treatmentDate, description, ...restFormData } = formData;
+
+        const newFormData = {
+            treatmentDescription: description,
+            treatmentDate: convertTodDataBaseFormatDate(treatmentDate),
+            ...restFormData
+        };
+        const { data } = await api.post('/MedicalTreatment', newFormData)
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {
@@ -31,7 +39,10 @@ export async function getMedicalTreatment(queryParams?: Record<string, any>) {
 export async function getMedicalTreatmentById(id: MedicalTreatment['medicalTreatmentId']) {
     try {
         const { data } = await api(`/MedicalTreatment/${id}`);
-        return data;
+        const response = medicalTreatmentFormSchema.safeParse(data);
+        if (response.success) {
+            return response.data;
+        }
     } catch (error) {
         if (isAxiosError(error) && error.response) {
             throw new Error(error.response.data.error)
@@ -41,8 +52,15 @@ export async function getMedicalTreatmentById(id: MedicalTreatment['medicalTreat
 
 export async function updateMedicalTreatment({ formData, medicalTreatmentId }: MedicalTreatmentAPIType) {
     try {
-        const completeFormData = { treatmentID: medicalTreatmentId, ...formData }
-        const { data } = await api.put(`/MedicalTreatment`, completeFormData);
+        const { treatmentDate, description, ...restFormData } = formData;
+
+        const newFormData = {
+            treatmentID: medicalTreatmentId,
+            treatmentDescription: description,
+            treatmentDate: convertTodDataBaseFormatDate(treatmentDate),
+            ...restFormData
+        };
+        const { data } = await api.put(`/MedicalTreatment`, newFormData);
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {

@@ -1,4 +1,4 @@
-import { MedicalTreatment, MedicalTreatmentFormData } from "@/types/medical"
+import { MedicalTreatment, MedicalTreatmentFormData } from "@/types/medicalTreatment.schema"
 
 export type MedicalTreatmentAPIType = {
     formData: MedicalTreatmentFormData,

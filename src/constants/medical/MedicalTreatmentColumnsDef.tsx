@@ -1,7 +1,7 @@
 import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
 import { RiEdit2Line, RiEyeFill } from "@remixicon/react";
 import { ColumnDef } from "@tanstack/react-table";
-import { MedicalTreatment } from "@/types/medical";
+import { MedicalTreatment } from "@/types/medicalTreatment.schema";
 
 export const medicalTreatmentColumnDef: ColumnDef<MedicalTreatment>[] = [
   { header: "Fecha del tratamiento", accessorKey: "treatmentDate" },

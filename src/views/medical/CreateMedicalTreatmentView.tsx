@@ -1,12 +1,15 @@
 import BackLink from "@/components/common/BackLink/BackLink";
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import MedicalTreatmentForm from "@/components/medical/MedicalTreatmentForm";
+import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useMedicalTreatmentForm } from "@/hooks/medical/forms/useMedicalTreatmentForm";
 import { useCreatedMedicalTreatment } from "@/hooks/medical/mutations/useCreatedMedicalTreatment";
-import { MedicalTreatmentFormData } from "@/types/medical";
+import { MedicalTreatmentFormData } from "@/types/medicalTreatment.schema";
 import { useState } from "react";
 
 export default function CreateMedicalTreatmentView() {
+    useBreadcrumb([{ label: "Tratamientos médicos", path: "/medical-treatment/list" }, { label: "Registrar tratamiento" }]);
+
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const initialValues: MedicalTreatmentFormData = {
@@ -21,9 +24,8 @@ export default function CreateMedicalTreatmentView() {
     const mutation = useCreatedMedicalTreatment();
 
     const handleForm = async (formData: MedicalTreatmentFormData) => {
-        console.log(formData)
         setIsSubmitting(true);
-        await mutation.mutateAsync(formData)
+        await mutation.mutateAsync(formData).catch(() => setIsSubmitting(false))
     }
 
     return (
@@ -34,9 +36,6 @@ export default function CreateMedicalTreatmentView() {
                     iconSize={20}
                     link="/medical-treatment/list"
                 />
-                <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
-                    Registro de nuevo tratamiento médico
-                </h3>
                 <form onSubmit={handleSubmit(handleForm)} noValidate>
                     <MedicalTreatmentForm register={register} errors={errors} control={control} />
                     <div className="p-6.5">
