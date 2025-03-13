@@ -33,6 +33,8 @@ export const ActiveOperationSchema = BaseOperationSchema.extend({
   status: z.nativeEnum(StatusEnum),
 });
 
+export type ActiveOperation = z.infer<typeof ActiveOperationSchema>;
+
 export const ListOperationSchema = z.object({
   data: z.array(ActiveOperationSchema),
   totalPages: z.number(),

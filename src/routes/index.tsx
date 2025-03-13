@@ -8,7 +8,12 @@ const CreateRecruitmentView = lazy(() => import('@/views/personal/Recruitment/Cr
 const EditRecruitmentView = lazy(() => import('@/views/personal/Recruitment/EditRecruitView'));
 const ApproveDenyRecruitView = lazy(() => import('@/views/personal/Recruitment/ApproveDenyRecruitView'));
 
+// Military
 const MilitaryView = lazy(() => import('@/views/personal/military/MilitaryListView'));
+
+// Operations
+const OperationsView = lazy(() => import('@/views/operation/OperationListView'));
+
 
 //Medical treatment
 const MedicalTreatmentView = lazy(() => import('@/views/medical/MedicalTreatmentView'))
@@ -47,11 +52,18 @@ const coreRoutes = [
         title: 'Voluntarios',
         component: CreateAfiliationView
   },
+  // Military
   {
     path: '/military/list',
     title: 'Personal militar',
     component: MilitaryView
-    },
+  },
+  // Operations
+  {
+    path: '/operations/list',
+    title: 'Operaciones',
+    component: OperationsView
+  },
 
     //MedicalTreatments
     {
