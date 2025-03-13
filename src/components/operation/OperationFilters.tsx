@@ -1,8 +1,9 @@
-import FilterDatalist from '../common/FilterDatalist/FilterDatalist';
-import FilterSearchBox from '../common/FilterSearchBox/FilterSearchBox';
-import FilterSelect from '../common/FilterSelect/FilterSelect';
-// import FilterDateRange from "../common/FilterDateRange/FilterDateRange";
-import { OperationFilterProps } from './types/OperationFilterProps';
+import { format, parse } from "date-fns";
+import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
+import FilterRangeDates from "@/components/common/FilterRangeDate/FilterRangeDates";
+import FilterSearchBox from "../common/FilterSearchBox/FilterSearchBox";
+import FilterSelect from "../common/FilterSelect/FilterSelect";
+import { OperationFilterProps } from "./types/OperationFilterProps";
 
 export function OperationFilter({
   searchValue,
@@ -20,7 +21,15 @@ export function OperationFilter({
   setStartDateFilter,
   endDateFilter,
   setEndDateFilter,
+  refetch,
 }: OperationFilterProps) {
+  
+  function handleRangeSelect(range: { startDate: Date | undefined; endDate: Date | undefined }) {
+    setStartDateFilter(range.startDate ? format(range.startDate, "dd/MM/yyyy") : undefined);
+    setEndDateFilter(range.endDate ? format(range.endDate, "dd/MM/yyyy") : undefined);
+    refetch();
+  }
+
   return (
     <div className="flex flex-col gap-5.5 sm:flex-row mt-3">
       <FilterSearchBox
@@ -37,61 +46,43 @@ export function OperationFilter({
           label: name,
           isSelected: id === statusFilter,
         }))}
-        value={
-          statusFilter !== undefined
-            ? statusFilter.toString()
-            : statusOptions[0]?.id.toString()
-        }
-        onChange={(value) =>
-          setStatusFilter(value ? Number(value) : statusOptions[0]?.id)
-        }
+        value={statusFilter?.toString() || statusOptions[0]?.id.toString()}
+        onChange={(value) => setStatusFilter(value ? Number(value) : statusOptions[0]?.id)}
       />
       <FilterDatalist
         name="municipality"
         label="Seleccionar municipio"
         options={municipalityOptions}
         onChange={(value) => {
-          const selected = municipalityOptions.find(
-            (option) => option.name === value,
-          );
-          setMunicipalityFilter(selected ? selected.id : undefined);
+          const selected = municipalityOptions.find((option) => option.name === value);
+          setMunicipalityFilter(selected?.id);
         }}
         value={
           municipalityFilter !== undefined
-            ? municipalityOptions.find(
-                (option) => option.id === municipalityFilter,
-              )?.name || ''
-            : ''
+            ? municipalityOptions.find((option) => option.id === municipalityFilter)?.name || ""
+            : ""
         }
       />
-
       <FilterSelect
         name="category"
         label="Seleccionar por categoría"
         options={[
-          {
-            value: '',
-            label: 'Seleccionar por categoría',
-            isSelected: categoryFilter === undefined,
-          },
+          { value: "", label: "Seleccionar por categoría", isSelected: categoryFilter === undefined },
           ...categoryOptions.map(({ id, name }) => ({
             value: id.toString(),
             label: name,
             isSelected: id === categoryFilter,
           })),
         ]}
-        value={categoryFilter !== undefined ? categoryFilter.toString() : ''}
-        onChange={(value) =>
-          setCategoryFilter(value ? Number(value) : undefined)
-        }
+        value={categoryFilter?.toString() || ""}
+        onChange={(value) => setCategoryFilter(value ? Number(value) : undefined)}
       />
-
-      {/* <FilterDateRange 
-                startDate={startDateFilter} 
-                setStartDate={setStartDateFilter} 
-                endDate={endDateFilter} 
-                setEndDate={setEndDateFilter} 
-            /> */}
+      <FilterRangeDates
+        startDate={startDateFilter ? parse(startDateFilter, "dd/MM/yyyy", new Date()) : undefined}
+        endDate={endDateFilter ? parse(endDateFilter, "dd/MM/yyyy", new Date()) : undefined}
+        onChange={handleRangeSelect}
+        refetch={refetch}
+      />
     </div>
   );
 }

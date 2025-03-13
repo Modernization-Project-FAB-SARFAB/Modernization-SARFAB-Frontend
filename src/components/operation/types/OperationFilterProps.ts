@@ -14,4 +14,5 @@ export interface OperationFilterProps {
   setStartDateFilter: (value: string | undefined) => void;
   endDateFilter: string | undefined;
   setEndDateFilter: (value: string | undefined) => void;
+  refetch: () => void;
 }

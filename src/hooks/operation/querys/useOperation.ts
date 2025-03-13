@@ -1,11 +1,12 @@
-import { getOperations } from '@/api/OperationAPI';
-import { GetOperationParams } from '@/api/types/OperationAPIType.type';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import { useDebounce } from 'use-debounce';
+import { getOperations } from "@/api/OperationAPI";
+import { GetOperationParams } from "@/api/types/OperationAPIType.type";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { useDebounce } from "use-debounce";
+import { format, parse } from "date-fns";
 
 const DEFAULTS = {
-  searchTerm: '',
+  searchTerm: "",
   status: undefined,
   municipalityId: undefined,
   categoryId: undefined,
@@ -38,14 +39,18 @@ export function useOperation({
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: [
-      'operation',
+      "operation",
       {
         searchTerm: debouncedSearch,
         status: statusFilter,
         municipalityId: municipalityFilter !== 0 ? municipalityFilter : undefined,
         categoryId: categoryFilter !== 0 ? categoryFilter : undefined,
-        startDate,
-        endDate,
+        startDate: startDateFilter
+          ? format(parse(startDateFilter, "dd/MM/yyyy", new Date()), "yyyy-MM-dd")
+          : undefined,
+        endDate: endDateFilter
+          ? format(parse(endDateFilter, "dd/MM/yyyy", new Date()), "yyyy-MM-dd")
+          : undefined,
         page: pageIndex,
         pageSize: pageSizeState,
       },
@@ -56,8 +61,12 @@ export function useOperation({
         status: statusFilter,
         municipalityId: municipalityFilter !== 0 ? municipalityFilter : undefined,
         categoryId: categoryFilter !== 0 ? categoryFilter : undefined,
-        startDate,
-        endDate,
+        startDate: startDateFilter
+          ? format(parse(startDateFilter, "dd/MM/yyyy", new Date()), "yyyy-MM-dd")
+          : undefined,
+        endDate: endDateFilter
+          ? format(parse(endDateFilter, "dd/MM/yyyy", new Date()), "yyyy-MM-dd")
+          : undefined,
         page: pageIndex,
         pageSize: pageSizeState,
       }),

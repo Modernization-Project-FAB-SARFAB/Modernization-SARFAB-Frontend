@@ -49,7 +49,9 @@ export function OperationListComponent(props: OperationListComponentProps) {
         categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter}
         categoryOptions={categoryOptions}
         startDateFilter={startDateFilter} setStartDateFilter={setStartDateFilter}
-        endDateFilter={endDateFilter} setEndDateFilter={setEndDateFilter}/>
+        endDateFilter={endDateFilter} setEndDateFilter={setEndDateFilter}
+        refetch={refetch}
+      />
       <OperationTable
         isLoading={isLoading} data={data} columns={columns}
         pageIndex={pageIndex} pageSize={pageSize}

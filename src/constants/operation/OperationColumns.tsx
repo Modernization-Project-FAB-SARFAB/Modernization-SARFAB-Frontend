@@ -1,5 +1,7 @@
 import { ActiveOperation } from "@/types/operation.schema";
 import { ColumnDef } from "@tanstack/react-table";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 export const OperationColumns: ColumnDef<ActiveOperation>[] = [
   {
@@ -21,10 +23,18 @@ export const OperationColumns: ColumnDef<ActiveOperation>[] = [
   {
     header: "Fecha de salida",
     accessorKey: "departureDate",
+    cell: ({ getValue }) => {
+      const date = getValue<Date>();
+      return date ? format(date, "dd/MM/yyyy", { locale: es }) : "-";
+    },
   },
   {
     header: "Fecha de llegada",
     accessorKey: "arrivalDate",
+    cell: ({ getValue }) => {
+      const date = getValue<Date>();
+      return date ? format(date, "dd/MM/yyyy", { locale: es }) : "-";
+    },
   },
   {
     header: "Responsable",

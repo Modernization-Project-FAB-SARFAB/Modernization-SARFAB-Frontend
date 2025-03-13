@@ -1,3 +1,6 @@
 export interface FilterRangeDateProps {
-    onChange: (range: { startDate: Date; endDate: Date }) => void;
+  startDate?: Date | undefined;
+  endDate?: Date | undefined;
+  onChange: (range: { startDate: Date | undefined; endDate: Date | undefined }) => void;
+  refetch: () => void; // Agregado para actualizar datos al limpiar
 }
