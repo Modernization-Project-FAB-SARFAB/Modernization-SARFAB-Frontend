@@ -1,5 +1,5 @@
 import { getMedicalTreatment } from "@/api/MedicalTreatmentAPI";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
 
