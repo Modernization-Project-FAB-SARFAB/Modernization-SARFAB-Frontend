@@ -33,7 +33,7 @@ const menuItems: MenuItem[] = [
         path: "/military",
         subItems: [
             { label: "Ver personal militar", path: "/military/list" },
-            { label: "Registrar personal militar", path: "/military personnel/create" },
+            { label: "Registrar personal militar", path: "?openMilitaryModal=true" },
         ],
     },
     {
@@ -41,7 +41,7 @@ const menuItems: MenuItem[] = [
         icon: <RiAlarmWarningFill size={18} color="white" />,
         path: "/operations",
         subItems: [
-            { label: "Lista de operaciones", path: "/operations" },
+            { label: "Lista de operaciones", path: "/operations/list" },
             { label: "Crear operación", path: "/operations/create" },
         ],
     },

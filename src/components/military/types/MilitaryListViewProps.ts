@@ -5,5 +5,4 @@ export type MilitaryListViewProps = {
   breadcrumb: { label: string; path?: string }[];
   initialStatusFilter: string;
   columns: ColumnDef<Military>[];
-  modalComponent: JSX.Element;
 };

@@ -11,7 +11,6 @@ import AuthLayout from './layouts/AuthLayout';
 const AppLayout = lazy(() => import('@/layouts/AppLayout'));
 
 export default function Router() {
-
     return <BrowserRouter>
         <Toaster
             position="top-right"
