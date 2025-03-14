@@ -6,6 +6,8 @@ import { RecruitAPIType, RecruitStatusAPIType } from "./types/RecruitAPIType.typ
 export async function createRecruitment(formData: RecruitmentFormData) {
     try {
         const { data } = await api.post('/Recruitment', formData)
+        console.log(data);
+        
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {
