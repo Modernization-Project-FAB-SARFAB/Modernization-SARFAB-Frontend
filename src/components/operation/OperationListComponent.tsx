@@ -11,7 +11,7 @@ export function OperationListComponent(props: OperationListComponentProps) {
   const statusFilterNumber = Number(initialStatusFilter);
   const {
     data, isLoading, refetch, searchValue,
-    setSearchValue, statusFilter, setStatusFilter, municipalityFilter, setMunicipalityFilter, categoryFilter, setCategoryFilter, startDateFilter, setStartDateFilter, endDateFilter, setEndDateFilter, pageIndex, setPageIndex, pageSize, setPageSize
+    setSearchValue, statusFilter, setStatusFilter, municipalityFilter, setMunicipalityFilter, categoryFilter, setCategoryFilter, setStartDateFilter, setEndDateFilter, pageIndex, setPageIndex, pageSize, setPageSize
   } = useOperation({ status: statusFilterNumber });
 
   const { data: operationContext } = useOperationContext();
@@ -48,8 +48,8 @@ export function OperationListComponent(props: OperationListComponentProps) {
         municipalityOptions={municipalityOptions}
         categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter}
         categoryOptions={categoryOptions}
-        startDateFilter={startDateFilter} setStartDateFilter={setStartDateFilter}
-        endDateFilter={endDateFilter} setEndDateFilter={setEndDateFilter}
+        setStartDateFilter={setStartDateFilter}
+        setEndDateFilter={setEndDateFilter}
         refetch={refetch}
       />
       <OperationTable

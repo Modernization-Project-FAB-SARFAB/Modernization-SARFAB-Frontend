@@ -41,8 +41,8 @@ const menuItems: MenuItem[] = [
         icon: <RiAlarmWarningFill size={18} color="white" />,
         path: "/operations",
         subItems: [
-            { label: "Lista de operaciones", path: "/operations/list" },
-            { label: "Crear operación", path: "/operations/create" },
+            { label: "Lista de operaciones", path: "/operation/list" },
+            { label: "Crear operación", path: "/operation/create" },
         ],
     },
     {

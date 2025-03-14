@@ -10,9 +10,7 @@ export interface OperationFilterProps {
   categoryFilter: number | undefined;
   setCategoryFilter: (value: number | undefined) => void;
   categoryOptions: { id: number; name: string }[];
-  startDateFilter: string | undefined;
   setStartDateFilter: (value: string | undefined) => void;
-  endDateFilter: string | undefined;
   setEndDateFilter: (value: string | undefined) => void;
   refetch: () => void;
 }

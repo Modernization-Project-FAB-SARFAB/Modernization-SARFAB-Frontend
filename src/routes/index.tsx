@@ -13,6 +13,7 @@ const MilitaryView = lazy(() => import('@/views/personal/military/MilitaryListVi
 
 // Operations
 const OperationsView = lazy(() => import('@/views/operation/OperationListView'));
+const CreateOperationView = lazy(() => import('@/views/operation/CreateOperationView'));
 
 
 //Medical treatment
@@ -60,9 +61,14 @@ const coreRoutes = [
   },
   // Operations
   {
-    path: '/operations/list',
+    path: '/operation/list',
     title: 'Operaciones',
     component: OperationsView
+  },
+  {
+    path: '/operation/create',
+    title: 'Crear operación',
+    component: CreateOperationView
   },
 
     //MedicalTreatments

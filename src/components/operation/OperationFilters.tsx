@@ -1,6 +1,6 @@
-import { format, parse } from "date-fns";
+import { format } from "date-fns";
 import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
-import FilterRangeDates from "@/components/common/FilterRangeDate/FilterRangeDates";
+import FilterRangeDates from "@/components/common/FIlterRangeDate/FilterRangeDates";
 import FilterSearchBox from "../common/FilterSearchBox/FilterSearchBox";
 import FilterSelect from "../common/FilterSelect/FilterSelect";
 import { OperationFilterProps } from "./types/OperationFilterProps";
@@ -17,9 +17,7 @@ export function OperationFilter({
   categoryFilter,
   setCategoryFilter,
   categoryOptions,
-  startDateFilter,
   setStartDateFilter,
-  endDateFilter,
   setEndDateFilter,
   refetch,
 }: OperationFilterProps) {
@@ -67,7 +65,7 @@ export function OperationFilter({
         name="category"
         label="Seleccionar por categoría"
         options={[
-          { value: "", label: "Seleccionar por categoría", isSelected: categoryFilter === undefined },
+          { value: "", label: "Seleccionar categoría", isSelected: categoryFilter === undefined },
           ...categoryOptions.map(({ id, name }) => ({
             value: id.toString(),
             label: name,
@@ -78,8 +76,6 @@ export function OperationFilter({
         onChange={(value) => setCategoryFilter(value ? Number(value) : undefined)}
       />
       <FilterRangeDates
-        startDate={startDateFilter ? parse(startDateFilter, "dd/MM/yyyy", new Date()) : undefined}
-        endDate={endDateFilter ? parse(endDateFilter, "dd/MM/yyyy", new Date()) : undefined}
         onChange={handleRangeSelect}
         refetch={refetch}
       />
