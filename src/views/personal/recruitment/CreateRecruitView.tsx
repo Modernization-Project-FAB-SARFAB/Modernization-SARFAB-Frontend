@@ -21,7 +21,7 @@ export default function CreateRecruitView() {
 
   const { register, handleSubmit, formState: { errors }, control } = useRecruitForm(initialValues);
   const mutation = useCreateRecruit();
-
+  
   const handleForm = async (formData: RecruitmentFormData) => {
     setIsSubmitting(true);
     await mutation.mutateAsync(formData)
@@ -36,7 +36,7 @@ export default function CreateRecruitView() {
             <BackLink
               text="Volver a listado de reclutas"
               iconSize={20}
-              link="/recruitment/list"
+              link="/recruitment/approve-or-deny"
             />
             <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
               Registro de nuevo recluta
@@ -47,7 +47,7 @@ export default function CreateRecruitView() {
                 <ButtonGroup
                   buttons={[
                     { type: "button", label: "Registrar recluta", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading:isSubmitting },
-                    { type: "link", label: "Cancelar", to: "/recruitment/list" } 
+                    { type: "link", label: "Cancelar", to: "/recruitment/approve-or-deny" } 
                   ]}
                 />
               </div>

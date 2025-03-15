@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 
-const VoluntaryView = lazy(() => import('@/views/personal/Volunteers/VoluntariesView'));
-const CreateAfiliationView = lazy(() => import('@/views/personal/Volunteers/CreateAfiliationView'));
+const ActiveVolunteersView = lazy(() => import('@/views/personal/Volunteers/ActiveVolunteersView'));
+const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers/CreateVolunteerAfiliationView'));
 
 const RecruitmentPendingView = lazy(() => import('@/views/personal/Recruitment/RecruitmentPendingView'));
 const CreateRecruitmentView = lazy(() => import('@/views/personal/Recruitment/CreateRecruitView'));
@@ -44,9 +44,9 @@ const coreRoutes = [
         component: EditRecruitmentView
     },
     {
-        path: '/volunteers/list',
-        title: 'Voluntarios',
-        component: VoluntaryView
+        path: '/volunteers/active-volunteers',
+        title:'Voluntarios',
+        component: ActiveVolunteersView
     },
     {
         path: '/volunteers/create',

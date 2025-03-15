@@ -1,7 +1,7 @@
 import { RiAddLine } from '@remixicon/react'
 import { Link } from 'react-router-dom'
 
-export default function VoluntaryView() {
+export default function ActiveVolunteersView() {
   return (
     <div>
       <Link
