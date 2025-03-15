@@ -1,4 +1,4 @@
-import { RiMap2Line, RiMapLine, RiUser2Line, RiUserStarLine } from "@remixicon/react";
+import { RiMapLine, RiUser2Line, RiUserStarLine } from "@remixicon/react";
 import BackLink from "../common/BackLink/BackLink";
 import FormDate from "../common/FormDate/FormDate";
 import FormInput from "../common/FormInput/FormInput";
@@ -19,7 +19,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                             <BackLink
                                 text="Volver al listado de voluntarios activos"
                                 iconSize={20}
-                                link="/volunteers/active-list"
+                                link="/volunteers/active-volunteers"
                             />
                             <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
                                 Datos personales
@@ -149,7 +149,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                 </div>
 
                                 <div className="mb-4.5">
-                                    <FormInput label="Señas particulares" placeholder=""
+                                    <FormInput label="Señas particulares" placeholder="Ingresa las señas particulares"
                                         register={register}
                                         errors={errors}
                                         name="distinctiveFeatures"
@@ -184,7 +184,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                     </div>
                                 </div>
                                 <div className="mb-4.5">
-                                    <FormInput label="Dirección del contacto" placeholder=""
+                                    <FormInput label="Dirección del contacto" placeholder="Ingresa la dirección del contacto"
                                         register={register}
                                         errors={errors}
                                         name="emergencyContactAddress"
@@ -192,7 +192,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                 </div>
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Telefono de contacto de emergancia" placeholder=""
+                                        <FormInput label="Telefono de contacto de emergancia" placeholder="Ingresa el teléfono de contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactPhone"
@@ -200,7 +200,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Celular de contacto de emergancia" placeholder=""
+                                        <FormInput label="Celular de contacto de emergancia" placeholder="Ingresa el celular de contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactMobile"

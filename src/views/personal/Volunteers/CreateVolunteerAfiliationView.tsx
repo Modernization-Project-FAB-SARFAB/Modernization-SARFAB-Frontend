@@ -11,7 +11,7 @@ import { useState } from "react";
 export default function CreateVolunteerAfiliationView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-list" }, { label: "Registrar afiliación de voluntario" },]);
+  useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-volunteers" }, { label: "Registrar afiliación de voluntario" },]);
   const queryParams = new URLSearchParams(location.search);
   const recruitId = queryParams.get('recruitId');
   const { data: recruitData } = useRecruitData(recruitId);
@@ -26,7 +26,7 @@ export default function CreateVolunteerAfiliationView() {
     mobilePhone: "",
     email: "",
     distinctiveFeatures: "",
-    volunteerType: recruitData?.wantsMilitaryService ? '0' : '1',
+    volunteerType: recruitId ? (recruitData.wantsMilitaryService ? '0' : '1') : "",
     occupation: "",
     bloodType: "",
     religion: "",

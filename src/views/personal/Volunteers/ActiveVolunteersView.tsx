@@ -5,7 +5,7 @@ export default function ActiveVolunteersView() {
   return (
     <div>
       <Link
-        to="/voluntarios/create"
+        to="/volunteers/create"
         className="inline-flex items-center justify-center 
                   rounded-md bg-primary py-2 px-10 text-center font-small text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
       >
