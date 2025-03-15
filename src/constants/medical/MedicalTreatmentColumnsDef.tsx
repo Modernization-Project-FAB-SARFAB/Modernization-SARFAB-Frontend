@@ -7,8 +7,34 @@ export const medicalTreatmentColumnDef: ColumnDef<MedicalTreatment>[] = [
   { header: "Fecha del tratamiento", accessorKey: "treatmentDate" },
   { header: "Paciente", accessorKey: "patientPersonFullname" },
   { header: "Persona que atendió", accessorKey: "attendingPersonFullname" },
-  { header: "Diagnóstico", accessorKey: "diagnosis" },
-  { header: "Descripción del tratamiento", accessorKey: "description" },
+  { 
+    header: "Diagnóstico", 
+    accessorKey: "diagnosis",
+    cell: ({ getValue }) => {
+      const value = getValue<string>();
+      const truncatedValue = value.length > 30 ? `${value.slice(0, 30)}...` : value;
+
+      return (
+        <span className="text-left">
+          {truncatedValue}
+        </span>
+      );
+    } 
+  },
+  {
+    header: "Descripción del tratamiento",
+    accessorKey: "description",
+    cell: ({ getValue }) => {
+      const value = getValue<string>();
+      const truncatedValue = value.length > 50 ? `${value.slice(0, 50)}...` : value;
+
+      return (
+        <span className="text-left">
+          {truncatedValue}
+        </span>
+      );
+    }
+  },
   {
     id: "actions",
     header: "Acciones",

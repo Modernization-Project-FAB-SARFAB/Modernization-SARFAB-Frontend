@@ -26,8 +26,8 @@ export function useMedicalTreatment({
 }: UseMedicalTreatmentOptions = {}) {
 
     const [searchValue, setSearchValue] = useState(initialSearchValue);
-    const [startDate, setStartDate] = useState(initialStartDateValue);
-    const [endDate, setEndDate] = useState(initialEndDateValue);
+    const [startDate, setStartDate] = useState<string | undefined>(initialStartDateValue);
+    const [endDate, setEndDate] = useState<string | undefined>(initialEndDateValue);
     const [pageIndex, setPageIndex] = useState(initialPageIndex);
     const [pageSize, setPageSize] = useState(initialPageSize);
 

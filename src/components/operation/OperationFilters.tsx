@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
-import FilterRangeDates from "@/components/common/FIlterRangeDate/FilterRangeDates";
+import FilterRangeDates from "@/components/common/FilterRangeDate/FilterRangeDates";
 import FilterSearchBox from "../common/FilterSearchBox/FilterSearchBox";
 import FilterSelect from "../common/FilterSelect/FilterSelect";
 import { OperationFilterProps } from "./types/OperationFilterProps";
