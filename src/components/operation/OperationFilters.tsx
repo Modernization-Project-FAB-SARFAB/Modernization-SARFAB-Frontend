@@ -60,6 +60,7 @@ export function OperationFilter({
             ? municipalityOptions.find((option) => option.id === municipalityFilter)?.name || ""
             : ""
         }
+        showLabel={false}
       />
       <FilterSelect
         name="category"
