@@ -7,20 +7,14 @@ interface MilitaryPromoteModalProps {
   isOpen: boolean;
   onClose: () => void;
   militaryId: number;
-  onPromotionResult?: (canPromote: boolean) => void;
 }
 
-export const MilitaryPromoteModal = ({ isOpen, onClose, militaryId, onPromotionResult }: MilitaryPromoteModalProps) => {
+export const MilitaryPromoteModal = ({ isOpen, onClose, militaryId }: MilitaryPromoteModalProps) => {
   const { mutate, isPending } = useMilitaryPromotionMutation();
 
   const handleConfirm = () => {
     mutate(militaryId, { 
-      onSuccess: (data) => {
-        if (onPromotionResult) {
-          onPromotionResult(data.canPromote);
-        }
-        onClose();
-      }
+      onSuccess: onClose
     });
   };
 

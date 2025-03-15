@@ -8,15 +8,12 @@ export function useMilitaryPromotionMutation() {
   return useMutation({
     mutationFn: promoteMilitary,
     onSuccess: (data) => {
-      if (data.canPromote) {
-        toast.success(data.message || "Ascenso exitoso");
-      } else {
-        toast.error(data.message || "No se pudo ascender al militar");
-      }
-      queryClient.invalidateQueries({ queryKey: ["military"] });
+      toast.success(data.message || "Ascenso exitoso");
+      queryClient.invalidateQueries({ queryKey: ["military"] }); // Refresca la lista
     },
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(error.message || "No se pudo ascender al militar");
     },
   });
 }
+

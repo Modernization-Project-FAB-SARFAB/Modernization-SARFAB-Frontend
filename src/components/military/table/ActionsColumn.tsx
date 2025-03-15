@@ -15,7 +15,6 @@ export const ActionsColumn = ({ row }: { row: { original: Military } }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
   const [isPromoteModalOpen, setIsPromoteModalOpen] = useState(false);
-  const [showPromoteButton, setShowPromoteButton] = useState(true);
 
   const handleEditClick = () => {
     if (!row.original.id) return;
@@ -25,12 +24,6 @@ export const ActionsColumn = ({ row }: { row: { original: Military } }) => {
   const handleStatusClick = () => {
     if (!row.original.id) return;
     setIsStatusModalOpen(true);
-  };
-
-  const handlePromotionResult = (canPromote: boolean) => {
-    if (!canPromote) {
-      setShowPromoteButton(false);
-    }
   };
 
   const isActive = row.original.status === 1;
@@ -50,7 +43,7 @@ export const ActionsColumn = ({ row }: { row: { original: Military } }) => {
     },
   ];
 
-  if (showPromoteButton) {
+  if (row.original.canPromote) {
     menuItems.push({
       type: "button" as const,
       label: "Ascender",
@@ -82,7 +75,6 @@ export const ActionsColumn = ({ row }: { row: { original: Military } }) => {
           isOpen={isPromoteModalOpen}
           onClose={() => setIsPromoteModalOpen(false)}
           militaryId={row.original.id}
-          onPromotionResult={handlePromotionResult}
         />
       )}
     </>
