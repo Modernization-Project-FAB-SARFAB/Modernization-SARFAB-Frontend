@@ -30,10 +30,10 @@ const menuItems: MenuItem[] = [
     {
         label: "Personal militar",
         icon: <span className="material-symbols-outlined">military_tech</span>,
-        path: "/military-personnel",
+        path: "/military",
         subItems: [
-            { label: "Ver personal militar", path: "/military personnel" },
-            { label: "Registrar personal militar", path: "/military personnel/create" },
+            { label: "Ver personal militar", path: "/military/list" },
+            { label: "Registrar personal militar", path: "?openMilitaryModal=true" },
         ],
     },
     {
@@ -41,8 +41,8 @@ const menuItems: MenuItem[] = [
         icon: <RiAlarmWarningFill size={18} color="white" />,
         path: "/operations",
         subItems: [
-            { label: "Lista de operaciones", path: "/operations" },
-            { label: "Crear operación", path: "/operations/create" },
+            { label: "Lista de operaciones", path: "/operation/list" },
+            { label: "Crear operación", path: "/operation/create" },
         ],
     },
     {
@@ -56,7 +56,7 @@ const menuItems: MenuItem[] = [
     },
     {
         label: "Inventario",
-        icon: <RiFileLine size={18} color="white"/>,
+        icon: <RiFileLine size={18} color="white" />,
         path: "/inventory",
         subItems: [
             { label: "Lista de inventario", path: "/inventory" },
@@ -68,10 +68,10 @@ const menuItems: MenuItem[] = [
     {
         label: "Sanidad",
         icon: <RiFirstAidKitFill size={18} color="white" />,
-        path: "/health-service",
+        path: "/medical-treatment/list",
         subItems: [
-            { label: "Lista de tratamientos", path: "/health-service" },
-            { label: "Registrar tratamiento", path: "/health-service/create" },
+            { label: "Lista de tratamientos", path: "/medical-treatment/list" },
+            { label: "Registrar tratamiento", path: "/medical-treatment/create" },
         ]
     },
     {

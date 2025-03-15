@@ -27,13 +27,15 @@ const FormDate: React.FC<FormDateProps> = ({
                     id={name}
                     type="date"
                     placeholder={placeholder}
-                    defaultValue={defaultValue} 
-                    {...(readonly ? {} :  register(name, validationRules))}
+                    value={readonly ? defaultValue : undefined} 
+                    defaultValue={!readonly ? defaultValue : undefined} 
+                    {...(readonly ? {} : register(name, validationRules))} 
                     className={clsx(
                         "custom-input-date custom-input-date-1 w-full rounded border-[1.5px] border-stroke py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary",
                         className
                     )}
                     readOnly={readonly}
+                    onClick={(e) => !readonly && e.currentTarget.showPicker()} 
                 />
             </div>
         </div>

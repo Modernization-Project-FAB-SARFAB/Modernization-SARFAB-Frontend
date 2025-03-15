@@ -6,7 +6,7 @@ export default function ErrorFormMessage({ children, type = "error", customClass
   };
 
   return (
-    <div className={`text-left font-bold p-3 uppercase text-xs ${typeStyles[type]} ${customClass}`}>
+    <div className={`text-left font-bold p-3 text-xs ${typeStyles[type]} ${customClass}`}>
       * {children}
     </div>
   )

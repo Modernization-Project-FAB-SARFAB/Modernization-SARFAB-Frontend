@@ -10,7 +10,7 @@ const FormInput: React.FC<FormInputProps> = ({
     type = "text",
     readonly = false,
     className,
-    defaultValue = ""
+    defaultValue = "",
 }) => {
     return (
         <div className="w-full">
@@ -31,7 +31,7 @@ const FormInput: React.FC<FormInputProps> = ({
                 />
                 {icon && <span className="absolute right-3 top-1/2 transform -translate-y-1/2">{icon}</span>}
             </div>
-        </div>
+      </div>
     );
 };
 
