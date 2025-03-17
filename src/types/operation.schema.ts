@@ -7,10 +7,10 @@ export enum StatusEnum {
 
 // Base Operation
 const BaseOperationSchema = z.object({
-  address: z.string().min(1, 'Este campo es requerido').max(50, 'El nombre no puede tener más de 50 caracteres'),
-  departureDate: z.date(),
-  arrivalDate: z.date().optional(),
-})
+  address: z.string().min(1, 'Debe ingresar una dirección').max(50, 'El nombre no puede tener más de 50 caracteres'),
+  departureDate: z.string().min(1, "Debe ingresar una fecha de salida"),
+  arrivalDate: z.string().min(1, "Debe ingresar una fecha de llegada"),
+});
 
 export const OperationPersonSchema = z.object({
   personId: z.number(),
@@ -21,6 +21,12 @@ export const OperationPersonnelSchema = z.object({
   personId: z.number(),
   fullName: z.string(),
   rankOrGrade: z.string(),
+})
+
+export const RequesterSchema = z.object({
+  requesterName: z.string().min(1, 'Debe ingresar el nombre del solicitante').max(50, 'El nombre no puede tener más de 50 caracteres'),
+  requesterPhone: z.string(),
+  requesterMobilePhone: z.string().min(1, 'Debe ingresar el celular del solicitante').max(50, 'El celular no puede tener más de 50 caracteres'),
 })
 
 // Active Operation
@@ -42,16 +48,32 @@ export const ListOperationSchema = z.object({
 
 export type ListOperationResponse = z.infer<typeof ListOperationSchema>;
 
-// Create Operation
 export const CreateOperationSchema = BaseOperationSchema.extend({
-  operationTypeId: z.number(),
-  municipalityId: z.number(),
-  requesterId: z.number(),
+  operationTypeId: z.coerce.number().min(1, 'Debe seleccionar un tipo de operación válido'),
+  municipalityId: z.coerce.number().min(1, 'Debe seleccionar un municipio válido'),
+  requester: RequesterSchema,
   responsible: OperationPersonSchema,
   personnel: z.array(OperationPersonSchema),
-})
+});
 
 export type CreateOperationForm = z.infer<typeof CreateOperationSchema>;
+
+export const CreateOperationSchemaWithValidation = CreateOperationSchema.refine(
+  (data) => {
+    const departureDate = new Date(data.departureDate.replace(/-/g, "/"));
+    const arrivalDate = new Date(data.arrivalDate.replace(/-/g, "/"));
+    return departureDate <= arrivalDate;
+  },
+  {
+    message: "Debe seleccionar una fecha de llegada mayor o igual a la fecha de salida.",
+    path: ["arrivalDate"],
+  }
+);
+
+export type FormattedOperationData = Omit<CreateOperationForm, 'departureDate' | 'arrivalDate'> & {
+  departureDate: string;
+  arrivalDate: string;
+};
 
 // Update Operation
 export const UpdateOperationSchema = CreateOperationSchema.extend({
@@ -82,6 +104,9 @@ export const OperationDetailSchema = ActiveOperationSchema.omit({
   requesterMobile: z.string(),
   responsible: OperationPersonnelSchema,
   personnel: z.array(OperationPersonnelSchema),
+  requesterId: z.number(),
+  municipalityId: z.number(),
+  operationTypeId: z.number(),
 })
 
 export type OperationDetailResponse = z.infer<typeof OperationDetailSchema>;
