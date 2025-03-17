@@ -1,28 +1,79 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
-import { OperationDetailsFormProps } from './types/OperationDetailsProps';
-import { Link } from 'react-router-dom';
-import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { EditOperationFormProps } from './types/EditOperationFormProps';
 import FormInput from '@/components/common/FormInput/FormInput';
 import FormDate from '@/components/common/FormDate/FormDate';
 import FilterDatalist from '@/components/common/FilterDatalist/FilterDatalist';
-import ErrorFormMessage from '../common/ErrorFormMessage/ErrorFormMessage';
+import ErrorFormMessage from '@/components/common/ErrorFormMessage/ErrorFormMessage';
+import { Link } from 'react-router-dom';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
-export default function OperationDetailsForm({
-  errors,
+export default function EditOperationForm({
+  operation,
+  operationContext,
   register,
   control,
-  operationContext,
-}: OperationDetailsFormProps) {
+  errors,
+}: EditOperationFormProps) {
+  const initialCategoryId =
+    operation?.categoryName && operationContext?.operationCategories
+      ? operationContext.operationCategories.find(
+          (category) => category.name === operation.categoryName,
+        )?.operationCategoryId || null
+      : null;
+
+  const initialDepartmentId =
+    operation?.departmentName && operationContext?.departments
+      ? operationContext.departments.find(
+          (department) => department.name === operation.departmentName,
+        )?.departmentId || null
+      : null;
+
+  const initialProvinceId =
+    operation?.provinceName && operationContext?.provinces
+      ? operationContext.provinces.find(
+          (province) => province.name === operation.provinceName,
+        )?.provinceId || null
+      : null;
+
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
-    null,
+    initialCategoryId,
   );
   const [selectedDepartmentId, setSelectedDepartmentId] = useState<
     number | null
-  >(null);
+  >(initialDepartmentId);
   const [selectedProvinceId, setSelectedProvinceId] = useState<number | null>(
-    null,
+    initialProvinceId,
   );
+  
+    useEffect(() => {
+      if (operationContext) {
+        setSelectedCategoryId(
+          operation?.categoryName
+            ? operationContext.operationCategories.find(
+                (category) => category.name === operation.categoryName
+              )?.operationCategoryId || null
+            : null
+        );
+    
+        setSelectedDepartmentId(
+          operation?.departmentName
+            ? operationContext.departments.find(
+                (department) => department.name === operation.departmentName
+              )?.departmentId || null
+            : null
+        );
+    
+        setSelectedProvinceId(
+          operation?.provinceName
+            ? operationContext.provinces.find(
+                (province) => province.name === operation.provinceName
+              )?.provinceId || null
+            : null
+        );
+      }
+    }, [operationContext, operation]);
+
 
   const mappedOperationContext = operationContext
     ? {
@@ -103,13 +154,13 @@ export default function OperationDetailsForm({
             name="operationCategoryId"
             label="Categoría"
             options={mappedOperationContext?.operationCategories || []}
-            onChange={(value) =>
+            onChange={(value) => {
               handleSelection(
                 value,
                 mappedOperationContext?.operationCategories || [],
                 setSelectedCategoryId,
-              )
-            }
+              );
+            }}
             value={
               selectedCategoryId
                 ? mappedOperationContext?.operationCategories.find(
@@ -193,7 +244,7 @@ export default function OperationDetailsForm({
           name="municipalityId"
           control={control}
           render={({ field }) => (
-            <div className="flex flex-col md:col-span-2 mb-4">
+            <div className="flex flex-col">
               <FilterDatalist
                 {...field}
                 label="Municipio"
@@ -246,7 +297,6 @@ export default function OperationDetailsForm({
               </ErrorFormMessage>
             )}
           </div>
-
           <div className="flex flex-col">
             <FormDate
               name="arrivalDate"
@@ -279,13 +329,13 @@ export default function OperationDetailsForm({
               </ErrorFormMessage>
             )}
           </div>
-
           <FormInput
-            name="requesterPhone"
+            name="requester.requesterPhone"
             label="Teléfono"
             placeholder="Teléfono del solicitante"
             register={register}
             errors={errors}
+            defaultValue={operation?.requesterPhone || "Sin teléfono"} 
           />
           <div className="flex flex-col">
             <FormInput

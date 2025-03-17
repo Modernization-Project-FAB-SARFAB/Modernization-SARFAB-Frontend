@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
 import FilterRangeDates from "@/components/common/FIlterRangeDate/FilterRangeDates";
 import FilterSearchBox from "../common/FilterSearchBox/FilterSearchBox";
@@ -22,11 +21,11 @@ export function OperationFilter({
   refetch,
 }: OperationFilterProps) {
   
-  function handleRangeSelect(range: { startDate: Date | undefined; endDate: Date | undefined }) {
-    setStartDateFilter(range.startDate ? format(range.startDate, "dd/MM/yyyy") : undefined);
-    setEndDateFilter(range.endDate ? format(range.endDate, "dd/MM/yyyy") : undefined);
+  function handleRangeSelect(range: { startDate: string | undefined; endDate: string | undefined }) {
+    setStartDateFilter(range.startDate);
+    setEndDateFilter(range.endDate);
     refetch();
-  }
+  }  
 
   return (
     <div className="flex flex-col gap-5.5 sm:flex-row mt-3">

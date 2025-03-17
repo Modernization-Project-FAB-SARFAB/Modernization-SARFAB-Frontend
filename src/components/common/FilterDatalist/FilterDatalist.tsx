@@ -24,6 +24,7 @@ const FilterDatalist: React.FC<FilterDatalistProps> = ({ name, label, options, v
       <div className="relative z-20 bg-white dark:bg-form-input">
         <input
           type="text"
+          autoComplete="off"
           id={name}
           name={name}
           list={`${name}-list`}

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
-import { CreateOperationSchema, CreateOperationForm } from "@/types/operation.schema";
+import { CreateOperationForm, CreateOperationSchemaWithValidation } from "@/types/operation.schema";
 import { getCreateOperationContext, getVolunteersWithGrade, getMilitaryWithRank } from "@/api/OperationContextAPI";
 import { CreateOperationContext, VolunteerWithRankList, MilitaryWithRankList } from "@/types/operationContext.schema";
 
@@ -9,7 +9,7 @@ export function useOperationForm(defaultValues: CreateOperationForm) {
   const form = useForm<CreateOperationForm>({
     defaultValues,
     resolver: zodResolver(
-      CreateOperationSchema.refine((data) => data.responsible.personId !== 0, {
+      CreateOperationSchemaWithValidation.refine((data) => data.responsible.personId !== 0, {
         message: "Debe seleccionar un responsable.",
         path: ["responsible"],
       }).refine((data) => data.personnel.length > 0, {

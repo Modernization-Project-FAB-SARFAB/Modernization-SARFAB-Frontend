@@ -18,7 +18,7 @@ export async function createOperation(formData: CreateOperationForm) {
 // Update Operation
 export async function updateOperation(formData: UpdateOperationForm, id: number) {
   try {
-    const { data } = await api.put(`/SarOperation/${id}`, formData);
+    const { data } = await api.patch(`/SarOperation/${id}`, formData);
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {

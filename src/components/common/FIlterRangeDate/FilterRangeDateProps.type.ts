@@ -1,4 +1,4 @@
 export interface FilterRangeDateProps {
-  onChange: (range: { startDate: Date | undefined; endDate: Date | undefined }) => void;
+  onChange: (range: { startDate: string | undefined; endDate: string | undefined }) => void;
   refetch: () => void;
 }
