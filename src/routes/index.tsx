@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import EditOperationView from '../views/operation/EditOperationView';
 
 const ActiveVolunteersView = lazy(() => import('@/views/personal/Volunteers/ActiveVolunteersView'));
 const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers/CreateVolunteerAfiliationView'));
