@@ -22,6 +22,10 @@ const CreateMedicalTreatmentView = lazy(() => import('@/views/medical/CreateMedi
 const EditMedicalTreatmentView = lazy(() => import('@/views/medical/EditMedicalTreatmentView'))
 const MedicalTreatmenDetailstView = lazy(() => import('@/views/medical/MedicalTreatmentDetailsView'))
 
+//Guard
+const GuardListView = lazy(() => import('@/views/guard/GuardListView'))
+const CreateGuardFormView = lazy(() => import('@/views/guard/CreateGuardView'))
+
 const coreRoutes = [
     {
         path: '/recruitment/list',
@@ -52,24 +56,24 @@ const coreRoutes = [
         path: '/volunteers/create',
         title: 'Voluntarios',
         component: CreateAfiliationView
-  },
-  // Military
-  {
-    path: '/military/list',
-    title: 'Personal militar',
-    component: MilitaryView
-  },
-  // Operations
-  {
-    path: '/operation/list',
-    title: 'Operaciones',
-    component: OperationsView
-  },
-  {
-    path: '/operation/create',
-    title: 'Crear operación',
-    component: CreateOperationView
-  },
+    },
+    // Military
+    {
+        path: '/military/list',
+        title: 'Personal militar',
+        component: MilitaryView
+    },
+    // Operations
+    {
+        path: '/operation/list',
+        title: 'Operaciones',
+        component: OperationsView
+    },
+    {
+        path: '/operation/create',
+        title: 'Crear operación',
+        component: CreateOperationView
+    },
 
     //MedicalTreatments
     {
@@ -91,8 +95,18 @@ const coreRoutes = [
         path: '/medical-treatment/:medicalTreatmentId',
         title: 'Ver tratamiento médico',
         component: MedicalTreatmenDetailstView
-    }
-
+    },
+    //Guards
+    {
+        path: '/guards/list',
+        title: 'Guardias',
+        component: GuardListView
+    },
+    {
+        path: '/guards/create',
+        title: 'Registrar guardias',
+        component: CreateGuardFormView
+    },
 ]
 
 const routes = [...coreRoutes];
