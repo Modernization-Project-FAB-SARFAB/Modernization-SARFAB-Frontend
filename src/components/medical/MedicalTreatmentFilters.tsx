@@ -1,6 +1,6 @@
 
 import { format } from "date-fns";
-import FilterRangeDates from "../common/FIlterRangeDate/FilterRangeDates";
+import FilterRangeDates from "../common/FilterRangeDate/FilterRangeDates";
 import FilterSearchBox from "../common/FilterSearchBox/FilterSearchBox";
 
 export function MedicalTreatmentFilters({ searchValue, setSearchValue, setStartDate, setEndDate, refetch }: MedicalTreatmentFiltersProp) {

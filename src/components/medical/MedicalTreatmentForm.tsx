@@ -51,7 +51,7 @@ export default function MedicalTreatmentForm({ errors, register, control }: Medi
                 </div>
                 <div className="gap-4 p-4 rounded-xl border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                     <h3 className="my-3 dark:text-white text-2xl font-semibold text-black">
-                        Datos generales
+                        Diagnostico y tratamiento
                     </h3>
                     <div className="mb-4.5">
                         <FormTextArea label="Diagnóstico" placeholder="Diagnóstico" required

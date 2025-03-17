@@ -59,7 +59,7 @@ export default function EditMedicalTreatmentForm({ errors, register, control, re
                 </div>
                 <div className="flex flex-col gap-4">
                     <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
-                        Datos generales
+                        Diagnostico y tratamiento
                     </h3>
                     <div className="mb-4.5">
                         <FormTextArea label="Diagnóstico" placeholder="Diagnóstico" required
