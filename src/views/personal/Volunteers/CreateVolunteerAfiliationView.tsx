@@ -11,12 +11,11 @@ import { useState } from "react";
 export default function CreateVolunteerAfiliationView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-list" }, { label: "Registrar afiliación de voluntario" }]);
+  useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-volunteers" }, { label: "Registrar afiliación de voluntario" }]);
   
   const queryParams = new URLSearchParams(location.search);
   const recruitId = queryParams.get('recruitId');
 
-  // Si no hay recruitId, el volunteerType es "", si sí hay, depende de recruitData
   const getInitialValues = (recruitData?: any): VolunteerFormData => ({
     firstName: "",
     lastName: "",
@@ -54,7 +53,6 @@ export default function CreateVolunteerAfiliationView() {
     await mutation.mutateAsync(formData);
   }
 
-  // Si no hay recruitId, renderiza el formulario sin llamar el hook
   if (!recruitId) {
     return (
       <form onSubmit={handleSubmit(handleForm)} noValidate>

@@ -3,13 +3,13 @@ import BackLink from "../common/BackLink/BackLink";
 import FormDate from "../common/FormDate/FormDate";
 import FormInput from "../common/FormInput/FormInput";
 import FormSelect from "../common/FormSelect/FormSelect";
-import { VolunteerFormProps } from "./types/VolunteerFormProps";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
 import FormReadOnlyInput from "../common/FormReadOnlyInput/FormReadOnlyInput";
+import { VolunteerFormProps } from "./types/VolunteerFormProps";
 
 export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue }: VolunteerFormProps) {
 
-    const { data: grades } = useGrades();
+    const { data: grades, isLoading, isError } = useGrades();
 
     return (
         <>
@@ -20,7 +20,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                             <BackLink
                                 text="Volver al listado de voluntarios activos"
                                 iconSize={20}
-                                link="/volunteers/active-list"
+                                link="/volunteers/active-volunteers"
                             />
                             <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
                                 Datos registrado previamente del recluta

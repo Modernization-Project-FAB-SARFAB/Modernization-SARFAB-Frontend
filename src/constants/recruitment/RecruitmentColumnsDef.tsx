@@ -23,7 +23,8 @@ const ActionsColumn = ({ row }: { row: any }) => {
         },
         { type: "link", label: "Ver recluta", 
           onClick: () => navigate(`?viewRecruit=true&recruitId=${row.original.recruitmentId}`),
-          icon: <RiEyeFill size={20} /> }
+          icon: <RiEyeFill size={20} /> 
+        }
       ]}
     />
   );

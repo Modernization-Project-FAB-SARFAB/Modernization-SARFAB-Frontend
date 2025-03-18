@@ -2,6 +2,7 @@ import { lazy } from 'react';
 
 const ActiveVolunteersView = lazy(() => import('@/views/personal/Volunteers/ActiveVolunteersView'));
 const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers/CreateVolunteerAfiliationView'));
+const HistoricalVolunteersView = lazy(() => import ('@/views/personal/Volunteers/HistoricalVolunteersView'));
 
 const RecruitmentPendingView = lazy(() => import('@/views/personal/Recruitment/RecruitmentPendingView'));
 const CreateRecruitmentView = lazy(() => import('@/views/personal/Recruitment/CreateRecruitView'));
@@ -45,14 +46,19 @@ const coreRoutes = [
     },
     {
         path: '/volunteers/active-volunteers',
-        title:'Voluntarios',
+        title:'Voluntarios activos',
         component: ActiveVolunteersView
     },
     {
         path: '/volunteers/create',
-        title: 'Voluntarios',
+        title: 'Crear nueva afiliación de voluntarios',
         component: CreateAfiliationView
-  },
+    },
+    {
+        path: '/volunteers/volunteer-history',
+        title: 'Historico de voluntarios',
+        component: HistoricalVolunteersView
+    },
   // Military
   {
     path: '/military/list',

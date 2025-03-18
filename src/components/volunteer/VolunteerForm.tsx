@@ -3,7 +3,7 @@ import BackLink from "../common/BackLink/BackLink";
 import FormDate from "../common/FormDate/FormDate";
 import FormInput from "../common/FormInput/FormInput";
 import FormSelect from "../common/FormSelect/FormSelect";
-import { VolunteerFormProps } from "./types/VolunteerFormProps";
+import { VolunteerFormProps } from "./types/VolunteerFormProps.types";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
 
 export default function VolunteerForm({ errors, register, control }: VolunteerFormProps) {
@@ -19,7 +19,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                             <BackLink
                                 text="Volver al listado de voluntarios activos"
                                 iconSize={20}
-                                link="/volunteers/active-list"
+                                link="/volunteers/active-volunteers"
                             />
                             <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
                                 Datos personales

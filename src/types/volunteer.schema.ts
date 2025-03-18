@@ -44,6 +44,23 @@ export const listVolunteerActiveSchema = z.object({
     totalPages: z.number(),
 });
 
+
+export const listVolunteerHistoricalSchema = z.object({
+    data: z.array(
+        volunteerSchema.pick({
+            lastName: true,
+        }).extend({
+            volunteerId: z.number(),
+            name: volunteerSchema.shape.firstName,
+            gradeName: z.string(),
+            dapartureDate: z.string(),
+            reason: z.string().nullish(),
+            volunteerStatus: z.number()
+        })
+    ),
+    totalPages: z.number(),
+});
+
 export type Volunteer = z.infer<typeof volunteerSchema>;
 
 export type VolunteerFormData = Pick<Volunteer, 'firstName' | 'lastName' | 'homeAddress' | 'ci' | 'birthDate' | 'phone' | 'mobilePhone' | 'email' | 'distinctiveFeatures' | 'volunteerType' | 'occupation' | 'bloodType' | 'religion' | 'allergies' | 'emergencyContactFullName' | 'emergencyContactRelation' | 'emergencyContactAddress' | 'emergencyContactPhone' | 'emergencyContactMobile' | 'departmentId' | 'gradeId' | 'checkupDate' | 'expirationDate' | 'observations'>;

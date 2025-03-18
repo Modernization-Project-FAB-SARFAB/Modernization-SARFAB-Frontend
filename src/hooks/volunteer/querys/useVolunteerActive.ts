@@ -1,40 +1,45 @@
 import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { useQuery } from '@tanstack/react-query';
-import { getRecruitment } from '@/api/RecruitmentAPI';
 import { keepPreviousData } from '@tanstack/react-query';
+import { getVolunteerActiveList } from '@/api/VolunteerAPI';
 
 const DEFAULTS = {
   pageIndex: 1,
   pageSize: 10,
-  statusFilter: "",
+  gradeIdFilter: "",
 };
 
-interface UseRecruitmentOptions {
+interface UseVolunteerOptions {
   initialSearchValue?: string;
-  initialStatusFilter?: string;
+  initialgradeIdFilter?: string;
   initialPageIndex?: number;
   initialPageSize?: number;
+  initialOrderByLastNameAsc?: boolean;
 }
 
-export function useRecruitment({
+export function useVolunteerActive({
   initialSearchValue = "",
-  initialStatusFilter = DEFAULTS.statusFilter,
+  initialgradeIdFilter = DEFAULTS.gradeIdFilter,
   initialPageIndex = DEFAULTS.pageIndex,
   initialPageSize = DEFAULTS.pageSize,
-}: UseRecruitmentOptions = {}) {
+  initialOrderByLastNameAsc = true,
+}: UseVolunteerOptions = {}) {
 
   const [searchValue, setSearchValue] = useState(initialSearchValue);
-  const [statusFilter, setStatusFilter] = useState(initialStatusFilter);
+  const [gradeIdFilter, setgradeIdFilter] = useState(initialgradeIdFilter);
   const [pageIndex, setPageIndex] = useState(initialPageIndex);
   const [pageSize, setPageSize] = useState(initialPageSize);
 
+  const [orderByLastNameAsc, setOrderByLastNameAsc] = useState<boolean>(initialOrderByLastNameAsc);
+
   const [debouncedSearch] = useDebounce(searchValue, 500);
-  const [debouncedStatus] = useDebounce(statusFilter, 500);
+  const [debouncedgradeId] = useDebounce(gradeIdFilter, 500);
+
 
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['recruitment', { searchTerm: debouncedSearch, status: debouncedStatus, page: pageIndex, pageSize }],
-    queryFn: () => getRecruitment({ searchTerm: debouncedSearch, status: debouncedStatus, page: pageIndex, pageSize }),
+    queryKey: ['volunteersActive', { searchTerm: debouncedSearch, gradeId: debouncedgradeId, page: pageIndex, pageSize, orderByLastNameAsc }],
+    queryFn: () => getVolunteerActiveList({ searchTerm: debouncedSearch, gradeId: debouncedgradeId, page: pageIndex, pageSize, orderByLastNameAsc }),
     placeholderData: keepPreviousData,
     retry: false,
   });
@@ -45,11 +50,14 @@ export function useRecruitment({
     refetch,
     searchValue,
     setSearchValue,
-    statusFilter,
-    setStatusFilter,
+    gradeIdFilter,
+    setgradeIdFilter,
     pageIndex,
     setPageIndex,
     pageSize,
     setPageSize,
+
+    orderByLastNameAsc,
+    setOrderByLastNameAsc
   };
 }
