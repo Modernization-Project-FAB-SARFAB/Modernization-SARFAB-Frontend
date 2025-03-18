@@ -30,7 +30,7 @@ export async function updateOperation(formData: UpdateOperationForm, id: number)
 // Update Operation Status
 export async function updateOperationStatus(formData: UpdateOperationStatusForm, id: number) {
   try {
-    const { data } = await api.put(`/SarOperation/${id}/status`, formData);
+    const { data } = await api.patch(`/SarOperation/${id}/status`, formData);
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {

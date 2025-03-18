@@ -3,8 +3,13 @@ import { Link } from 'react-router-dom';
 import FormInput from '../common/FormInput/FormInput';
 import FormDate from '../common/FormDate/FormDate';
 import { OperationDetailResponse } from '@/types/operation.schema';
+import BackLink from '../common/BackLink/BackLink';
 
-export default function OperationDetails({ operation }: { operation: OperationDetailResponse }) {
+export default function OperationDetails({
+  operation,
+}: {
+  operation: OperationDetailResponse;
+}) {
   return (
     <section className="space-y-6">
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
@@ -15,6 +20,11 @@ export default function OperationDetails({ operation }: { operation: OperationDe
           <AiOutlineArrowLeft className="w-5 h-5 mr-2" />
           Volver al listado de operaciones
         </Link>
+        <BackLink
+          text="Volver al listado de voluntarios activos"
+          iconSize={20}
+          link="/operation/list"
+        />
         <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
           Datos de la operación
         </h2>
@@ -89,13 +99,13 @@ export default function OperationDetails({ operation }: { operation: OperationDe
             defaultValue={operation.arrivalDate?.split('T')[0]}
             className="bg-gray text-black dark:text-white text-center"
           />
-          <div className="flex flex-col md:col-span-2 mb-4">
+          <div className="flex flex-col md:col-span-2 mb-4 mt-4">
             <FormInput
               label="Estado"
               name="operationStatus"
               type="text"
               readonly
-              defaultValue={operation.operationStatus}
+              value={operation.operationStatus}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>

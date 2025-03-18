@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import OperationDetails from '@/components/operation/OperationDetails';
 import OperationPersonnelDetail from '@/components/operation/OperationPersonnelDetail';
 import { useBreadcrumb } from '@/hooks/components/useBreadcrumb';
@@ -13,8 +14,11 @@ export default function DetailOperationView() {
   const { operationId } = useParams<{ operationId: string }>();
   const operationIdNumber = Number(operationId);
 
+  const queryClient = useQueryClient();
   const { data: operation, isLoading: isLoadingOperation } =
     useGetOperationDetail(operationIdNumber);
+
+    const refetchOperation = () => queryClient.invalidateQueries({ queryKey: ["operationDetail", operationIdNumber] });
 
   return isLoadingOperation ? (
     <p className="text-center text-gray-500">Cargando operación...</p>
@@ -26,11 +30,7 @@ export default function DetailOperationView() {
           {operation && <OperationDetails operation={operation} />}
         </article>
         <section className="flex-1">
-          {operation && (
-            <OperationPersonnelDetail
-              operation={operation}
-            />
-          )}
+          {operation && <OperationPersonnelDetail operation={operation} refetchOperation={refetchOperation} />}
         </section>
       </section>
     </section>

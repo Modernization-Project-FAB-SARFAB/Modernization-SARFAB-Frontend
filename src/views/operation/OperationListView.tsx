@@ -1,5 +1,4 @@
 import { OperationListComponent } from "@/components/operation/OperationListComponent";
-import OperationMessageModal from "@/components/operation/OperationMessageModal";
 import { OperationColumnsDef as columns } from "@/constants/operation/OperationColumnsDef";
 
 export default function OperationListView() {
@@ -8,7 +7,6 @@ export default function OperationListView() {
             breadcrumb={[{ label: "Operaciones", path: "/operation/list" }, { label: "Lista de operaciones" }]}
             initialStatusFilter="1"
             columns={columns}
-            modalComponent={<OperationMessageModal />}
         />
     );
 }
