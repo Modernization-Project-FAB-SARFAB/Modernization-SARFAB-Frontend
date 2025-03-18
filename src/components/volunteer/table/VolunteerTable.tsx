@@ -1,6 +1,6 @@
-import Loader from "../common/Loader";
-import { MessageWithLink } from "../common/MesaggeWithLink/MessageWithLink";
-import SortableTable from "../common/SortableTable/SortableTable";
+import Loader from "../../common/Loader";
+import { MessageWithLink } from "../../common/MesaggeWithLink/MessageWithLink";
+import SortableTable from "../../common/SortableTable/SortableTable";
 
 export function VolunteerTable({ isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch }: RecruitmentTableProps) {
     if (isLoading) return <Loader />;

@@ -1,11 +1,11 @@
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
-import { VolunteerHistoricalFilters } from "./VolunteerHistoricalFilters";
-import { VolunteerHeader } from "./VolunteerHeader";
-import { VolunteerTable } from "./VolunteerTable";
+import { VolunteerHeader } from "../headers/VolunteerHeader";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
-import { useVolunteerHistorical } from "@/hooks/volunteer/querys/useVolunteerHistorical";
+import { useVolunteerActive } from "@/hooks/volunteer/querys/useVolunteerActive";
+import { VolunteerActiveFilters } from "../filters/VolunteerActiveFilters";
+import { VolunteerTable } from "../table/VolunteerTable";
 
-export default function VolunteerHistoricalListView({ breadcrumb, columns, modalComponent }: VolunteerListViewProps) {
+export default function VolunteerActiveListView({ breadcrumb, columns, modalComponent }: VolunteerListViewProps) {
     useBreadcrumb(breadcrumb);
     const { data: grades, isLoading: isLoadingGrades, isError } = useGrades();
 
@@ -13,21 +13,14 @@ export default function VolunteerHistoricalListView({ breadcrumb, columns, modal
         data, isLoading, refetch, searchValue,
         setSearchValue, gradeIdFilter, setgradeIdFilter,
         pageIndex, setPageIndex, pageSize, setPageSize,
-        setStartDate,
-        setEndDate,
-        statusFilter, setStatusFilter,
-    } = useVolunteerHistorical();
-
-    const statusOptions = [
-        { value: '', label: 'Todos los estados', isSelected: true },
-        { value: '0', label: 'BAJA', isSelected: false },
-        { value: '2', label: 'CUMPLIÓ', isSelected: false }
-    ];
+        orderByLastNameAsc,
+        setOrderByLastNameAsc,
+    } = useVolunteerActive();
 
     return (
         <>
             <VolunteerHeader />
-            <VolunteerHistoricalFilters
+            <VolunteerActiveFilters
                 searchValue={searchValue} setSearchValue={setSearchValue}
                 gradeIdFilter={gradeIdFilter} setgradeIdFilter={setgradeIdFilter}
                 gradeIdOptions={[
@@ -38,11 +31,8 @@ export default function VolunteerHistoricalListView({ breadcrumb, columns, modal
                         isSelected: false
                     })) || [])
                 ]}
-                setStartDate={setStartDate}
-                setEndDate={setEndDate}
-                refetch={refetch}
-                statusFilter={statusFilter} setStatusFilter={setStatusFilter}
-                statusOptions={statusOptions}
+                orderByLastNameAsc={orderByLastNameAsc}
+                setOrderByLastNameAsc={setOrderByLastNameAsc}
             />
             <VolunteerTable
                 isLoading={isLoading} data={data} columns={columns}

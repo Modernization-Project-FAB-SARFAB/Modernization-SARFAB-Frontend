@@ -1,13 +1,12 @@
-import { RiMapLine, RiUser2Line, RiUserStarLine } from "@remixicon/react";
-import BackLink from "../common/BackLink/BackLink";
-import FormDate from "../common/FormDate/FormDate";
-import FormInput from "../common/FormInput/FormInput";
-import FormSelect from "../common/FormSelect/FormSelect";
+import { RiMap2Line, RiMapLine, RiUser2Line, RiUserStarLine } from "@remixicon/react";
+import BackLink from "../../common/BackLink/BackLink";
+import FormDate from "../../common/FormDate/FormDate";
+import FormInput from "../../common/FormInput/FormInput";
+import FormSelect from "../../common/FormSelect/FormSelect";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
-import FormReadOnlyInput from "../common/FormReadOnlyInput/FormReadOnlyInput";
-import { VolunteerFormProps } from "./types/VolunteerFormProps";
+import { VolunteerFormProps } from "../types/VolunteerFormProps";
 
-export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue }: VolunteerFormProps) {
+export default function VolunteerForm({ errors, register, control }: VolunteerFormProps) {
 
     const { data: grades, isLoading, isError } = useGrades();
 
@@ -15,7 +14,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
         <>
             <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
                 <div className="flex flex-col gap-9">
-                    <div className="col-span-2 row-span-2 col-start-4">
+                    <div className="flex flex-col gap-9">
                         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                             <BackLink
                                 text="Volver al listado de voluntarios activos"
@@ -23,52 +22,45 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                 link="/volunteers/active-volunteers"
                             />
                             <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
-                                Datos registrado previamente del recluta
-                            </h3>
-                            <p className="px-6.5 mt-3 text-sm dark:text-white font-thin text-black">Datos cargados desde el recluta</p>
-                            <div className="p-6.5">
-                                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                                    <div className="w-full xl:w-1/2">
-                                        <FormReadOnlyInput label="Nombres" placeholder="Ingresa los nombres del voluntario"
-                                            register={register}
-                                            setValue={setValue}
-                                            name="firstName"
-                                            value={recruit?.firstName || ''} />
-                                    </div>
-
-                                    <div className="w-full xl:w-1/2">
-                                        <FormReadOnlyInput label="Apellidos" placeholder="Ingresa los apellidos del voluntario"
-                                            register={register}
-                                            setValue={setValue}
-                                            name="lastName"
-                                            value={recruit?.lastName || ''} />
-                                    </div>
-                                </div>
-
-                                <div className="mb-4.5">
-                                    <FormReadOnlyInput label="Documento de identidad" placeholder="Ingresa el documento de identidad del voluntario"
-                                        register={register}
-                                        setValue={setValue}
-                                        name="ci"
-                                        value={recruit?.ci || ''} />
-                                </div>
-
-                                <div className="mb-4.5">
-                                    <FormReadOnlyInput label="Fecha de nacimiento" placeholder="Ingresa la fecha de nacimiento del recluta"
-                                        register={register}
-                                        setValue={setValue}
-                                        name="birthDate"
-                                        value={recruit?.birthDate || ''} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-span-2 row-span-2 col-start-4">
-                        <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                            <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
                                 Datos personales
                             </h3>
                             <div className="p-6.5">
+                                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                                    <div className="w-full xl:w-1/2">
+                                        <FormInput label="Nombres" placeholder="Ingresa los nombres del voluntario"
+                                            register={register}
+                                            errors={errors}
+                                            name="firstName"
+                                            type="text" />
+                                    </div>
+
+                                    <div className="w-full xl:w-1/2">
+                                        <FormInput label="Apellidos" placeholder="Ingresa los apellidos del voluntario"
+                                            register={register}
+                                            errors={errors}
+                                            name="lastName"
+                                            type="text" />
+                                    </div>
+                                </div>
+
+                                <div className="mb-4.5">
+                                    <FormInput label="Documento de identidad" placeholder="Ingresa el documento de identidad del voluntario"
+                                        register={register}
+                                        errors={errors}
+                                        name="ci"
+                                        type="text" />
+                                </div>
+
+                                <div className="mb-4.5">
+                                    <FormDate
+                                        label="Fecha de nacimiento"
+                                        placeholder="Ingresa la fecha de nacimiento del recluta"
+                                        required
+                                        register={register}
+                                        name="birthDate"
+                                    />
+                                </div>
+
                                 <div className="mb-4.5">
                                     <FormInput label="Correo electronico" placeholder="Ingresa el correo del voluntario del voluntario"
                                         register={register}
@@ -114,15 +106,28 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                     </div>
                                 </div>
 
-                                <div className="mb-4.5">
-                                    <FormSelect
-                                        label="Selecciona un grado"
-                                        options={grades || []}
-                                        control={control}
-                                        name="gradeId"
-                                        required
-                                        icon={<RiUserStarLine size={20} />}
-                                    />
+                                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                                    <div className="w-full xl:w-1/2">
+                                        <FormSelect
+                                            label="Selecciona un grado"
+                                            options={grades || []}
+                                            control={control}
+                                            name="gradeId"
+                                            required
+                                            icon={<RiUserStarLine size={20} />}
+                                        />
+                                    </div>
+
+                                    <div className="w-full xl:w-1/2">
+                                        <FormSelect
+                                            label="Tipo de voluntario"
+                                            options={[{ id: 0, name: "Libretista" }, {id: 1, name: "Voluntario"} ]}
+                                            control={control}
+                                            name="volunteerType"
+                                            required
+                                            icon={<RiUser2Line size={20} />}
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">

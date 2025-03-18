@@ -1,4 +1,4 @@
-import VolunteerHistoricalListView from '@/components/volunteer/VolunteerHistoricalListView';
+import VolunteerHistoricalListView from '@/components/volunteer/views/VolunteerHistoricalListView';
 import { volunteerColumnsDef as columns } from "@/constants/volunteer/VolunteersHistoricalColumnDef";
 
 export default function HistoricalVolunteersView() {

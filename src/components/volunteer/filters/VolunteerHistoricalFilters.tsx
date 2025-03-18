@@ -1,6 +1,6 @@
-import FilterRangeDates from "../common/FilterRangeDate/FilterRangeDates";
-import FilterSearchBox from "../common/FilterSearchBox/FilterSearchBox";
-import FilterSelect from "../common/FilterSelect/FilterSelect";
+import FilterRangeDates from "@/components/common/FilterRangeDate/FilterRangeDates";
+import FilterSearchBox from "@/components/common/FilterSearchBox/FilterSearchBox";
+import FilterSelect from "@/components/common/FilterSelect/FilterSelect";
 import { format } from "date-fns";
 
 export function VolunteerHistoricalFilters({ searchValue, setSearchValue, gradeIdFilter, setgradeIdFilter, 

@@ -1,6 +1,6 @@
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
-import VolunteerForm from "@/components/volunteer/VolunteerForm";
-import VolunteerFormWithRecruit from "@/components/volunteer/VolunteerFormWithRecruit";
+import VolunteerForm from "@/components/volunteer/forms/VolunteerForm"
+import VolunteerFormWithRecruit from "@/components/volunteer/forms/VolunteerFormWithRecruit";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useRecruitData } from "@/hooks/recruitment";
 import { useVolunteerForm } from "@/hooks/volunteer";

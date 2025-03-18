@@ -1,4 +1,4 @@
-import VolunteerActiveListView from '@/components/volunteer/VolunteerActiveListView'
+import VolunteerActiveListView from '@/components/volunteer/views/VolunteerActiveListView'
 import { volunteerColumnsDef as columns } from "@/constants/volunteer/VolunteersActivColumnDef";
 
 export default function ActiveVolunteersView() {

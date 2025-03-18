@@ -1,9 +1,10 @@
-import FilterSearchBox from "../common/FilterSearchBox/FilterSearchBox";
-import FilterSelect from "../common/FilterSelect/FilterSelect";
-import SortToggle from "../common/SortToggle/SortToggle";
-import { VolunteerFiltersProps } from "./types/VolunteerActiveFiltersProps.types";
+import FilterSearchBox from "../../common/FilterSearchBox/FilterSearchBox";
+import FilterSelect from "../../common/FilterSelect/FilterSelect";
+import SortToggle from "../../common/SortToggle/SortToggle";
+import { VolunteerActiveFiltersProps } from "../types/VolunteerActiveFiltersProps.types";
 
-export function VolunteerActiveFilters({ searchValue, setSearchValue, gradeIdFilter, setgradeIdFilter, gradeIdOptions, orderByLastNameAsc, setOrderByLastNameAsc, }: VolunteerFiltersProps) {
+export function VolunteerActiveFilters({ searchValue, setSearchValue, gradeIdFilter, setgradeIdFilter, 
+        gradeIdOptions, orderByLastNameAsc, setOrderByLastNameAsc, }: VolunteerActiveFiltersProps) {
     return (
         <div className='flex flex-col gap-5.5 sm:flex-row mt-3'>
             <FilterSearchBox name='searchTerm' value={searchValue} onChange={setSearchValue} placeholder="Buscar por nombre o carnet de identidad" />
