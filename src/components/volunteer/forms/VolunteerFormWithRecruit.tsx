@@ -1,4 +1,4 @@
-import { RiMapLine, RiUser2Line, RiUserStarLine } from "@remixicon/react";
+import { RiMapLine, RiUserStarLine } from "@remixicon/react";
 import BackLink from "../../common/BackLink/BackLink";
 import FormDate from "../../common/FormDate/FormDate";
 import FormInput from "../../common/FormInput/FormInput";
@@ -6,6 +6,7 @@ import FormSelect from "../../common/FormSelect/FormSelect";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
 import FormReadOnlyInput from "../../common/FormReadOnlyInput/FormReadOnlyInput";
 import { VolunteerFormProps } from "../types/VolunteerFormProps";
+import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 
 export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue }: VolunteerFormProps) {
 
@@ -74,7 +75,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="email"
-                                        type="email" />
+                                        type="email"
+                                        required />
+                                    {errors.email && (
+                                        <ErrorFormMessage>{errors.email.message}</ErrorFormMessage>
+                                    )}
                                 </div>
 
                                 <div className="mb-4.5">
@@ -86,6 +91,9 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         required
                                         icon={<RiMapLine size={20} />}
                                     />
+                                    {errors.departmentId && (
+                                        <ErrorFormMessage>{errors.departmentId.message}</ErrorFormMessage>
+                                    )}
                                 </div>
 
                                 <div className="mb-4.5">
@@ -93,7 +101,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="homeAddress"
-                                        type="text" />
+                                        type="text"
+                                        required />
+                                    {errors.homeAddress && (
+                                        <ErrorFormMessage>{errors.homeAddress.message}</ErrorFormMessage>
+                                    )}
                                 </div>
 
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
@@ -102,7 +114,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="phone"
-                                            type="tel" />
+                                            type="tel"
+                                            required />
+                                        {errors.phone && (
+                                            <ErrorFormMessage>{errors.phone.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -110,7 +126,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="mobilePhone"
-                                            type="tel" />
+                                            type="tel"
+                                            required />
+                                        {errors.mobilePhone && (
+                                            <ErrorFormMessage>{errors.mobilePhone.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
 
@@ -123,6 +143,9 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         required
                                         icon={<RiUserStarLine size={20} />}
                                     />
+                                    {errors.gradeId && (
+                                        <ErrorFormMessage>{errors.gradeId.message}</ErrorFormMessage>
+                                    )}
                                 </div>
 
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
@@ -131,7 +154,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="occupation"
-                                            type="text" />
+                                            type="text"
+                                            required />
+                                        {errors.occupation && (
+                                            <ErrorFormMessage>{errors.occupation.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -139,7 +166,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="religion"
-                                            type="text" />
+                                            type="text"
+                                            required />
+                                        {errors.religion && (
+                                            <ErrorFormMessage>{errors.religion.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
 
@@ -148,7 +179,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="distinctiveFeatures"
-                                        type="text" />
+                                        type="text"
+                                        required />
+                                    {errors.distinctiveFeatures && (
+                                        <ErrorFormMessage>{errors.distinctiveFeatures.message}</ErrorFormMessage>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -167,7 +202,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactFullName"
-                                            type="text" />
+                                            type="text"
+                                            required />
+                                        {errors.emergencyContactFullName && (
+                                            <ErrorFormMessage>{errors.emergencyContactFullName.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -175,7 +214,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactRelation"
-                                            type="text" />
+                                            type="text"
+                                            required />
+                                        {errors.emergencyContactRelation && (
+                                            <ErrorFormMessage>{errors.emergencyContactRelation.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="mb-4.5">
@@ -183,7 +226,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="emergencyContactAddress"
-                                        type="text" />
+                                        type="text"
+                                        required />
+                                    {errors.emergencyContactAddress && (
+                                        <ErrorFormMessage>{errors.emergencyContactAddress.message}</ErrorFormMessage>
+                                    )}
                                 </div>
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
@@ -191,7 +238,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactPhone"
-                                            type="text" />
+                                            type="text"
+                                            required />
+                                        {errors.emergencyContactPhone && (
+                                            <ErrorFormMessage>{errors.emergencyContactPhone.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -199,7 +250,11 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactMobile"
-                                            type="text" />
+                                            type="text"
+                                            required />
+                                        {errors.emergencyContactMobile && (
+                                            <ErrorFormMessage>{errors.emergencyContactMobile.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -220,6 +275,9 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             name="checkupDate"
                                         />
+                                        {errors.checkupDate && (
+                                            <ErrorFormMessage>{errors.checkupDate.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -230,6 +288,9 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             name="expirationDate"
                                         />
+                                        {errors.expirationDate && (
+                                            <ErrorFormMessage>{errors.expirationDate.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="mb-4.5">
@@ -237,7 +298,10 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="observations"
-                                        type="text" />
+                                        type="text" required />
+                                    {errors.observations && (
+                                        <ErrorFormMessage>{errors.observations.message}</ErrorFormMessage>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -253,14 +317,22 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="allergies"
-                                        type="text" />
+                                        type="text"
+                                        required />
+                                    {errors.allergies && (
+                                        <ErrorFormMessage>{errors.allergies.message}</ErrorFormMessage>
+                                    )}
                                 </div>
                                 <div className="mb-4.5">
                                     <FormInput label="Grupo sanguineo" placeholder="A+, A-, B+, B-, AB+, AB-, O+, O-"
                                         register={register}
                                         errors={errors}
                                         name="bloodType"
-                                        type="text" />
+                                        type="text"
+                                        required />
+                                    {errors.bloodType && (
+                                        <ErrorFormMessage>{errors.bloodType.message}</ErrorFormMessage>
+                                    )}
                                 </div>
                             </div>
                         </div>
