@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { FilterDatalistProps } from "./FilterDatalist.type";
 
-const FilterDatalist: React.FC<FilterDatalistProps> = ({ name, label, options, value = "", onChange }) => {
+const FilterDatalist: React.FC<FilterDatalistProps> = ({ name, label, options, value = "", onChange, showLabel = true, disabled }) => {
   const [inputValue, setInputValue] = useState(value);
 
   useEffect(() => {
@@ -15,13 +15,21 @@ const FilterDatalist: React.FC<FilterDatalistProps> = ({ name, label, options, v
 
   return (
     <div className="w-full">
+      {label && showLabel && (
+        <label htmlFor={name} className="mb-2.5 block text-black dark:text-white">
+          {label}
+        </label>
+      )}
+
       <div className="relative z-20 bg-white dark:bg-form-input">
         <input
           type="text"
+          autoComplete="off"
           id={name}
           name={name}
           list={`${name}-list`}
-          placeholder={label}
+          placeholder={label || ""}
+          disabled={disabled}
           value={inputValue}
           onChange={(e) => handleChange(e.target.value)}
           className="relative z-20 w-full appearance-none rounded border border-stroke 

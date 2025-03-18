@@ -10,14 +10,13 @@ export function OperationTable(props: OperationTableProps) {
 
   const formattedData = data.data.map((row) => ({
     ...row,
-    departureDate: row.departureDate ? new Date(row.departureDate) : undefined,
-    arrivalDate: row.arrivalDate ? new Date(row.arrivalDate) : undefined,
+    departureDate: row.departureDate || '-',
+    arrivalDate: row.arrivalDate || '-',
   }));   
   
   return (
     <SortableTable
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      columns={columns} data={formattedData as any}
+      columns={columns} data={formattedData}
       pagination={{ pageIndex, pageSize }}
       totalPages={data.totalPages}
       onPaginationChange={({ pageIndex, pageSize }) => {

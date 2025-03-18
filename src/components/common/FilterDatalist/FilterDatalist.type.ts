@@ -9,4 +9,7 @@ export interface FilterDatalistProps {
   options: FilterOption[];
   value?: string;
   onChange: (value: string) => void;
+  showLabel?: boolean;
+  className?: string;
+  disabled?: boolean; 
 }

@@ -34,8 +34,15 @@ const FilterRangeDates: React.FC<FilterRangeDateProps> = ({ onChange, refetch })
     const selection = ranges["selection"];
   
     if (selection) {
+      const formattedStartDate = selection.startDate
+        ? format(selection.startDate, "yyyy/MM/dd")
+        : undefined;
+      const formattedEndDate = selection.endDate
+        ? format(selection.endDate, "yyyy/MM/dd")
+        : undefined;
+  
       setRange([{ startDate: selection.startDate, endDate: selection.endDate, key: "selection" }]);
-      onChange({ startDate: selection.startDate, endDate: selection.endDate });
+      onChange({ startDate: formattedStartDate, endDate: formattedEndDate });
     }
   };
 
