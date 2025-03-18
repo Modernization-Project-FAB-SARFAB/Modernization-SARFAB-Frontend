@@ -5,6 +5,7 @@ import FormInput from "../../common/FormInput/FormInput";
 import FormSelect from "../../common/FormSelect/FormSelect";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
 import { VolunteerFormProps } from "../types/VolunteerFormProps";
+import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 
 export default function VolunteerForm({ errors, register, control }: VolunteerFormProps) {
 
@@ -32,6 +33,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             errors={errors}
                                             name="firstName"
                                             type="text" />
+                                        {errors.firstName && (
+                                            <ErrorFormMessage>{errors.firstName.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -40,6 +44,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             errors={errors}
                                             name="lastName"
                                             type="text" />
+                                        {errors.lastName && (
+                                            <ErrorFormMessage>{errors.lastName.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
 
@@ -49,6 +56,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                         errors={errors}
                                         name="ci"
                                         type="text" />
+                                    {errors.ci && (
+                                        <ErrorFormMessage>{errors.ci.message}</ErrorFormMessage>
+                                    )}
                                 </div>
 
                                 <div className="mb-4.5">
@@ -59,6 +69,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                         register={register}
                                         name="birthDate"
                                     />
+                                    {errors.birthDate && (
+                                        <ErrorFormMessage>{errors.birthDate.message}</ErrorFormMessage>
+                                    )}
                                 </div>
 
                                 <div className="mb-4.5">
@@ -67,6 +80,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                         errors={errors}
                                         name="email"
                                         type="email" />
+                                    {errors.email && (
+                                        <ErrorFormMessage>{errors.email.message}</ErrorFormMessage>
+                                    )}
                                 </div>
 
                                 <div className="mb-4.5">
@@ -78,6 +94,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                         required
                                         icon={<RiMapLine size={20} />}
                                     />
+                                    {errors.departmentId && (
+                                        <ErrorFormMessage>{errors.departmentId.message}</ErrorFormMessage>
+                                    )}
                                 </div>
 
                                 <div className="mb-4.5">
@@ -86,6 +105,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                         errors={errors}
                                         name="homeAddress"
                                         type="text" />
+                                    {errors.homeAddress && (
+                                        <ErrorFormMessage>{errors.homeAddress.message}</ErrorFormMessage>
+                                    )}
                                 </div>
 
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
@@ -95,6 +117,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             errors={errors}
                                             name="phone"
                                             type="tel" />
+                                        {errors.phone && (
+                                            <ErrorFormMessage>{errors.phone.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -103,6 +128,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             errors={errors}
                                             name="mobilePhone"
                                             type="tel" />
+                                        {errors.mobilePhone && (
+                                            <ErrorFormMessage>{errors.mobilePhone.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
 
@@ -116,17 +144,23 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             required
                                             icon={<RiUserStarLine size={20} />}
                                         />
+                                        {errors.gradeId && (
+                                            <ErrorFormMessage>{errors.gradeId.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
                                         <FormSelect
                                             label="Tipo de voluntario"
-                                            options={[{ id: 0, name: "Libretista" }, {id: 1, name: "Voluntario"} ]}
+                                            options={[{ id: 0, name: "Libretista" }, { id: 1, name: "Voluntario" }]}
                                             control={control}
                                             name="volunteerType"
                                             required
                                             icon={<RiUser2Line size={20} />}
                                         />
+                                        {errors.volunteerType && (
+                                            <ErrorFormMessage>{errors.volunteerType.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
 
@@ -137,6 +171,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             errors={errors}
                                             name="occupation"
                                             type="text" />
+                                        {errors.occupation && (
+                                            <ErrorFormMessage>{errors.occupation.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -145,6 +182,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             errors={errors}
                                             name="religion"
                                             type="text" />
+                                        {errors.religion && (
+                                            <ErrorFormMessage>{errors.religion.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
 
@@ -154,6 +194,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                         errors={errors}
                                         name="distinctiveFeatures"
                                         type="text" />
+                                    {errors.distinctiveFeatures && (
+                                        <ErrorFormMessage>{errors.distinctiveFeatures.message}</ErrorFormMessage>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -173,6 +216,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             errors={errors}
                                             name="emergencyContactFullName"
                                             type="text" />
+                                        {errors.emergencyContactFullName && (
+                                            <ErrorFormMessage>{errors.emergencyContactFullName.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -181,6 +227,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             errors={errors}
                                             name="emergencyContactRelation"
                                             type="text" />
+                                        {errors.emergencyContactRelation && (
+                                            <ErrorFormMessage>{errors.emergencyContactRelation.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="mb-4.5">
@@ -189,6 +238,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                         errors={errors}
                                         name="emergencyContactAddress"
                                         type="text" />
+                                    {errors.emergencyContactAddress && (
+                                        <ErrorFormMessage>{errors.emergencyContactAddress.message}</ErrorFormMessage>
+                                    )}
                                 </div>
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
@@ -197,6 +249,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             errors={errors}
                                             name="emergencyContactPhone"
                                             type="text" />
+                                        {errors.emergencyContactPhone && (
+                                            <ErrorFormMessage>{errors.emergencyContactPhone.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -205,6 +260,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             errors={errors}
                                             name="emergencyContactMobile"
                                             type="text" />
+                                        {errors.emergencyContactMobile && (
+                                            <ErrorFormMessage>{errors.emergencyContactMobile.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -225,6 +283,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             register={register}
                                             name="checkupDate"
                                         />
+                                        {errors.checkupDate && (
+                                            <ErrorFormMessage>{errors.checkupDate.message}</ErrorFormMessage>
+                                        )}
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
@@ -235,6 +296,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             register={register}
                                             name="expirationDate"
                                         />
+                                        {errors.expirationDate && (
+                                            <ErrorFormMessage>{errors.expirationDate.message}</ErrorFormMessage>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="mb-4.5">
@@ -243,6 +307,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                         errors={errors}
                                         name="observations"
                                         type="text" />
+                                    {errors.observations && (
+                                        <ErrorFormMessage>{errors.observations.message}</ErrorFormMessage>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -259,6 +326,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                         errors={errors}
                                         name="allergies"
                                         type="text" />
+                                    {errors.allergies && (
+                                        <ErrorFormMessage>{errors.allergies.message}</ErrorFormMessage>
+                                    )}
                                 </div>
                                 <div className="mb-4.5">
                                     <FormInput label="Grupo sanguineo" placeholder="A+, A-, B+, B-, AB+, AB-, O+, O-"
@@ -266,6 +336,9 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                         errors={errors}
                                         name="bloodType"
                                         type="text" />
+                                    {errors.bloodType && (
+                                        <ErrorFormMessage>{errors.bloodType.message}</ErrorFormMessage>
+                                    )}
                                 </div>
                             </div>
                         </div>
