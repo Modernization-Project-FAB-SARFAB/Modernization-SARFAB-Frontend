@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-import EditOperationView from '../views/operation/EditOperationView';
 
 const ActiveVolunteersView = lazy(() => import('@/views/personal/Volunteers/ActiveVolunteersView'));
 const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers/CreateVolunteerAfiliationView'));
@@ -18,6 +17,7 @@ const MilitaryView = lazy(() => import('@/views/personal/military/MilitaryListVi
 const OperationsView = lazy(() => import('@/views/operation/OperationListView'));
 const CreateOperationView = lazy(() => import('@/views/operation/CreateOperationView'));
 const EditOperationView = lazy(() => import('@/views/operation/EditOperationView'));
+const OperationDetailsView = lazy(() => import('@/views/operation/DetailOperationView'));
 
 
 //Medical treatment
@@ -89,7 +89,11 @@ const coreRoutes = [
     title: 'Editar operación',
     component: EditOperationView
   },
-
+  {
+    path: '/operation/:operationId',
+    title: 'Detalles de la operación',
+    component: OperationDetailsView
+  },
     //MedicalTreatments
     {
         path: '/medical-treatment/list',
