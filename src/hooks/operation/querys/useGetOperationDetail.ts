@@ -8,6 +8,7 @@ export function useGetOperationDetail(id?: number) {
     queryFn: () => getOperationById(id!),
     enabled: !!id,
     staleTime: 1000 * 60 * 5,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 }

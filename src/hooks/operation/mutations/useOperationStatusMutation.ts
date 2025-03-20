@@ -7,7 +7,6 @@ export function useOperationStatusMutation() {
   
   return useMutation({
     mutationFn: ({ formData, id }: { formData: UpdateOperationStatusForm; id: number }) => {
-      console.log("Enviando datos a la API:", { formData, id });
       return updateOperationStatus(formData, id);
     },
     

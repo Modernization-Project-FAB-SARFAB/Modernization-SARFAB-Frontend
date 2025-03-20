@@ -48,7 +48,7 @@ export const ActionsColumn = ({
           {
             type: 'link',
             label: 'Marcar asistencia',
-            href: ``,
+            href: `/operation/${row.original.operationId}/absence`,
             icon: <RiListCheck3 size={20} />,
           },
           ...(row.original.status !== StatusEnum.Disabled

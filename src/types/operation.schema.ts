@@ -21,6 +21,7 @@ export const OperationPersonnelSchema = z.object({
   personId: z.number(),
   fullName: z.string(),
   rankOrGrade: z.string(),
+  status: z.number(),
 })
 
 export const RequesterSchema = z.object({
@@ -118,6 +119,16 @@ export const AbsenceMarkSchema = BaseOperationSchema.omit({ address: true }).ext
   municipalityName: z.string(),
   provinceName: z.string(),
   volunteers: z.array(OperationPersonnelSchema),
+  
 })
 
 export type AbsenceMarkResponse = z.infer<typeof AbsenceMarkSchema>;
+
+// Update status person operation
+export const UpdatePersonStatusSchema = z.object({
+  operationId: z.number(),
+  personId: z.number(),
+  status: z.number(),
+})
+
+export type UpdatePersonStatusForm = z.infer<typeof UpdatePersonStatusSchema>;

@@ -21,7 +21,7 @@ export default function DetailOperationView() {
     const refetchOperation = () => queryClient.invalidateQueries({ queryKey: ["operationDetail", operationIdNumber] });
 
   return isLoadingOperation ? (
-    <p className="text-center text-gray-500">Cargando operación...</p>
+    <p className="text-center text-gray-500">Cargando datos...</p>
   ) : (
     <section className="container mx-auto p-4">
       <h2 className="text-2xl font-semibold mb-4">Detalle de la operación</h2>
@@ -29,9 +29,9 @@ export default function DetailOperationView() {
         <article className="flex-1">
           {operation && <OperationDetails operation={operation} />}
         </article>
-        <section className="flex-1">
+        <article className="flex-1">
           {operation && <OperationPersonnelDetail operation={operation} refetchOperation={refetchOperation} />}
-        </section>
+        </article>
       </section>
     </section>
   );

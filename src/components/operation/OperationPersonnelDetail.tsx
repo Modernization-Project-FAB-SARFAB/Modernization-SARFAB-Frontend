@@ -36,7 +36,7 @@ export default function OperationPersonnelDetail({
                 />
               </div>
             )}
-            <Button label="Marcar asistencia" onClick={() => {}} />
+            <Button label="Marcar inasistencia" onClick={() => {}} />
             <Link to={`/operation/${operation.operationId}/edit`}>
               <Button label="Editar operación" classname="w-full" />
             </Link>

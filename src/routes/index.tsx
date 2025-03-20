@@ -18,6 +18,7 @@ const OperationsView = lazy(() => import('@/views/operation/OperationListView'))
 const CreateOperationView = lazy(() => import('@/views/operation/CreateOperationView'));
 const EditOperationView = lazy(() => import('@/views/operation/EditOperationView'));
 const OperationDetailsView = lazy(() => import('@/views/operation/DetailOperationView'));
+const OperationAbsenceInfoView = lazy(() => import('@/views/operation/OperationAbsenceInfoView'));
 
 
 //Medical treatment
@@ -93,6 +94,10 @@ const coreRoutes = [
     path: '/operation/:operationId',
     title: 'Detalles de la operación',
     component: OperationDetailsView
+  }, {
+    path: '/operation/:operationId/absence',
+    title: 'Marcar inasistencia',
+    component: OperationAbsenceInfoView
   },
     //MedicalTreatments
     {

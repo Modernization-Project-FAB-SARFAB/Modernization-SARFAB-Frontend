@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { AbsenceMarkResponse, CreateOperationForm, ListOperationResponse, OperationDetailResponse, UpdateOperationForm, UpdateOperationStatusForm } from "@/types/operation.schema";
+import { AbsenceMarkResponse, CreateOperationForm, ListOperationResponse, OperationDetailResponse, UpdateOperationForm, UpdateOperationStatusForm, UpdatePersonStatusForm } from "@/types/operation.schema";
 import { isAxiosError } from "axios";
 import { GetOperationParams } from "./types/OperationAPIType.type";
 
@@ -66,7 +66,7 @@ export async function getOperations(queryParams?: GetOperationParams): Promise<L
 }
 
 // Absence Operation mark
-export async function markOperationAbsence(id: number): Promise<AbsenceMarkResponse> {
+export async function GetmarkOperationAbsenceInfo(id: number): Promise<AbsenceMarkResponse> {
   try {
     const { data } = await api.get(`/SarOperation/get-data-mark-absence/${id}`);
     return data;
@@ -75,5 +75,17 @@ export async function markOperationAbsence(id: number): Promise<AbsenceMarkRespo
       throw new Error(error.response.data.error);
     }
     throw error;
+  }
+}
+
+// Update status person operation
+export async function updatePersonStatusOperation(formData: UpdatePersonStatusForm) {
+  try {
+    const { data } = await api.patch(`/SarOperation/update-status-person-operation`, formData);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw new Error(error.response.data.error);
+    }
   }
 }
