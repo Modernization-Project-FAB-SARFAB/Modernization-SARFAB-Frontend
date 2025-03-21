@@ -20,6 +20,9 @@ const EditOperationView = lazy(() => import('@/views/operation/EditOperationView
 const OperationDetailsView = lazy(() => import('@/views/operation/DetailOperationView'));
 const OperationAbsenceInfoView = lazy(() => import('@/views/operation/OperationAbsenceInfoView'));
 
+// Inventory
+const InventoryListView = lazy(() => import('@/views/inventory/InventoryListView'));
+const MovementHistoricalView = lazy(() => import('@/views/inventory/MovementHistoricalView'));
 
 //Medical treatment
 const MedicalTreatmentView = lazy(() => import('@/views/medical/MedicalTreatmentView'))
@@ -98,6 +101,17 @@ const coreRoutes = [
     path: '/operation/:operationId/absence',
     title: 'Marcar inasistencia',
     component: OperationAbsenceInfoView
+  },
+  // Inventory
+  {
+    path: '/inventory/list',
+    title: 'Items en el inventario',
+    component: InventoryListView
+  },
+  {
+    path: '/inventory/movement-historical',
+    title: 'Historial de movimientos',
+    component: MovementHistoricalView
   },
     //MedicalTreatments
     {

@@ -59,7 +59,8 @@ const menuItems: MenuItem[] = [
         icon: <RiFileLine size={18} color="white" />,
         path: "/inventory",
         subItems: [
-            { label: "Lista de inventario", path: "/inventory" },
+          { label: "Lista de inventario", path: "/inventory/list" },
+            {label: "Histórico de devoluciones y extracciones", path: "/inventory/movement-historical"},
             { label: "Registrar nuevo elemento", path: "/inventory/create" },
             { label: "Registrar extracción", path: "/inventory/register-extraction" },
             { label: "Registrar devolución", path: "/inventory/register-return" },
