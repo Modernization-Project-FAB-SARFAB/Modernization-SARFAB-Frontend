@@ -10,7 +10,7 @@ export const ActionsColumn = ({ row }: { row: { original: InventoryItem }; }) =>
           {
             type: 'link',
             label: 'Editar elemento',
-            href: ``,
+            href: `/inventory/list?openItemModal=true&itemId=${row.original.itemId}`,
             icon: <RiEdit2Line size={20} />,
           },
           {
