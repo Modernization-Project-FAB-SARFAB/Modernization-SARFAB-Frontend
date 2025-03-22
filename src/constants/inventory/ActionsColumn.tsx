@@ -22,12 +22,12 @@ export const ActionsColumn = ({ row }: { row: { original: InventoryItem }; }) =>
           {
             type: 'link',
             label: 'Registrar extracción',
-            href: ``,
+            href: `?openItemMovementModal=true&itemId=${row.original.itemId}`,
           },
           {
             type: 'link',
             label: 'Registrar devolución',
-            href: ``,
+            href: `?openItemMovementModal=true&itemId=${row.original.itemId}&isReturn=true`,
           },
         ]}
       />

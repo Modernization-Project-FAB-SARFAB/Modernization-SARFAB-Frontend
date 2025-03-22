@@ -56,6 +56,7 @@ export const ItemSchema = BaseInventoryItemSchema.extend({
 export type Item = z.infer<typeof ItemSchema>;
 
 export const VolunteerPendingReturnSchema = z.object({
+  volunteerId: z.number(),
   volunteerWithGrade: z.string(),
   quantity: z.number(),
 });
