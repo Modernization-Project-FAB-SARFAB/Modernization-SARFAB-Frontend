@@ -1,9 +1,8 @@
-import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { AiOutlineLeft } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import FormInput from '../common/FormInput/FormInput';
 import FormDate from '../common/FormDate/FormDate';
 import { OperationDetailResponse } from '@/types/operation.schema';
-import BackLink from '../common/BackLink/BackLink';
 
 export default function OperationDetails({
   operation,
@@ -17,14 +16,9 @@ export default function OperationDetails({
           to="/operation/list"
           className="flex items-center text-blue-600 hover:underline mb-4"
         >
-          <AiOutlineArrowLeft className="w-5 h-5 mr-2" />
+          <AiOutlineLeft className="w-5 h-5 mr-2" />
           Volver al listado de operaciones
         </Link>
-        <BackLink
-          text="Volver al listado de voluntarios activos"
-          iconSize={20}
-          link="/operation/list"
-        />
         <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
           Datos de la operación
         </h2>

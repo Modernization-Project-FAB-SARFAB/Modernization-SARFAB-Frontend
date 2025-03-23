@@ -23,6 +23,7 @@ const OperationAbsenceInfoView = lazy(() => import('@/views/operation/OperationA
 // Inventory
 const InventoryListView = lazy(() => import('@/views/inventory/InventoryListView'));
 const MovementHistoricalView = lazy(() => import('@/views/inventory/MovementHistoricalView'));
+const DetailItemWithTableView = lazy(() => import('@/views/inventory/DetailItemWithTableView'));
 
 //Medical treatment
 const MedicalTreatmentView = lazy(() => import('@/views/medical/MedicalTreatmentView'))
@@ -112,6 +113,11 @@ const coreRoutes = [
     path: '/inventory/movement-historical',
     title: 'Historial de movimientos',
     component: MovementHistoricalView
+  },
+  {
+    path: '/inventory/:itemId',
+    title: 'Detalles del item',
+    component: DetailItemWithTableView
   },
     //MedicalTreatments
     {

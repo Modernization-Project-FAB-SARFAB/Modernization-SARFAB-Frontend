@@ -16,7 +16,7 @@ export const ActionsColumn = ({ row }: { row: { original: InventoryItem }; }) =>
           {
             type: 'link',
             label: 'Ver elemento',
-            href: ``,
+            href: `/inventory/${row.original.itemId}`,
             icon: <RiEyeLine size={20} />,
           },
           {
@@ -31,8 +31,6 @@ export const ActionsColumn = ({ row }: { row: { original: InventoryItem }; }) =>
           },
         ]}
       />
-
-      
     </>
   );
 }

@@ -1,11 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
 import { getMovementHistory } from "@/api/InventoryAPI";
 import { GetMovementHistoryParams } from "@/api/types/InventoryAPIType.type";
+import { useSearchParams } from "react-router-dom";
 
 export function useMovementHistory(initialParams: GetMovementHistoryParams = {}) {
-  const [searchValue, setSearchValue] = useState(initialParams.searchTerm ?? "");
+  const [searchParams] = useSearchParams();
+  const searchFromUrl = searchParams.get("search") ?? "";
+
+  const [searchValue, setSearchValue] = useState("");
   const [movementType, setMovementType] = useState<number | undefined>(initialParams.movementType);
   const [startDate, setStartDate] = useState(initialParams.startDate);
   const [endDate, setEndDate] = useState(initialParams.endDate);
@@ -13,6 +17,12 @@ export function useMovementHistory(initialParams: GetMovementHistoryParams = {})
   const [pageSize, setPageSize] = useState(initialParams.pageSize ?? 10);
 
   const [debouncedSearch] = useDebounce(searchValue, 500);
+
+  useEffect(() => {
+    if (searchFromUrl) {
+      setSearchValue(searchFromUrl);
+    }
+  }, [searchFromUrl]);
 
   const filters: GetMovementHistoryParams = {
     searchTerm: debouncedSearch || undefined,
@@ -38,6 +48,10 @@ export function useMovementHistory(initialParams: GetMovementHistoryParams = {})
     setMovementType(value);
     setPageIndex(1);
   };
+
+  useEffect(() => {
+    refetch();
+  }, [debouncedSearch]);
 
   return {
     data,
