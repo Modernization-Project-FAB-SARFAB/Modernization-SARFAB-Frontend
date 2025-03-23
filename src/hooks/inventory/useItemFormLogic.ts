@@ -18,7 +18,6 @@ export function useItemFormLogic({ isOpen, onClose, itemId }: UseItemFormLogicPr
   const { data: itemData, isLoading } = useItemById(itemId || 0);
   const createMutation = useCreateItem();
   const updateMutation = useUpdateItem();
-  console.log("itemData", itemData);
 
   useEffect(() => {
     if (isOpen && itemData && itemId) {

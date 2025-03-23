@@ -24,6 +24,7 @@ const OperationAbsenceInfoView = lazy(() => import('@/views/operation/OperationA
 const InventoryListView = lazy(() => import('@/views/inventory/InventoryListView'));
 const MovementHistoricalView = lazy(() => import('@/views/inventory/MovementHistoricalView'));
 const DetailItemWithTableView = lazy(() => import('@/views/inventory/DetailItemWithTableView'));
+const BatchItemWithdrawalView = lazy(() => import('@/views/inventory/BatchItemWithdrawalView'));
 
 //Medical treatment
 const MedicalTreatmentView = lazy(() => import('@/views/medical/MedicalTreatmentView'))
@@ -119,12 +120,17 @@ const coreRoutes = [
     title: 'Detalles del item',
     component: DetailItemWithTableView
   },
-    //MedicalTreatments
-    {
-        path: '/medical-treatment/list',
-        title: 'Tratamientos médicos',
-        component: MedicalTreatmentView
-    },
+  {
+    path: '/inventory/batch-item-withdrawal',
+    title: 'Retiro de items por lote',
+    component: BatchItemWithdrawalView
+  },
+  //MedicalTreatments
+  {
+    path: '/medical-treatment/list',
+    title: 'Tratamientos médicos',
+    component: MedicalTreatmentView
+  },
     {
         path: '/medical-treatment/create',
         title: 'Editar tratamiento médico',

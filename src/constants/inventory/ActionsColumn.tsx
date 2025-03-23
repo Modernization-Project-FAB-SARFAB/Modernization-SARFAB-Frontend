@@ -2,7 +2,6 @@ import DropdownMenu from '@/components/common/DropdownMenu/DropdownMenu';
 import { InventoryItem } from '../../types/invetory.schema';
 import { RiEdit2Line, RiEyeLine } from '@remixicon/react';
 export const ActionsColumn = ({ row }: { row: { original: InventoryItem }; }) => {
-  console.log(row);
   return (
     <>
       <DropdownMenu

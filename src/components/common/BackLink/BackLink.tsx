@@ -12,7 +12,7 @@ const BackLink = ({
   useRouter = false,
 }: BackLinkProps) => {
   const content = (
-    <span className="flex items-center dark:text-white text-title-xsm font-semibold text-primary">
+    <span className={`flex items-center dark:text-white text-title-xsm font-semibold text-primary ${className}`}>
       <Icon size={iconSize} className="mr-2" />
       {text}
     </span>
