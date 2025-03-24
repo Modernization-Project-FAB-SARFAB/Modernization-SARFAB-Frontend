@@ -25,6 +25,7 @@ const InventoryListView = lazy(() => import('@/views/inventory/InventoryListView
 const MovementHistoricalView = lazy(() => import('@/views/inventory/MovementHistoricalView'));
 const DetailItemWithTableView = lazy(() => import('@/views/inventory/DetailItemWithTableView'));
 const BatchItemWithdrawalView = lazy(() => import('@/views/inventory/BatchItemWithdrawalView'));
+const BatchItemReturnView = lazy(() => import('@/views/inventory/BatchItemReturnView'));
 
 //Medical treatment
 const MedicalTreatmentView = lazy(() => import('@/views/medical/MedicalTreatmentView'))
@@ -124,6 +125,11 @@ const coreRoutes = [
     path: '/inventory/batch-item-withdrawal',
     title: 'Retiro de items por lote',
     component: BatchItemWithdrawalView
+  },
+  {
+    path: '/inventory/batch-item-return',
+    title: 'Devolución de items por lote',
+    component: BatchItemReturnView
   },
   //MedicalTreatments
   {

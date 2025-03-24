@@ -8,7 +8,8 @@ import {
   Item,
   InventoryItem,
   VolunteerPendingReturn,
-  MovementHistory
+  MovementHistory,
+  VolunteerWithPending
 } from "@/types/invetory.schema";
 import { GetInventoryItemsParams, GetMovementHistoryParams } from "@/api/types/InventoryAPIType.type";
 import { isAxiosError } from "axios";
@@ -98,4 +99,10 @@ export async function getMovementHistory(params?: GetMovementHistoryParams): Pro
   const { data } = await api.get("/Item/movement-history", { params });
   return { data: data.data, totalPages: data.totalPages };
 }
+
+export async function getVolunteersWithAnyPendingReturns(): Promise<VolunteerWithPending[]> {
+  const { data } = await api.get("/Item/all-volunteer-pending-returns");
+  return data;
+}
+
 

@@ -62,6 +62,12 @@ export const VolunteerPendingReturnSchema = z.object({
 });
 export type VolunteerPendingReturn = z.infer<typeof VolunteerPendingReturnSchema>;
 
+export const VolunteerWithPendingSchema = VolunteerPendingReturnSchema.omit({
+  quantity: true,
+});
+export type VolunteerWithPending = z.infer<typeof VolunteerWithPendingSchema>;
+  
+
 export const ItemWithPendingTableSchema = BaseInventoryItemSchema.extend({
   totalQuantity: z.number(),
   pendingReturns: z.array(VolunteerPendingReturnSchema),

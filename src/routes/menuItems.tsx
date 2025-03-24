@@ -62,8 +62,8 @@ const menuItems: MenuItem[] = [
           { label: "Lista de inventario", path: "/inventory/list" },
             {label: "Histórico de devoluciones y extracciones", path: "/inventory/movement-historical"},
             { label: "Registrar nuevo elemento", path: "/inventory/list?openItemModal=true" },
-            { label: "Registrar extracción", path: "/inventory/batch-item-withdrawal" },
-            { label: "Registrar devolución", path: "/inventory/register-return" },
+            { label: "Registrar extracción de elementos", path: "/inventory/batch-item-withdrawal" },
+            { label: "Registrar devolución de elementos", path: "/inventory/batch-item-return" },
         ]
     },
     {

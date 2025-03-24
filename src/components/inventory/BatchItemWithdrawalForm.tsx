@@ -7,6 +7,7 @@ import { useVolunteersWithRank } from "@/hooks/inventory/querys/useVolunteersWit
 import { useAllItems } from "@/hooks/inventory/querys/useAllItems";
 import { MovementDetail } from "@/types/invetory.schema";
 import { useRegisterBatchWithdrawal } from "@/hooks/inventory/mutations/useRegisterBatchWithdrawal";
+import { useNavigate } from "react-router-dom";
 
 export default function BatchItemWithdrawalForm() {
   const { data: volunteers } = useVolunteersWithRank();
@@ -22,6 +23,8 @@ export default function BatchItemWithdrawalForm() {
     id: i.itemId,
     name: i.name,
   })) ?? [];
+
+  const navigate = useNavigate();
 
   const [selectedVolunteerName, setSelectedVolunteerName] = useState('');
   const [selectedItemName, setSelectedItemName] = useState('');
@@ -61,7 +64,11 @@ export default function BatchItemWithdrawalForm() {
       items: selectedItems,
     };
 
-    mutate(payload);
+    mutate(payload, {
+      onSuccess: () => {
+        navigate("/inventory/list");
+      },
+    });
   };
   const filteredItemOptions = itemOptions.filter(
     (item) => !selectedItems.some((selected) => selected.itemId === item.id)
@@ -71,7 +78,7 @@ export default function BatchItemWithdrawalForm() {
     <form>
       <section className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark mb-6">
         <BackLink
-          text="Volver al listado de extracciones"
+          text="Volver al listado de elementos"
           link="/inventory/list"
           className="text-[13.5px] pl-0"
         />
