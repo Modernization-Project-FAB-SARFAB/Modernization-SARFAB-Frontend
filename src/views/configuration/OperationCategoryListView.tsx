@@ -8,6 +8,8 @@ import { ColumnDef } from '@tanstack/react-table';
 import { CategoryActionsColumn, OperationTypeActionsColumn } from '@/constants/configuration/OperationCategoryColumnsDef';
 import { RiArrowRightSLine, RiArrowDownSLine } from '@remixicon/react';
 import { OperationCategoryFormModal } from '@/components/configuration/modals/OperationCategoryFormModal';
+import { OperationTypeFormModal } from '@/components/configuration/modals/OperationTypeFormModal';
+import { EditOperationTypeModal } from '@/components/configuration/modals/EditOperationTypeModal';
 
 interface Operation {
   operationTypeId: number;
@@ -30,21 +32,26 @@ declare module '@tanstack/react-table' {
 
 export default function OperationCategoryListView() {
   const {
-    data,
-    isLoading,
-    isError,
-    error,
-    searchValue,
-    setSearchValue,
-    pageIndex,
-    setPageIndex,
-    pageSize,
-    setPageSize
+    data, 
+    isLoading, 
+    isError, 
+    error, 
+    searchValue, 
+    setSearchValue, 
+    pageIndex, 
+    setPageIndex, 
+    pageSize, 
+    setPageSize 
   } = useOperationCategories();
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | undefined>(undefined);
   const [selectedCategoryData, setSelectedCategoryData] = useState<{ name: string } | undefined>(undefined);
+
+  const [typeModalOpen, setTypeModalOpen] = useState(false);
+  const [editTypeModalOpen, setEditTypeModalOpen] = useState(false);
+  const [selectedTypeId, setSelectedTypeId] = useState<number | undefined>(undefined);
+  const [selectedTypeName, setSelectedTypeName] = useState<string | undefined>(undefined);
 
   const openEditModal = (categoryId: number) => {
     const selectedCategory = data?.data.find(category => category.categoryId === categoryId);
@@ -55,9 +62,43 @@ export default function OperationCategoryListView() {
     }
   };
 
+  const openTypeModal = () => {
+    setTypeModalOpen(true);
+  };
+
+  const closeTypeModal = () => {
+    setTypeModalOpen(false);
+  };
+
+  const openEditTypeModal = (operationTypeId: number, _operationCategoryId: number) => {
+    let foundOperation = null;
+    
+    for (const category of data?.data || []) {
+      for (const operation of category.operations) {
+        if (operation.operationTypeId === operationTypeId) {
+          foundOperation = operation;
+          break;
+        }
+      }
+      if (foundOperation) break;
+    }
+    
+    if (foundOperation) {
+      setSelectedTypeId(operationTypeId);
+      setSelectedTypeName(foundOperation.name);
+      setEditTypeModalOpen(true);
+    }
+  };
+
   const closeEditModal = () => {
     setEditModalOpen(false);
     setSelectedCategoryId(undefined);
+  };
+
+  const closeEditTypeModal = () => {
+    setEditTypeModalOpen(false);
+    setSelectedTypeId(undefined);
+    setSelectedTypeName(undefined);
   };
 
   useBreadcrumb([
@@ -113,14 +154,16 @@ export default function OperationCategoryListView() {
     {
       id: 'actions',
       header: 'Acciones',
-      cell: ({ row }) => <OperationTypeActionsColumn row={row} />,
+      cell: ({ row }) => <OperationTypeActionsColumn row={row} openEditModal={openEditTypeModal} />,
       enableSorting: false,
     }
   ];
 
   return (
     <div className="container mx-auto p-6"> 
-      <OperationCategoryHeader />
+      <OperationCategoryHeader
+        onOpenTypeModal={openTypeModal}
+      />
       <OperationCategoryFilters 
         searchValue={searchValue} 
         setSearchValue={setSearchValue} 
@@ -152,6 +195,20 @@ export default function OperationCategoryListView() {
         onClose={closeEditModal}
         categoryId={selectedCategoryId}
         categoryData={selectedCategoryData}
+      />
+      
+      <OperationTypeFormModal
+        isOpen={typeModalOpen}
+        onClose={closeTypeModal}
+        typeId={undefined}
+        typeData={undefined}
+      />
+      
+      <EditOperationTypeModal
+        isOpen={editTypeModalOpen}
+        onClose={closeEditTypeModal}
+        typeId={selectedTypeId}
+        typeName={selectedTypeName}
       />
     </div>
   );

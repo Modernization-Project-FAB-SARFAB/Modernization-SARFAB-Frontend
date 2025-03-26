@@ -16,14 +16,14 @@ export const CategoryActionsColumn = ({ row, openEditModal }: { row: any; openEd
   );
 };
 
-export const OperationTypeActionsColumn = ({ row }: { row: any }) => {
+export const OperationTypeActionsColumn = ({ row, openEditModal }: { row: any; openEditModal: (typeId: number, categoryId: number) => void }) => {
   return (
     <DropdownMenu
       items={[
         {
-          type: "link", 
+          type: "button", 
           label: "Editar tipo",
-          href: `/configuration/operation-type/${row.original.operationTypeId}/edit`,
+          onClick: () => openEditModal(row.original.operationTypeId, row.original.operationCategoryId),
           icon: <RiEdit2Line size={20} />
         }
       ]}

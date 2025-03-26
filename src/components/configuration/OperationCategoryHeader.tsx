@@ -1,17 +1,16 @@
 import { RiAddLine } from "@remixicon/react";
 import { useState } from "react";
 import { OperationCategoryFormModal } from "./modals/OperationCategoryFormModal";
-import { OperationTypeFormModal } from "./modals/OperationTypeFormModal";
 
-export function OperationCategoryHeader() {
+interface OperationCategoryHeaderProps {
+  onOpenTypeModal?: () => void;
+}
+
+export function OperationCategoryHeader({ onOpenTypeModal }: OperationCategoryHeaderProps) {
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
-  const [isTypeModalOpen, setIsTypeModalOpen] = useState(false);
 
   const openCategoryModal = () => setIsCategoryModalOpen(true);
   const closeCategoryModal = () => setIsCategoryModalOpen(false);
-  
-  const openTypeModal = () => setIsTypeModalOpen(true);
-  const closeTypeModal = () => setIsTypeModalOpen(false);
 
   return (
     <>
@@ -23,7 +22,7 @@ export function OperationCategoryHeader() {
           <RiAddLine className="me-2" /> Registrar categoría de operación
         </button>
         <button 
-          onClick={openTypeModal}
+          onClick={onOpenTypeModal}
           className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-5 text-white hover:bg-opacity-90"
         >
           <RiAddLine className="me-2" /> Registrar tipo de operación
@@ -33,11 +32,6 @@ export function OperationCategoryHeader() {
       <OperationCategoryFormModal
         isOpen={isCategoryModalOpen}
         onClose={closeCategoryModal}
-      />
-      
-      <OperationTypeFormModal
-        isOpen={isTypeModalOpen}
-        onClose={closeTypeModal}
       />
     </>
   );

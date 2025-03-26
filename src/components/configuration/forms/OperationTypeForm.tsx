@@ -19,6 +19,7 @@ interface OperationTypeFormProps {
   categoryOptions: FilterOption[];
   selectedCategoryName: string;
   handleCategoryChange: (value: string) => void;
+  editNameOnly?: boolean;
 }
 
 export function OperationTypeForm({
@@ -29,7 +30,8 @@ export function OperationTypeForm({
   typeId,
   categoryOptions,
   selectedCategoryName,
-  handleCategoryChange
+  handleCategoryChange,
+  editNameOnly = false
 }: OperationTypeFormProps) {
   const {
     register,
@@ -49,22 +51,24 @@ export function OperationTypeForm({
         <ErrorFormMessage>{errors.name.message as string}</ErrorFormMessage>
       )}
 
-      <div className="mt-4">
-        <FilterDatalist
-          name="operationCategory"
-          label="Categoría de operación"
-          options={categoryOptions}
-          value={selectedCategoryName}
-          onChange={handleCategoryChange}
-          showLabel={true}
-          disabled={isLoading}
-        />
-        {errors.operationCategoryId && (
-          <ErrorFormMessage>
-            {errors.operationCategoryId.message as string}
-          </ErrorFormMessage>
-        )}
-      </div>
+      {!editNameOnly && (
+        <div className="mt-4">
+          <FilterDatalist
+            name="operationCategory"
+            label="Categoría de operación"
+            options={categoryOptions}
+            value={selectedCategoryName}
+            onChange={handleCategoryChange}
+            showLabel={true}
+            disabled={isLoading}
+          />
+          {errors.operationCategoryId && (
+            <ErrorFormMessage>
+              {errors.operationCategoryId.message as string}
+            </ErrorFormMessage>
+          )}
+        </div>
+      )}
 
       <div className="pt-6">
         <ButtonGroup
