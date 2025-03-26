@@ -86,3 +86,4 @@ export const volunteerFormSchema = z.object(
 export type Volunteer = z.infer<typeof baseVolunteerSchema>;
 
 export type VolunteerFormData = Pick<Volunteer, 'firstName' | 'lastName' | 'homeAddress' | 'ci' | 'birthDate' | 'phone' | 'mobilePhone' | 'email' | 'distinctiveFeatures' | 'volunteerType' | 'occupation' | 'bloodType' | 'religion' | 'allergies' | 'emergencyContactFullName' | 'emergencyContactRelation' | 'emergencyContactAddress' | 'emergencyContactPhone' | 'emergencyContactMobile' | 'departmentId' | 'gradeId' | 'checkupDate' | 'expirationDate' | 'observations'>;
+export type VolunteerUpdateFormData = Omit<Volunteer, 'id' | 'checkupDate' | 'expirationDate' | 'observations'>;

@@ -39,6 +39,7 @@ export default function VolunteerActiveListView({ breadcrumb, columns, modalComp
                 pageIndex={pageIndex} pageSize={pageSize}
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
             />
+            {modalComponent}
         </>
     )
 }

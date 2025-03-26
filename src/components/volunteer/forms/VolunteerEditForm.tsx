@@ -4,10 +4,10 @@ import FormDate from "../../common/FormDate/FormDate";
 import FormInput from "../../common/FormInput/FormInput";
 import FormSelect from "../../common/FormSelect/FormSelect";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
-import { VolunteerFormProps } from "../types/VolunteerFormProps";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
+import { VolunteerUpdateFormProps } from "../types/VolunteerUpdateFormProps";
 
-export default function VolunteerForm({ errors, register, control }: VolunteerFormProps) {
+export default function VolunteerEditForm({ errors, register, control }: VolunteerUpdateFormProps) {
 
     const { data: grades, isLoading, isError } = useGrades();
 
@@ -264,52 +264,6 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                             <ErrorFormMessage>{errors.emergencyContactMobile.message}</ErrorFormMessage>
                                         )}
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-span-2 col-start-4 row-start-3">
-                        <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                            <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
-                                Chequeo medico
-                            </h3>
-                            <div className="p-6.5">
-                                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
-                                    <div className="w-full xl:w-1/2">
-                                        <FormDate
-                                            label="Fecha de realización del chequeo medico"
-                                            placeholder="Ingresa la fecha en la que se realizó el reclutamiento"
-                                            required
-                                            register={register}
-                                            name="checkupDate"
-                                        />
-                                        {errors.checkupDate && (
-                                            <ErrorFormMessage>{errors.checkupDate.message}</ErrorFormMessage>
-                                        )}
-                                    </div>
-
-                                    <div className="w-full xl:w-1/2">
-                                        <FormDate
-                                            label="Fecha de caducidad del chequeo medico"
-                                            placeholder="Ingres la fecha de caducidad del reclutamiento"
-                                            required
-                                            register={register}
-                                            name="expirationDate"
-                                        />
-                                        {errors.expirationDate && (
-                                            <ErrorFormMessage>{errors.expirationDate.message}</ErrorFormMessage>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="mb-4.5">
-                                    <FormInput label="Observaciones" placeholder="Observaciones sobre el chequeo"
-                                        register={register}
-                                        errors={errors}
-                                        name="observations"
-                                        type="text" />
-                                    {errors.observations && (
-                                        <ErrorFormMessage>{errors.observations.message}</ErrorFormMessage>
-                                    )}
                                 </div>
                             </div>
                         </div>

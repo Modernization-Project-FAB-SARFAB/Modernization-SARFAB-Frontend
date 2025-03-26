@@ -1,9 +1,8 @@
-import EditVolunteerForm from "@/components/volunteer/forms/EditVolunteerForm";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useDetailsVolunteer } from "@/hooks/volunteer/querys/useEditVolunteerData";
 import { useParams } from "react-router-dom";
 
-export default function EditVolunteerView() {
+export default function DetailVolunteerView() {
   useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-volunteers" }, { label: "Editar voluntario" }]);
   
   const params = useParams();
@@ -13,5 +12,5 @@ export default function EditVolunteerView() {
 
   if (isLoading) return 'Cargando...';
   if (isError) return 'Error'; //<Navigate to="/404" />
-  if (data) return <EditVolunteerForm data={data} volunteerId={Number(volunteerId)} />
+  if (data) return <></>
 }

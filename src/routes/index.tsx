@@ -1,9 +1,9 @@
 import { lazy } from 'react';
-import EditOperationView from '../views/operation/EditOperationView';
 
 const ActiveVolunteersView = lazy(() => import('@/views/personal/Volunteers/ActiveVolunteersView'));
 const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers/CreateVolunteerAfiliationView'));
 const HistoricalVolunteersView = lazy(() => import ('@/views/personal/Volunteers/HistoricalVolunteersView'));
+const EditVolunteerView = lazy(() => import ('@/views/personal/Volunteers/EditVolunteerAfiliationView'));
 
 const RecruitmentPendingView = lazy(() => import('@/views/personal/Recruitment/RecruitmentPendingView'));
 const CreateRecruitmentView = lazy(() => import('@/views/personal/Recruitment/CreateRecruitView'));
@@ -60,6 +60,11 @@ const coreRoutes = [
         path: '/volunteers/volunteer-history',
         title: 'Historico de voluntarios',
         component: HistoricalVolunteersView
+    },
+    {
+        path: '/volunteers/:volunteerId/edit',
+        title: 'Editar voluntario',
+        component: EditVolunteerView
     },
   // Military
   {

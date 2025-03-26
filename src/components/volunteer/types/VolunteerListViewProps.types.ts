@@ -1,5 +1,5 @@
 interface VolunteerListViewProps {
     breadcrumb: { label: string; path?: string }[];
     columns: any;
-    modalComponent?: JSX.Element;
+    modalComponent?: JSX.Element[];
 }
