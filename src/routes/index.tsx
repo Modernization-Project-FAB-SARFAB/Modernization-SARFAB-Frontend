@@ -33,6 +33,9 @@ const CreateMedicalTreatmentView = lazy(() => import('@/views/medical/CreateMedi
 const EditMedicalTreatmentView = lazy(() => import('@/views/medical/EditMedicalTreatmentView'))
 const MedicalTreatmenDetailstView = lazy(() => import('@/views/medical/MedicalTreatmentDetailsView'))
 
+//Configuration
+const OperationCategoryListView = lazy(() => import('@/views/configuration/OperationCategoryListView'));
+
 const coreRoutes = [
     {
         path: '/recruitment/list',
@@ -151,8 +154,13 @@ const coreRoutes = [
         path: '/medical-treatment/:medicalTreatmentId',
         title: 'Ver tratamiento médico',
         component: MedicalTreatmenDetailstView
-    }
-
+    },
+    //Configuration
+    {
+        path: '/configuration/operation-category/list',
+        title: 'Categorías de operación',
+        component: OperationCategoryListView
+    },
 ]
 
 const routes = [...coreRoutes];
