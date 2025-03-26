@@ -27,6 +27,10 @@ const MedicalTreatmenDetailstView = lazy(() => import('@/views/medical/MedicalTr
 //Guard
 const GuardListView = lazy(() => import('@/views/guard/GuardListView'))
 const CreateGuardFormView = lazy(() => import('@/views/guard/CreateGuardView'))
+const GuardDetailsView = lazy(() => import('@/views/guard/GuardDetailsView'))
+const EditGuardView = lazy(() => import('@/views/guard/EditGuardView'))
+const AttendanceGuardView = lazy(() => import('@/views/guard/AttendanceControlGuardView'))
+
 
 const coreRoutes = [
     {
@@ -76,11 +80,11 @@ const coreRoutes = [
         title: 'Crear operación',
         component: CreateOperationView
     },
-  {
-    path: '/operation/:operationId/edit',
-    title: 'Editar operación',
-    component: EditOperationView
-  },
+    {
+        path: '/operation/:operationId/edit',
+        title: 'Editar operación',
+        component: EditOperationView
+    },
 
     //MedicalTreatments
     {
@@ -113,6 +117,21 @@ const coreRoutes = [
         path: '/guards/create',
         title: 'Registrar guardias',
         component: CreateGuardFormView
+    },
+    {
+        path: '/guards/:guardId',
+        title: 'Ver guardia',
+        component: GuardDetailsView
+    },
+    {
+        path: '/guards/:guardId/edit',
+        title: 'Editar guardia',
+        component: EditGuardView
+    },
+    {
+        path: '/guards/:guardId/attendance',
+        title: 'Editar guardia',
+        component: AttendanceGuardView
     },
 ]
 

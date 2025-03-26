@@ -20,7 +20,7 @@ export default function GuardView() {
         pageSize, setPageSize,
     } = useGuard();
 
-    const { shiftData, shiftDataisLoading } = useShift()
+    const { shiftData, shiftDataIsLoading: shiftDataisLoading } = useShift()
 
     return (
         <>

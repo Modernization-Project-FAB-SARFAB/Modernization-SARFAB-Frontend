@@ -2,24 +2,18 @@ import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMess
 import FormDate from "@/components/common/FormDate/FormDate";
 import FormSelectControlled from "../common/FormSelect/FormSelectControlled";
 import BackLink from "../common/BackLink/BackLink";
-import { GuardFormProps } from "../guard/types/GuardFormProps.type";
 import FormInput from "../common/FormInput/FormInput";
 import FormSearchableSelect from "../common/FormSearchableSelect/FormSearchableSelect";
 import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../common/Button/Button";
 import VoluntareeGuardTable from "./VoluntareeGuardTable";
 import { VoluntareeGuard } from "@/types/guard.schema";
+import { GuardEditFormProps } from "./types/GuardEditFormProps.type";
 
 
-export default function CreateGuardForm({ setVoluntareeIds, volunteersData, shiftData, errors, register, control }: GuardFormProps) {
-    const [voluntaries, setVoluntaries] = useState<VoluntareeGuard[]>([]);
+export default function EditGuardForm({ setVoluntaries, voluntaries, volunteersData, shiftData, errors, register, control, watch, readonly }: GuardEditFormProps) {
     const [selectedVolunteer, setSelectedVolunteer] = useState<string>();
-
-    useEffect(() => {
-        setVoluntareeIds && setVoluntareeIds(voluntaries.map((v) => v.voluntareeId));
-    }, [voluntaries.map(v => v.voluntareeId).join(',')]); // Generamos una dependencia con los personIds
-
 
     const shiftOptions = shiftData?.map((data) => ({
         value: data.shiftId,
@@ -76,8 +70,9 @@ export default function CreateGuardForm({ setVoluntareeIds, volunteersData, shif
                                 options={shiftOptions && shiftOptions.length > 0
                                     ? shiftOptions
                                     : [{ value: 0, label: "No hay opciones" }]}
+                                readonly={readonly}
+                                defaultValue={watch("shiftId")}
                             />
-
                             {errors.shiftId && (
                                 <ErrorFormMessage>{errors.shiftId.message}</ErrorFormMessage>
                             )}
@@ -85,7 +80,10 @@ export default function CreateGuardForm({ setVoluntareeIds, volunteersData, shif
                         <div className="mb-4.5 flex flex-col w-full md:flex-1">
                             <FormDate label="Fecha de la guardia" placeholder="Selecciona la fecha" required
                                 register={register}
-                                name="guardDate" />
+                                name="guardDate"
+                                readonly={readonly}
+                                defaultValue={watch("guardDate")}
+                            />
                             {errors.guardDate && (
                                 <ErrorFormMessage>{errors.guardDate.message}</ErrorFormMessage>
                             )}
@@ -94,7 +92,10 @@ export default function CreateGuardForm({ setVoluntareeIds, volunteersData, shif
                     <div className="mb-4.5 flex flex-col">
                         <FormInput register={register} label="Ubicacion" required
                             placeholder="Ingresa la ubicación"
-                            name="location" />
+                            name="location"
+                            readonly={readonly}
+                            defaultValue={watch && watch("location")}
+                        />
                         {errors.location && (
                             <ErrorFormMessage>{errors.location.message}</ErrorFormMessage>
                         )}
@@ -112,34 +113,40 @@ export default function CreateGuardForm({ setVoluntareeIds, volunteersData, shif
                                 ? volunteersOptions
                                 : [{ id: 0, name: "No hay opciones" }]}
                             control={control}
+                            disabled={readonly}
+                            defaultValue={watch && watch("responsibleId")}
                         />
                         {errors.responsibleId && (
                             <ErrorFormMessage>{errors.responsibleId.message}</ErrorFormMessage>
                         )}
                     </div>
-                    <div className="mb-4.5 flex flex-col w-full md:flex-1">
-                        <div className="flex gap-2 items-end">
-                            <FilterDatalist
-                                name="voluntiers"
-                                label="Voluntarios"
-                                value={selectedVolunteer}
-                                options={volunteersOptions && volunteersOptions.length > 0
-                                    ? volunteersOptions
-                                    : [{ id: 0, name: "No hay opciones" }]} onChange={setSelectedVolunteer}
-                            />
-                            <Button
-                                label="Agregar"
-                                onClick={handleAddVolunteer}
-                                variant="primary"
-                            />
+                    {
+                        !readonly &&
+                        <div className="mb-4.5 flex flex-col w-full md:flex-1">
+                            <div className="flex gap-2 items-end">
+                                <FilterDatalist
+                                    name="responsibleId"
+                                    label="Selecciona un voluntario"
+                                    value={selectedVolunteer}
+                                    options={volunteersOptions && volunteersOptions.length > 0
+                                        ? volunteersOptions
+                                        : [{ id: 0, name: "No hay opciones" }]} onChange={setSelectedVolunteer}
+                                />
+                                <Button
+                                    label="Agregar"
+                                    onClick={handleAddVolunteer}
+                                    variant="primary"
+                                />
+                            </div>
+                            {errors.voluntareeIds && (
+                                <ErrorFormMessage>{errors.voluntareeIds.message}</ErrorFormMessage>
+                            )}
                         </div>
-                        {errors.voluntareeIds && (
-                            <ErrorFormMessage>{errors.voluntareeIds.message}</ErrorFormMessage>
-                        )}
-                    </div>
+                    }
                     <VoluntareeGuardTable
                         voluntaries={voluntaries}
                         removeVoluntaree={handleRemoveVolunteer}
+                        readonly={readonly}
                     />
                 </div>
             </div>

@@ -1,8 +1,10 @@
 import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
-import { RiCheckLine, RiEdit2Line, RiEyeFill, RiListCheck3 } from "@remixicon/react";
+import { RiCloseCircleLine, RiEdit2Line, RiEyeFill, RiListCheck3 } from "@remixicon/react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Guard } from "@/types/guard.schema";
 import { format, parseISO } from "date-fns";
+import { useState } from "react";
+import { FinalizeGuardModal } from "@/components/guard/FinalizeGuardModal";
 
 const statusConfig: Record<number, { text: string; className: string }> = {
     1: { text: "Programado", className: "bg-warning text-warning" },
@@ -63,30 +65,61 @@ export const guardColumnDef: ColumnDef<Guard>[] = [
 ];
 
 const ActionsColumn = ({ row }: { row: any }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [selectedOperationId, setSelectedOperationId] = useState<number | null>(
+        null,
+    );
+
+    const openModal = (operationId: number) => {
+        setSelectedOperationId(operationId);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedOperationId(null);
+    };
+
     return (
-        <DropdownMenu
-            items={[
-                {
-                    type: "link", label: "Editar guardia",
-                    href: `/guards/${row.original.guardId}/edit`,
-                    icon: <RiEdit2Line size={20} />
-                },
-                {
-                    type: "link", label: "Ver tratamiento",
-                    href: `/guards/${row.original.guardId}`,
-                    icon: <RiEyeFill size={20} />
-                },
-                {
-                    type: "link", label: "Marcar inasistencia",
-                    href: `/guards/${row.original.guardId}`,
-                    icon: <RiListCheck3 size={20} />
-                },
-                {
-                    type: "link", label: "Finalizar",
-                    href: `/guards/${row.original.guardId}`,
-                    icon: <RiCheckLine size={20} />
-                }
-            ]}
-        />
+        <>
+            <DropdownMenu
+                items={[
+                    {
+                        type: "link", label: "Editar guardia",
+                        href: `/guards/${row.original.guardId}/edit`,
+                        icon: <RiEdit2Line size={20} />
+                    },
+                    {
+                        type: "link", label: "Ver guardia",
+                        href: `/guards/${row.original.guardId}`,
+                        icon: <RiEyeFill size={20} />
+                    },
+                    {
+                        type: "link", label: "Marcar asistencia",
+                        href: `/guards/${row.original.guardId}/attendance`,
+                        icon: <RiListCheck3 size={20} />
+                    },
+                    ...(row.original.status !== 0
+                        ? ([
+                            {
+                                type: 'button' as const,
+                                label: 'Finalizar guardia',
+                                onClick: () => openModal(row.original.guardId),
+                                icon: <RiCloseCircleLine size={20} />,
+                            },
+                        ] as const)
+                        : []),
+                ]}
+            />
+            {selectedOperationId !== null && (
+                <FinalizeGuardModal
+                    isOpen={isModalOpen}
+                    onClose={closeModal}
+                    guardId={selectedOperationId}
+                />
+            )}
+        </>
+
     );
 };

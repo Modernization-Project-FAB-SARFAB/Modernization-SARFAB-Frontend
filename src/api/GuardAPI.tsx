@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { Guard, GuardFormData, guardFormDataSchema, listGuardSchema, listShiftSchema } from "@/types/guard.schema";
+import { AttendanceGuardFormData, Guard, GuardFormData, baseGuardSchema, listGuardSchema, listShiftSchema } from "@/types/guard.schema";
 import { isAxiosError } from "axios";
 import { EndGuardApiType, UpdateGuardAPIType } from "./types/GuardAPIType.type";
 
@@ -18,11 +18,10 @@ export async function getGuards(queryParams?: Record<string, any>) {
     }
 }
 
-
 export async function getGuardById(id: Guard['guardId']) {
     try {
         const { data } = await api(`/Guard/${id}`);
-        const response = guardFormDataSchema.safeParse(data);
+        const response = baseGuardSchema.safeParse(data);
         if (response.success) {
             return response.data;
         }
@@ -66,6 +65,17 @@ export async function endGuard({ observations, guardId }: EndGuardApiType) {
             guardId: guardId
         };
         const { data } = await api.put(`/Guard/end-guard`, formData);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function attendanceControlGuard(formData: AttendanceGuardFormData) {
+    try {
+        const { data } = await api.put(`/Guard/assistance-guard`, formData);
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {

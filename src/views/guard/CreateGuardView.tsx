@@ -4,13 +4,15 @@ import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useGuardForm } from "@/hooks/guard/forms/useGuardForm";
 import { useCreatedGuard } from "@/hooks/guard/mutations/useCreatedGuard";
 import { useShift } from "@/hooks/guard/querys/useShift";
+import { useVolunteerDataContext } from "@/hooks/guard/querys/useVolunteersDataContext";
 import { GuardFormData } from "@/types/guard.schema";
 import { useState } from "react";
 
 export default function CreateGuardView() {
-    useBreadcrumb([{ label: "Guardis", path: "/guards/list" }, { label: "Registrar guardia" }]);
+    useBreadcrumb([{ label: "GUARDIAS", path: "/guards/list" }, { label: "Registrar guardia" }]);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [voluntareeIds, setVoluntareeIds] = useState<number[]>([]);
 
     const initialValues: GuardFormData = {
         guardDate: '',
@@ -20,21 +22,36 @@ export default function CreateGuardView() {
         voluntareeIds: []
     };
 
-    const { register, handleSubmit, formState: { errors }, control } = useGuardForm(initialValues);
+    const { register, handleSubmit, formState: { errors }, control, setError } = useGuardForm(initialValues);
     const mutation = useCreatedGuard();
 
-    const { shiftData, shiftDataisLoading } = useShift();
-
+    const { shiftData, shiftDataIsLoading } = useShift();
+    const { volunteersData, volunteersDataIsLoading } = useVolunteerDataContext();
 
     const handleForm = async (formData: GuardFormData) => {
         setIsSubmitting(true);
-        await mutation.mutateAsync(formData).catch(() => setIsSubmitting(false))
-    }
+
+        if (voluntareeIds.length === 0) {
+            setError('voluntareeIds', { type: 'manual', message: 'Debe añadir voluntarios a la guardia' });
+            setIsSubmitting(false);
+            return;
+        }
+
+        if (voluntareeIds.some((v) => v === formData.responsibleId)) {
+            setError('responsibleId', { type: 'manual', message: 'El responsable no puede estar en la lista de voluntarios' });
+            setIsSubmitting(false);
+            return;
+        }
+
+        formData.voluntareeIds = voluntareeIds;
+        await mutation.mutateAsync(formData).catch(() => setIsSubmitting(false));
+    };
 
     return (
         <form onSubmit={handleSubmit(handleForm)} noValidate>
             {
-                !shiftDataisLoading && <CreateGuardForm shiftData={shiftData} register={register} errors={errors} control={control} />
+                (!shiftDataIsLoading && !volunteersDataIsLoading) &&
+                <CreateGuardForm setVoluntareeIds={setVoluntareeIds} volunteersData={volunteersData} shiftData={shiftData} register={register} errors={errors} control={control} />
             }
             <div className="p-6.5">
                 <ButtonGroup
@@ -45,5 +62,5 @@ export default function CreateGuardView() {
                 />
             </div>
         </form>
-    )
+    );
 }
