@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import ExpandableTable from '../../components/common/ExpandableTable/ExpandableTable';
 import { useOperationCategories } from '../../hooks/configuration/querys/useOperationCategories';
 import { OperationCategoryFilters } from '../../components/configuration/OperationCategoryFilters';
@@ -6,6 +7,7 @@ import { useBreadcrumb } from '@/hooks/components/useBreadcrumb';
 import { ColumnDef } from '@tanstack/react-table';
 import { CategoryActionsColumn, OperationTypeActionsColumn } from '@/constants/configuration/OperationCategoryColumnsDef';
 import { RiArrowRightSLine, RiArrowDownSLine } from '@remixicon/react';
+import { OperationCategoryFormModal } from '@/components/configuration/modals/OperationCategoryFormModal';
 
 interface Operation {
   operationTypeId: number;
@@ -39,6 +41,24 @@ export default function OperationCategoryListView() {
     pageSize,
     setPageSize
   } = useOperationCategories();
+
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | undefined>(undefined);
+  const [selectedCategoryData, setSelectedCategoryData] = useState<{ name: string } | undefined>(undefined);
+
+  const openEditModal = (categoryId: number) => {
+    const selectedCategory = data?.data.find(category => category.categoryId === categoryId);
+    if (selectedCategory) {
+      setSelectedCategoryData({ name: selectedCategory.categoryName });
+      setSelectedCategoryId(categoryId);
+      setEditModalOpen(true);
+    }
+  };
+
+  const closeEditModal = () => {
+    setEditModalOpen(false);
+    setSelectedCategoryId(undefined);
+  };
 
   useBreadcrumb([
     { label: "Configuración", path: "/configuration/operation-category/list" },
@@ -79,7 +99,7 @@ export default function OperationCategoryListView() {
     {
       id: 'actions',
       header: 'Acciones',
-      cell: ({ row }) => <CategoryActionsColumn row={row} />,
+      cell: ({ row }) => <CategoryActionsColumn row={row} openEditModal={openEditModal} />,
       enableSorting: false,
     }
   ];
@@ -118,7 +138,7 @@ export default function OperationCategoryListView() {
           data={data?.data || []} 
           totalPages={data?.totalPages || 1}
           pagination={{
-            pageIndex: pageIndex + 1,
+            pageIndex: pageIndex,
             pageSize: pageSize
           }}
           onPaginationChange={handlePaginationChange}
@@ -126,6 +146,13 @@ export default function OperationCategoryListView() {
           operationColumns={operationColumns}
         />
       )}
+
+      <OperationCategoryFormModal
+        isOpen={editModalOpen}
+        onClose={closeEditModal}
+        categoryId={selectedCategoryId}
+        categoryData={selectedCategoryData}
+      />
     </div>
   );
 }

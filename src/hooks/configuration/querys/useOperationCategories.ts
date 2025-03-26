@@ -26,8 +26,8 @@ export function useOperationCategories() {
     refetch,
     searchValue: searchTerm,
     setSearchValue: setSearchTerm,
-    pageIndex: page - 1, // Ajustando para compatibilidad con react-table (0-indexed)
-    setPageIndex: (newIndex: number) => setPage(newIndex + 1),
+    pageIndex: page,
+    setPageIndex: setPage,
     pageSize,
     setPageSize
   };

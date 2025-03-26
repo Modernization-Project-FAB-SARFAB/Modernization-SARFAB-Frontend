@@ -1,0 +1,59 @@
+import { useOperationTypeFormLogic } from "@/hooks/configuration/useOperationTypeFormLogic";
+import Modal from "@/components/common/Modal/Modal";
+import { OperationTypeForm } from "../forms/OperationTypeForm";
+
+interface OperationTypeFormModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  typeId?: number;
+  typeData?: { name: string; operationCategoryId: number };
+}
+
+export function OperationTypeFormModal({
+  isOpen,
+  onClose,
+  typeId,
+  typeData,
+}: OperationTypeFormModalProps) {
+  const { 
+    isLoading, 
+    handleFormSubmit, 
+    formProps, 
+    categoryOptions, 
+    selectedCategoryName, 
+    handleCategoryChange 
+  } = useOperationTypeFormLogic({
+    isOpen,
+    typeId,
+    typeData,
+    onClose,
+  });
+
+  return (
+    <Modal
+      key={typeId}
+      title={
+        typeId
+          ? "Editar tipo de operativo"
+          : "Registrar tipo de operativo"
+      }
+      isOpen={isOpen}
+      onClose={onClose}
+    >
+      {isLoading && !formProps.form ? (
+        <div className="p-8 text-center text-gray-500">Cargando datos...</div>
+      ) : (
+        <OperationTypeForm
+          {...formProps}
+          onSubmit={handleFormSubmit}
+          isLoading={isLoading}
+          onClose={onClose}
+          typeId={typeId}
+          categoryOptions={categoryOptions}
+          selectedCategoryName={selectedCategoryName}
+          handleCategoryChange={handleCategoryChange}
+        />
+      )}
+    </Modal>
+  );
+}

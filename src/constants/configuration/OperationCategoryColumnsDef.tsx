@@ -1,15 +1,14 @@
 import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
 import { RiEdit2Line } from "@remixicon/react";
 
-// Componente para las acciones de categoría
-export const CategoryActionsColumn = ({ row }: { row: any }) => {
+export const CategoryActionsColumn = ({ row, openEditModal }: { row: any; openEditModal: (categoryId: number) => void }) => {
   return (
     <DropdownMenu
       items={[
         {
-          type: "link", 
+          type: "button", 
           label: "Editar categoría",
-          href: `/configuration/operation-category/${row.original.categoryId}/edit`,
+          onClick: () => openEditModal(row.original.categoryId),
           icon: <RiEdit2Line size={20} />
         }
       ]}
@@ -17,7 +16,6 @@ export const CategoryActionsColumn = ({ row }: { row: any }) => {
   );
 };
 
-// Componente para las acciones de tipo de operación
 export const OperationTypeActionsColumn = ({ row }: { row: any }) => {
   return (
     <DropdownMenu

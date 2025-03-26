@@ -44,7 +44,6 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [expandedRows, setExpandedRows] = useState<{ [key: number]: boolean }>({});
 
-  // Toggle row expansion
   const toggleRowExpansion = (categoryId: number) => {
     setExpandedRows(prev => ({
       ...prev,
@@ -161,26 +160,37 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
                               </tr>
                             </thead>
                             <tbody>
-                              {row.original.operations.map((operation: Operation) => (
-                                <tr 
-                                  key={operation.operationTypeId} 
-                                  className="border-b last:border-b-0"
-                                >
-                                  {operationCols.map((col: any) => (
-                                    <td 
-                                      key={col.accessorKey || col.id} 
-                                      className="py-2 px-4"
-                                    >
-                                      {col.accessorKey 
-                                        ? (operation as any)[col.accessorKey] 
-                                        : col.cell 
-                                          ? col.cell({ row: { original: operation } }) 
-                                          : null
-                                      }
-                                    </td>
-                                  ))}
+                              {row.original.operations.length > 0 ? (
+                                row.original.operations.map((operation: Operation) => (
+                                  <tr 
+                                    key={operation.operationTypeId} 
+                                    className="border-b last:border-b-0"
+                                  >
+                                    {operationCols.map((col: any) => (
+                                      <td 
+                                        key={col.accessorKey || col.id} 
+                                        className="py-2 px-4"
+                                      >
+                                        {col.accessorKey 
+                                          ? (operation as any)[col.accessorKey] 
+                                          : col.cell 
+                                            ? col.cell({ row: { original: operation } }) 
+                                            : null
+                                        }
+                                      </td>
+                                    ))}
+                                  </tr>
+                                ))
+                              ) : (
+                                <tr>
+                                  <td 
+                                    colSpan={operationCols.length}
+                                    className="py-6 px-4 text-center text-gray-500"
+                                  >
+                                    No se han registrado tipos de operativo en esta categoría aún
+                                  </td>
                                 </tr>
-                              ))}
+                              )}
                             </tbody>
                           </table>
                         </div>
@@ -213,12 +223,12 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
           <button
             className="border rounded p-1"
             onClick={() => onPaginationChange({ pageIndex: pagination.pageIndex - 1, pageSize: pagination.pageSize })}
-            disabled={pagination.pageIndex === 1}
+            disabled={pagination.pageIndex <= 1}
           >
             {'<'}
           </button>
           <span className="flex items-center gap-1">
-            Página <strong>{pagination.pageIndex}</strong>
+            Página <strong>{pagination.pageIndex}</strong> de <strong>{totalPages}</strong>
           </span>
           <button
             className="border rounded p-1"
@@ -237,7 +247,9 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
               value={pagination.pageIndex}
               onChange={(e) => {
                 const page = Number(e.target.value);
-                onPaginationChange({ pageIndex: page, pageSize: pagination.pageSize });
+                if (page >= 1 && page <= totalPages) {
+                  onPaginationChange({ pageIndex: page, pageSize: pagination.pageSize });
+                }
               }}
               className="border p-1 rounded w-16 dark:bg-form-input"
             />

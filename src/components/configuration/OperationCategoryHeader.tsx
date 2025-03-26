@@ -1,21 +1,44 @@
 import { RiAddLine } from "@remixicon/react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { OperationCategoryFormModal } from "./modals/OperationCategoryFormModal";
+import { OperationTypeFormModal } from "./modals/OperationTypeFormModal";
 
 export function OperationCategoryHeader() {
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const [isTypeModalOpen, setIsTypeModalOpen] = useState(false);
+
+  const openCategoryModal = () => setIsCategoryModalOpen(true);
+  const closeCategoryModal = () => setIsCategoryModalOpen(false);
+  
+  const openTypeModal = () => setIsTypeModalOpen(true);
+  const closeTypeModal = () => setIsTypeModalOpen(false);
+
   return (
-    <nav className="flex flex-wrap items-center gap-3 mb-5">
-      <Link 
-        to="/configuration/operation-category/create" 
-        className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-5 text-white hover:bg-opacity-90"
-      >
-        <RiAddLine className="me-2" /> Registrar categoría de operación
-      </Link>
-      <Link 
-        to="/configuration/operation-type/create" 
-        className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-5 text-white hover:bg-opacity-90"
-      >
-        <RiAddLine className="me-2" /> Registrar tipo de operación
-      </Link>
-    </nav>
+    <>
+      <nav className="flex flex-wrap items-center gap-3 mb-5">
+        <button 
+          onClick={openCategoryModal}
+          className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-5 text-white hover:bg-opacity-90"
+        >
+          <RiAddLine className="me-2" /> Registrar categoría de operación
+        </button>
+        <button 
+          onClick={openTypeModal}
+          className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-5 text-white hover:bg-opacity-90"
+        >
+          <RiAddLine className="me-2" /> Registrar tipo de operación
+        </button>
+      </nav>
+
+      <OperationCategoryFormModal
+        isOpen={isCategoryModalOpen}
+        onClose={closeCategoryModal}
+      />
+      
+      <OperationTypeFormModal
+        isOpen={isTypeModalOpen}
+        onClose={closeTypeModal}
+      />
+    </>
   );
 }

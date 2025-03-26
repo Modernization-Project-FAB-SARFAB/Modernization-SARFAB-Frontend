@@ -27,6 +27,8 @@ export const OperationCategorySchema = NameSchema.extend({
   operationCategoryId: z.number(),
 });
 
+export type OperationCategory = z.infer<typeof OperationCategorySchema>;
+
 // Lista de tipos de operactiones
 export const OperationTypeSchema = NameSchema.extend({
   operationTypeId: z.number(),
