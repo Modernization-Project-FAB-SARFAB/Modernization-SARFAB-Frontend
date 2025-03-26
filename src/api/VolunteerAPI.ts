@@ -1,6 +1,7 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
-import { VolunteerFormData } from "@/types/volunteer.schema";
+import { listVolunteerActiveSchema, listVolunteerHistoricalSchema, Volunteer, VolunteerFormData } from "@/types/volunteer.schema";
+import { VolunteerAPIType } from "./types/VolunteerAPIType.type";
 
 export async function createVolunteer(formData: VolunteerFormData) {
     try {
@@ -10,5 +11,68 @@ export async function createVolunteer(formData: VolunteerFormData) {
         if (isAxiosError(error) && error.response) {
             throw new Error(error.response.data.error)
         }
+    }
+}
+
+export async function getVolunteerActiveList(queryParams?: Record<string, any>) {
+    try {
+        const { data } = await api.get('/Volunteer/active-volunteers', { params: queryParams })
+        const response = listVolunteerActiveSchema.safeParse(data);
+        if (response.success) {
+            return response.data;
+        }
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function getVolunteerHistoricalList(queryParams?: Record<string, any>) {
+    try {
+        const { data } = await api.get('/Volunteer/historical-list', { params: queryParams })
+        const response = listVolunteerHistoricalSchema.safeParse(data);
+        if (response.success) {
+            return response.data;
+        }
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function getVolunteerById(id: Volunteer['id']) {
+    try {
+        const { data } = await api(`/Volunteer/${id}`);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+
+export async function updateVolunteer({ formData, volunteerId }: VolunteerAPIType) {
+    try {
+        const { data } = await api.patch(`/Volunteer/${volunteerId}`, formData);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function gradePromotionVolunteer(volunteerId: Volunteer['id']) {
+    try {
+        const { data } = await api.patch(`/VolunteerGradePromotion/${volunteerId}/promote`);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error("Error de conexión con el servidor");
     }
 }

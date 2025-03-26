@@ -98,7 +98,7 @@ export default function OperationDetailsForm({
         <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
           Datos de la operación
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <FilterDatalist
             name="operationCategoryId"
             label="Categoría"
@@ -118,32 +118,38 @@ export default function OperationDetailsForm({
                 : ''
             }
           />
-
           <Controller
             name="operationTypeId"
             control={control}
             render={({ field }) => (
-              <FilterDatalist
-                {...field}
-                label="Tipo de Operativo"
-                options={filteredOperationTypes}
-                onChange={(value) => {
-                  const selected = filteredOperationTypes.find(
-                    (option) => option.name === value,
-                  );
-                  field.onChange(selected?.id || '');
-                }}
-                value={
-                  filteredOperationTypes.find(
-                    (option) => option.id === field.value,
-                  )?.name || ''
-                }
-                disabled={!selectedCategoryId}
-              />
+              <div className="flex flex-col">
+                <FilterDatalist
+                  {...field}
+                  label="Tipo de Operativo"
+                  options={filteredOperationTypes}
+                  onChange={(value) => {
+                    const selected = filteredOperationTypes.find(
+                      (option) => option.name === value,
+                    );
+                    field.onChange(selected?.id || '');
+                  }}
+                  value={
+                    filteredOperationTypes.find(
+                      (option) => option.id === field.value,
+                    )?.name || ''
+                  }
+                  disabled={!selectedCategoryId}
+                />
+                {errors.operationTypeId && (
+                  <ErrorFormMessage>
+                    {errors.operationTypeId.message}
+                  </ErrorFormMessage>
+                )}
+              </div>
             )}
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex flex-col md:col-span-2 mb-4">
           <FilterDatalist
             name="departmentId"
             label="Departamento"
@@ -164,7 +170,8 @@ export default function OperationDetailsForm({
                 : ''
             }
           />
-
+        </div>
+        <div className="flex flex-col md:col-span-2 mb-4">
           <FilterDatalist
             name="provinceId"
             label="Provincia"
@@ -181,11 +188,12 @@ export default function OperationDetailsForm({
             }
             disabled={!selectedDepartmentId}
           />
-
-          <Controller
-            name="municipalityId"
-            control={control}
-            render={({ field }) => (
+        </div>
+        <Controller
+          name="municipalityId"
+          control={control}
+          render={({ field }) => (
+            <div className="flex flex-col md:col-span-2 mb-4">
               <FilterDatalist
                 {...field}
                 label="Municipio"
@@ -203,29 +211,52 @@ export default function OperationDetailsForm({
                 }
                 disabled={!selectedProvinceId}
               />
-            )}
-          />
-        </div>
-        <FormInput
-          name="address"
-          label="Dirección"
-          placeholder="Ingrese la dirección"
-          register={register}
-          errors={errors}
-          required
+              {errors.municipalityId && (
+                <ErrorFormMessage>
+                  {errors.municipalityId.message}
+                </ErrorFormMessage>
+              )}
+            </div>
+          )}
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormDate
-            name="departureDate"
-            label="Fecha de salida"
+        <div className="flex flex-col mb-4">
+          <FormInput
+            name="address"
+            label="Dirección"
+            placeholder="Ingrese la dirección"
             register={register}
+            errors={errors}
             required
           />
-          <FormDate
-            name="arrivalDate"
-            label="Fecha de llegada"
-            register={register}
-          />
+          {errors.address && (
+            <ErrorFormMessage>{errors.address.message}</ErrorFormMessage>
+          )}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex flex-col">
+            <FormDate
+              name="departureDate"
+              label="Fecha de salida"
+              register={register}
+              required
+            />
+            {errors.departureDate && (
+              <ErrorFormMessage>
+                {errors.departureDate.message}
+              </ErrorFormMessage>
+            )}
+          </div>
+
+          <div className="flex flex-col">
+            <FormDate
+              name="arrivalDate"
+              label="Fecha de llegada"
+              register={register}
+            />
+            {errors.arrivalDate && (
+              <ErrorFormMessage>{errors.arrivalDate.message}</ErrorFormMessage>
+            )}
+          </div>
         </div>
       </div>
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
@@ -233,17 +264,22 @@ export default function OperationDetailsForm({
           Datos del solicitante
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormInput
-            name="requesterName"
-            label="Solicitante"
-            placeholder="Nombre del solicitante"
-            register={register}
-            errors={errors}
-            required
-          />
-          {errors.requesterName && (
-            <ErrorFormMessage>{errors.requesterName.message}</ErrorFormMessage>
-          )}
+          <div className="flex flex-col">
+            <FormInput
+              name="requester.requesterName"
+              label="Solicitante"
+              placeholder="Nombre del solicitante"
+              register={register}
+              errors={errors}
+              required
+            />
+            {errors.requester?.requesterName && (
+              <ErrorFormMessage>
+                {errors.requester.requesterName.message}
+              </ErrorFormMessage>
+            )}
+          </div>
+
           <FormInput
             name="requesterPhone"
             label="Teléfono"
@@ -251,13 +287,20 @@ export default function OperationDetailsForm({
             register={register}
             errors={errors}
           />
-          <FormInput
-            name="requesterMobile"
-            label="Celular"
-            placeholder="Celular del solicitante"
-            register={register}
-            errors={errors}
-          />
+          <div className="flex flex-col">
+            <FormInput
+              name="requester.requesterMobilePhone"
+              label="Celular"
+              placeholder="Celular del solicitante"
+              register={register}
+              errors={errors}
+            />
+            {errors.requester?.requesterMobilePhone && (
+              <ErrorFormMessage>
+                {errors.requester.requesterMobilePhone.message}
+              </ErrorFormMessage>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -32,7 +32,6 @@ export function useRecruitment({
   const [debouncedSearch] = useDebounce(searchValue, 500);
   const [debouncedStatus] = useDebounce(statusFilter, 500);
 
-
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['recruitment', { searchTerm: debouncedSearch, status: debouncedStatus, page: pageIndex, pageSize }],
     queryFn: () => getRecruitment({ searchTerm: debouncedSearch, status: debouncedStatus, page: pageIndex, pageSize }),

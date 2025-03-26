@@ -1,5 +1,5 @@
 import { getMedicalTreatment } from "@/api/MedicalTreatmentAPI";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
 
@@ -26,8 +26,8 @@ export function useMedicalTreatment({
 }: UseMedicalTreatmentOptions = {}) {
 
     const [searchValue, setSearchValue] = useState(initialSearchValue);
-    const [startDate, setStartDate] = useState(initialStartDateValue);
-    const [endDate, setEndDate] = useState(initialEndDateValue);
+    const [startDate, setStartDate] = useState<string | undefined>(initialStartDateValue);
+    const [endDate, setEndDate] = useState<string | undefined>(initialEndDateValue);
     const [pageIndex, setPageIndex] = useState(initialPageIndex);
     const [pageSize, setPageSize] = useState(initialPageSize);
 

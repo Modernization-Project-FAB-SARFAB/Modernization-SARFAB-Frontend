@@ -1,12 +1,15 @@
 import Loader from "../common/Loader";
+import { MessageWithLink } from "../common/MesaggeWithLink/MessageWithLink";
 import SortableTable from "../common/SortableTable/SortableTable";
-import { NoRecruitsMessage } from "./NoRecruitsMessage";
-
-
 
 export function RecruitmentTable({ isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch }: RecruitmentTableProps) {
     if (isLoading) return <Loader />;
-    if (!data?.data.length) return <NoRecruitsMessage />;
+    if (!data?.data.length)
+        return <MessageWithLink
+            message="No existen reclutas."
+            linkText="Crear recluta"
+            linkUrl="/recruitment/create"
+        />;
 
     return (
         <SortableTable

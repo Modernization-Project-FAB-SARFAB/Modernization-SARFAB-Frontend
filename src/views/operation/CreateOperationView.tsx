@@ -9,19 +9,27 @@ import ButtonGroup from '@/components/common/ButtonGroup/ButtonGroup';
 
 export default function CreateOperationView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   useBreadcrumb([
     { label: 'Operaciones', path: '/operation/list' },
     { label: 'Registrar nueva operación' },
   ]);
 
+  const formatDateToYYYYMMDD = (date: string | Date) => {
+    if (typeof date === 'string') return date;
+    return date.toISOString().split('T')[0].replace(/-/g, '/');
+  };
+
   const initialValues: CreateOperationForm = {
     address: '',
-    departureDate: new Date(),
-    arrivalDate: new Date(),
+    departureDate: formatDateToYYYYMMDD(new Date()),
+    arrivalDate: formatDateToYYYYMMDD(new Date()),
     operationTypeId: 0,
     municipalityId: 0,
-    requesterId: 0,
+    requester: {
+      requesterName: '',
+      requesterPhone: '',
+      requesterMobilePhone: '',
+    },
     responsible: {
       personId: 0,
       role: '',
@@ -39,19 +47,25 @@ export default function CreateOperationView() {
     volunteers,
     military,
   } = useOperationForm(initialValues);
+
   const mutation = useCreateOperation();
 
   const handleForm = async (formData: CreateOperationForm) => {
     setIsSubmitting(true);
     try {
-      await mutation.mutateAsync(formData);
+      const formattedData: CreateOperationForm = {
+        ...formData,
+        departureDate: formatDateToYYYYMMDD(formData.departureDate),
+        arrivalDate: formatDateToYYYYMMDD(formData.arrivalDate),
+      };
+
+      await mutation.mutateAsync(formattedData);
     } catch (error) {
       console.error('Error al registrar la operación:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
-  
 
   return (
     <div className="container mx-auto p-4">
@@ -81,7 +95,7 @@ export default function CreateOperationView() {
               buttons={[
                 {
                   type: 'button',
-                  label: 'Registrar operativo',
+                  label: 'Registrar operación',
                   onClick: handleSubmit(handleForm),
                   variant: 'primary',
                   disabled: isSubmitting,

@@ -13,7 +13,7 @@ const ActionsColumn = ({ row }: { row: any }) => {
       items={[
         {
           type: "link", label: "Afiliar recluta",
-          href: ``,
+          onClick: () => navigate(`/volunteers/create?recruitId=${row.original.recruitmentId}`),
           icon: <RiUserFollowLine size={20} />, ref: "text-success "
         },
         {
@@ -23,7 +23,8 @@ const ActionsColumn = ({ row }: { row: any }) => {
         },
         { type: "link", label: "Ver recluta", 
           onClick: () => navigate(`?viewRecruit=true&recruitId=${row.original.recruitmentId}`),
-          icon: <RiEyeFill size={20} /> }
+          icon: <RiEyeFill size={20} /> 
+        }
       ]}
     />
   );

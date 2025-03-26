@@ -22,7 +22,9 @@ export default function MedicalTreatmentListView({ breadcrumb, columns }: Medica
             <MedicalTreatmentFilters
                 searchValue={searchValue} setSearchValue={setSearchValue}
                 setStartDate={setStartDate}
-                setEndDate={setEndDate} />
+                setEndDate={setEndDate} 
+                refetch={refetch}
+            />
             <MedicalTreatmentTable
                 isLoading={isLoading} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}

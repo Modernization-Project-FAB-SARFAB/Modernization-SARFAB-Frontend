@@ -3,7 +3,6 @@ import { GetOperationParams } from "@/api/types/OperationAPIType.type";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
-import { format, parse } from "date-fns";
 
 export function useOperation(params: GetOperationParams = {}) {
   const [searchValue, setSearchValue] = useState(params.searchTerm ?? "");
@@ -22,12 +21,11 @@ export function useOperation(params: GetOperationParams = {}) {
     status: statusFilter,
     municipalityId: municipalityFilter || undefined,
     categoryId: categoryFilter || undefined,
-    startDate: startDateFilter ? format(parse(startDateFilter, "dd/MM/yyyy", new Date()), "yyyy-MM-dd") : undefined,
-    endDate: endDateFilter ? format(parse(endDateFilter, "dd/MM/yyyy", new Date()), "yyyy-MM-dd") : undefined,
+    startDate: startDateFilter || undefined,
+    endDate: endDateFilter || undefined,
     page: pageIndex,
     pageSize: pageSizeState,
   };
-
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["operation", filters],
     queryFn: () => getOperations(filters),

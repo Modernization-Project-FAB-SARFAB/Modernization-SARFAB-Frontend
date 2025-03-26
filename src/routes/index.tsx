@@ -2,6 +2,8 @@ import { lazy } from 'react';
 
 const ActiveVolunteersView = lazy(() => import('@/views/personal/Volunteers/ActiveVolunteersView'));
 const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers/CreateVolunteerAfiliationView'));
+const HistoricalVolunteersView = lazy(() => import ('@/views/personal/Volunteers/HistoricalVolunteersView'));
+const EditVolunteerView = lazy(() => import ('@/views/personal/Volunteers/EditVolunteerAfiliationView'));
 
 const RecruitmentPendingView = lazy(() => import('@/views/personal/Recruitment/RecruitmentPendingView'));
 const CreateRecruitmentView = lazy(() => import('@/views/personal/Recruitment/CreateRecruitView'));
@@ -14,6 +16,7 @@ const MilitaryView = lazy(() => import('@/views/personal/military/MilitaryListVi
 // Operations
 const OperationsView = lazy(() => import('@/views/operation/OperationListView'));
 const CreateOperationView = lazy(() => import('@/views/operation/CreateOperationView'));
+const EditOperationView = lazy(() => import('@/views/operation/EditOperationView'));
 
 
 //Medical treatment
@@ -45,14 +48,24 @@ const coreRoutes = [
     },
     {
         path: '/volunteers/active-volunteers',
-        title:'Voluntarios',
+        title:'Voluntarios activos',
         component: ActiveVolunteersView
     },
     {
         path: '/volunteers/create',
-        title: 'Voluntarios',
+        title: 'Crear nueva afiliación de voluntarios',
         component: CreateAfiliationView
-  },
+    },
+    {
+        path: '/volunteers/volunteer-history',
+        title: 'Historico de voluntarios',
+        component: HistoricalVolunteersView
+    },
+    {
+        path: '/volunteers/:volunteerId/edit',
+        title: 'Editar voluntario',
+        component: EditVolunteerView
+    },
   // Military
   {
     path: '/military/list',
@@ -69,6 +82,11 @@ const coreRoutes = [
     path: '/operation/create',
     title: 'Crear operación',
     component: CreateOperationView
+  },
+  {
+    path: '/operation/:operationId/edit',
+    title: 'Editar operación',
+    component: EditOperationView
   },
 
     //MedicalTreatments
