@@ -5,8 +5,25 @@ import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
 import { useNavigate } from "react-router-dom";
 
 // Componente para la columna de acciones
-const ActionsColumn = ({ row }: { row: any }) => {
+interface ActionsColumnProps {
+  row: any;
+  openEditModal?: (courseId: number, courseData: { name: string; description: string }) => void;
+}
+
+const ActionsColumn = ({ row, openEditModal }: ActionsColumnProps) => {
   const navigate = useNavigate();
+  
+  // Verificación de la estructura de datos
+  console.log("Row completo:", row);
+  
+  // Intentamos obtener los datos del curso
+  const courseData = row?.original;
+  console.log("Datos del curso extraídos:", courseData);
+  
+  // Extraemos el ID según la estructura real
+  // Puede estar en courseId o en id dependiendo de la API
+  let courseId: number | undefined = courseData?.courseId || courseData?.id;
+  console.log("ID del curso extraído:", courseId);
 
   return (
     <DropdownMenu
@@ -14,19 +31,41 @@ const ActionsColumn = ({ row }: { row: any }) => {
         {
           type: "link", 
           label: "Asignar personas",
-          onClick: () => navigate(`/courses/${row.original.id}/assign`),
+          onClick: () => {
+            if (courseId !== undefined) {
+              navigate(`/courses/${courseId}/assign`);
+            }
+          },
           icon: <RiUserAddLine size={20} />
         },
         {
-          type: "link", 
+          type: "button", 
           label: "Editar curso", 
-          href: `/courses/${row.original.id}/edit`,
+          onClick: () => {
+            console.log("ID del curso a editar:", courseId);
+            if (openEditModal && courseId !== undefined && courseData) {
+              openEditModal(courseId, {
+                name: courseData.name,
+                description: courseData.description
+              });
+            } else {
+              console.error("No se puede editar: datos insuficientes", {
+                openEditModal: !!openEditModal,
+                courseId,
+                courseData
+              });
+            }
+          },
           icon: <RiEdit2Line size={20} />
         },
         { 
           type: "link", 
           label: "Ver curso", 
-          onClick: () => navigate(`/courses/${row.original.id}/details`),
+          onClick: () => {
+            if (courseId !== undefined) {
+              navigate(`/courses/${courseId}/details`);
+            }
+          },
           icon: <RiEyeLine size={20} /> 
         }
       ]}
@@ -35,7 +74,9 @@ const ActionsColumn = ({ row }: { row: any }) => {
 };
 
 // Definición final de columnas con la columna de acciones
-export const courseColumnsDef: ColumnDef<Course>[] = [
+export const courseColumnsDef = (
+  openEditModal?: (courseId: number, courseData: { name: string; description: string }) => void
+): ColumnDef<Course>[] => [
   {
     accessorKey: "id",
     header: "ID",
@@ -79,7 +120,7 @@ export const courseColumnsDef: ColumnDef<Course>[] = [
     id: "actions",
     header: "Acciones",
     maxSize: 100,
-    cell: ({ row }) => <ActionsColumn row={row} />,
+    cell: ({ row }) => <ActionsColumn row={row} openEditModal={openEditModal} />,
     enableSorting: false,
   }
 ];

@@ -12,13 +12,15 @@ interface CourseListViewComponentProps {
     columns: ColumnDef<Course, any>[];
     modalComponent?: ReactNode;
     initialSearchValue?: string;
+    onOpenCourseModal: () => void;
 }
 
 export function CourseListViewComponent({ 
     breadcrumb, 
     columns, 
     modalComponent,
-    initialSearchValue 
+    initialSearchValue,
+    onOpenCourseModal
 }: CourseListViewComponentProps) {
     useBreadcrumb(breadcrumb);
 
@@ -37,7 +39,7 @@ export function CourseListViewComponent({
 
     return (
         <>
-            <CourseHeader />
+            <CourseHeader onOpenCourseModal={onOpenCourseModal} />
             <CourseFilters
                 searchValue={searchValue} 
                 setSearchValue={setSearchValue}
