@@ -82,7 +82,7 @@ const menuItems: MenuItem[] = [
         subItems: [
             { label: "Tipos y categorias de operativo", path: "/configuration/operation-category/list" },
             { label: "Cursos", path: "/courses/list" },
-            { label: "Solicitantes", path: "/configuration/applicant" },
+            { label: "Solicitantes", path: "/configuration/requester/list" },
         ]
     },
 ];

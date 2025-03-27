@@ -35,6 +35,7 @@ const MedicalTreatmenDetailstView = lazy(() => import('@/views/medical/MedicalTr
 
 //Configuration
 const OperationCategoryListView = lazy(() => import('@/views/configuration/OperationCategoryListView'));
+const RequesterListView = lazy(() => import('@/views/configuration/RequesterListView'));
 
 //Course
 const CourseListView = lazy(() => import('@/views/course/CourseListView'));
@@ -166,22 +167,27 @@ const coreRoutes = [
         title: 'Categorías de operación',
         component: OperationCategoryListView
   },
-    //Course
-    {
-        path: '/courses/list',
-        title: 'Cursos',
-        component: CourseListView
-    },
-    {
-        path: '/courses/:courseId',
-        title: 'Ver curso',
-        component: CourseDetailView
-    },
-    {
-        path: '/courses/:courseId/assign-volunteers',
-        title: 'Asignar voluntarios',
-        component: AssignCourseVolunteersView
-    }
+  {
+    path: '/configuration/requester/list',
+    title: 'Solicitantes',
+    component: RequesterListView
+  },
+  //Course
+  {
+    path: '/courses/list',
+    title: 'Cursos',
+    component: CourseListView
+  },
+  {
+    path: '/courses/:courseId',
+    title: 'Ver curso',
+    component: CourseDetailView
+  },
+  {
+    path: '/courses/:courseId/assign-volunteers',
+    title: 'Asignar voluntarios',
+    component: AssignCourseVolunteersView
+  }
 ]
 
 const routes = [...coreRoutes];
