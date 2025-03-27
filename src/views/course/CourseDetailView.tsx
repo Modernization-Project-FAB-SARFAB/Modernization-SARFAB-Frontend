@@ -1,7 +1,7 @@
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useGetCourseById } from "@/hooks/courses/querys/useGetCourseById";
 import { useParams } from "react-router-dom";
-import CourseDetail from "@/components/course/CourseDetailComponent";
+import CourseDetailComponent from "@/components/course/CourseDetailComponent";
 
 export default function CourseDetailView() {
   useBreadcrumb([
@@ -17,7 +17,7 @@ export default function CourseDetailView() {
     <p className="text-center text-gray-500">Cargando datos...</p>
   ) : (
     <div className="container mx-auto p-4">
-      <CourseDetail course={course!} />
+      <CourseDetailComponent course={course!} />
     </div>
   );
 }

@@ -24,7 +24,7 @@ const ActionsColumn = ({ row, openEditModal }: ActionsColumnProps) => {
           label: "Asignar personas",
           onClick: () => {
             if (courseId !== undefined) {
-              navigate(`/courses/${courseId}/assign`);
+              navigate(`/courses/${courseId}/assign-volunteers`);
             }
           },
           icon: <RiUserAddLine size={20} />

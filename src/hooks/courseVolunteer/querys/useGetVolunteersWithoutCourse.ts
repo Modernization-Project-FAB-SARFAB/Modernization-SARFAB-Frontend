@@ -5,7 +5,7 @@ import { VolunteerWithRankList } from "@/types/operationContext.schema";
 export function useGetVolunteersWithoutCourse(courseId: number | undefined) {
   return useQuery<VolunteerWithRankList>({
     queryKey: ["volunteersWithoutCourse", courseId],
-    queryFn: () => {
+    queryFn: async () => {
       if (courseId === undefined) {
         return [];
       }
