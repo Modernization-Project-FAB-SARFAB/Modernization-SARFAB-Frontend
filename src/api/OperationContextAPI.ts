@@ -65,3 +65,14 @@ export async function getOperationCategories() {
   }
 }
 
+export async function getVolunteersWithoutCourse(courseId: number) {
+  try {
+    const { data } = await api.get(`/ContextData/volunteers-without-course/${courseId}`);
+    return VolunteerWithRankSchema.array().parse(data);
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data?.error || "Error fetching volunteers without course");
+    }
+    throw error;
+  }
+}

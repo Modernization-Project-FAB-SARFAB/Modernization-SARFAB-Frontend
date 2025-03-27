@@ -38,6 +38,7 @@ const OperationCategoryListView = lazy(() => import('@/views/configuration/Opera
 
 //Course
 const CourseListView = lazy(() => import('@/views/course/CourseListView'));
+const CourseDetailView = lazy(() => import('@/views/course/CourseDetailView'));
 
 const coreRoutes = [
     {
@@ -169,6 +170,11 @@ const coreRoutes = [
         path: '/courses/list',
         title: 'Cursos',
         component: CourseListView
+    },
+    {
+        path: '/courses/:courseId',
+        title: 'Ver curso',
+        component: CourseDetailView
     }
 ]
 

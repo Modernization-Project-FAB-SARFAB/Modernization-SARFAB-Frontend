@@ -4,7 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
 import { useNavigate } from "react-router-dom";
 
-// Componente para la columna de acciones
 interface ActionsColumnProps {
   row: any;
   openEditModal?: (courseId: number, courseData: { name: string; description: string }) => void;
@@ -13,17 +12,9 @@ interface ActionsColumnProps {
 const ActionsColumn = ({ row, openEditModal }: ActionsColumnProps) => {
   const navigate = useNavigate();
   
-  // Verificación de la estructura de datos
-  console.log("Row completo:", row);
-  
-  // Intentamos obtener los datos del curso
   const courseData = row?.original;
-  console.log("Datos del curso extraídos:", courseData);
   
-  // Extraemos el ID según la estructura real
-  // Puede estar en courseId o en id dependiendo de la API
   let courseId: number | undefined = courseData?.courseId || courseData?.id;
-  console.log("ID del curso extraído:", courseId);
 
   return (
     <DropdownMenu
@@ -42,7 +33,6 @@ const ActionsColumn = ({ row, openEditModal }: ActionsColumnProps) => {
           type: "button", 
           label: "Editar curso", 
           onClick: () => {
-            console.log("ID del curso a editar:", courseId);
             if (openEditModal && courseId !== undefined && courseData) {
               openEditModal(courseId, {
                 name: courseData.name,
@@ -63,7 +53,7 @@ const ActionsColumn = ({ row, openEditModal }: ActionsColumnProps) => {
           label: "Ver curso", 
           onClick: () => {
             if (courseId !== undefined) {
-              navigate(`/courses/${courseId}/details`);
+              navigate(`/courses/${courseId}`);
             }
           },
           icon: <RiEyeLine size={20} /> 
@@ -73,7 +63,6 @@ const ActionsColumn = ({ row, openEditModal }: ActionsColumnProps) => {
   );
 };
 
-// Definición final de columnas con la columna de acciones
 export const courseColumnsDef = (
   openEditModal?: (courseId: number, courseData: { name: string; description: string }) => void
 ): ColumnDef<Course>[] => [
