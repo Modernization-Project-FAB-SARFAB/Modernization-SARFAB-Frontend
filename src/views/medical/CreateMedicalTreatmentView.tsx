@@ -1,6 +1,7 @@
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import MedicalTreatmentForm from "@/components/medical/MedicalTreatmentForm";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
+import { useVolunteerDataContext } from "@/hooks/guard/querys/useVolunteersDataContext";
 import { useMedicalTreatmentForm } from "@/hooks/medical/forms/useMedicalTreatmentForm";
 import { useCreatedMedicalTreatment } from "@/hooks/medical/mutations/useCreatedMedicalTreatment";
 import { MedicalTreatmentFormData } from "@/types/medicalTreatment.schema";
@@ -26,10 +27,13 @@ export default function CreateMedicalTreatmentView() {
         setIsSubmitting(true);
         await mutation.mutateAsync(formData).catch(() => setIsSubmitting(false))
     }
+    const { volunteersData, volunteersDataIsLoading } = useVolunteerDataContext();
 
     return (
         <form onSubmit={handleSubmit(handleForm)} noValidate>
-            <MedicalTreatmentForm register={register} errors={errors} control={control} />
+            {(!volunteersDataIsLoading) &&
+                <MedicalTreatmentForm volunteersData={volunteersData} register={register} errors={errors} control={control} />
+            }
             <div className="p-6.5">
                 <ButtonGroup
                     buttons={[

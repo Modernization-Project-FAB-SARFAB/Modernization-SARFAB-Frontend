@@ -1,17 +1,15 @@
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import FormDate from "@/components/common/FormDate/FormDate";
 import { MedicalTreatmentFormProps } from "./types/MedicalTreatmentFormProps.types";
-import FormSelectControlled from "../common/FormSelect/FormSelectControlled";
 import FormTextArea from "../common/FormTextArea/FormTextArea";
 import BackLink from "../common/BackLink/BackLink";
+import FormSearchableSelect from "../common/FormSearchableSelect/FormSearchableSelect";
 
-const options = [
-    { value: 8, label: 'Juan Perez' },
-    { value: 9, label: 'Carlos Perez' },
-    { value: 11, label: 'Marco Perez' },
-]
-
-export default function MedicalTreatmentForm({ errors, register, control }: MedicalTreatmentFormProps) {
+export default function MedicalTreatmentForm({ volunteersData, errors, register, control }: MedicalTreatmentFormProps) {
+    const volunteersOptions = volunteersData?.map((data) => ({
+        id: data.volunteerId,
+        name: `${data.lastName} ${data.firstName}, ${data.abbreviation} `
+    }));
     return (
         <>
             <div className="grid grid-cols-1 gap-9 sm:grid-cols-2 mx-5 items-start">
@@ -33,17 +31,27 @@ export default function MedicalTreatmentForm({ errors, register, control }: Medi
                         )}
                     </div>
                     <div className="mb-4.5 flex flex-col">
-                        <FormSelectControlled control={control} label="Persona que atendió" required
+                        <FormSearchableSelect
                             name="attendingPersonId"
-                            options={options} />
+                            label="Persona que atendió"
+                            options={volunteersOptions && volunteersOptions.length > 0
+                                ? volunteersOptions
+                                : [{ id: 0, name: "No hay opciones" }]}
+                            control={control}
+                        />
                         {errors.attendingPersonId && (
                             <ErrorFormMessage>{errors.attendingPersonId.message}</ErrorFormMessage>
                         )}
                     </div>
                     <div className="mb-4.5 flex flex-col">
-                        <FormSelectControlled control={control} label="Persona que recibió el tratamiento" required
+                        <FormSearchableSelect
                             name="patientPersonId"
-                            options={options} />
+                            label="Persona que recibió el tratamiento"
+                            options={volunteersOptions && volunteersOptions.length > 0
+                                ? volunteersOptions
+                                : [{ id: 0, name: "No hay opciones" }]}
+                            control={control}
+                        />
                         {errors.patientPersonId && (
                             <ErrorFormMessage>{errors.patientPersonId.message}</ErrorFormMessage>
                         )}

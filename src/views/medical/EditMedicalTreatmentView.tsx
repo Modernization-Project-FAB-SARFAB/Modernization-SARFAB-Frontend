@@ -3,6 +3,7 @@ import BackLink from "@/components/common/BackLink/BackLink";
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import EditMedicalTreatmentForm from "@/components/medical/EditMedicalTreatmentForm";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
+import { useVolunteerDataContext } from "@/hooks/guard/querys/useVolunteersDataContext";
 import { useMedicalTreatmentForm } from "@/hooks/medical/forms/useMedicalTreatmentForm";
 import { useEditMedicalTreatment } from "@/hooks/medical/mutations/useEditMedicalTreatment";
 import { useGetMedicalTreatment } from "@/hooks/medical/querys/useGetMedicalTreatment";
@@ -20,6 +21,7 @@ export default function EditMedicalTreatment() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { data, isLoading, isError } = useGetMedicalTreatment(Number(medicalTreatmentId));
+    const { volunteersData, volunteersDataIsLoading } = useVolunteerDataContext();
 
     const mutation = useEditMedicalTreatment();
 
@@ -45,13 +47,13 @@ export default function EditMedicalTreatment() {
         await mutation.mutateAsync(newData).catch(() => setIsSubmitting(false));
     };
 
-    if (isLoading) return 'Cargando...';
+    if (isLoading || volunteersDataIsLoading) return 'Cargando...';
     if (isError) return 'Error';
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <BackLink text="Volver a listado de tratamientos" iconSize={20} link="/medical-treatment/list" />
             <form onSubmit={handleSubmit(handleForm)} noValidate>
-                <EditMedicalTreatmentForm register={register} errors={errors} control={control} readonly={false} watch={watch} />
+                <EditMedicalTreatmentForm volunteersData={volunteersData} register={register} errors={errors} control={control} readonly={false} watch={watch} />
                 <div className="p-6.5">
                     <ButtonGroup
                         buttons={[
