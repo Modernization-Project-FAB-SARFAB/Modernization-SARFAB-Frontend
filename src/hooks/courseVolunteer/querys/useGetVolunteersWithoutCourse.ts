@@ -12,7 +12,7 @@ export function useGetVolunteersWithoutCourse(courseId: number | undefined) {
       return getVolunteersWithoutCourse(courseId);
     },
     enabled: courseId !== undefined,
-    staleTime: 1000 * 60 * 5, // 5 minutos
+    staleTime: 1000 * 60 * 5,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   });

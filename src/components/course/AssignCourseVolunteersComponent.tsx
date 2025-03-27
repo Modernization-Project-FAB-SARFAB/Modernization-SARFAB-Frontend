@@ -81,20 +81,17 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
     
     setIsAssigning(true);
     
-    // Preparar los datos para la mutación
     const assignmentData = {
       courseId: courseId,
       volunteers: addedVolunteers.map(volunteer => ({
         volunteerId: volunteer.volunteerId,
-        completionDate: new Date().toISOString().split('T')[0], // Fecha actual en formato YYYY-MM-DD
+        completionDate: new Date().toISOString().split('T')[0],
       }))
     };
     
-    // Ejecutar la mutación
     assignMutation.mutate(assignmentData, {
       onSuccess: () => {
         setIsAssigning(false);
-        // Redirigir a la lista de cursos
         navigate('/courses/list');
       },
       onError: () => {
