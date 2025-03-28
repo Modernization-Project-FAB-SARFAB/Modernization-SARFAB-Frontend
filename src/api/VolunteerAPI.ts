@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
-import { listVolunteerActiveSchema, listVolunteerHistoricalSchema, Volunteer, VolunteerFormData } from "@/types/volunteer.schema";
+import { listVolunteerActiveSchema, listVolunteerGuardsReportSchema, listVolunteerHistoricalSchema, listVolunteerOperationsReportSchema, Volunteer, VolunteerFormData } from "@/types/volunteer.schema";
 import { VolunteerAPIType, VolunteerStatusAPIType } from "./types/VolunteerAPIType.type";
 
 export async function createVolunteer(formData: VolunteerFormData) {
@@ -32,6 +32,36 @@ export async function getVolunteerHistoricalList(queryParams?: Record<string, an
     try {
         const { data } = await api.get('/Volunteer/historical-list', { params: queryParams })
         const response = listVolunteerHistoricalSchema.safeParse(data);
+        if (response.success) {
+            return response.data;
+        }
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function getVolunteerGuardsReportList(id: Volunteer['id'], queryParams?: Record<string, any>) {
+    try {
+        const { data } = await api.get(`/Guard/report/${id}`, { params: queryParams })
+        const response = listVolunteerGuardsReportSchema.safeParse(data);
+        if (response.success) {
+            return response.data;
+        }
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function getVolunteerOperationsReportList(id: Volunteer['id'], queryParams?: Record<string, any>) {
+    try {
+        const { data } = await api.get(`/VolunteerOperation/volunteer/${id}/operations-report`, { params: queryParams })
+        const response = listVolunteerOperationsReportSchema.safeParse(data);
+        console.log(response);
+        
         if (response.success) {
             return response.data;
         }

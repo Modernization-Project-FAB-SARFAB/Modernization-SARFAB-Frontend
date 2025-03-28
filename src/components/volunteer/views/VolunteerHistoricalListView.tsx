@@ -5,7 +5,7 @@ import { VolunteerTable } from "../table/VolunteerTable";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
 import { useVolunteerHistorical } from "@/hooks/volunteer/querys/useVolunteerHistorical";
 
-export default function VolunteerHistoricalListView({ breadcrumb, columns, modalComponent }: VolunteerListViewProps) {
+export default function VolunteerHistoricalListView({ breadcrumb, columns }: VolunteerListViewProps) {
     useBreadcrumb(breadcrumb);
     const { data: grades, isLoading: isLoadingGrades, isError } = useGrades();
 

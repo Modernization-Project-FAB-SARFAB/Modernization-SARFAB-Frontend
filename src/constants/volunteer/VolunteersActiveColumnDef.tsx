@@ -24,13 +24,13 @@ const ActionsColumn = ({ row }: { row: any }) => {
         {
             type: "link",
             label: "Reporte de guardias",
-            href: `/volunteers/${id}/guard_report`,
+            href: `/volunteers/${id}/report-guards`,
             icon: <RiFileUserFill size={20} />,
         },
         {
             type: "link",
             label: "Rep. de operaciones",
-            href: `/volunteers/${id}/operations_report`,
+            href: `/volunteers/${id}/report-operations`,
             icon: <RiShakeHandsFill size={20} />,
         },
         ...(gradeName !== "Rescatista"

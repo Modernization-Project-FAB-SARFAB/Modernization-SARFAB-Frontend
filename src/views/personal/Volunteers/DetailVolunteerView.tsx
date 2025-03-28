@@ -10,9 +10,9 @@ import { volunteerMedicalCheckupColumnsDef } from "@/constants/volunteer/Volunte
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useDetailsVolunteer } from "@/hooks/volunteer/querys/useEditVolunteerData";
 import { useVolunteerMedicalCheckup } from "@/hooks/volunteerMedicalCheckup/querys/useVolunteerMedicalCheckup";
-import { RiClipboardFill } from "@remixicon/react";
+import { RiClipboardFill, RiFileUserFill, RiShakeHandsFill } from "@remixicon/react";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useRouteError } from "react-router-dom";
 
 export default function DetailVolunteerView() {
   useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-volunteers" }, { label: "Ver voluntario" }]);
@@ -29,17 +29,14 @@ export default function DetailVolunteerView() {
       navigate(`?assingCourse=true&volunteerId=${volunteerId}`);
     } else if (action === "serviceCompleted") {
       navigate(`?serviceCompleted=true&volunteerId=${volunteerId}`);
-    }  else if (action === "dischargeVolunteer") {
+    } else if (action === "dischargeVolunteer") {
       navigate(`?dischargeVolunteer=true&volunteerId=${volunteerId}`);
     }
     setModalAction(action);
   };
 
-
-
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
-  const { data: medicalCheckupData } = useVolunteerMedicalCheckup( {initialVolunteerId: volunteerId});
-
+  const { data: medicalCheckupData } = useVolunteerMedicalCheckup({ initialVolunteerId: volunteerId });
 
   if (isLoading) return 'Cargando...';
   if (isError) return 'Error'; //<Navigate to="/404" />
@@ -230,13 +227,24 @@ export default function DetailVolunteerView() {
           Reportes
         </h3>
         <div className="flex flex-col items-center gap-4 max-w-md mx-auto my-5">
-          <button className="w-full bg-primary text-white py-3 rounded-lg">
+          <button
+            className="w-full bg-primary text-white py-3 rounded-lg flex items-center justify-center gap-2"
+            onClick={() => navigate(`/volunteers/${volunteerId}/report-guards`)}
+          >
+            <RiFileUserFill size={20} />
             Ver reporte de guardias
           </button>
-          <button className="w-full bg-primary text-white py-3 rounded-lg">
+          <button
+            className="w-full bg-primary text-white py-3 rounded-lg flex items-center justify-center gap-2"
+            onClick={() => navigate(`/volunteers/${volunteerId}/report-operations`)}
+          >
+            <RiShakeHandsFill size={20} />
             Ver reporte de operaciones
           </button>
-          <button className="w-full bg-primary text-white py-3 rounded-lg">
+          <button
+            className="w-full bg-primary text-white py-3 rounded-lg"
+            onClick={() => navigate(`/volunteers/${volunteerId}/courses`)}
+          >
             Ver cursos
           </button>
         </div>
@@ -311,13 +319,13 @@ export default function DetailVolunteerView() {
         </div>
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:col-span-2 lg:row-span-1 lg:row-start-6 p-4">
-        
+
         <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
           Chequeos medicos
         </h3>
         {medicalCheckupData && (<SimpleSortableTable columns={volunteerMedicalCheckupColumnsDef}
-                data={medicalCheckupData}
-                initialPageSize={10}/>)}
+          data={medicalCheckupData}
+          initialPageSize={10} />)}
       </div>
     </div>
     <VolunteerCourseAssingModal />

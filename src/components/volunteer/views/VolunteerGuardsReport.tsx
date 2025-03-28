@@ -1,0 +1,52 @@
+import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
+import { VolunteerHeader } from "../headers/VolunteerHeader";
+import { VolunteerTable } from "../table/VolunteerTable";
+import { useVolunteerGuardsReport } from "@/hooks/volunteer/querys/useVolunteerGuardsReport";
+import { VolunteerGuardsReportFilters } from "../filters/VolunteerGuardsReportFilters";
+import { useParams } from "react-router-dom";
+
+export default function VolunteerGuardsReport({ breadcrumb, columns }: VolunteerListViewProps) {
+    useBreadcrumb(breadcrumb);
+    const { volunteerId } = useParams();
+
+    const {
+        data, isLoading, refetch, searchValue, setSearchValue,
+        statusFilter, setStatusFilter,
+        shiftFilter, setShiftFilter,
+        setStartDate, setEndDate,
+        pageIndex,
+        setPageIndex,
+        pageSize,
+        setPageSize
+    } = useVolunteerGuardsReport({ initialVolunteerId: Number(volunteerId) });
+
+    return (
+        <>
+            <VolunteerHeader />
+            <VolunteerGuardsReportFilters
+                searchValue={searchValue} setSearchValue={setSearchValue}
+                statusFilter={statusFilter} setStatusFilter={setStatusFilter}
+                statusOptions={[
+                    { value: "", label: "Todos los estados", isSelected: true },
+                    { value: "0", label: "Completado", isSelected: false },
+                    { value: "1", label: "Falta", isSelected: false }
+                ]}
+                shiftFilter={shiftFilter} setShiftFilter={setShiftFilter}
+                shiftOptions={[
+                    { value: "", label: "Todos los turnos", isSelected: true },
+                    { value: "1", label: "Mañana", isSelected: false },
+                    { value: "2", label: "Tarde", isSelected: false },
+                    { value: "3", label: "Noche", isSelected: false }
+                ]}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
+                refetch={refetch}
+            />
+            <VolunteerTable
+                isLoading={isLoading} data={data} columns={columns}
+                pageIndex={pageIndex} pageSize={pageSize}
+                setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
+            />
+        </>
+    )
+}

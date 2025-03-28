@@ -13,17 +13,17 @@ const ActionsColumn = ({ row }: { row: any }) => {
             items={[
                 {
                     type: "link", label: "Ver voluntario",
-                    href: `/volunteer/${row.original.volunteerId}/view`,
+                    href: `/volunteers/${row.original.volunteerId}/view`,
                     icon: <RiEyeFill size={20} />
                 },
                 {
                     type: "link", label: "Reporte de guardias",
-                    href: `/volunteer/${row.original.volunteerId}/guard_report`,
+                    href: `/volunteers/${row.original.volunteerId}/report-guards`,
                     icon: <RiFileUserFill size={20} />
                 },
                 {
                     type: "link", label: "Rep. de operaciones",
-                    href: `/volunteer/${row.original.volunteerId}/operations_report`,
+                    href: `/volunteers/${row.original.volunteerId}/report-operations`,
                     icon: <RiShakeHandsFill size={20} />
                 },
             ]}

@@ -12,7 +12,6 @@ export function useVolunteerMedicalCheckup({ initialVolunteerId}: UseVolunteerMe
   const [volunteerId, setVolunteerId] = useState(initialVolunteerId);
   const [debouncedVolunteerId] = useDebounce(volunteerId, 500);
 
-
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["volunteerMedicalCheckup", debouncedVolunteerId],
     queryFn: () => (debouncedVolunteerId ? getVolunteerMedicalCheckup(Number(debouncedVolunteerId)) : Promise.resolve(null)),

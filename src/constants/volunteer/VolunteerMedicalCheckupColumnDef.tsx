@@ -1,13 +1,12 @@
-import { Volunteer } from "@/types/volunteer.schema";
 import { ColumnDef } from "@tanstack/react-table";
 import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
 import { useNavigate } from "react-router-dom";
-import { RiArrowUpCircleLine, RiEdit2Line, RiEyeFill, RiFileUserFill, RiGraduationCapLine, RiShakeHandsFill } from "@remixicon/react";
+import { RiEdit2Line } from "@remixicon/react";
 import { MedicalCheckup } from "@/types/volunteerMedicalCheckup";
 
 const ActionsColumn = ({ row }: { row: any }) => {
     const navigate = useNavigate();
-    const { gradeName, id} = row.original;
+    const { id } = row.original;
 
     const items: DropdownItem[] = [
         {
