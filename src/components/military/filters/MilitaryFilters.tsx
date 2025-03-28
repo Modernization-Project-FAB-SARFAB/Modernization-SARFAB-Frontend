@@ -41,7 +41,7 @@ export function MilitaryFilters({
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 mt-3 items-center">
-      <div className="flex-grow sm:w-3/5">
+      <div className="w-full sm:flex-grow sm:w-3/5">
         <FilterSearchBox 
           name="searchTerm" 
           value={searchValue} 
@@ -50,7 +50,7 @@ export function MilitaryFilters({
           className="w-full"
         />
       </div>
-      <div className="w-1/5">
+      <div className="w-full sm:w-1/5">
         <FilterSelect 
           name="status" 
           label="Estado" 
@@ -59,9 +59,9 @@ export function MilitaryFilters({
           onChange={setStatusFilter} 
         />
       </div>
-      <div className="w-1/4">
+      <div className="w-full sm:w-1/4">
         <FilterSelect 
-          name="rank" 
+          name="rank"
           label="Rango" 
           options={updatedRankOptions}
           value={rankFilter !== null ? rankFilter.toString() : "null"}
