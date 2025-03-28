@@ -58,7 +58,8 @@ export default function DetailVolunteerView() {
                 name="firstName"
                 type="text"
                 readonly
-                defaultValue={data.firstName} />
+                defaultValue={data.firstName} 
+                className="bg-gray text-black dark:text-white"/>
             </div>
 
             <div className="w-full xl:w-1/2">
@@ -66,7 +67,8 @@ export default function DetailVolunteerView() {
                 name="lastName"
                 type="text"
                 readonly
-                defaultValue={data.lastName} />
+                defaultValue={data.lastName} 
+                className="bg-gray text-black dark:text-white"/>
             </div>
           </div>
 
@@ -75,7 +77,8 @@ export default function DetailVolunteerView() {
               name="ci"
               type="text"
               readonly
-              defaultValue={data.ci} />
+              defaultValue={data.ci} 
+              className="bg-gray text-black dark:text-white"/>
           </div>
 
           <div className="mb-4.5">
@@ -84,7 +87,7 @@ export default function DetailVolunteerView() {
               name="birthDate"
               readonly
               defaultValue={data.birthDate}
-            />
+              className="bg-gray text-black dark:text-white"/>
           </div>
 
           <div className="mb-4.5">
@@ -92,7 +95,8 @@ export default function DetailVolunteerView() {
               name="email"
               type="email"
               readonly
-              defaultValue={data.email} />
+              defaultValue={data.email} 
+              className="bg-gray text-black dark:text-white"/>
           </div>
 
           <div className="mb-4.5">
@@ -100,7 +104,8 @@ export default function DetailVolunteerView() {
               label="Departamento"
               name="departmentId"
               readonly
-              defaultValue={data}
+              defaultValue={data.departmentName}
+              className="bg-gray text-black dark:text-white"
             />
           </div>
 
@@ -109,7 +114,8 @@ export default function DetailVolunteerView() {
               name="homeAddress"
               type="text"
               readonly
-              defaultValue={data.homeAddress} />
+              defaultValue={data.homeAddress} 
+              className="bg-gray text-black dark:text-white"/>
           </div>
 
           <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
@@ -118,7 +124,8 @@ export default function DetailVolunteerView() {
                 name="phone"
                 type="tel"
                 readonly
-                defaultValue={data.phone} />
+                defaultValue={data.phone} 
+                className="bg-gray text-black dark:text-white"/>
             </div>
 
             <div className="w-full xl:w-1/2">
@@ -126,7 +133,8 @@ export default function DetailVolunteerView() {
                 name="mobilePhone"
                 type="tel"
                 readonly
-                defaultValue={data.mobilePhone} />
+                defaultValue={data.mobilePhone} 
+                className="bg-gray text-black dark:text-white"/>
             </div>
           </div>
 
@@ -137,7 +145,7 @@ export default function DetailVolunteerView() {
                 name="gradeName"
                 readonly
                 defaultValue={data.gradeName}
-              />
+                className="bg-gray text-black dark:text-white"/>
             </div>
 
             <div className="w-full xl:w-1/2">
@@ -146,7 +154,7 @@ export default function DetailVolunteerView() {
                 name="volunteerType"
                 readonly
                 defaultValue={data.volunteerType}
-              />
+                className="bg-gray text-black dark:text-white"/>
             </div>
           </div>
 
@@ -155,14 +163,16 @@ export default function DetailVolunteerView() {
               <FormInput label="Ocupación"
                 name="occupation"
                 type="text" readonly
-                defaultValue={data.occupation} />
+                defaultValue={data.occupation} 
+                className="bg-gray text-black dark:text-white"/>
             </div>
 
             <div className="w-full xl:w-1/2">
               <FormInput label="Religion"
                 name="religion"
                 type="text" readonly
-                defaultValue={data.religion} />
+                defaultValue={data.religion} 
+                className="bg-gray text-black dark:text-white"/>
             </div>
           </div>
 
@@ -170,7 +180,8 @@ export default function DetailVolunteerView() {
             <FormInput label="Señas particulares"
               name="distinctiveFeatures"
               type="text" readonly
-              defaultValue={data.distinctiveFeatures} />
+              defaultValue={data.distinctiveFeatures} 
+              className="bg-gray text-black dark:text-white"/>
           </div>
         </div>
       </div>
@@ -260,7 +271,8 @@ export default function DetailVolunteerView() {
                 name="emergencyContactFullName"
                 type="text"
                 readonly
-                defaultValue={"recruit.firstName"} />
+                defaultValue={data.emergencyContactFullName} 
+                className="bg-gray text-black dark:text-white"/>
             </div>
 
             <div className="w-full xl:w-1/2">
@@ -268,7 +280,8 @@ export default function DetailVolunteerView() {
                 name="emergencyContactRelation"
                 type="text"
                 readonly
-                defaultValue={"recruit.firstName"} />
+                defaultValue={data.emergencyContactRelation} 
+                className="bg-gray text-black dark:text-white"/>
             </div>
           </div>
           <div className="mb-4.5">
@@ -276,7 +289,8 @@ export default function DetailVolunteerView() {
               name="emergencyContactAddress"
               type="text"
               readonly
-              defaultValue={"recruit.firstName"} />
+              defaultValue={data.emergencyContactAddress} 
+              className="bg-gray text-black dark:text-white"/>
           </div>
           <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
             <div className="w-full xl:w-1/2">
@@ -284,7 +298,8 @@ export default function DetailVolunteerView() {
                 name="emergencyContactPhone"
                 type="text"
                 readonly
-                defaultValue={"recruit.firstName"} />
+                defaultValue={data.emergencyContactPhone} 
+                className="bg-gray text-black dark:text-white"/>
             </div>
 
             <div className="w-full xl:w-1/2">
@@ -292,7 +307,8 @@ export default function DetailVolunteerView() {
                 name="emergencyContactMobile"
                 type="text"
                 readonly
-                defaultValue={"recruit.firstName"} />
+                defaultValue={data.emergencyContactMobile} 
+                className="bg-gray text-black dark:text-white"/>
             </div>
           </div>
         </div>
@@ -307,14 +323,16 @@ export default function DetailVolunteerView() {
               name="allergies"
               type="text"
               readonly
-              defaultValue={"recruit.firstName"} />
+              defaultValue={data.allergies} 
+              className="bg-gray text-black dark:text-white"/>
           </div>
           <div className="mb-4.5">
             <FormInput label="Grupo sanguineo"
               name="bloodType"
               type="text"
               readonly
-              defaultValue={"recruit.firstName"} />
+              defaultValue={data.bloodType} 
+              className="bg-gray text-black dark:text-white"/>
           </div>
         </div>
       </div>
