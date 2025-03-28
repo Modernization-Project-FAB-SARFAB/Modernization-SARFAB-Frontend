@@ -89,8 +89,8 @@ export default function OperationAbsenceInfo({
         <h2 className="text-lg font-semibold mb-4 ml-4 text-black dark:text-white">
           Datos generales de la operación
         </h2>
-        <div className="flex flex-row m-4 gap-4">
-          <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 flex-1">
+        <div className="flex flex-col sm:flex-row m-4 gap-4">
+          <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 flex-1 w-full">
             <FormInput
               label="Departamento"
               name="departmentName"
@@ -118,7 +118,7 @@ export default function OperationAbsenceInfo({
               />
             </div>
           </article>
-          <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 flex-1">
+          <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 flex-1 w-full">
             <FormInput
               label="Municipio"
               name="municipalityName"
@@ -148,68 +148,70 @@ export default function OperationAbsenceInfo({
       </div>
 
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <h2 className="text-lg font-semibold mb-4 ml-4 text-black dark:text-white">
+        <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
           Control de asistencia
         </h2>
-        <p className="ml-4 mb-2">
+        <p className="mb-2">
           Lista de voluntarios que asistieron al operativo
         </p>
-        <table className="w-full ml-4 table-auto text-center border-collapse border border-stroke dark:border-strokedark">
-          <thead>
-            <tr className="bg-gray-2 text-left dark:bg-meta-4 border border-stroke dark:border-strokedark">
-              <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
-                Nombre
-              </th>
-              <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
-                Grado
-              </th>
-              <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
-                Acción
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.volunteers?.map((person) => (
-              <tr
-                key={person.personId}
-                className="border border-stroke dark:border-strokedark"
-              >
-                <td className="py-2 px-4 border border-stroke dark:border-strokedark">
-                  {person.fullName}
-                </td>
-                <td className="py-2 px-4 border border-stroke dark:border-strokedark">
-                  {person.rankOrGrade}
-                </td>
-                <td className="py-2 px-4 border border-stroke dark:border-strokedark">
-                  {person.status === 0 ? (
-                    <div className="flex justify-center gap-2">
-                      <button
-                        className="text-green-500 hover:text-green-700"
-                        onClick={() => openModal(person.personId, 1)}
-                      >
-                        <RiCheckLine size={20} />
-                      </button>
-                      <button
-                        className="text-red-500 hover:text-red-700"
-                        onClick={() => openModal(person.personId, 2)}
-                      >
-                        <RiCloseLine size={20} />
-                      </button>
-                    </div>
-                  ) : person.status === 1 ? (
-                    <span className="text-green-600 font-semibold">
-                      Asistió
-                    </span>
-                  ) : (
-                    <span className="text-red-600 font-semibold">
-                      No asistió
-                    </span>
-                  )}
-                </td>
+        <div className="overflow-x-auto mx-auto px-0 sm:px-4">
+          <table className="w-full table-auto text-center border-collapse border border-stroke dark:border-strokedark">
+            <thead>
+              <tr className="bg-gray-2 text-left dark:bg-meta-4 border border-stroke dark:border-strokedark">
+                <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
+                  Nombre completo
+                </th>
+                <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
+                  Grado
+                </th>
+                <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
+                  Acción
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.volunteers?.map((person) => (
+                <tr
+                  key={person.personId}
+                  className="border border-stroke dark:border-strokedark"
+                >
+                  <td className="py-2 px-4 border border-stroke dark:border-strokedark">
+                    {person.fullName}
+                  </td>
+                  <td className="py-2 px-4 border border-stroke dark:border-strokedark">
+                    {person.rankOrGrade}
+                  </td>
+                  <td className="py-2 px-4 border border-stroke dark:border-strokedark">
+                    {person.status === 0 ? (
+                      <div className="flex justify-center gap-2">
+                        <button
+                          className="text-green-500 hover:text-green-700"
+                          onClick={() => openModal(person.personId, 1)}
+                        >
+                          <RiCheckLine size={20} />
+                        </button>
+                        <button
+                          className="text-red-500 hover:text-red-700"
+                          onClick={() => openModal(person.personId, 2)}
+                        >
+                          <RiCloseLine size={20} />
+                        </button>
+                      </div>
+                    ) : person.status === 1 ? (
+                      <span className="text-green-600 font-semibold">
+                        Asistió
+                      </span>
+                    ) : (
+                      <span className="text-red-600 font-semibold">
+                        No asistió
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {selectedPerson && (

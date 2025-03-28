@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { OperationDetailsFormProps } from './types/OperationDetailsProps';
-import { Link } from 'react-router-dom';
-import { AiOutlineArrowLeft } from 'react-icons/ai';
 import FormInput from '@/components/common/FormInput/FormInput';
 import FormDate from '@/components/common/FormDate/FormDate';
 import FilterDatalist from '@/components/common/FilterDatalist/FilterDatalist';
 import ErrorFormMessage from '../common/ErrorFormMessage/ErrorFormMessage';
+import BackLink from '../common/BackLink/BackLink';
 
 export default function OperationDetailsForm({
   errors,
@@ -88,14 +87,11 @@ export default function OperationDetailsForm({
   return (
     <div className="space-y-6">
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <Link
-          to="/operation/list"
-          className="flex items-center text-blue-600 hover:underline mb-4"
-        >
-          <AiOutlineArrowLeft className="w-5 h-5 mr-2" />
-          Volver al listado de operaciones
-        </Link>
-        <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
+        <BackLink
+          text="Volver al listado de operaciones"
+          link="/operation/list"
+        />
+        <h2 className="text-lg font-semibold mb-4 text-black dark:text-white mt-4">
           Datos de la operación
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -252,6 +248,7 @@ export default function OperationDetailsForm({
               name="arrivalDate"
               label="Fecha de llegada"
               register={register}
+              required
             />
             {errors.arrivalDate && (
               <ErrorFormMessage>{errors.arrivalDate.message}</ErrorFormMessage>
@@ -294,6 +291,7 @@ export default function OperationDetailsForm({
               placeholder="Celular del solicitante"
               register={register}
               errors={errors}
+              required
             />
             {errors.requester?.requesterMobilePhone && (
               <ErrorFormMessage>

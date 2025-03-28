@@ -31,14 +31,14 @@ export default function OperationDetails({
             defaultValue={operation.categoryName}
             className="bg-gray text-black dark:text-white text-center"
           />
-          <FormInput
-            label="Tipo de operativo"
-            name="operationTypeName"
-            type="text"
-            readonly
-            defaultValue={operation.operationTypeName}
-            className="bg-gray text-black dark:text-white text-center"
-          />
+          <div className="mb-4">
+            <label className="mb-2.5 block text-black dark:text-white">
+              Tipo de operativo
+            </label>
+            <div className="w-full rounded border-[1.5px] border-stroke py-3 px-5 font-medium outline-none bg-[#F1F5F9] text-black dark:text-white text-center break-words dark:border-form-strokedark dark:bg-form-input">
+              {operation.operationTypeName}
+            </div>
+          </div>
           <div className="flex flex-col md:col-span-2 mb-4">
             <FormInput
               label="Departamento"

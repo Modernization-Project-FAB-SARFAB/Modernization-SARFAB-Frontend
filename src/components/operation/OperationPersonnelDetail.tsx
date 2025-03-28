@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { OperationDetailResponse } from '@/types/operation.schema';
 import Button from '../common/Button/Button';
-import FormInput from '../common/FormInput/FormInput';
 import { Link } from 'react-router-dom';
 import { OperationStatusModal } from '@/components/operation/OperationStatusModal';
 
@@ -47,18 +46,16 @@ export default function OperationPersonnelDetail({
           <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
             Apartado de responsable, personal militar y voluntarios
           </h2>
-          <FormInput
-            label="Responsable"
-            name="responsible"
-            type="text"
-            readonly
-            defaultValue={
-              operation.responsible
+          <div className="mb-4">
+            <label className="mb-2.5 block text-black dark:text-white">
+              Responsable
+            </label>
+            <div className="w-full rounded border-[1.5px] border-stroke py-3 px-5 font-medium outline-none bg-[#F1F5F9] text-black dark:text-white text-center break-words dark:border-form-strokedark dark:bg-form-input">
+              {operation.responsible
                 ? `${operation.responsible.rankOrGrade} - ${operation.responsible.fullName}`
-                : ''
-            }
-            className="bg-gray text-black dark:text-white text-center"
-          />
+                : ''}
+            </div>
+          </div>
 
           <p>Personal asignado</p>
           <table className="w-full table-auto text-center border-collapse border border-stroke dark:border-strokedark">

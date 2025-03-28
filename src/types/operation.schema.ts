@@ -50,7 +50,7 @@ export const ListOperationSchema = z.object({
 export type ListOperationResponse = z.infer<typeof ListOperationSchema>;
 
 export const CreateOperationSchema = BaseOperationSchema.extend({
-  operationTypeId: z.coerce.number().min(1, 'Debe seleccionar un tipo de operación válido'),
+  operationTypeId: z.coerce.number().min(1, 'Debe seleccionar un tipo de operación'),
   municipalityId: z.coerce.number().min(1, 'Debe seleccionar un municipio válido'),
   requester: RequesterSchema,
   responsible: OperationPersonSchema,

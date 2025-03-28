@@ -302,6 +302,7 @@ export default function EditOperationForm({
               name="arrivalDate"
               label="Fecha de llegada"
               register={register}
+              required
             />
             {errors.arrivalDate && (
               <ErrorFormMessage>{errors.arrivalDate.message}</ErrorFormMessage>
@@ -344,6 +345,7 @@ export default function EditOperationForm({
               placeholder="Celular del solicitante"
               register={register}
               errors={errors}
+              required
             />
             {errors.requester?.requesterMobilePhone && (
               <ErrorFormMessage>

@@ -64,14 +64,14 @@ export default function OperationPersonnelForm({
         { personId, role, displayName, rank },
       ];
       setPersonnel(updatedPersonnel);
-      setValue('personnel', updatedPersonnel);
+      setValue('personnel', updatedPersonnel, { shouldValidate: true });
     }
   };
 
   const handleRemovePersonnel = (personId: number) => {
     const updatedPersonnel = personnel.filter((p) => p.personId !== personId);
     setPersonnel(updatedPersonnel);
-    setValue('personnel', updatedPersonnel);
+    setValue('personnel', updatedPersonnel, { shouldValidate: true });
   };
 
   return (
@@ -87,7 +87,7 @@ export default function OperationPersonnelForm({
         onChange={(value) => {
           if (!value) {
             setSelectedResponsible(null);
-            setValue('responsible', { personId: 0, role: 'Responsable' });
+            setValue('responsible', { personId: 0, role: 'Responsable' }, { shouldValidate: true });
             return;
           }
           const selected = mappedMilitary.find(
@@ -97,7 +97,7 @@ export default function OperationPersonnelForm({
           setValue('responsible', {
             personId: selected?.id || 0,
             role: 'Responsable',
-          });
+          }, { shouldValidate: true });
         }}
         value={
           selectedResponsible
@@ -111,7 +111,7 @@ export default function OperationPersonnelForm({
       )}
 
       <div className="flex flex-col gap-4 mt-4">
-        <div className="flex gap-2 items-end">
+        <div className="flex flex-col sm:flex-row gap-2 sm:items-end">
           <div className="flex-1">
             <FilterDatalist
               name="military"
@@ -121,28 +121,30 @@ export default function OperationPersonnelForm({
               value={selectedMilitary}
             />
           </div>
-          <Button
-            label="Agregar"
-            onClick={() => {
-              const selected = availableMilitary.find(
-                (option) => option.name === selectedMilitary,
-              );
-              if (selected) {
-                handleAddPersonnel(
-                  selected.id,
-                  'Personal Militar',
-                  selected.displayName,
-                  selected.rank,
+          <div className="sm:flex-none mt-2 sm:mt-0">
+            <Button
+              label="Agregar"
+              onClick={() => {
+                const selected = availableMilitary.find(
+                  (option) => option.name === selectedMilitary,
                 );
-                setSelectedMilitary('');
-              }
-            }}
-            variant="primary"
-            disabled={!selectedMilitary}
-          />
+                if (selected) {
+                  handleAddPersonnel(
+                    selected.id,
+                    'Personal Militar',
+                    selected.displayName,
+                    selected.rank,
+                  );
+                  setSelectedMilitary('');
+                }
+              }}
+              variant="primary"
+              disabled={!selectedMilitary}
+            />
+          </div>
         </div>
 
-        <div className="flex gap-2 items-end">
+        <div className="flex flex-col sm:flex-row gap-2 sm:items-end">
           <div className="flex-1">
             <FilterDatalist
               name="volunteer"
@@ -152,25 +154,27 @@ export default function OperationPersonnelForm({
               value={selectedVolunteer}
             />
           </div>
-          <Button
-            label="Agregar"
-            onClick={() => {
-              const selected = availableVolunteers.find(
-                (option) => option.name === selectedVolunteer,
-              );
-              if (selected) {
-                handleAddPersonnel(
-                  selected.id,
-                  'Voluntario',
-                  selected.displayName,
-                  selected.rank,
+          <div className="sm:flex-none mt-2 sm:mt-0">
+            <Button
+              label="Agregar"
+              onClick={() => {
+                const selected = availableVolunteers.find(
+                  (option) => option.name === selectedVolunteer,
                 );
-                setSelectedVolunteer('');
-              }
-            }}
-            variant="primary"
-            disabled={!selectedVolunteer}
-          />
+                if (selected) {
+                  handleAddPersonnel(
+                    selected.id,
+                    'Voluntario',
+                    selected.displayName,
+                    selected.rank,
+                  );
+                  setSelectedVolunteer('');
+                }
+              }}
+              variant="primary"
+              disabled={!selectedVolunteer}
+            />
+          </div>
         </div>
         {errors.personnel && (
           <ErrorFormMessage>{errors.personnel.message}</ErrorFormMessage>
