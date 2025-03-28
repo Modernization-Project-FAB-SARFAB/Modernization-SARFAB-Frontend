@@ -1,16 +1,14 @@
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import FormDate from "@/components/common/FormDate/FormDate";
-import FormSelectControlled from "../common/FormSelect/FormSelectControlled";
 import FormTextArea from "../common/FormTextArea/FormTextArea";
 import { EditMedicalTreatmentFormProps } from "./types/EditMedicalTreatmentFormProps.types";
+import FormSearchableSelect from "../common/FormSearchableSelect/FormSearchableSelect";
 
-const options = [
-    { value: 8, label: 'Juan Perez' },
-    { value: 9, label: 'Carlos Perez' },
-    { value: 11, label: 'Marco Perez' },
-]
-
-export default function EditMedicalTreatmentForm({ errors, register, control, readonly, watch }: EditMedicalTreatmentFormProps) {
+export default function EditMedicalTreatmentForm({ volunteersData, errors, register, control, readonly, watch }: EditMedicalTreatmentFormProps) {
+    const volunteersOptions = volunteersData?.map((data) => ({
+        id: data.volunteerId,
+        name: `${data.lastName} ${data.firstName}, ${data.abbreviation} `
+    }));
     return (
         <>
             <div className="grid grid-cols-1 gap-9 sm:grid-cols-2 mx-5">
@@ -29,28 +27,28 @@ export default function EditMedicalTreatmentForm({ errors, register, control, re
                         )}
                     </div>
                     <div className="mb-4.5 flex flex-col">
-                        <FormSelectControlled
-                            control={control}
-                            label="Persona que atendió"
-                            required
+                        <FormSearchableSelect
                             name="attendingPersonId"
-                            options={options}
+                            label="Persona que atendió"
+                            options={volunteersOptions && volunteersOptions.length > 0
+                                ? volunteersOptions
+                                : [{ id: 0, name: "No hay opciones" }]}
+                            control={control}
                             defaultValue={watch("attendingPersonId")}
-                            readonly={readonly}
                         />
                         {errors.attendingPersonId && (
                             <ErrorFormMessage>{errors.attendingPersonId.message}</ErrorFormMessage>
                         )}
                     </div>
                     <div className="mb-4.5 flex flex-col">
-                        <FormSelectControlled
-                            control={control}
-                            label="Persona que recibió el tratamiento"
-                            required
+                        <FormSearchableSelect
                             name="patientPersonId"
-                            options={options}
+                            label="Persona que recibió el tratamiento"
+                            options={volunteersOptions && volunteersOptions.length > 0
+                                ? volunteersOptions
+                                : [{ id: 0, name: "No hay opciones" }]}
+                            control={control}
                             defaultValue={watch("patientPersonId")}
-                            readonly={readonly}
                         />
                         {errors.patientPersonId && (
                             <ErrorFormMessage>{errors.patientPersonId.message}</ErrorFormMessage>
@@ -59,7 +57,7 @@ export default function EditMedicalTreatmentForm({ errors, register, control, re
                 </div>
                 <div className="flex flex-col gap-4">
                     <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
-                        Datos generales
+                        Diagnostico y tratamiento
                     </h3>
                     <div className="mb-4.5">
                         <FormTextArea label="Diagnóstico" placeholder="Diagnóstico" required

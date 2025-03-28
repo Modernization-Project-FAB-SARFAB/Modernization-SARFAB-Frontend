@@ -48,9 +48,9 @@ const menuItems: MenuItem[] = [
     {
         label: "Guardias",
         icon: <RiShieldFill size={18} color="white" />,
-        path: "/guards",
+        path: "/guards/list",
         subItems: [
-            { label: "Lista de guardias", path: "/guards" },
+            { label: "Lista de guardias", path: "/guards/list" },
             { label: "Crear guardia", path: "/guards/create" },
         ],
     },

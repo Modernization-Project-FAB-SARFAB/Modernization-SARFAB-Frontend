@@ -1,6 +1,7 @@
 import BackLink from "@/components/common/BackLink/BackLink";
 import EditMedicalTreatmentForm from "@/components/medical/EditMedicalTreatmentForm";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
+import { useVolunteerDataContext } from "@/hooks/guard/querys/useVolunteersDataContext";
 import { useMedicalTreatmentForm } from "@/hooks/medical/forms/useMedicalTreatmentForm";
 import { useGetMedicalTreatment } from "@/hooks/medical/querys/useGetMedicalTreatment";
 import { MedicalTreatmentFormData } from "@/types/medicalTreatment.schema";
@@ -15,6 +16,7 @@ export default function MedicalTreatmentDetailsView() {
     const medicalTreatmentId = params.medicalTreatmentId!;
 
     const { data, isLoading, isError } = useGetMedicalTreatment(Number(medicalTreatmentId));
+    const { volunteersData, volunteersDataIsLoading } = useVolunteerDataContext();
 
     const { register, formState: { errors }, control, reset, watch } = useMedicalTreatmentForm(data as MedicalTreatmentFormData);
 
@@ -27,12 +29,12 @@ export default function MedicalTreatmentDetailsView() {
         }
     }, [data, reset]);
 
-    if (isLoading) return 'Cargando...';
+    if (isLoading || volunteersDataIsLoading) return 'Cargando...';
     if (isError) return 'Error';
     return (
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <BackLink text="Volver a listado de tratamientos" iconSize={20} link="/medical-treatment/list" />
-            <EditMedicalTreatmentForm register={register} errors={errors} control={control} readonly={true} watch={watch} />
+            <EditMedicalTreatmentForm volunteersData={volunteersData} register={register} errors={errors} control={control} readonly={true} watch={watch} />
         </div>
     );
 }

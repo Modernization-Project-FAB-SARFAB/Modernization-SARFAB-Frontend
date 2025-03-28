@@ -41,6 +41,15 @@ const RequesterListView = lazy(() => import('@/views/configuration/RequesterList
 const CourseListView = lazy(() => import('@/views/course/CourseListView'));
 const CourseDetailView = lazy(() => import('@/views/course/CourseDetailView'));
 const AssignCourseVolunteersView = lazy(() => import('@/views/course/AssignCourseVolunteersView'));
+//Guard
+const GuardListView = lazy(() => import('@/views/guard/GuardListView'))
+const CreateGuardFormView = lazy(() => import('@/views/guard/CreateGuardView'))
+const GuardDetailsView = lazy(() => import('@/views/guard/GuardDetailsView'))
+const EditGuardView = lazy(() => import('@/views/guard/EditGuardView'))
+const AttendanceGuardView = lazy(() => import('@/views/guard/AttendanceControlGuardView'))
+
+//User
+const UserListView = lazy(() => import('@/views/user/UserListView'))
 
 const coreRoutes = [
     {
@@ -187,7 +196,38 @@ const coreRoutes = [
     path: '/courses/:courseId/assign-volunteers',
     title: 'Asignar voluntarios',
     component: AssignCourseVolunteersView
-  }
+  },
+    //Guards
+    {
+        path: '/guards/list',
+        title: 'Guardias',
+        component: GuardListView
+    },
+    {
+        path: '/guards/create',
+        title: 'Registrar guardias',
+        component: CreateGuardFormView
+    },
+    {
+        path: '/guards/:guardId',
+        title: 'Ver guardia',
+        component: GuardDetailsView
+    },
+    {
+        path: '/guards/:guardId/edit',
+        title: 'Editar guardia',
+        component: EditGuardView
+    },
+    {
+        path: '/guards/:guardId/attendance',
+        title: 'Editar guardia',
+        component: AttendanceGuardView
+    },
+    {
+        path: '/administration/users',
+        title: 'Lista de usuarios',
+        component: UserListView
+    }
 ]
 
 const routes = [...coreRoutes];

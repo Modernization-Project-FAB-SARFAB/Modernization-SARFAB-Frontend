@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '@/components/common/Footer/Footer';
 import { useAuth } from '@/hooks/auth/useAuth';
+import ChangePasswordFirstLoginModal from '@/components/user/ChangePasswordFirstLoginModal';
 
 export default function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -35,6 +36,10 @@ export default function AppLayout() {
         </div>
       </div>
       <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
+      {
+        data && 
+        <ChangePasswordFirstLoginModal isOpen={data.firstLogin === 1} userId={data.id} />
+      }
     </>
   )
 }
