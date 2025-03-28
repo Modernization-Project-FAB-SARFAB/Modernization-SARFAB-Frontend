@@ -12,13 +12,15 @@ export function InventoryFilters(props: InventoryFilterProps) {
         onChange={setSearchValue}
         placeholder="Buscar por nombre del elemento"
       />
-      <SortToggle
-        isAscending={orderByNameAsc}
-        onToggle={() => {
-          setOrderByNameAsc(!orderByNameAsc);
-          refetch();
-        }}
-      />
+      <div className="flex justify-center sm:justify-start">
+        <SortToggle
+          isAscending={orderByNameAsc}
+          onToggle={() => {
+            setOrderByNameAsc(!orderByNameAsc);
+            refetch();
+          }}
+        />
+      </div>
     </div>
   );
 }

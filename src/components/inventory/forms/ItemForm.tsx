@@ -24,6 +24,7 @@ export function ItemForm({
     register,
     handleSubmit,
     formState: { errors },
+    watch
   } = form;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -34,29 +35,43 @@ export function ItemForm({
     setIsSubmitting(false);
   };
 
+  const quantityValue = watch("quantity");
+
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="p-8 space-y-4">
-      <FormInput
-        label="Nombre del elemento"
-        name="name"
-        type="text"
-        register={register}
-        placeholder="Ingresa el nombre del elemento"
-      />
-      {errors.name && (
-        <ErrorFormMessage>{errors.name.message}</ErrorFormMessage>
-      )}
+      <div className="space-y-0">
+        <FormInput
+          label="Nombre del elemento"
+          name="name"
+          type="text"
+          register={register}
+          placeholder="Ingresa el nombre del elemento"
+        />
+        {errors.name && (
+          <div className="-mt-2">
+            <ErrorFormMessage>{errors.name.message}</ErrorFormMessage>
+          </div>
+        )}
+      </div>
 
-      <FormInput
-        label="Cantidad del elemento"
-        name="quantity"
-        type="number"
-        register={register}
-        placeholder="Cantidad disponible"
-      />
-      {errors.quantity && (
-        <ErrorFormMessage>{errors.quantity.message}</ErrorFormMessage>
-      )}
+      <div className="space-y-0 mt-4">
+        <FormInput
+          label="Cantidad del elemento"
+          name="quantity"
+          type="number"
+          register={register}
+          placeholder="Cantidad disponible"
+        />
+        {errors.quantity && quantityValue > 0 ? null : (
+          errors.quantity && (
+            <div className="-mt-2">
+              <ErrorFormMessage>
+                {errors.quantity.type === "invalid_type" ? "Debe ingresar la cantidad" : errors.quantity.message}
+              </ErrorFormMessage>
+            </div>
+          )
+        )}
+      </div>
 
       <div className="pt-6">
         <ButtonGroup

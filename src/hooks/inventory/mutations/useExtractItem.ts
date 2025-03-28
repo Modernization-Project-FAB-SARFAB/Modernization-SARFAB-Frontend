@@ -5,7 +5,7 @@ import { extractItem } from "@/api/InventoryAPI";
 export function useExtractItem() {
   return useMutation({
     mutationFn: extractItem,
-    onError: () => toast.error("Error al extraer el ítem"),
-    onSuccess: () => toast.success("Ítem extraído correctamente"),
+    onError: () => toast.error("Error al extraer el elemento"),
+    onSuccess: () => toast.success("Elemento extraído correctamente"),
   });
 }

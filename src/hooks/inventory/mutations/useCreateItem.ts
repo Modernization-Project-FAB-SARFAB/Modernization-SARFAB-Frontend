@@ -5,7 +5,7 @@ import { createItem } from "@/api/InventoryAPI";
 export function useCreateItem() {
   return useMutation({
     mutationFn: createItem,
-    onError: () => toast.error("Ocurrió un error al registrar el ítem"),
-    onSuccess: () => toast.success("Ítem registrado correctamente"),
+    onError: () => toast.error("Ocurrió un error al registrar el elemento"),
+    onSuccess: () => toast.success("Elemento registrado correctamente"),
   });
 }

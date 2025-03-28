@@ -8,7 +8,7 @@ export function useUpdateStatusPersonOperation() {
       mutationFn: async (formData: UpdatePersonStatusForm) => {
           return await updatePersonStatusOperation(formData);
       },
-      onSuccess: () => toast.success("Estado de la persona actualizado correctamente"),
-      onError: () => toast.error("Ocurrió un error al actualizar el estado de la persona"),
+      onSuccess: () => toast.success("Asistencia del voluntario registrada correctamente"),
+      onError: () => toast.error("Ocurrió un error al registrar la asistencia del voluntario"),
   });
 }

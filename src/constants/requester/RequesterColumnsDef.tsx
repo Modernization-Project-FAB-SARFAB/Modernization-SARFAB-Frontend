@@ -19,11 +19,11 @@ const ActionsColumn = ({ row }: { row: any }) => {
 };
 export const requesterColumnsDef: ColumnDef<RequesterType>[] = [
   ...baseColumns,
-  {
-    id: "actions",
-    header: "Acciones",
-    cell: ({ row }) => <ActionsColumn row={row} />,
-    enableSorting: false,
-  }
+  // {
+  //   id: "actions",
+  //   header: "Acciones",
+  //   cell: ({ row }) => <ActionsColumn row={row} />,
+  //   enableSorting: false,
+  // }
 ];
   

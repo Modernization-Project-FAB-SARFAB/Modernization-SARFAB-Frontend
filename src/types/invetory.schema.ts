@@ -1,9 +1,8 @@
 import { z } from 'zod';
 
-// **Schemas base**
 const BaseItemSchema = z.object({
-  name: z.string(),
-  quantity: z.number(),
+  name: z.string().min(1, "Debe ingresar el nombre del elemento").max(100, "El nombre debe tener un máximo de 100 caracteres"),
+  quantity: z.number().min(1, "Debe ingresar la cantidad").max(1000, "La cantidad debe ser menor o igual a 1000"),
 });
 
 const BaseInventoryItemSchema = z.object({
@@ -16,7 +15,6 @@ const BaseMovementSchema = z.object({
   quantity: z.number(),
 });
 
-// **Schemas específicos**
 export const CreateItemSchema = BaseItemSchema;
 export type CreateItemForm = z.infer<typeof CreateItemSchema>;
 

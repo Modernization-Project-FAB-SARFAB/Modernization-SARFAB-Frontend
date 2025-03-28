@@ -8,7 +8,11 @@ export const InventoryColumnsDef: ColumnDef<InventoryItem>[] = [
   {
     id: "actions",
     header: "Acciones",
-    cell: ({ row }) => <ActionsColumn row={row} />,
+    cell: ({ row }) => (
+      <div className="flex justify-center relative">
+        <ActionsColumn row={row} />
+      </div>
+    ),
     enableSorting: false,
   }
 ];

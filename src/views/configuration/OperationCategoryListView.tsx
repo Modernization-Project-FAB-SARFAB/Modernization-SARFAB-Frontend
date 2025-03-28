@@ -148,12 +148,12 @@ export default function OperationCategoryListView() {
   const operationColumns: ColumnDef<Operation>[] = [
     {
       accessorKey: 'name',
-      header: 'Tipo de operación',
+      header: 'Tipos de operación',
       cell: (info: any) => info.getValue(),
     },
     {
       id: 'actions',
-      header: 'Acciones',
+      header: '',
       cell: ({ row }) => <OperationTypeActionsColumn row={row} openEditModal={openEditTypeModal} />,
       enableSorting: false,
     }

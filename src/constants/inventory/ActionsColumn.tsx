@@ -1,6 +1,6 @@
 import DropdownMenu from '@/components/common/DropdownMenu/DropdownMenu';
 import { InventoryItem } from '../../types/invetory.schema';
-import { RiEdit2Line, RiEyeLine } from '@remixicon/react';
+import { RiEdit2Line, RiEyeLine, RiInboxUnarchiveLine, RiInboxArchiveLine } from '@remixicon/react';
 export const ActionsColumn = ({ row }: { row: { original: InventoryItem }; }) => {
   return (
     <>
@@ -22,11 +22,13 @@ export const ActionsColumn = ({ row }: { row: { original: InventoryItem }; }) =>
             type: 'link',
             label: 'Registrar extracción',
             href: `?openItemMovementModal=true&itemId=${row.original.itemId}`,
+            icon: <RiInboxUnarchiveLine size={20} />,
           },
           {
             type: 'link',
             label: 'Registrar devolución',
             href: `?openItemMovementModal=true&itemId=${row.original.itemId}&isReturn=true`,
+            icon: <RiInboxArchiveLine size={20} />,
           },
         ]}
       />
