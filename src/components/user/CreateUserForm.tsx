@@ -4,7 +4,6 @@ import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 import FormSearchableSelect from "../common/FormSearchableSelect/FormSearchableSelect";
 import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
 import FormInput from "../common/FormInput/FormInput";
-import FormSelectControlled from "../common/FormSelect/FormSelectControlled";
 
 interface CreateUserFormPorps {
     militarsData: MilitaryWithRankList | undefined;
@@ -18,11 +17,6 @@ export default function CreateUserForm({ militarsData, errors, register, control
         id: data.militaryId,
         name: `${data.lastName} ${data.firstName}, ${data.abbreviation} `
     }));
-
-    const roleOptions = [
-        { value: 1, label: 'Admistrador' },
-        { value: 2, label: 'Usuario normal' }
-    ]
 
     return (
         <>
@@ -54,18 +48,6 @@ export default function CreateUserForm({ militarsData, errors, register, control
                         name="email" />
                     {errors.email && (
                         <ErrorFormMessage>{errors.email.message}</ErrorFormMessage>
-                    )}
-                </div>
-                <div className="mb-4.5 flex flex-col w-full md:flex-1">
-                    <FormSelectControlled
-                        control={control}
-                        label="Rol"
-                        required
-                        name="role"
-                        options={roleOptions}
-                    />
-                    {errors.role && (
-                        <ErrorFormMessage>{errors.role.message}</ErrorFormMessage>
                     )}
                 </div>
             </div>

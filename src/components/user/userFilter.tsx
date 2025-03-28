@@ -13,7 +13,7 @@ export function UserFilters({ searchValue, setSearchValue, status, setStatus }: 
     const statusOptions = [
         { id: -1, name: 'Cualquiera' },
         { id: 1, name: 'Habilitado' },
-        { id: 0, name: 'Desactivado' },
+        { id: 0, name: 'Deshabilitado' },
     ];
 
     return (

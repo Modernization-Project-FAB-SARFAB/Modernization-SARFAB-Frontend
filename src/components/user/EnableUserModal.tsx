@@ -1,16 +1,16 @@
 import { useCallback, useMemo } from "react";
 import Modal from "../common/Modal/Modal";
 import ButtonGroup from "../common/ButtonGroup/ButtonGroup";
-import { useDeleteUser } from "@/hooks/user/mutations/useDeleteUser";
+import { useEnableUser } from "@/hooks/user/mutations/useEnableUser";
 
-interface DeleteUserModalProps {
+interface EnableUserModalProps {
     isOpen: boolean;
     onClose: () => void;
     userId: number;
 }
 
-export const DeleteUserModal = ({ isOpen, onClose, userId }: DeleteUserModalProps) => {
-    const { mutate, isPending } = useDeleteUser();
+export const EnableUserModal = ({ isOpen, onClose, userId }: EnableUserModalProps) => {
+    const { mutate, isPending } = useEnableUser();
 
     const handleConfirm = useCallback(() => {
         if (!userId) {
@@ -45,11 +45,11 @@ export const DeleteUserModal = ({ isOpen, onClose, userId }: DeleteUserModalProp
     );
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} title="Deshabilitar usuario">
+        <Modal isOpen={isOpen} onClose={onClose} title="Habilitar usuario">
             <div className="flex flex-col items-center gap-4">
                 <p className="text-center">
-                    Parece que quieres deshabilitar un usuario. <br />
-                    ¿Estás seguro de que deseas deshabilitar a este usuario?
+                    Parece que quieres habilitar un usuario. <br />
+                    ¿Estás seguro de que deseas habilitar a este usuario?
                 </p>
             </div>
             <div className="mt-4">

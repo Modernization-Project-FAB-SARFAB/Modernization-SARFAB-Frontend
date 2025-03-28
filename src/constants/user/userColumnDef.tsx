@@ -3,12 +3,14 @@ import { DeleteUserModal } from "@/components/user/DeleteUserModal";
 import { PasswordRecoveryByAdminModal } from "@/components/user/PasswordRecoveryByAdminModal";
 import UpdateUserModal from "@/components/user/UpdateUserModal";
 import { UserSchema } from "@/types/user.schema";
-import { RiCloseCircleLine, RiEdit2Line, RiEyeFill, RiListCheck3 } from "@remixicon/react";
+import { RiEyeFill, RiLockPasswordFill } from "@remixicon/react";
+import { FaUserCheck, FaUserEdit, FaUserTimes } from "react-icons/fa";
 import { ColumnDef } from "@tanstack/react-table";
 import { useState } from "react";
+import { EnableUserModal } from "@/components/user/EnableUserModal";
 
 const statusConfig: Record<number, { text: string; className: string }> = {
-    0: { text: "Desactivado", className: "bg-warning text-warning" },
+    0: { text: "Deshabilitado", className: "bg-warning text-warning" },
     1: { text: "Habilitado", className: "bg-success text-success" },
 };
 
@@ -63,27 +65,37 @@ const ActionsColumn = ({ row }: { row: any }) => {
             <DropdownMenu
                 items={[
                     {
-                        type: "link", label: "Editar usuario",
-                        onClick: () => openModal(row.original.userId, 3),
-                        icon: <RiEdit2Line size={20} />
-                    },
-                    {
                         type: "link", label: "Ver usuario",
-                        onClick: () => openModal(row.original.userId, 4),
+                        onClick: () => openModal(row.original.userId, 5),
                         icon: <RiEyeFill size={20} />
                     },
                     {
-                        type: "link", label: "Restaurar contraseña",
-                        onClick: () => openModal(row.original.userId, 2),
-                        icon: <RiListCheck3 size={20} />
+                        type: "link", label: "Editar usuario",
+                        onClick: () => openModal(row.original.userId, 4),
+                        icon: <FaUserEdit size={20} />
                     },
+                    {
+                        type: "link", label: "Restaurar contraseña",
+                        onClick: () => openModal(row.original.userId, 3),
+                        icon: <RiLockPasswordFill size={20} />
+                    },
+                    ...(row.original.status === 0
+                        ? ([
+                            {
+                                type: 'button' as const,
+                                label: 'Habilitar usuario',
+                                onClick: () => openModal(row.original.userId, 2),
+                                icon: <FaUserCheck size={20} />,
+                            },
+                        ] as const)
+                        : []),
                     ...(row.original.status !== 0
                         ? ([
                             {
                                 type: 'button' as const,
-                                label: 'Eliminar usuario',
+                                label: 'Deshabilitar usuario',
                                 onClick: () => openModal(row.original.userId, 1),
-                                icon: <RiCloseCircleLine size={20} />,
+                                icon: <FaUserTimes size={20} />,
                             },
                         ] as const)
                         : []),
@@ -95,11 +107,15 @@ const ActionsColumn = ({ row }: { row: any }) => {
             }
             {
                 (userId !== null && isModalOpen === 2) &&
-                <PasswordRecoveryByAdminModal isOpen={isModalOpen === 2} onClose={closeModal} userId={userId} />
+                <EnableUserModal isOpen={isModalOpen === 2} onClose={closeModal} userId={userId} />
             }
             {
-                (userId !== null && (isModalOpen === 3 || isModalOpen === 4)) &&
-                <UpdateUserModal isOpen={isModalOpen === 3 || isModalOpen === 4} onClose={closeModal} userId={userId} readonly={isModalOpen === 4} />
+                (userId !== null && isModalOpen === 3) &&
+                <PasswordRecoveryByAdminModal isOpen={isModalOpen === 3} onClose={closeModal} userId={userId} />
+            }
+            {
+                (userId !== null && (isModalOpen === 4 || isModalOpen === 5)) &&
+                <UpdateUserModal isOpen={isModalOpen === 4 || isModalOpen === 5} onClose={closeModal} userId={userId} readonly={isModalOpen === 5} />
             }
         </>
     );

@@ -18,7 +18,7 @@ export default function CreateUserModal({ isOpen, onClose }: CreateUserModalProp
         personId: 0,
         userName: '',
         email: '',
-        role: 0
+        role: 1
     });
 
     const handleForm = async (formData: CreateUserFormDataSchema) => {

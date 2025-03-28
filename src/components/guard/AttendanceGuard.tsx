@@ -111,15 +111,14 @@ export default function AttendanceControlGuard({ data, volunteerAttendances, set
                                                     size={24}
                                                     color={person.status === 1 ? 'green' : 'grey'}
                                                     style={{ cursor: 'pointer' }}
-                                                    onClick={() => handleAssignAssistance(person.voluntareeId, 1)}
+                                                    onClick={() => (person.status === 0 || volunteerAttendances.some(v => v.voluntareeId === person.voluntareeId)) && handleAssignAssistance(person.voluntareeId, 1)}
                                                 />
                                                 <FaRegCircleXmark
                                                     size={24}
                                                     color={person.status === 2 ? 'red' : 'grey'}
                                                     style={{ cursor: 'pointer' }}
-                                                    onClick={() => handleAssignAssistance(person.voluntareeId, 2)}
+                                                    onClick={() => (person.status === 0 || volunteerAttendances.some(v => v.voluntareeId === person.voluntareeId)) && handleAssignAssistance(person.voluntareeId, 2)}
                                                 />
-
                                             </td>
 
                                         </tr>

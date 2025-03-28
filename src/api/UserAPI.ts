@@ -71,6 +71,17 @@ export async function deleteUser(id: UserSchema['userId']) {
     }
 }
 
+export async function EnableUser(id: UserSchema['userId']) {
+    try {
+        const { data } = await api.post(`/User/${id}`)
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
 export async function changePasswordUser(formData: UpdateUserPasswordFormDataSchema) {
     try {
         const { data } = await api.put('/User/change-password', formData)
