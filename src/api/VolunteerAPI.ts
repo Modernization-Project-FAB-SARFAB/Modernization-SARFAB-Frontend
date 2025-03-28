@@ -1,7 +1,7 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
 import { listVolunteerActiveSchema, listVolunteerHistoricalSchema, Volunteer, VolunteerFormData } from "@/types/volunteer.schema";
-import { VolunteerAPIType } from "./types/VolunteerAPIType.type";
+import { VolunteerAPIType, VolunteerStatusAPIType } from "./types/VolunteerAPIType.type";
 
 export async function createVolunteer(formData: VolunteerFormData) {
     try {
@@ -68,6 +68,18 @@ export async function updateVolunteer({ formData, volunteerId }: VolunteerAPITyp
 export async function gradePromotionVolunteer(volunteerId: Volunteer['id']) {
     try {
         const { data } = await api.patch(`/VolunteerGradePromotion/${volunteerId}/promote`);
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.message);
+        }
+        throw new Error("Error de conexión con el servidor");
+    }
+}
+
+export async function statusChangeVolunteer({volunteerId, formData}: VolunteerStatusAPIType) {
+    try {
+        const { data } = await api.patch(`/Volunteer/${volunteerId}/status`, formData);
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {

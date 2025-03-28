@@ -1,14 +1,6 @@
 import Button from "@/components/common/Button/Button";
-import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
-import FormDate from "@/components/common/FormDate/FormDate";
-import FormSelect from "@/components/common/FormSelect/FormSelect";
 import Modal from "@/components/common/Modal/Modal";
-import { useCoursesSelect } from "@/hooks/courses/querys/useCoursesSelectData";
-import { useAssingCourseVolunteer } from "@/hooks/courseVolunteer/mutations/useAssingCourseVolunteer";
-import { useCourseVolunteerForm } from "@/hooks/volunteer/forms/useCourseVolunteerForm";
 import { useGradePromotionVolunteer } from "@/hooks/volunteer/mutations/useGradePromotionVolunteer";
-import { CourseVolunteer } from "@/types/courseVolunteer.schema";
-import { RiBook2Line } from "@remixicon/react";
 import { useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
