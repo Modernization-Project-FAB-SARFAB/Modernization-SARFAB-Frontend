@@ -6,7 +6,7 @@ import { RiArrowUpCircleLine, RiEdit2Line, RiEyeFill, RiFileUserFill, RiGraduati
 
 const ActionsColumn = ({ row }: { row: any }) => {
     const navigate = useNavigate();
-    const { gradeName, id, volunteerId } = row.original;
+    const { gradeName, id} = row.original;
 
     const items: DropdownItem[] = [
         {
@@ -18,19 +18,19 @@ const ActionsColumn = ({ row }: { row: any }) => {
         {
             type: "link",
             label: "Ver voluntario",
-            href: `/volunteer/${volunteerId}/view`,
+            href: `/volunteers/${id}/view`,
             icon: <RiEyeFill size={20} />,
         },
         {
             type: "link",
             label: "Reporte de guardias",
-            href: `/volunteer/${volunteerId}/guard_report`,
+            href: `/volunteers/${id}/report-guards`,
             icon: <RiFileUserFill size={20} />,
         },
         {
             type: "link",
             label: "Rep. de operaciones",
-            href: `/volunteer/${volunteerId}/operations_report`,
+            href: `/volunteers/${id}/report-operations`,
             icon: <RiShakeHandsFill size={20} />,
         },
         ...(gradeName !== "Rescatista"

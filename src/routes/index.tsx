@@ -4,11 +4,15 @@ const ActiveVolunteersView = lazy(() => import('@/views/personal/Volunteers/Acti
 const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers/CreateVolunteerAfiliationView'));
 const HistoricalVolunteersView = lazy(() => import ('@/views/personal/Volunteers/HistoricalVolunteersView'));
 const EditVolunteerView = lazy(() => import ('@/views/personal/Volunteers/EditVolunteerAfiliationView'));
+const DetailsVolunteerView = lazy(() => import('@/views/personal/Volunteers/DetailVolunteerView'));
+const ReportGuardsVolunteerView= lazy(() => import('@/views/personal/Volunteers/VolunteerGuardsReportView'));
+const ReportOperationsVolunteerView= lazy(() => import('@/views/personal/Volunteers/VolunteerOperationsReportView'));
 
 const RecruitmentPendingView = lazy(() => import('@/views/personal/Recruitment/RecruitmentPendingView'));
 const CreateRecruitmentView = lazy(() => import('@/views/personal/Recruitment/CreateRecruitView'));
 const EditRecruitmentView = lazy(() => import('@/views/personal/Recruitment/EditRecruitView'));
 const ApproveDenyRecruitView = lazy(() => import('@/views/personal/Recruitment/ApproveDenyRecruitView'));
+
 
 // Military
 const MilitaryView = lazy(() => import('@/views/personal/military/MilitaryListView'));
@@ -72,6 +76,7 @@ const coreRoutes = [
         title: 'Editar recluta',
         component: EditRecruitmentView
     },
+     // Volunteer 
     {
         path: '/volunteers/active-volunteers',
         title:'Voluntarios activos',
@@ -91,6 +96,21 @@ const coreRoutes = [
         path: '/volunteers/:volunteerId/edit',
         title: 'Editar voluntario',
         component: EditVolunteerView
+    },
+    {
+        path: '/volunteers/:volunteerId/view',
+        title: 'Editar voluntario',
+        component: DetailsVolunteerView
+    },
+    {
+        path: '/volunteers/:volunteerId/report-guards',
+        title: 'Reporte de guardias',
+        component: ReportGuardsVolunteerView
+    },
+    {
+        path: '/volunteers/:volunteerId/report-operations',
+        title: 'Reporte de operativos',
+        component: ReportOperationsVolunteerView
     },
   // Military
   {

@@ -1,4 +1,4 @@
-import { RiMap2Line, RiMapLine, RiUser2Line, RiUserStarLine } from "@remixicon/react";
+import { RiMapLine, RiUser2Line, RiUserStarLine } from "@remixicon/react";
 import BackLink from "../../common/BackLink/BackLink";
 import FormDate from "../../common/FormDate/FormDate";
 import FormInput from "../../common/FormInput/FormInput";
