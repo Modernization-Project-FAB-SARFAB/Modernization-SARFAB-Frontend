@@ -9,7 +9,7 @@ export default function BatchItemReturnView() {
   return (
     <>
       <section className="container mx-auto p-4">
-        <div className="w-1/2 mr-auto">
+        <div className="w-full md:w-1/2 mr-auto">
           <BatchItemReturnForm />
         </div>
       </section>

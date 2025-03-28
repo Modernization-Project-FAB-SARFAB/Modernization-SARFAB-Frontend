@@ -9,9 +9,9 @@ export default function BatchItemWithdrawalView() {
   return (
     <>
       <section className="container mx-auto p-4">
-      <div className="w-1/2 mr-auto">
-    <BatchItemWithdrawalForm />
-  </div>
+        <div className="w-full md:w-1/2 mr-auto">
+          <BatchItemWithdrawalForm />
+        </div>
       </section>
     </>
   )

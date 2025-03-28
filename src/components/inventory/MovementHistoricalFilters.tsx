@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import FilterSearchBox from "../common/FilterSearchBox/FilterSearchBox";
 import FilterSelect from "../common/FilterSelect/FilterSelect";
-import FilterRangeDates from "@/components/common/FIlterRangeDate/FilterRangeDates";
+import FilterRangeDates from "@/components/common/FilterRangeDate/FilterRangeDates";
 import { MovementHistoricalFilterProps } from "./types/MovementHistoricalFilterProps";
 
 export function MovementHistoricalFilters(props: MovementHistoricalFilterProps) {
@@ -33,7 +33,7 @@ export function MovementHistoricalFilters(props: MovementHistoricalFilterProps) 
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 mt-3 items-center">
-      <div className="flex-grow sm:w-2/5">
+      <div className="w-full sm:w-3/5 md:w-2/5">
         <FilterSearchBox
           name="searchTerm"
           value={searchValue}
@@ -42,7 +42,7 @@ export function MovementHistoricalFilters(props: MovementHistoricalFilterProps) 
           className="w-full"
         />
       </div>
-      <div className="w-1/5">
+      <div className="w-full sm:w-1/5 md:w-1/4">
         <FilterSelect
           name="movementType"
           label="Tipo"
@@ -51,10 +51,12 @@ export function MovementHistoricalFilters(props: MovementHistoricalFilterProps) 
           onChange={handleMovementTypeChange}
         />
       </div>
-      <FilterRangeDates
-        onChange={handleRangeSelect}
-        refetch={refetch}
-      />
+      <div className="w-full sm:w-auto md:w-1/3">
+        <FilterRangeDates
+          onChange={handleRangeSelect}
+          refetch={refetch}
+        />
+      </div>
     </div>
   );
 }
