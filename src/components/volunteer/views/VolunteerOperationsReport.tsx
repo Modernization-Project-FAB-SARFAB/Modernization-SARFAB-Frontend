@@ -36,7 +36,15 @@ export default function VolunteerOperationsReport({ breadcrumb, columns }: Volun
             <VolunteerHeader />
             <VolunteerOperationsReportFilters
                 searchValue={searchValue} setSearchValue={setSearchValue}
-                categoryFilter={categoryFilter} setCategoryFilter={setCateforyFilter} categoryOptions={[]}
+                categoryFilter={categoryFilter} setCategoryFilter={setCateforyFilter} categoryOptions={[
+                    { value: "", label: "Todos las categorias", isSelected: true },
+                    { value: "1", label: "Búsqueda y Rescate",  isSelected: false },
+                    { value: "2", label: "Emergencia Médica",  isSelected: false },
+                    { value: "3", label: "Desastres Naturales",  isSelected: false },
+                    { value: "4", label: "Incendios",  isSelected: false },
+                    { value: "5", label: "Operaciones Especiales",  isSelected: false },
+                    { value: "6", label: "Categoria editada",  isSelected: false }
+                ]}
                 setStartDate={setStartDate}
                 setEndDate={setEndDate}
                 orderByDateAsc={orderByDateAsc}
