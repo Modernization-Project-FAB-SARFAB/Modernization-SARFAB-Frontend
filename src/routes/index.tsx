@@ -31,6 +31,8 @@ const GuardDetailsView = lazy(() => import('@/views/guard/GuardDetailsView'))
 const EditGuardView = lazy(() => import('@/views/guard/EditGuardView'))
 const AttendanceGuardView = lazy(() => import('@/views/guard/AttendanceControlGuardView'))
 
+//User
+const UserListView = lazy(() => import('@/views/user/UserListView'))
 
 const coreRoutes = [
     {
@@ -133,6 +135,11 @@ const coreRoutes = [
         title: 'Editar guardia',
         component: AttendanceGuardView
     },
+    {
+        path: '/administration/users',
+        title: 'Lista de usuarios',
+        component: UserListView
+    }
 ]
 
 const routes = [...coreRoutes];
