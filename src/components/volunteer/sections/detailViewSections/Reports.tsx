@@ -5,9 +5,9 @@ interface ReportsProps {
     volunteerId: string;
 }
 
-const Reports: React.FC<ReportsProps> = ( volunteerId ) => {
+const Reports: React.FC<ReportsProps> = ( {volunteerId} ) => {
     const navigate = useNavigate();
-
+    
     return (
         <>
             <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
