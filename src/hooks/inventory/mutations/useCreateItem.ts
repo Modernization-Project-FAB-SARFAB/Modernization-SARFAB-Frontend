@@ -1,0 +1,11 @@
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { createItem } from "@/api/InventoryAPI";
+
+export function useCreateItem() {
+  return useMutation({
+    mutationFn: createItem,
+    onError: () => toast.error("Ocurrió un error al registrar el elemento"),
+    onSuccess: () => toast.success("Elemento registrado correctamente"),
+  });
+}

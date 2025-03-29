@@ -23,7 +23,7 @@ export function MilitaryHeader() {
     <nav>
       <button
         onClick={() => !isModalOpen && setIsModalOpen(true)}
-        className="inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-white hover:bg-opacity-90"
+        className="w-full md:w-auto inline-flex items-center justify-center rounded-md bg-primary py-2 px-10 text-white hover:bg-opacity-90"
       >
         <RiAddLine className="me-2" /> Añadir nuevo personal militar
       </button>

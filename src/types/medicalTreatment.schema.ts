@@ -31,4 +31,3 @@ export const medicalTreatmentFormSchema = baseMedicalTreatmentSchema.omit({
 
 export type MedicalTreatment = z.infer<typeof baseMedicalTreatmentSchema>;
 export type MedicalTreatmentFormData = Pick<MedicalTreatment, 'treatmentDate' | 'diagnosis' | 'description' | 'attendingPersonId' | 'patientPersonId'>
-export type MedicalTreatmentDetails = Pick<MedicalTreatment, 'treatmentDate' | 'diagnosis' | 'description' | 'attendingPersonId' | 'patientPersonId'>

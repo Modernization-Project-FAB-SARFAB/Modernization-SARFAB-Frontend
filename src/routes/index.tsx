@@ -21,13 +21,39 @@ const MilitaryView = lazy(() => import('@/views/personal/military/MilitaryListVi
 const OperationsView = lazy(() => import('@/views/operation/OperationListView'));
 const CreateOperationView = lazy(() => import('@/views/operation/CreateOperationView'));
 const EditOperationView = lazy(() => import('@/views/operation/EditOperationView'));
+const OperationDetailsView = lazy(() => import('@/views/operation/DetailOperationView'));
+const OperationAbsenceInfoView = lazy(() => import('@/views/operation/OperationAbsenceInfoView'));
 
+// Inventory
+const InventoryListView = lazy(() => import('@/views/inventory/InventoryListView'));
+const MovementHistoricalView = lazy(() => import('@/views/inventory/MovementHistoricalView'));
+const DetailItemWithTableView = lazy(() => import('@/views/inventory/DetailItemWithTableView'));
+const BatchItemWithdrawalView = lazy(() => import('@/views/inventory/BatchItemWithdrawalView'));
+const BatchItemReturnView = lazy(() => import('@/views/inventory/BatchItemReturnView'));
 
 //Medical treatment
 const MedicalTreatmentView = lazy(() => import('@/views/medical/MedicalTreatmentView'))
 const CreateMedicalTreatmentView = lazy(() => import('@/views/medical/CreateMedicalTreatmentView'))
 const EditMedicalTreatmentView = lazy(() => import('@/views/medical/EditMedicalTreatmentView'))
 const MedicalTreatmenDetailstView = lazy(() => import('@/views/medical/MedicalTreatmentDetailsView'))
+
+//Configuration
+const OperationCategoryListView = lazy(() => import('@/views/configuration/OperationCategoryListView'));
+const RequesterListView = lazy(() => import('@/views/configuration/RequesterListView'));
+
+//Course
+const CourseListView = lazy(() => import('@/views/course/CourseListView'));
+const CourseDetailView = lazy(() => import('@/views/course/CourseDetailView'));
+const AssignCourseVolunteersView = lazy(() => import('@/views/course/AssignCourseVolunteersView'));
+//Guard
+const GuardListView = lazy(() => import('@/views/guard/GuardListView'))
+const CreateGuardFormView = lazy(() => import('@/views/guard/CreateGuardView'))
+const GuardDetailsView = lazy(() => import('@/views/guard/GuardDetailsView'))
+const EditGuardView = lazy(() => import('@/views/guard/EditGuardView'))
+const AttendanceGuardView = lazy(() => import('@/views/guard/AttendanceControlGuardView'))
+
+//User
+const UserListView = lazy(() => import('@/views/user/UserListView'))
 
 const coreRoutes = [
     {
@@ -108,13 +134,47 @@ const coreRoutes = [
     title: 'Editar operación',
     component: EditOperationView
   },
-
-    //MedicalTreatments
-    {
-        path: '/medical-treatment/list',
-        title: 'Tratamientos médicos',
-        component: MedicalTreatmentView
-    },
+  {
+    path: '/operation/:operationId',
+    title: 'Detalles de la operación',
+    component: OperationDetailsView
+  }, {
+    path: '/operation/:operationId/absence',
+    title: 'Marcar inasistencia',
+    component: OperationAbsenceInfoView
+  },
+  // Inventory
+  {
+    path: '/inventory/list',
+    title: 'Items en el inventario',
+    component: InventoryListView
+  },
+  {
+    path: '/inventory/movement-historical',
+    title: 'Historial de movimientos',
+    component: MovementHistoricalView
+  },
+  {
+    path: '/inventory/:itemId',
+    title: 'Detalles del item',
+    component: DetailItemWithTableView
+  },
+  {
+    path: '/inventory/batch-item-withdrawal',
+    title: 'Retiro de items por lote',
+    component: BatchItemWithdrawalView
+  },
+  {
+    path: '/inventory/batch-item-return',
+    title: 'Devolución de items por lote',
+    component: BatchItemReturnView
+  },
+  //MedicalTreatments
+  {
+    path: '/medical-treatment/list',
+    title: 'Tratamientos médicos',
+    component: MedicalTreatmentView
+  },
     {
         path: '/medical-treatment/create',
         title: 'Editar tratamiento médico',
@@ -129,8 +189,65 @@ const coreRoutes = [
         path: '/medical-treatment/:medicalTreatmentId',
         title: 'Ver tratamiento médico',
         component: MedicalTreatmenDetailstView
+    },
+    //Configuration
+    {
+        path: '/configuration/operation-category/list',
+        title: 'Categorías de operación',
+        component: OperationCategoryListView
+  },
+  {
+    path: '/configuration/requester/list',
+    title: 'Solicitantes',
+    component: RequesterListView
+  },
+  //Course
+  {
+    path: '/courses/list',
+    title: 'Cursos',
+    component: CourseListView
+  },
+  {
+    path: '/courses/:courseId',
+    title: 'Ver curso',
+    component: CourseDetailView
+  },
+  {
+    path: '/courses/:courseId/assign-volunteers',
+    title: 'Asignar voluntarios',
+    component: AssignCourseVolunteersView
+  },
+    //Guards
+    {
+        path: '/guards/list',
+        title: 'Guardias',
+        component: GuardListView
+    },
+    {
+        path: '/guards/create',
+        title: 'Registrar guardias',
+        component: CreateGuardFormView
+    },
+    {
+        path: '/guards/:guardId',
+        title: 'Ver guardia',
+        component: GuardDetailsView
+    },
+    {
+        path: '/guards/:guardId/edit',
+        title: 'Editar guardia',
+        component: EditGuardView
+    },
+    {
+        path: '/guards/:guardId/attendance',
+        title: 'Editar guardia',
+        component: AttendanceGuardView
+    },
+    {
+        path: '/administration/users',
+        title: 'Lista de usuarios',
+        component: UserListView
     }
-
 ]
 
 const routes = [...coreRoutes];

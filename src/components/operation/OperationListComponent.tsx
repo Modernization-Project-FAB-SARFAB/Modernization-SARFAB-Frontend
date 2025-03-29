@@ -6,7 +6,7 @@ import { OperationTable } from "./OperationTable";
 import { OperationFilter } from "./OperationFilters";
 import { useOperationContext } from "@/hooks/operation/querys/useOperationContext";
 export function OperationListComponent(props: OperationListComponentProps) {
-  const { breadcrumb, initialStatusFilter, columns, modalComponent } = props;
+  const { breadcrumb, initialStatusFilter, columns } = props;
   useBreadcrumb(breadcrumb);
   const statusFilterNumber = Number(initialStatusFilter);
   const {
@@ -57,7 +57,6 @@ export function OperationListComponent(props: OperationListComponentProps) {
         pageIndex={pageIndex} pageSize={pageSize}
         setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
       />
-      {modalComponent}
     </>
   );
 }

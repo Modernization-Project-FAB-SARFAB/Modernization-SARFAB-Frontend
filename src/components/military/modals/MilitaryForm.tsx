@@ -38,37 +38,56 @@ export function MilitaryForm({
             name="firstName"
             type="text"
             register={register}
-            placeholder="Ingresa los nombres"
+            placeholder="Ingrese los nombres"
+            required
           />
           {errors.firstName && (
             <ErrorFormMessage>{errors.firstName.message}</ErrorFormMessage>
           )}
         </div>
 
+        <div className="flex flex-col">
+          <FormInput
+            label="Apellidos"
+            name="lastName"
+            type="text"
+            placeholder="Ingrese los apellidos"
+            register={register}
+            errors={errors}
+            required
+          />
+          {errors.lastName && (
+            <ErrorFormMessage>{errors.lastName.message}</ErrorFormMessage>
+          )}
+        </div>
+      </div>
+      <div className="flex flex-col">
         <FormInput
-          label="Apellidos"
-          name="lastName"
+          label="Teléfono"
+          name="mobilePhone"
           type="text"
+          placeholder="Ingrese el teléfono"
           register={register}
           errors={errors}
           required
         />
+        {errors.mobilePhone && (
+          <ErrorFormMessage>{errors.mobilePhone.message}</ErrorFormMessage>
+        )}
       </div>
-      <FormInput
-        label="Teléfono"
-        name="mobilePhone"
-        type="text"
-        register={register}
-        errors={errors}
-        required
-      />
-      <FormSelectControlled
-        label="Grado"
-        name="militaryRankId"
-        control={control}
-        options={rankOptions}
-        required
-      />
+      <div className="flex flex-col">
+        <FormSelectControlled
+          label="Grado"
+          name="militaryRankId"
+          control={control}
+          options={rankOptions}
+          required
+          defaultValue={form.watch("militaryRankId")}
+        />
+        {errors.militaryRankId && (
+          <ErrorFormMessage>{errors.militaryRankId.message}</ErrorFormMessage>
+        )}
+      </div>
       <div className="pt-6">
         <ButtonGroup
           buttons={[

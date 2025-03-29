@@ -29,7 +29,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ items }) => {
                                     ) : item.type === "link" && item.href ? (
                                         <Link
                                             to={item.href}
-                                            className={`px-3 py-1 text-sm leading-6 flex items-center gap-3.5 font-medium duration-300 ease-in-out lg:text-base ${item.ref ? item.ref : ""
+                                            className={`px-3 py-1 text-sm leading-6 flex items-center text-left justify-start gap-3.5 font-medium duration-300 ease-in-out lg:text-base ${item.ref ? item.ref : ""
                                                 }`}
                                         >
                                             {item.icon && <span className="mr-2">{item.icon}</span>}
@@ -38,7 +38,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ items }) => {
                                     ) : (
                                         <button
                                             type="button"
-                                            className={`px-3 py-1 text-sm leading-6 flex items-center gap-3.5 font-medium duration-300 ease-in-out lg:text-base ${item.ref ? item.ref : ""
+                                            className={`px-3 py-1 text-sm leading-6 flex items-center text-left justify-start gap-3.5 font-medium duration-300 ease-in-out lg:text-base ${item.ref ? item.ref : ""
                                                 }`}
                                             onClick={item.onClick}
                                         >

@@ -21,8 +21,8 @@ export default function CreateOperationView() {
 
   const initialValues: CreateOperationForm = {
     address: '',
-    departureDate: formatDateToYYYYMMDD(new Date()),
-    arrivalDate: formatDateToYYYYMMDD(new Date()),
+    departureDate: '',
+    arrivalDate: '',
     operationTypeId: 0,
     municipalityId: 0,
     requester: {

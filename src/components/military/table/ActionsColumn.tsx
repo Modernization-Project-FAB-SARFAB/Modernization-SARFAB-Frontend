@@ -31,13 +31,13 @@ export const ActionsColumn = ({ row }: { row: { original: Military } }) => {
   const menuItems = [
     {
       type: "button" as const,
-      label: "Editar personal militar",
+      label: "Editar militar",
       onClick: handleEditClick,
       icon: <RiEdit2Line size={20} />,
     },
     {
       type: "button" as const,
-      label: isActive ? "Desactivar personal" : "Activar personal",
+      label: isActive ? "Desactivar militar" : "Activar militar",
       onClick: handleStatusClick,
       icon: isActive ? <RiUserUnfollowLine size={20} /> : <RiUserFollowLine size={20} />,
     },
@@ -46,7 +46,7 @@ export const ActionsColumn = ({ row }: { row: { original: Military } }) => {
   if (row.original.canPromote) {
     menuItems.push({
       type: "button" as const,
-      label: "Ascender",
+      label: "Ascender militar",
       onClick: () => setIsPromoteModalOpen(true),
       icon: <RiArrowUpCircleLine size={20} />,
     });

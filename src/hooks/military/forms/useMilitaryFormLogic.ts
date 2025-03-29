@@ -24,24 +24,38 @@ export function useMilitaryFormLogic({ isOpen, onClose, militaryId }: UseMilitar
   const hasInitialized = useRef(false);
 
   const selectedRank = useMemo(() => {
-    return rankOptionsForForms.find(
-      (rank) => rank.label.trim().toLowerCase() === militaryData?.rankName?.trim().toLowerCase()
-    );
+    if (militaryData?.militaryRankId) {
+      const rankById = rankOptionsForForms.find(
+        (rank) => rank.value === militaryData.militaryRankId
+      );
+      if (rankById) return rankById;
+    }
+    
+    if (militaryData?.rankName) {
+      return rankOptionsForForms.find(
+        (rank) => rank.label.trim().toLowerCase() === militaryData.rankName?.trim().toLowerCase()
+      );
+    }
+    
+    return undefined;
   }, [militaryData, rankOptionsForForms]);
 
   const form = useMilitaryForm();
 
   useEffect(() => {
     if (militaryData && isOpen && !hasInitialized.current) {
+      const rankIdToUse = militaryData.militaryRankId || selectedRank?.value;
+      const rankIdAsNumber = rankIdToUse ? Number(rankIdToUse) : undefined;
+      
       form.reset({
         firstName: militaryData.firstName || "",
         lastName: militaryData.lastName || "",
         mobilePhone: militaryData.mobilePhone || "",
-        militaryRankId: selectedRank?.value ?? 0,
+        militaryRankId: rankIdAsNumber,
       });
       hasInitialized.current = true;
     }
-  }, [militaryData, selectedRank, isOpen, form]);
+  }, [militaryData, selectedRank, isOpen, form, rankOptionsForForms]);
 
   useEffect(() => {
     if (!isOpen) {

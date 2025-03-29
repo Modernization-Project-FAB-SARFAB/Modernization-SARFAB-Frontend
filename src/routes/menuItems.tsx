@@ -33,7 +33,7 @@ const menuItems: MenuItem[] = [
         path: "/military",
         subItems: [
             { label: "Ver personal militar", path: "/military/list" },
-            { label: "Registrar personal militar", path: "?openMilitaryModal=true" },
+            { label: "Registrar personal militar", path: "/military/list?openMilitaryModal=true" },
         ],
     },
     {
@@ -48,9 +48,9 @@ const menuItems: MenuItem[] = [
     {
         label: "Guardias",
         icon: <RiShieldFill size={18} color="white" />,
-        path: "/guards",
+        path: "/guards/list",
         subItems: [
-            { label: "Lista de guardias", path: "/guards" },
+            { label: "Lista de guardias", path: "/guards/list" },
             { label: "Crear guardia", path: "/guards/create" },
         ],
     },
@@ -59,10 +59,11 @@ const menuItems: MenuItem[] = [
         icon: <RiFileLine size={18} color="white" />,
         path: "/inventory",
         subItems: [
-            { label: "Lista de inventario", path: "/inventory" },
-            { label: "Registrar nuevo elemento", path: "/inventory/create" },
-            { label: "Registrar extracción", path: "/inventory/register-extraction" },
-            { label: "Registrar devolución", path: "/inventory/register-return" },
+          { label: "Lista de inventario", path: "/inventory/list" },
+            {label: "Histórico de devoluciones y extracciones", path: "/inventory/movement-historical"},
+            { label: "Registrar nuevo elemento", path: "/inventory/list?openItemModal=true" },
+            { label: "Registrar extracción de elementos", path: "/inventory/batch-item-withdrawal" },
+            { label: "Registrar devolución de elementos", path: "/inventory/batch-item-return" },
         ]
     },
     {
@@ -79,9 +80,9 @@ const menuItems: MenuItem[] = [
         icon: <RiSettings2Fill size={18} color="white" />,
         path: "/configuration",
         subItems: [
-            { label: "Tipos y categorias de operativo", path: "/configuration/types-and-categories" },
-            { label: "Cursos", path: "/configuration/courses" },
-            { label: "Solicitantes", path: "/configuration/applicant" },
+            { label: "Tipos y categorias de operativo", path: "/configuration/operation-category/list" },
+            { label: "Cursos", path: "/courses/list" },
+            { label: "Solicitantes", path: "/configuration/requester/list" },
         ]
     },
 ];

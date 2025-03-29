@@ -11,5 +11,6 @@ interface FormInputProps {
 
     readonly?: boolean;
     className?: string;
-    defaultValue?: string;
+  defaultValue?: string;
+  value?: string;
 }

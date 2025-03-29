@@ -5,5 +5,4 @@ export type OperationListComponentProps= {
     breadcrumb: { label: string; path?: string }[];
     initialStatusFilter: string;
     columns: ColumnDef<ActiveOperation>[];
-    modalComponent: JSX.Element;
 }

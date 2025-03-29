@@ -33,19 +33,21 @@ export function OperationFilter({
         name="searchTerm"
         value={searchValue}
         onChange={setSearchValue}
-        placeholder="Buscar por dirección o solicitante"
+        placeholder="Buscar dirección o solicitante"
       />
-      <FilterSelect
-        name="status"
-        label="Seleccionar por estado"
-        options={statusOptions.map(({ id, name }) => ({
-          value: id.toString(),
-          label: name,
-          isSelected: id === statusFilter,
-        }))}
-        value={statusFilter?.toString() || statusOptions[0]?.id.toString()}
-        onChange={(value) => setStatusFilter(value ? Number(value) : statusOptions[0]?.id)}
-      />
+      <div className="sm:w-auto w-full min-w-[170px]">
+        <FilterSelect
+          name="status"
+          label="Seleccionar por estado"
+          options={statusOptions.map(({ id, name }) => ({
+            value: id.toString(),
+            label: name,
+            isSelected: id === statusFilter,
+          }))}
+          value={statusFilter?.toString() || statusOptions[0]?.id.toString()}
+          onChange={(value) => setStatusFilter(value ? Number(value) : statusOptions[0]?.id)}
+        />
+      </div>
       <FilterDatalist
         name="municipality"
         label="Seleccionar municipio"
