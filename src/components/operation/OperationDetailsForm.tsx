@@ -87,11 +87,14 @@ export default function OperationDetailsForm({
   return (
     <div className="space-y-6">
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <BackLink
-          text="Volver al listado de operaciones"
-          link="/operation/list"
-        />
-        <h2 className="text-lg font-semibold mb-4 text-black dark:text-white mt-4">
+        <div className="-mx-6 -mt-2">
+          <BackLink
+            text="Volver al listado de operaciones"
+            link="/operation/list"
+            className="pt-0"
+          />
+        </div>
+        <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white mt-4">
           Datos de la operación
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -257,7 +260,7 @@ export default function OperationDetailsForm({
         </div>
       </div>
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
+        <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
           Datos del solicitante
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

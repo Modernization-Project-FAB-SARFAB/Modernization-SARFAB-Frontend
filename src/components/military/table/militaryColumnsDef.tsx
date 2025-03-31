@@ -9,9 +9,7 @@ export const militaryColumnsDef: ColumnDef<Military>[] = [
     id: "actions",
     header: "Acciones",
     cell: ({ row }) => (
-      <div className="flex justify-center relative">
-        <ActionsColumn row={row} />
-      </div>
+      <ActionsColumn row={row} />
     ),
     enableSorting: false,
     size: 100,

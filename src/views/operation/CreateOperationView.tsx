@@ -69,7 +69,6 @@ export default function CreateOperationView() {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-4">Registrar nueva operación</h2>
       <form
         onSubmit={handleSubmit(handleForm)}
         className="flex flex-col md:flex-row gap-6"

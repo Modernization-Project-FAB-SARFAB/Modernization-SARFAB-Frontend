@@ -93,9 +93,6 @@ export default function EditOperationView() {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-4">
-        Editar información de operación
-      </h2>
       {isLoadingOperation || !operationContext ? (
         <p className="text-center text-gray-500">Cargando datos...</p>
       ) : (

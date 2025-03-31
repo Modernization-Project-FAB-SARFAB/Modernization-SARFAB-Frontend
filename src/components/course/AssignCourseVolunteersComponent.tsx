@@ -104,11 +104,14 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
     <section>
       <div className="flex flex-col gap-6">
         <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
+        <div className="-mx-6 -mt-2">
           <BackLink
             text="Regresar al listado de cursos"
-            link="/courses/list"
-          />
-          <h2 className="text-lg font-semibold mb-4 mx-4 text-black dark:text-white">
+              link="/courses/list"
+              className="pt-0"
+            />
+          </div>
+          <h2 className="text-2xl font-semibold mb-4 mx-4 text-black dark:text-white mt-4">
             Datos generales del curso
           </h2>
           <div className="flex flex-col gap-4 mb-4 mx-4">
@@ -136,7 +139,7 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
         </div>
 
         <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-          <h2 className="text-lg font-semibold mb-4 mx-4 text-black dark:text-white">
+          <h2 className="text-2xl font-semibold mb-4 mx-4 text-black dark:text-white">
             Seleccionar los voluntarios que realizarán el curso
           </h2>
           <div className="mb-4 mx-4">

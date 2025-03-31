@@ -153,7 +153,7 @@ export default function OperationCategoryListView() {
     },
     {
       id: 'actions',
-      header: '',
+      header: 'Acciones',
       cell: ({ row }) => <OperationTypeActionsColumn row={row} openEditModal={openEditTypeModal} />,
       enableSorting: false,
     }

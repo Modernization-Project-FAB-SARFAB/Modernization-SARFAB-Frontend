@@ -31,7 +31,6 @@ export default function CreateRecruitView() {
     <>
       <div className="">
         <div className="">
-          {/* <!-- Contact Form --> */}
           <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
             <BackLink
               text="Volver a listado de reclutas"
