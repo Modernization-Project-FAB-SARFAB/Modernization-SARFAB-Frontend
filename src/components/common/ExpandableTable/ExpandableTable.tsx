@@ -250,7 +250,6 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
               type="number"
               min="1"
               max={totalPages}
-              defaultValue={pagination.pageIndex}
               value={pagination.pageIndex}
               onChange={(e) => {
                 const page = Number(e.target.value);

@@ -1,5 +1,3 @@
-import { AiOutlineLeft } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
 import FormInput from '../common/FormInput/FormInput';
 import FormDate from '../common/FormDate/FormDate';
 import { OperationDetailResponse } from '@/types/operation.schema';
@@ -13,7 +11,7 @@ export default function OperationDetails({
   return (
     <section className="space-y-6">
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-      <div className="-mx-6 -mt-2">
+        <div className="-mx-6 -mt-2">
           <BackLink
             text="Volver al listado de operaciones"
             link="/operation/list"
@@ -29,7 +27,7 @@ export default function OperationDetails({
             name="categoryName"
             type="text"
             readonly
-            defaultValue={operation.categoryName}
+            value={operation.categoryName}
             className="bg-gray text-black dark:text-white text-center"
           />
           <div className="mb-4">
@@ -46,7 +44,7 @@ export default function OperationDetails({
               name="departmentName"
               type="text"
               readonly
-              defaultValue={operation.departmentName}
+              value={operation.departmentName}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>
@@ -56,7 +54,7 @@ export default function OperationDetails({
               name="provinceName"
               type="text"
               readonly
-              defaultValue={operation.provinceName}
+              value={operation.provinceName}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>
@@ -66,7 +64,7 @@ export default function OperationDetails({
               name="municipalityName"
               type="text"
               readonly
-              defaultValue={operation.municipalityName}
+              value={operation.municipalityName}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>
@@ -76,7 +74,7 @@ export default function OperationDetails({
               name="address"
               type="text"
               readonly
-              defaultValue={operation.address}
+              value={operation.address}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>
@@ -117,7 +115,7 @@ export default function OperationDetails({
               name="requesterName"
               type="text"
               readonly
-              defaultValue={operation.requesterName}
+              value={operation.requesterName}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>
@@ -126,7 +124,7 @@ export default function OperationDetails({
             name="requesterPhone"
             type="text"
             readonly
-            defaultValue={operation.requesterPhone}
+            value={operation.requesterPhone || "Sin teléfono"}
             className="bg-gray text-black dark:text-white text-center"
           />
           <FormInput
@@ -134,7 +132,7 @@ export default function OperationDetails({
             name="requesterMobile"
             type="text"
             readonly
-            defaultValue={operation.requesterMobile}
+            value={operation.requesterMobile || "Sin celular"}
             className="bg-gray text-black dark:text-white text-center"
           />
         </article>

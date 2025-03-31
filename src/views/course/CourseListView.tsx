@@ -15,9 +15,6 @@ export default function CourseListView() {
     };
 
     const openEditCourseModal = (courseId: number, courseData: { name: string; description: string }) => {
-        console.log("Función openEditCourseModal llamada con ID:", courseId);
-        console.log("Datos del curso a editar:", courseData);
-        
         setSelectedCourseData(courseData);
         setSelectedCourseId(courseId);
         setCourseModalOpen(true);

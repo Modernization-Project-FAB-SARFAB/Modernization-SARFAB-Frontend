@@ -1,7 +1,6 @@
 import { ItemWithPendingTable } from "@/types/invetory.schema";
-import { AiOutlineLeft } from "react-icons/ai";
-import { Link } from "react-router-dom";
 import FormInput from "../common/FormInput/FormInput";
+import BackLink from "../common/BackLink/BackLink";
 
 export default function ItemDetailsWithTable({
   item,
@@ -11,14 +10,10 @@ export default function ItemDetailsWithTable({
   return (
     <section className="space-y-6">
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <Link
-          to="/inventory/list"
-          className="flex items-center text-blue-600 hover:underline mb-4"
-        >
-          <AiOutlineLeft className="w-5 h-5 mr-2" />
-          Volver al listado de elementos
-        </Link>
-        <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
+        <div className="-mx-6 -mt-2">
+          <BackLink text="Volver al listado de elementos" link="/inventory/list" className="pt-0" />
+        </div>
+        <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white mt-4">
           Datos del elemento
         </h2>
         <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -43,7 +38,7 @@ export default function ItemDetailsWithTable({
             />
           </div>
           <div className="md:col-span-2">
-            <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
+            <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
               Personas pendientes de devolución
             </h2>
           </div>

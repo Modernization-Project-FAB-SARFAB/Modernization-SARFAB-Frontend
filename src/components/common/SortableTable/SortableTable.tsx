@@ -98,16 +98,15 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                         <span className="flex items-center gap-1">
                             | Ir a página:
                             <input
-                                type="number"
-                                min="1"
-                                max={totalPages}
-                                defaultValue={pagination.pageIndex}
-                                value={pagination.pageIndex}
-                                onChange={(e) => {
-                                    const page = Number(e.target.value);
-                                    onPaginationChange({ pageIndex: page, pageSize: pagination.pageSize });
-                                }}
-                                className="border p-1 rounded w-16 dark:bg-form-input"
+                              type="number"
+                              min="1"
+                              max={totalPages}
+                              value={pagination.pageIndex}
+                              onChange={(e) => {
+                                const page = Number(e.target.value);
+                                onPaginationChange({ pageIndex: page, pageSize: pagination.pageSize });
+                              }}
+                              className="border p-1 rounded w-16 dark:bg-form-input"
                             />
                         </span>
                     </div>
