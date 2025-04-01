@@ -1,4 +1,4 @@
-import { RiAccountBox2Fill, RiAlarmWarningFill, RiHome2Fill, RiShieldFill } from '@remixicon/react';
+import { RiAccountBox2Fill, RiAlarmWarningFill, RiHome2Fill, RiShieldFill, RiNotification2Line } from '@remixicon/react';
 import { RiSettings2Fill, RiUserCommunityFill, RiFileLine, RiFirstAidKitFill } from 'react-icons/ri';
 
 const menuItems: MenuItem[] = [
@@ -6,6 +6,11 @@ const menuItems: MenuItem[] = [
         label: "Inicio",
         path: "/",
         icon: <RiHome2Fill size={18} color="white" />,
+    },
+    {
+        label: "Notificaciones",
+        path: "/notificaciones",
+        icon: <RiNotification2Line size={18} color="white" />,
     },
     {
         label: "Reclutamiento",

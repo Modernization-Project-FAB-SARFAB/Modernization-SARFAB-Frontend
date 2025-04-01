@@ -54,7 +54,7 @@ export default function DetailItemWithTableView() {
         </article>
         <article className="flex-1">
           <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-            <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
+            <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
               Acciones
             </h2>
             <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-10">

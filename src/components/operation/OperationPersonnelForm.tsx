@@ -76,7 +76,7 @@ export default function OperationPersonnelForm({
 
   return (
     <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-      <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
+      <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
         Asignación de rescatistas / voluntarios y responsable
       </h2>
 

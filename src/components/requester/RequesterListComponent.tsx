@@ -10,7 +10,7 @@ export default function RequesterListComponent({ breadcrumb, columns }: Requeste
   const {
     data, refetch, searchValue,
     setSearchValue, pageIndex, setPageIndex,
-    pageSize, setPageSize
+    pageSize, setPageSize, isLoading
   } = useRequester();
 
   return (
@@ -27,6 +27,7 @@ export default function RequesterListComponent({ breadcrumb, columns }: Requeste
         setPageIndex={setPageIndex}
         setPageSize={setPageSize}
         refetch={refetch}
+        isLoading={isLoading}
       />
     </>
   );

@@ -24,7 +24,6 @@ export default function DetailOperationView() {
     <p className="text-center text-gray-500">Cargando datos...</p>
   ) : (
     <section className="container mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-4">Detalle de la operación</h2>
       <section className="flex flex-col md:flex-row gap-6">
         <article className="flex-1">
           {operation && <OperationDetails operation={operation} />}

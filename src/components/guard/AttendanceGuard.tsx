@@ -30,12 +30,15 @@ export default function AttendanceControlGuard({ data, volunteerAttendances, set
     return (
         <>
             <div className="grid grid-cols-1 gap-9 mx-5 items-start">
-                <div className="h-auto gap-4 rounded-xl p-4 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="h-auto gap-4 rounded-xl p-4 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <div className="-mx-6 -mt-2">
                     <BackLink
                         text="Volver a listado de guardias"
                         iconSize={20}
                         link="/guards/list"
-                    />
+                        className="pt-1"
+              />
+              </div>
                     <h3 className="my-3 dark:text-white text-2xl font-semibold text-black">
                         Datos generales de la guardia
                     </h3>

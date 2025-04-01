@@ -80,13 +80,14 @@ export default function OperationAbsenceInfo({
   return (
     <section className="flex flex-col gap-6">
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <BackLink
-          text="Volver al listado de voluntarios activos"
-          iconSize={20}
-          link="/operation/list"
-          className="mb-4 -ml-4"
-        />
-        <h2 className="text-lg font-semibold mb-4 ml-4 text-black dark:text-white">
+      <div className="-mx-6 -mt-2">
+          <BackLink
+            text="Volver al listado de operaciones"
+            link="/operation/list"
+            className="pt-0"
+          />
+        </div>
+        <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white mt-4 ml-4">
           Datos generales de la operación
         </h2>
         <div className="flex flex-col sm:flex-row m-4 gap-4">
@@ -148,7 +149,7 @@ export default function OperationAbsenceInfo({
       </div>
 
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
+        <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
           Control de asistencia
         </h2>
         <p className="mb-2">

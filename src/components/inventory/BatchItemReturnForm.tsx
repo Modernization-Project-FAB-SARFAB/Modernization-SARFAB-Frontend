@@ -71,13 +71,15 @@ export default function BatchItemReturnForm() {
   return (
     <form>
       <section className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark mb-6">
+        <div className="-mx-6 -mt-2">
         <BackLink
           text="Volver al listado de elementos"
           link="/inventory/list"
-          className="text-[13.5px] pl-0"
+          className="pt-0"
         />
+        </div>
 
-        <h2 className="text-lg font-semibold mb-4 text-black dark:text-white mt-4">
+        <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white mt-4">
           Registro de devolución
         </h2>
 

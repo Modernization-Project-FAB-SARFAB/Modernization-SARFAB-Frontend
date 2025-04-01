@@ -8,6 +8,8 @@ const DetailsVolunteerView = lazy(() => import('@/views/personal/Volunteers/Deta
 const ReportGuardsVolunteerView= lazy(() => import('@/views/personal/Volunteers/VolunteerGuardsReportView'));
 const ReportOperationsVolunteerView= lazy(() => import('@/views/personal/Volunteers/VolunteerOperationsReportView'));
 
+const NotificationListView = lazy(() => import('@/views/notification/NotificationListView'));
+
 const RecruitmentPendingView = lazy(() => import('@/views/personal/Recruitment/RecruitmentPendingView'));
 const CreateRecruitmentView = lazy(() => import('@/views/personal/Recruitment/CreateRecruitView'));
 const EditRecruitmentView = lazy(() => import('@/views/personal/Recruitment/EditRecruitView'));
@@ -56,6 +58,11 @@ const AttendanceGuardView = lazy(() => import('@/views/guard/AttendanceControlGu
 const UserListView = lazy(() => import('@/views/user/UserListView'))
 
 const coreRoutes = [
+    {
+        path: '/notificaciones',
+        title: 'Notificaciones',
+        component: NotificationListView
+    },
     {
         path: '/recruitment/list',
         title: 'Reclutamiento',

@@ -1,5 +1,6 @@
 import SortableTable from "@/components/common/SortableTable/SortableTable";
 import { RequesterType } from "@/types/requester.schema";
+import Loader from "@/components/common/Loader";
 
 interface RequesterTableProps {
   data: { data: RequesterType[]; totalPages: number } | undefined;
@@ -9,6 +10,7 @@ interface RequesterTableProps {
   setPageIndex: (page: number) => void;
   setPageSize: (size: number) => void;
   refetch: () => void;
+  isLoading?: boolean;
 }
 
 export function RequesterTable({
@@ -18,10 +20,13 @@ export function RequesterTable({
   pageSize,
   setPageIndex,
   setPageSize,
-  refetch
+  refetch,
+  isLoading = false
 }: RequesterTableProps) {
   const requesters = data?.data || [];
   const totalPages = data?.totalPages || 0;
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="container mx-auto">

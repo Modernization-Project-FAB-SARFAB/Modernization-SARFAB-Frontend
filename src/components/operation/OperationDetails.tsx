@@ -1,8 +1,7 @@
-import { AiOutlineLeft } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
 import FormInput from '../common/FormInput/FormInput';
 import FormDate from '../common/FormDate/FormDate';
 import { OperationDetailResponse } from '@/types/operation.schema';
+import BackLink from '../common/BackLink/BackLink';
 
 export default function OperationDetails({
   operation,
@@ -12,14 +11,14 @@ export default function OperationDetails({
   return (
     <section className="space-y-6">
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <Link
-          to="/operation/list"
-          className="flex items-center text-blue-600 hover:underline mb-4"
-        >
-          <AiOutlineLeft className="w-5 h-5 mr-2" />
-          Volver al listado de operaciones
-        </Link>
-        <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
+        <div className="-mx-6 -mt-2">
+          <BackLink
+            text="Volver al listado de operaciones"
+            link="/operation/list"
+            className="pt-0"
+          />
+        </div>
+        <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white mt-4">
           Datos de la operación
         </h2>
         <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -28,7 +27,7 @@ export default function OperationDetails({
             name="categoryName"
             type="text"
             readonly
-            defaultValue={operation.categoryName}
+            value={operation.categoryName}
             className="bg-gray text-black dark:text-white text-center"
           />
           <div className="mb-4">
@@ -45,7 +44,7 @@ export default function OperationDetails({
               name="departmentName"
               type="text"
               readonly
-              defaultValue={operation.departmentName}
+              value={operation.departmentName}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>
@@ -55,7 +54,7 @@ export default function OperationDetails({
               name="provinceName"
               type="text"
               readonly
-              defaultValue={operation.provinceName}
+              value={operation.provinceName}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>
@@ -65,7 +64,7 @@ export default function OperationDetails({
               name="municipalityName"
               type="text"
               readonly
-              defaultValue={operation.municipalityName}
+              value={operation.municipalityName}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>
@@ -75,7 +74,7 @@ export default function OperationDetails({
               name="address"
               type="text"
               readonly
-              defaultValue={operation.address}
+              value={operation.address}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>
@@ -106,7 +105,7 @@ export default function OperationDetails({
         </article>
       </div>
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <h2 className="text-lg font-semibold mb-4 text-black dark:text-white">
+        <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
           Datos del solicitante
         </h2>
         <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -116,7 +115,7 @@ export default function OperationDetails({
               name="requesterName"
               type="text"
               readonly
-              defaultValue={operation.requesterName}
+              value={operation.requesterName}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>
@@ -125,7 +124,7 @@ export default function OperationDetails({
             name="requesterPhone"
             type="text"
             readonly
-            defaultValue={operation.requesterPhone}
+            value={operation.requesterPhone || "Sin teléfono"}
             className="bg-gray text-black dark:text-white text-center"
           />
           <FormInput
@@ -133,7 +132,7 @@ export default function OperationDetails({
             name="requesterMobile"
             type="text"
             readonly
-            defaultValue={operation.requesterMobile}
+            value={operation.requesterMobile || "Sin celular"}
             className="bg-gray text-black dark:text-white text-center"
           />
         </article>
