@@ -5,8 +5,10 @@ const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers/Cre
 const HistoricalVolunteersView = lazy(() => import ('@/views/personal/Volunteers/HistoricalVolunteersView'));
 const EditVolunteerView = lazy(() => import ('@/views/personal/Volunteers/EditVolunteerAfiliationView'));
 const DetailsVolunteerView = lazy(() => import('@/views/personal/Volunteers/DetailVolunteerView'));
-const ReportGuardsVolunteerView= lazy(() => import('@/views/personal/Volunteers/VolunteerGuardsReportView'));
-const ReportOperationsVolunteerView= lazy(() => import('@/views/personal/Volunteers/VolunteerOperationsReportView'));
+const ReportGuardsVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerGuardsReportView'));
+const ReportOperationsVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerOperationsReportView'));
+
+const CompletedCoursesVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerCompletedCoursesView'));
 
 const NotificationListView = lazy(() => import('@/views/notification/NotificationListView'));
 
@@ -119,6 +121,11 @@ const coreRoutes = [
         title: 'Reporte de operativos',
         component: ReportOperationsVolunteerView
     },
+    {
+      path: '/volunteers/:volunteerId/completed-courses',
+      title: 'Cursos',
+      component: CompletedCoursesVolunteerView
+  },
   // Military
   {
     path: '/military/list',

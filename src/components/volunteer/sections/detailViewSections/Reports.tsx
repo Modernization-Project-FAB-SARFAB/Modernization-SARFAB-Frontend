@@ -30,7 +30,7 @@ const Reports: React.FC<ReportsProps> = ( {volunteerId} ) => {
                 </button>
                 <button
                     className="w-full bg-primary text-white py-3 rounded-lg"
-                    onClick={() => navigate(`/volunteers/${volunteerId}/courses`)}
+                    onClick={() => navigate(`/volunteers/${volunteerId}/completed-courses`)}
                 >
                     Ver cursos
                 </button>
