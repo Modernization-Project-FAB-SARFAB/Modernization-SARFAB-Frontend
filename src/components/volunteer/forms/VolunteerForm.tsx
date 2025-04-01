@@ -152,7 +152,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                     <div className="w-full xl:w-1/2">
                                         <FormSelect
                                             label="Tipo de voluntario"
-                                            options={[{ id: 0, name: "Libretista" }, { id: 1, name: "Voluntario" }]}
+                                            options={[{ id: "Libretista", name: "Libretista" }, { id: "Voluntario", name: "Voluntario" }]}
                                             control={control}
                                             name="volunteerType"
                                             required

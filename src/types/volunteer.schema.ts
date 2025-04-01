@@ -7,8 +7,8 @@ export const baseVolunteerSchema = z.object({
     homeAddress: z.string(),
     ci: z.string().regex(/^[a-zA-Z0-9]+$/, "CI puede ser alfanumérico"),
     birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Formato de fecha invalido"),
-    phone: z.string().regex(/^\d{7,15}$/, "Número de teléfono inválido"),
-    mobilePhone: z.string().regex(/^\d{7,15}$/, "Número de celular inválido"),
+    phone: z.string().regex(/^[\d\s\-().+]{7,20}$/, "Número de teléfono inválido"),
+    mobilePhone: z.string().regex(/^[\d\s\-().+]{7,20}$/, "Número de celular inválido"),
     email: z.string().email("Formato de correo invalido"),
     distinctiveFeatures: z.string(),
     volunteerType: z.string(),
@@ -19,10 +19,10 @@ export const baseVolunteerSchema = z.object({
     emergencyContactFullName: z.string(),
     emergencyContactRelation: z.string(),
     emergencyContactAddress: z.string(),
-    emergencyContactPhone: z.string().regex(/^\d{7,15}$/, "Número de celular inválido"),
-    emergencyContactMobile: z.string().regex(/^\d{7,15}$/, "Número de celular inválido"),
-    departmentId: z.number(),
-    gradeId: z.number(),
+    emergencyContactPhone: z.string().regex(/^[\d\s\-().+]{7,20}$/, "Número de celular inválido"),
+    emergencyContactMobile: z.string().regex(/^[\d\s\-().+]{7,20}$/, "Número de celular inválido"),
+    departmentId: z.string(),
+    gradeId: z.string(),
     checkupDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Formato de fecha invalido"),
     expirationDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Formato de fecha invalido"),
     observations: z.string(),
@@ -65,9 +65,9 @@ export const volunteerFormSchema = z.object(
     Object.fromEntries(
         Object.entries(baseVolunteerSchema.omit({ id: true })._def.shape()).map(
             ([key, field]) => {
-                if (field instanceof z.ZodString) {
+                if (field._def.typeName === "ZodString") {
                     return [key, field.min(1, "Este campo es requerido")];
-                } else if (field instanceof z.ZodNumber) {
+                } else if (field._def.typeName === "ZodNumber") {
                     return [key, field.min(1, "Este campo es requerido")];
                 }
                 return [key, field];
