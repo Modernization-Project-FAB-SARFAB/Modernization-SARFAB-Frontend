@@ -7,7 +7,7 @@ import menuItems from "@/routes/menuItems";
 import menuItemsConfiguration from "@/routes/menuItemsConfiguration";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
-    const location = useLocation();
+  const location = useLocation();
   const { pathname } = location;
   const navigate = useNavigate();
   const isModalOpen = location.search.includes("openMilitaryModal=true");
@@ -28,9 +28,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         sidebar.current.contains(target) ||
         trigger.current.contains(target)
       ) {
-        setSidebarOpen(false);
         return;
       }
+      setSidebarOpen(false);
     };
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
@@ -54,10 +54,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     }
   }, [sidebarExpanded]);
 
-    return (
-        <aside
-            ref={sidebar}
-            className={`z-99999 absolute left-0 top-0 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear
+  return (
+    <aside
+      ref={sidebar}
+      className={`z-99999 absolute left-0 top-0 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear
                 dark:bg-boxdark lg:static lg:translate-x-0
                ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}>
@@ -79,89 +79,91 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">MENU</h3>
 
-                        <ul className="mb-6 flex flex-col gap-1.5">
-                            {menuItems.map((item) => (
-                                <li key={item.label}>
-                                    {item.subItems ? (
-                                        <SidebarLinkGroup
-                                            activeCondition={pathname === item.path || pathname.includes(item.path)}
-                                        >
-                                            {(handleClick, open) => (
-                                                <React.Fragment>
-                                                    <NavLink
-                                                        to={item.path}
-                                                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname === item.path || pathname.includes(item.path)
-                                                            ? 'bg-graydark dark:bg-meta-4'
-                                                            : ''
-                                                            }`}
-                                                        onClick={(e) => {
-                                                            e.preventDefault();
-                                                            sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                                                        }}
-                                                    >
-                                                        {item.icon}
-                                                        {item.label}
-                                                        <RiArrowDownSLine
-                                                            size={18}
-                                                            className={`absolute right-4 transform transition-transform ${open ? 'rotate-180' : ''
-                                                                }`}
-                                                        />
-                                                    </NavLink>
-                                                    <div
-                                                        className={`translate transform overflow-hidden ${!open ? 'hidden' : ''
-                                                            }`}
-                                                    >
-                                                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                                                            {item.subItems &&
-                                                                <>
-                                                                    {item.subItems?.map((subItem) => (
-                                                                        <li key={subItem.label}>
-                                                                          {subItem.path === "?openMilitaryModal=true" ? (
-                                                                            <button
-                                                                              onClick={() => navigate("?openMilitaryModal=true")}
-                                                                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out hover:text-white 
+            <ul className="mb-6 flex flex-col gap-1.5">
+              {menuItems.map((item) => (
+                <li key={item.label}>
+                  {item.subItems ? (
+                    <SidebarLinkGroup
+                      activeCondition={pathname === item.path || pathname.includes(item.path)}
+                    >
+                      {(handleClick, open) => (
+                        <React.Fragment>
+                          <NavLink
+                            to={item.path}
+                            className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname === item.path || pathname.includes(item.path)
+                              ? 'bg-graydark dark:bg-meta-4'
+                              : ''
+                              }`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              sidebarExpanded ? handleClick() : setSidebarExpanded(true);
+                            }}
+                          >
+                            {item.icon}
+                            {item.label}
+                            <RiArrowDownSLine
+                              size={18}
+                              className={`absolute right-4 transform transition-transform ${open ? 'rotate-180' : ''
+                                }`}
+                            />
+                          </NavLink>
+                          <div
+                            className={`translate transform overflow-hidden ${!open ? 'hidden' : ''
+                              }`}
+                          >
+                            <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                              {item.subItems &&
+                                <>
+                                  {item.subItems?.map((subItem) => (
+                                    <li key={subItem.label}>
+                                      {subItem.path === "?openMilitaryModal=true" ? (
+                                        <button
+                                          onClick={() => navigate("?openMilitaryModal=true")}
+                                          className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out hover:text-white 
                                                                               ${isModalOpen ? "!text-white" : "text-bodydark2"}`}
-                                                                            >
-                                                                              {subItem.label}
-                                                                            </button>
-                                                                          ) : (
-                                                                            <NavLink
-                                                                              to={subItem.path}
-                                                                              className={({ isActive }) =>
-                                                                                `group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out hover:text-white 
-                                                                                ${isActive ? "!text-white" : "text-bodydark2"}`
-                                                                              }
-                                                                            >
-                                                                              {subItem.label}
-                                                                            </NavLink>
-                                                                          )}
-                                                                        </li>
-                                                                      ))}
-                                                                </>}
-                                                        </ul>
-                                                    </div>
-                                                </React.Fragment>
-                                            )}
-                                        </SidebarLinkGroup>
-                                    ) : (
-                                        <NavLink
-                                            to={item.path}
-                                            className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname === item.path ? 'bg-graydark dark:bg-meta-4' : ''
-                                                }`}
                                         >
-                                            {item.icon}
-                                            {item.label}
+                                          {subItem.label}
+                                        </button>
+                                      ) : (
+                                        <NavLink
+                                          to={subItem.path}
+                                          className={({ isActive }) =>
+                                            `group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out hover:text-white 
+                                                                                ${isActive ? "!text-white" : "text-bodydark2"}`
+                                          }
+                                          onClick={() => setSidebarOpen(false)}
+                                        >
+                                          {subItem.label}
                                         </NavLink>
-                                    )}
-                                </li>
-                            ))}
-                        </ul>
+                                      )}
+                                    </li>
+                                  ))}
+                                </>}
+                            </ul>
+                          </div>
+                        </React.Fragment>
+                      )}
+                    </SidebarLinkGroup>
+                  ) : (
+                    <NavLink
+                      to={item.path}
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname === item.path ? 'bg-graydark dark:bg-meta-4' : ''
+                        }`}
+                        onClick={() => setSidebarOpen(false)}
+                    >
+                      {item.icon}
+                      {item.label}
+                    </NavLink>
+                  )}
+                </li>
+              ))}
+            </ul>
 
-                    </div>
-                    <div>
-                        <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-                            Otros
-                        </h3>
+          </div>
+          <div>
+            <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
+              Otros
+            </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
               {menuItemsConfiguration.map((item) =>
@@ -199,6 +201,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                     'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
                                     (isActive ? '!text-white' : '')
                                   }
+                                  onClick={() => setSidebarOpen(false)}
                                 >
                                   {subItem.label}
                                 </NavLink>
