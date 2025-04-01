@@ -11,6 +11,7 @@ interface ItemFormProps {
   isLoading: boolean;
   onClose: () => void;
   itemId?: number;
+  assignedQuantity?: number;
 }
 
 export function ItemForm({
@@ -19,23 +20,50 @@ export function ItemForm({
   isLoading,
   onClose,
   itemId,
+  assignedQuantity,
 }: ItemFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch
   } = form;
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const shouldShowWarning = Boolean(itemId) && typeof assignedQuantity === 'number' && assignedQuantity > 0;
 
   const handleFormSubmit = async (data: CreateItemForm) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
-    await onSubmit(data);
-    setIsSubmitting(false);
+    
+    try {
+      await onSubmit(data);
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const quantityValue = watch("quantity");
+  const getErrorMessage = (error: any) => {
+    if (!error) return null;
+    
+    if (error.type === "invalid_type") {
+      return "Debe ingresar un número válido";
+    }
+    
+    if (error.message) {
+      return error.message;
+    }
+    
+    switch (error.type) {
+      case "min":
+        return `El valor debe ser al menos ${error.ref?.value || 1}`;
+      case "max":
+        return `El valor debe ser como máximo ${error.ref?.value || 1000}`;
+      default:
+        return "Valor inválido";
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="p-8 space-y-4">
@@ -49,27 +77,52 @@ export function ItemForm({
         />
         {errors.name && (
           <div className="-mt-2">
-            <ErrorFormMessage>{errors.name.message}</ErrorFormMessage>
+            <ErrorFormMessage>{getErrorMessage(errors.name)}</ErrorFormMessage>
           </div>
         )}
       </div>
 
       <div className="space-y-0 mt-4">
-        <FormInput
-          label="Cantidad del elemento"
-          name="quantity"
-          type="number"
-          register={register}
-          placeholder="Cantidad disponible"
-        />
-        {errors.quantity && quantityValue > 0 ? null : (
-          errors.quantity && (
-            <div className="-mt-2">
-              <ErrorFormMessage>
-                {errors.quantity.type === "invalid_type" ? "Debe ingresar la cantidad" : errors.quantity.message}
-              </ErrorFormMessage>
-            </div>
-          )
+        <div className="w-full">
+          <label htmlFor="quantity" className="mb-2.5 block text-black dark:text-white">
+            Cantidad del elemento
+          </label>
+          <div className="relative">
+            <input
+              id="quantity"
+              type="number"
+              placeholder="Cantidad disponible"
+              min={1}
+              {...register("quantity", { 
+                valueAsNumber: true,  
+                required: "Debe ingresar la cantidad",
+                min: { 
+                  value: 1, 
+                  message: "La cantidad debe ser al menos 1" 
+                },
+                setValueAs: (value) => {
+                  const parsedValue = Number(value);
+                  return isNaN(parsedValue) ? undefined : parsedValue;
+                }
+              })}
+              className="w-full rounded border-[1.5px] border-stroke py-3 px-5 pr-10 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default :bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+            />
+          </div>
+        </div>
+        
+        {errors.quantity && (
+          <div className="-mt-2">
+            <ErrorFormMessage>
+              {getErrorMessage(errors.quantity)}
+            </ErrorFormMessage>
+          </div>
+        )}
+        
+        {shouldShowWarning && (
+          <div className="text-sm text-amber-600 dark:text-amber-400 mt-2">
+            <span className="font-medium">Importante:</span> Hay {assignedQuantity} unidades asignadas. 
+            La cantidad no puede ser menor a este valor.
+          </div>
         )}
       </div>
 

@@ -6,6 +6,8 @@ import { useCreateItem } from "@/hooks/inventory/mutations/useCreateItem";
 import { useUpdateItem } from "@/hooks/inventory/mutations/useUpdateItem";
 import { useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
+import { useInventoryItemById } from "@/hooks/inventory/querys/useInventoryItemById";
 
 interface UseItemFormLogicProps {
   isOpen: boolean;
@@ -14,17 +16,28 @@ interface UseItemFormLogicProps {
 }
 
 export function useItemFormLogic({ isOpen, onClose, itemId }: UseItemFormLogicProps) {
+  const isEditMode = !!itemId;
+  
   const form = useForm<CreateItemForm>({
     resolver: zodResolver(CreateItemSchema),
     mode: "onChange",
     defaultValues: {
       name: "",
+      quantity: undefined
     }
   });
   const queryClient = useQueryClient();
-  const { data: itemData, isLoading } = useItemById(itemId || 0);
+  const { data: itemData, isLoading: isItemLoading } = useItemById(itemId || 0);
+  
+  const { data: inventoryItemData, isLoading: isInventoryItemLoading } = useInventoryItemById(
+    isEditMode ? itemId || 0 : 0
+  );
+  
   const createMutation = useCreateItem();
   const updateMutation = useUpdateItem();
+
+  const assignedQuantity = isEditMode && inventoryItemData ? 
+    (inventoryItemData.assignedQuantity || 0) : 0;
 
   useEffect(() => {
     if (isOpen && itemData && itemId) {
@@ -45,20 +58,35 @@ export function useItemFormLogic({ isOpen, onClose, itemId }: UseItemFormLogicPr
   }, [isOpen, form]);
 
   const handleFormSubmit = async (formData: CreateItemForm) => {
-    if (itemId) {
-      await updateMutation.mutateAsync({ id: itemId, formData: formData as UpdateItemForm });
-    } else {
-      await createMutation.mutateAsync(formData);
+    try {
+      if (isEditMode && assignedQuantity > 0 && 
+          formData.quantity !== undefined && 
+          formData.quantity < assignedQuantity) {
+        toast.error(`La cantidad no puede ser menor a la cantidad asignada (${assignedQuantity})`);
+        return;
+      }
+
+      if (isEditMode) {
+        await updateMutation.mutateAsync({ id: itemId, formData: formData as UpdateItemForm });
+        toast.success("Elemento actualizado correctamente");
+      } else {
+        await createMutation.mutateAsync(formData);
+        toast.success("Elemento creado correctamente");
+      }
+      queryClient.invalidateQueries({ queryKey: ["inventory-items"] });
+      onClose();
+    } catch (error) {
+      console.error("Error en la operación:", error);
+      toast.error("Ocurrió un error al procesar la solicitud");
     }
-    queryClient.invalidateQueries({ queryKey: ["inventory-items"] });
-    onClose();
   };
 
   return {
-    isLoading,
+    isLoading: isItemLoading || (isEditMode ? isInventoryItemLoading : false),
     handleFormSubmit,
     formProps: {
       form,
     },
+    assignedQuantity: isEditMode ? assignedQuantity : undefined,
   };
 }
