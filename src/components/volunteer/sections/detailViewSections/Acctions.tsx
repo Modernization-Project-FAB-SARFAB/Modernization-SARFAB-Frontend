@@ -41,7 +41,7 @@ const Actions: React.FC<ActionsProps> = ({ volunteerId, setModalAction }) => {
         </button>
         <button
           className="w-full bg-primary text-white py-3 rounded-lg"
-          onClick={() => handleOpenModal("assignCourse")}
+          onClick={() => handleOpenModal("assingCourse")}
         >
           Agregar nuevo curso a voluntario
         </button>

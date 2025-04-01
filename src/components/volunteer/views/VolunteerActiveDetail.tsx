@@ -13,6 +13,7 @@ import Reports from "@/components/volunteer/sections/detailViewSections/Reports"
 import { volunteerMedicalCheckupColumnsDef } from "@/constants/volunteer/VolunteerMedicalCheckupColumnDef";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useDetailsVolunteer } from "@/hooks/volunteer/querys/useEditVolunteerData";
+import { useVolunteerTotalDemeritPoint } from "@/hooks/volunteer/querys/useVolunteerTotalDemeritPoint";
 import { useVolunteerMedicalCheckup } from "@/hooks/volunteerMedicalCheckup/querys/useVolunteerMedicalCheckup";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -24,48 +25,62 @@ export default function VolunteerActiveDetail() {
   const params = useParams();
   const volunteerId = params.volunteerId!;
 
+  // Hacer todas las peticiones de datos a la vez
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
-  const { data: medicalCheckupData } = useVolunteerMedicalCheckup({ initialVolunteerId: volunteerId });
+  const { data: totalDemeritPoint, isLoading: isLoadingTotalDemeritPoint, isError: isErrorTotalDemeritPoint } = useVolunteerTotalDemeritPoint(volunteerId);
+  const { data: medicalCheckupData, isLoading: isLoadingMedicalCheckupData, isError: isErrorMedicalCheckupData } = useVolunteerMedicalCheckup({ initialVolunteerId: volunteerId });
 
-  if (isLoading) return 'Cargando...';
-  if (isError) return 'Error'; //<Navigate to="/404" />
-  if (data) return <>
-    <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-4 lg:gap-5 gap-3">
-      <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-4 p-4">
-        <BackLink
-          text="Volver a listado de voluntarios"
-          iconSize={20}
-          link="/recruitment/approve-or-deny"
-        />
-        <PersonalData data={data} />
+  // Consolidar los estados de carga y error
+  const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData;
+  const isErrorAll = isError || isErrorTotalDemeritPoint || isErrorMedicalCheckupData;
+
+  // Mostrar mensaje de carga o error global
+  if (isLoadingAll) return <div>Cargando...</div>;
+  if (isErrorAll) return <div>Error al cargar los datos. Intenta nuevamente.</div>;
+
+  return (
+    <>
+      <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-4 lg:gap-5 gap-3">
+        <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-4 p-4">
+          <BackLink
+            text="Volver a listado de voluntarios"
+            iconSize={20}
+            link="/recruitment/approve-or-deny"
+          />
+          <PersonalData data={data} />
+        </div>
+        <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
+          <Actions volunteerId={volunteerId} setModalAction={setModalAction} />
+        </div>
+        <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
+          {totalDemeritPoint !== undefined && totalDemeritPoint !== null ? (
+            <Assistance volunteerId={volunteerId} totalDemeritPoint={totalDemeritPoint} />
+          ) : (
+            <div>Cargando puntos de demérito...</div> // O un mensaje de carga específico
+          )}
+        </div>
+        <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
+          <Reports volunteerId={volunteerId} />
+        </div>
+        <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-2 p-4">
+          <EmergencyData data={data} />
+        </div>
+        <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 lg:row-start-5 p-4">
+          <MedicalData data={data} />
+        </div>
+        <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:col-span-2 lg:row-span-1 lg:row-start-6 p-4">
+          <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
+            Chequeos medicos
+          </h3>
+          {medicalCheckupData && (
+            <SimpleSortableTable columns={volunteerMedicalCheckupColumnsDef} data={medicalCheckupData} initialPageSize={10} />
+          )}
+        </div>
       </div>
-      <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
-        <Actions volunteerId={volunteerId} setModalAction={setModalAction} />
-      </div>
-      <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
-        <Assistance volunteerId={volunteerId} />
-      </div>
-      <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
-        <Reports volunteerId={volunteerId} />
-      </div>
-      <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-2 p-4">
-        <EmergencyData data={data} />
-      </div>
-      <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 lg:row-start-5 p-4">
-        <MedicalData data={data} />
-      </div>
-      <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:col-span-2 lg:row-span-1 lg:row-start-6 p-4">
-        <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
-          Chequeos medicos
-        </h3>
-        {medicalCheckupData && (<SimpleSortableTable columns={volunteerMedicalCheckupColumnsDef}
-          data={medicalCheckupData}
-          initialPageSize={10} />)}
-      </div>
-    </div>
-    <VolunteerCourseAssingModal />
-    <VolunteerGradePromotionModal />
-    <VolunteerServiceCompletedModal />
-    <VolunteerDischargeModal />
-  </>
+      <VolunteerCourseAssingModal />
+      <VolunteerGradePromotionModal />
+      <VolunteerServiceCompletedModal />
+      <VolunteerDischargeModal />
+    </>
+  );
 }

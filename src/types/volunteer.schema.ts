@@ -118,6 +118,10 @@ export const listVolunteerOperationsReportSchema = z.object({
     totalPages: z.number().int().positive(),
 });
 
+export const totalPointsLostSchema = z.object({
+    totalPointsLost: z.number().int().nonnegative(),
+});
+
 export type VolunteerStatus = z.infer<typeof volunteerStatusSchema>;
 
 export type Volunteer = z.infer<typeof baseVolunteerSchema>;
