@@ -35,7 +35,8 @@ export default function VolunteerHistoricalListView({ breadcrumb, columns }: Vol
                     ...(grades?.map(grade => ({
                         value: grade.id.toString(),
                         label: grade.name,
-                        isSelected: false
+                        isSelected: false,
+                        key: grade.id.toString()
                     })) || [])
                 ]}
                 setStartDate={setStartDate}

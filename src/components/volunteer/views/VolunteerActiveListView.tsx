@@ -28,7 +28,8 @@ export default function VolunteerActiveListView({ breadcrumb, columns, modalComp
                     ...(grades?.map(grade => ({
                         value: grade.id.toString(),
                         label: grade.name,
-                        isSelected: false
+                        isSelected: false,
+                        key: grade.id.toString()
                     })) || [])
                 ]}
                 orderByLastNameAsc={orderByLastNameAsc}

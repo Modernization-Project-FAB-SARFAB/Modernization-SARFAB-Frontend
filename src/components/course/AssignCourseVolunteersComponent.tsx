@@ -28,7 +28,8 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
   
   const volunteerOptions = volunteersWithoutCourse?.map(volunteer => ({
     id: volunteer.volunteerId.toString(),
-    name: `${volunteer.abbreviation} - ${volunteer.lastName} ${volunteer.firstName}`
+    name: `${volunteer.abbreviation} - ${volunteer.lastName} ${volunteer.firstName}`,
+    key: volunteer.volunteerId.toString()
   })) || [];
   
   const filteredOptions = volunteerOptions.filter(option => 
