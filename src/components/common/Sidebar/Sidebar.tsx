@@ -1,16 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Logo from '@/assets/images/logo/logo-sar-sidebar.webp';
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import { RiArrowDownSLine } from '@remixicon/react';
 import menuItems from "@/routes/menuItems";
 import menuItemsConfiguration from "@/routes/menuItemsConfiguration";
+import SidebarLink from "./SidebarLink";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const location = useLocation();
   const { pathname } = location;
-  const navigate = useNavigate();
-  const isModalOpen = location.search.includes("openMilitaryModal=true");
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -108,34 +107,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             />
                           </NavLink>
                           <div
-                            className={`translate transform overflow-hidden ${!open ? 'hidden' : ''
-                              }`}
-                          >
+                            className={`translate transform overflow-hidden ${!open ? 'hidden' : ''}`}>
                             <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                               {item.subItems &&
                                 <>
                                   {item.subItems?.map((subItem) => (
                                     <li key={subItem.label}>
-                                      {subItem.path === "?openMilitaryModal=true" ? (
-                                        <button
-                                          onClick={() => navigate("?openMilitaryModal=true")}
-                                          className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out hover:text-white 
-                                                                              ${isModalOpen ? "!text-white" : "text-bodydark2"}`}
-                                        >
-                                          {subItem.label}
-                                        </button>
-                                      ) : (
-                                        <NavLink
-                                          to={subItem.path}
-                                          className={({ isActive }) =>
-                                            `group relative flex items-center gap-2.5 rounded-md px-4 font-medium duration-300 ease-in-out hover:text-white 
-                                                                                ${isActive ? "!text-white" : "text-bodydark2"}`
-                                          }
-                                          onClick={() => setSidebarOpen(false)}
-                                        >
-                                          {subItem.label}
-                                        </NavLink>
-                                      )}
+                                      <SidebarLink to={subItem.path} setSidebarOpen={setSidebarOpen}>
+                                        {subItem.label}
+                                      </SidebarLink>
                                     </li>
                                   ))}
                                 </>}
@@ -149,7 +129,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       to={item.path}
                       className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname === item.path ? 'bg-graydark dark:bg-meta-4' : ''
                         }`}
-                        onClick={() => setSidebarOpen(false)}
+                      onClick={() => setSidebarOpen(false)}
                     >
                       {item.icon}
                       {item.label}
@@ -216,7 +196,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   <li key={item.label}>
                     <NavLink
                       to={item.path}
-                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname === item.path ? 'bg-graydark dark:bg-meta-4' : ''}`}
+                      className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4
+                         ${pathname === item.path ? 'bg-graydark dark:bg-meta-4' : ''}`}
                     >
                       {item.icon}
                       {item.label}
