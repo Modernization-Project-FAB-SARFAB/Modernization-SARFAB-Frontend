@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from '@/components/common/Footer/Footer';
 import { useAuth } from '@/hooks/auth/useAuth';
 import ChangePasswordFirstLoginModal from '@/components/user/ChangePasswordFirstLoginModal';
+import Loader from '@/components/common/Loader';
 
 export default function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -14,7 +15,7 @@ export default function AppLayout() {
 
   const { data, isError, isLoading } = useAuth();
 
-  if (isLoading) return 'Cargando...';
+  if (isLoading) return <Loader fullWidth={true}/>;
   if (isError) {
     return <Navigate to='/auth/signin' />
   }

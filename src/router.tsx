@@ -1,10 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import SignIn from '@/views/Auth/signIn'
 import routes from '@/routes/index'
-import Loader from '@/components/common/Loader'
 import { Toaster } from 'react-hot-toast';
-
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense } from 'react';
 import AuthLayout from './layouts/AuthLayout';
 
 const AppLayout = lazy(() => import('@/layouts/AppLayout'));
