@@ -3,11 +3,6 @@ import { RiSettings2Fill, RiUserCommunityFill, RiFileLine, RiFirstAidKitFill } f
 
 const menuItems: MenuItem[] = [
     {
-        label: "Inicio",
-        path: "/",
-        icon: <RiHome2Fill size={18} color="white" />,
-    },
-    {
         label: "Notificaciones",
         path: "/notificaciones",
         icon: <RiNotification2Line size={18} color="white" />,

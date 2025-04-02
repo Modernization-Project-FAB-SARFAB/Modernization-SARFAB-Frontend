@@ -13,7 +13,7 @@ export const useLogin = () => {
       toast.error(error.message);
     },
     onSuccess: () => {
-      navigate("/");
+      navigate("/notificaciones");
     },
   });
 
