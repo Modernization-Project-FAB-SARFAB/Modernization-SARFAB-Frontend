@@ -14,25 +14,34 @@ interface ItemMovementFormProps {
   form: UseFormReturn<InventoryMovementForm>;
   onSubmit: (data: InventoryMovementForm) => Promise<void>;
   isLoading: boolean;
+  isLoadingItem?: boolean;
+  isLoadingOwedQuantity?: boolean;
   onClose: () => void;
   itemId: number;
   isReturn: boolean;
+  availableQuantity: number;
+  owedQuantity?: number;
 }
 
 export function ItemMovementForm({
   form,
   onSubmit,
   isLoading,
+  isLoadingItem = false,
+  isLoadingOwedQuantity = false,
   onClose,
   itemId,
   isReturn,
+  availableQuantity: _availableQuantity,
+  owedQuantity: _owedQuantity,
 }: ItemMovementFormProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitted },
     setValue,
     watch,
+    trigger,
   } = form;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -42,7 +51,9 @@ export function ItemMovementForm({
 
   const volunteers = isReturn ? pendingReturns : allVolunteers;
 
-  const volunteerId = watch("volunteerId");
+  // Ignorar el valor de volunteerId si es 0 (valor por defecto) para no mostrarlo en la UI
+  const formVolunteerId = watch("volunteerId");
+  const volunteerId = formVolunteerId === 0 ? undefined : formVolunteerId;
 
   const selected = volunteers.find((v) => v.volunteerId === volunteerId);
   const displayName = selected
@@ -59,43 +70,64 @@ export function ItemMovementForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="p-8 space-y-4">
-      <FilterDatalist
-        name="volunteerId"
-        label="Voluntario"
-        options={volunteers.map((v) => ({
-          id: v.volunteerId,
-          name: isReturn
-            ? (v as VolunteerPendingReturn).volunteerWithGrade
-            : `${(v as VolunteerWithRank).abbreviation} - ${(v as VolunteerWithRank).lastName} ${(v as VolunteerWithRank).firstName}`,
-        }))}
-        value={displayName}
-        onChange={(value) => {
-          const selected = volunteers.find((v) => {
-            const name = isReturn
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="p-8 space-y-6">
+      <div className="space-y-1">
+        <FilterDatalist
+          name="volunteerId"
+          label="Voluntario"
+          options={volunteers.map((v) => ({
+            id: v.volunteerId,
+            name: isReturn
               ? (v as VolunteerPendingReturn).volunteerWithGrade
-              : `${(v as VolunteerWithRank).abbreviation} - ${(v as VolunteerWithRank).lastName} ${(v as VolunteerWithRank).firstName}`;
-            return name === value;
-          });
-          setValue("volunteerId", selected?.volunteerId ?? 0);
-        }}
-      />
-      {errors.volunteerId && (
-        <ErrorFormMessage>{errors.volunteerId.message}</ErrorFormMessage>
-      )}
+              : `${(v as VolunteerWithRank).abbreviation} - ${(v as VolunteerWithRank).lastName} ${(v as VolunteerWithRank).firstName}`,
+          }))}
+          value={displayName}
+          disabled={isLoading}
+          onChange={(value) => {
+            const selected = volunteers.find((v) => {
+              const name = isReturn
+                ? (v as VolunteerPendingReturn).volunteerWithGrade
+                : `${(v as VolunteerWithRank).abbreviation} - ${(v as VolunteerWithRank).lastName} ${(v as VolunteerWithRank).firstName}`;
+              return name === value;
+            });
+            if (selected) {
+              setValue("volunteerId", selected.volunteerId);
+              trigger("volunteerId");
+            }
+          }}
+        />
+        {isSubmitted && errors.volunteerId && (
+          <ErrorFormMessage>{errors.volunteerId.message}</ErrorFormMessage>
+        )}
+      </div>
 
-      <FormInput
-        label="Cantidad"
-        name="quantity"
-        type="number"
-        register={register}
-        placeholder="Cantidad"
-      />
-      {errors.quantity && (
-        <ErrorFormMessage>{errors.quantity.message}</ErrorFormMessage>
-      )}
+      <div className="space-y-1">
+        <FormInput
+          label="Cantidad"
+          name="quantity"
+          type="number"
+          register={register}
+          placeholder="Cantidad"
+          readonly={isLoading || isLoadingItem || isLoadingOwedQuantity}
+        />
+        {isSubmitted && errors.quantity && (
+          <ErrorFormMessage>{errors.quantity.message}</ErrorFormMessage>
+        )}
+        
+        {!isReturn && (
+          <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
+            <span className="font-bold">Importante:</span> Cantidad disponible: {_availableQuantity} unidades, no puede ingresar una cantidad mayor.
+          </div>
+        )}
+        
+        {isReturn && volunteerId && _owedQuantity !== undefined && (
+          <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
+            <span className="font-bold">Importante:</span> El voluntario debe {_owedQuantity} unidades de este elemento, no puede ingresar una cantidad mayor.
+          </div>
+        )}
+      </div>
 
-      <div className="pt-6">
+      <div className="pt-4">
         <ButtonGroup
           buttons={[
             {

@@ -119,8 +119,8 @@ export function ItemForm({
         )}
         
         {shouldShowWarning && (
-          <div className="text-sm text-amber-600 dark:text-amber-400 mt-2">
-            <span className="font-medium">Importante:</span> Hay {assignedQuantity} unidades asignadas. 
+          <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
+            <span className="font-bold">Importante:</span> Hay {assignedQuantity} unidades asignadas. 
             La cantidad no puede ser menor a este valor.
           </div>
         )}

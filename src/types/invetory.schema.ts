@@ -12,7 +12,7 @@ const BaseInventoryItemSchema = z.object({
 
 const BaseMovementSchema = z.object({
   itemId: z.number(),
-  quantity: z.number(),
+  quantity: z.coerce.number(),
 });
 
 export const CreateItemSchema = BaseItemSchema;
@@ -30,10 +30,18 @@ export const InventoryBatchMovementSchema = z.object({
 });
 export type InventoryBatchMovementForm = z.infer<typeof InventoryBatchMovementSchema>;
 
+// Esquema de validación simplificado
 export const InventoryMovementSchema = z.object({
-  volunteerId: z.number(),
-}).merge(BaseMovementSchema);
-export type InventoryMovementForm = z.infer<typeof InventoryMovementSchema>;
+  volunteerId: z.number()
+    .min(1, "Debe seleccionar un voluntario válido"),
+  itemId: z.number(),
+  quantity: z.coerce.number()
+    .min(1, "La cantidad debe ser un número mayor a 0")
+    .int("La cantidad debe ser un número entero")
+});
+
+// Tipo para el formulario compatible con el esquema
+export type InventoryMovementForm = z.input<typeof InventoryMovementSchema>;
 
 export const InventoryItemSchema = BaseInventoryItemSchema.extend({
   totalStock: z.number(),
