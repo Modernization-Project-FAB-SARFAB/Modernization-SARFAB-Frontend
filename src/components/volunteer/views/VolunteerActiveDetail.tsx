@@ -1,4 +1,5 @@
 import BackLink from "@/components/common/BackLink/BackLink";
+import Loader from "@/components/common/Loader";
 import SimpleSortableTable from "@/components/common/SimpleSortableTable/SimpleSortableTable";
 import VolunteerCourseAssingModal from "@/components/volunteer/modals/VolunteerCourseAssingModal";
 import VolunteerDischargeModal from "@/components/volunteer/modals/VolunteerDischargeModal";
@@ -25,17 +26,14 @@ export default function VolunteerActiveDetail() {
   const params = useParams();
   const volunteerId = params.volunteerId!;
 
-  // Hacer todas las peticiones de datos a la vez
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
   const { data: totalDemeritPoint, isLoading: isLoadingTotalDemeritPoint, isError: isErrorTotalDemeritPoint } = useVolunteerTotalDemeritPoint(volunteerId);
   const { data: medicalCheckupData, isLoading: isLoadingMedicalCheckupData, isError: isErrorMedicalCheckupData } = useVolunteerMedicalCheckup({ initialVolunteerId: volunteerId });
 
-  // Consolidar los estados de carga y error
   const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData;
   const isErrorAll = isError || isErrorTotalDemeritPoint || isErrorMedicalCheckupData;
 
-  // Mostrar mensaje de carga o error global
-  if (isLoadingAll) return <div>Cargando...</div>;
+  if (isLoadingAll) return <Loader message="Cargando información del voluntario"/>;
   if (isErrorAll) return <div>Error al cargar los datos. Intenta nuevamente.</div>;
 
   return (

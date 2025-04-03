@@ -49,6 +49,7 @@ export default function VolunteerHistoricalListView({ breadcrumb, columns }: Vol
                 isLoading={isLoading} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
+                noItemsMessage="No existen voluntarios historicos" noItemsLinkText="Agregar nuevo voluntario" noItemsLinkUrl=""
             />
         </>
     )

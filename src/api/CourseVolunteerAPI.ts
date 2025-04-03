@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { CourseVolunteer, voluntareerCompletedCourses } from "@/types/courseVolunteer.schema";
+import { CourseVolunteer, listVoluntareerCompletedCourses } from "@/types/courseVolunteer.schema";
 import { isAxiosError } from "axios";
 import { Volunteer } from "../types";
 
@@ -17,7 +17,9 @@ export async function assignCourseVolunteer(formData: CourseVolunteer) {
 export async function getVolunteerCompletedCourses(id: Volunteer['id'], queryParams?: Record<string, any>) {
     try {
         const { data } = await api(`/Course/volunteer/${id}/completed-courses`, { params: queryParams });
-        const response = voluntareerCompletedCourses.safeParse(data);
+        const response = listVoluntareerCompletedCourses.safeParse(data);
+        console.log(response);
+        
         if (response.success) {
             return response.data;
         }

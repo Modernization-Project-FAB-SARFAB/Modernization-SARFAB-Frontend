@@ -1,4 +1,5 @@
 import BackLink from "@/components/common/BackLink/BackLink";
+import Loader from "@/components/common/Loader";
 import SimpleSortableTable from "@/components/common/SimpleSortableTable/SimpleSortableTable";
 import VolunteerCourseAssingModal from "@/components/volunteer/modals/VolunteerCourseAssingModal";
 import VolunteerDischargeModal from "@/components/volunteer/modals/VolunteerDischargeModal";
@@ -12,20 +13,27 @@ import Reports from "@/components/volunteer/sections/detailViewSections/Reports"
 import { volunteerMedicalCheckupColumnsDef } from "@/constants/volunteer/VolunteerMedicalCheckupColumnDef";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useDetailsVolunteer } from "@/hooks/volunteer/querys/useEditVolunteerData";
+import { useVolunteerTotalDemeritPoint } from "@/hooks/volunteer/querys/useVolunteerTotalDemeritPoint";
 import { useVolunteerMedicalCheckup } from "@/hooks/volunteerMedicalCheckup/querys/useVolunteerMedicalCheckup";
 import { useParams } from "react-router-dom";
 
 export default function VolunteerHistoricalDetail() {
   useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/volunteer-history" }, { label: "Ver voluntario" }]);
+
   const params = useParams();
   const volunteerId = params.volunteerId!;
 
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
-  const { data: medicalCheckupData } = useVolunteerMedicalCheckup({ initialVolunteerId: volunteerId });
+  const { data: totalDemeritPoint, isLoading: isLoadingTotalDemeritPoint, isError: isErrorTotalDemeritPoint } = useVolunteerTotalDemeritPoint(volunteerId);
+  const { data: medicalCheckupData, isLoading: isLoadingMedicalCheckupData, isError: isErrorMedicalCheckupData } = useVolunteerMedicalCheckup({ initialVolunteerId: volunteerId });
 
-  if (isLoading) return 'Cargando...';
-  if (isError) return 'Error'; //<Navigate to="/404" />
-  if (data) return <>
+  const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData;
+  const isErrorAll = isError || isErrorTotalDemeritPoint || isErrorMedicalCheckupData;
+
+  if (isLoadingAll) return <Loader message="Cargando información del voluntario"/>;
+  if (isErrorAll) return <div>Error al cargar los datos. Intenta nuevamente.</div>;
+  
+  return <>
     <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-4 lg:gap-5 gap-3">
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-4 p-4">
         <BackLink
@@ -36,7 +44,11 @@ export default function VolunteerHistoricalDetail() {
         <PersonalData data={data} />
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
-        <Assistance volunteerId={volunteerId} />
+        {totalDemeritPoint !== undefined && totalDemeritPoint !== null ? (
+          <Assistance volunteerId={volunteerId} totalDemeritPoint={totalDemeritPoint} />
+        ) : (
+          <div>Cargando puntos de demérito...</div> // O un mensaje de carga específico
+        )}
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
         <Reports volunteerId={volunteerId} />

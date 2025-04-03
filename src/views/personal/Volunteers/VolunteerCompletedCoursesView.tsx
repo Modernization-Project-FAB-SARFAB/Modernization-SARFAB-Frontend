@@ -4,7 +4,6 @@ import { volunteerCompletedCoursesColumnsDef } from "@/constants/volunteer/Volun
 export default function VolunteerCompletedCoursesView() {
     return (
         <VolunteerCompletedCourses
-            breadcrumb={[{ label: "Voluntarios", path: "/volunteers/volunteer-history" }, { label: "Reporte de guardias" }]}
             columns={volunteerCompletedCoursesColumnsDef}
         />
     )

@@ -9,27 +9,24 @@ const DEFAULTS = {
 };
 
 interface UseVolunteerCompletedCoursesOptions {
-    initialVolunteerId?: string;
+    volunteerId: string;
     initialPageIndex?: number;
     initialPageSize?: number;
 }
 
 export function useVolunteerCompletedCourses({
-    initialVolunteerId,
+    volunteerId,
     initialPageIndex = DEFAULTS.pageIndex,
     initialPageSize = DEFAULTS.pageSize
-}: UseVolunteerCompletedCoursesOptions = {}) {
-
-    const [volunteerId, setVolunteerId] = useState(initialVolunteerId);
-    const [debouncedVolunteerId] = useDebounce(volunteerId, 500);
+}: UseVolunteerCompletedCoursesOptions) {
 
     const [pageIndex, setPageIndex] = useState(initialPageIndex);
     const [pageSize, setPageSize] = useState(initialPageSize);
   
     const { data, isLoading, refetch, isError } = useQuery({
-        queryKey: ["volunteerMedicalCheckup", {debouncedVolunteerId, page: pageIndex, pageSize,}],
-        queryFn: () => getVolunteerCompletedCourses(Number(debouncedVolunteerId), {page: pageIndex, pageSize}),
-        enabled: !!debouncedVolunteerId,
+        queryKey: ["volunteerCompletedCourses", {volunteerId, page: pageIndex, pageSize,}],
+        queryFn: () => getVolunteerCompletedCourses(Number(volunteerId), {page: pageIndex, pageSize}),
+        enabled: !!volunteerId,
         retry: false,
     });
 
@@ -39,7 +36,6 @@ export function useVolunteerCompletedCourses({
         isError,
         refetch,
         volunteerId,
-        setVolunteerId,
 
         pageIndex,
         setPageIndex,
