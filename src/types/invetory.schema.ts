@@ -94,3 +94,25 @@ export const ListMovementHistorySchema = z.object({
   totalPages: z.number(),
 });
 export type ListMovementHistoryResponse = z.infer<typeof ListMovementHistorySchema>;
+
+export const BatchItemReturnSchema = z.object({
+  volunteerId: z
+    .preprocess(
+      (val) => (val === undefined ? "" : val),
+      z.string().min(1, "Debe seleccionar un voluntario válido").transform((val) => parseInt(val, 10))
+    ),
+});
+
+export type BatchItemReturnForm = z.infer<typeof BatchItemReturnSchema>;
+
+export const BatchItemWithdrawalSchema = z.object({
+  volunteerId: z
+    .preprocess(
+      (val) => (val === undefined ? "" : val),
+      z.string().min(1, "Debe seleccionar un voluntario válido").transform((val) => parseInt(val, 10))
+    ),
+  items: z.array(MovementDetailSchema)
+    .min(1, "Debe agregar al menos un elemento"),
+});
+
+export type BatchItemWithdrawalForm = z.infer<typeof BatchItemWithdrawalSchema>;

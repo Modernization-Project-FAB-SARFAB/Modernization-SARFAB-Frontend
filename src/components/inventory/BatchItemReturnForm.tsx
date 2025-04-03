@@ -1,26 +1,37 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import BackLink from "../common/BackLink/BackLink";
 import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
 import ButtonGroup from "../common/ButtonGroup/ButtonGroup";
 import { useVolunteersWithAnyPendingReturns } from "@/hooks/inventory/querys/useVolunteersWithAnyPendingReturns";
 import { useItemsOwedByVolunteer } from "@/hooks/inventory/querys/useItemsOwedByVolunteer";
 import { useRegisterBatchReturn } from "@/hooks/inventory/mutations/useRegisterBatchReturn";
-import { Item } from "@/types/invetory.schema";
+import { Item, BatchItemReturnSchema } from "@/types/invetory.schema";
 import { useNavigate } from "react-router-dom";
+import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
+import { z } from "zod";
 
+type BatchItemReturnSchemaType = z.infer<typeof BatchItemReturnSchema>;
 
 export default function BatchItemReturnForm() {
-  const [selectedVolunteerId, setSelectedVolunteerId] = useState<number | null>(null);
   const [selectedVolunteerName, setSelectedVolunteerName] = useState<string>("");
   const [returnQuantities, setReturnQuantities] = useState<Record<number, number>>({});
 
-  const { data: volunteers = [] } = useVolunteersWithAnyPendingReturns();
   const {
-    data: owedItems = [],
-    isLoading,
-  } = useItemsOwedByVolunteer(selectedVolunteerId ?? 0);
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<BatchItemReturnSchemaType>({
+    resolver: zodResolver(BatchItemReturnSchema),
+  });
 
+  const volunteerId = watch("volunteerId");
+
+  const { data: volunteers = [] } = useVolunteersWithAnyPendingReturns();
+  const { data: owedItems = [], isLoading } = useItemsOwedByVolunteer(volunteerId ?? 0);
   const { mutate: registerReturn, isPending } = useRegisterBatchReturn();
   const navigate = useNavigate();
 
@@ -42,9 +53,7 @@ export default function BatchItemReturnForm() {
     });
   };
 
-  const handleSubmit = () => {
-    if (!selectedVolunteerId) return;
-
+  const onSubmit = (data: BatchItemReturnSchemaType) => {
     const itemsToReturn = Object.entries(returnQuantities)
       .filter(([, quantity]) => quantity > 0)
       .map(([itemId, quantity]) => ({
@@ -56,14 +65,17 @@ export default function BatchItemReturnForm() {
       return toast.error("Debes seleccionar al menos un elemento para devolver");
     }
 
-    registerReturn({
-      volunteerId: selectedVolunteerId,
-      items: itemsToReturn,
-    }, {
-      onSuccess: () => {
-        navigate("/inventory/list");
+    registerReturn(
+      {
+        volunteerId: data.volunteerId,
+        items: itemsToReturn,
       },
-    });
+      {
+        onSuccess: () => {
+          navigate("/inventory/list");
+        },
+      }
+    );
   };
 
   const selectedItems = Object.values(returnQuantities).filter((q) => q > 0);
@@ -72,11 +84,11 @@ export default function BatchItemReturnForm() {
     <form>
       <section className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark mb-6">
         <div className="-mx-6 -mt-2">
-        <BackLink
-          text="Volver al listado de elementos"
-          link="/inventory/list"
-          className="pt-0"
-        />
+          <BackLink
+            text="Volver al listado de elementos"
+            link="/inventory/list"
+            className="pt-0"
+          />
         </div>
 
         <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white mt-4">
@@ -84,21 +96,32 @@ export default function BatchItemReturnForm() {
         </h2>
 
         <div className="flex-1 mb-4">
-          <FilterDatalist
-            name="volunteer"
-            label="Seleccionar un voluntario"
-            options={volunteers.map((v) => ({
-              id: v.volunteerId,
-              name: v.volunteerWithGrade,
-              value: v.volunteerWithGrade,
-            }))}
-            onChange={(value) => {
-              const selected = volunteers.find((v) => v.volunteerWithGrade === value);
-              setSelectedVolunteerId(selected?.volunteerId ?? null);
-              setSelectedVolunteerName(selected?.volunteerWithGrade ?? "");
-            }}
-            value={selectedVolunteerName}
+          <Controller
+            name="volunteerId"
+            control={control}
+            render={({ field }) => (
+              <FilterDatalist
+                {...field}
+                label="Seleccionar un voluntario"
+                options={volunteers.map((v) => ({
+                  id: v.volunteerId,
+                  name: v.volunteerWithGrade,
+                }))}
+                onChange={(value) => {
+                  const selected = volunteers.find((v) => v.volunteerWithGrade === value);
+                  field.onChange(selected ? String(selected.volunteerId) : "");
+                  setSelectedVolunteerName(selected?.volunteerWithGrade ?? "");
+                }}
+                value={
+                  volunteers.find((v) => v.volunteerId === Number(field.value))?.volunteerWithGrade || ""
+                }
+              />
+            )}
           />
+
+          {errors.volunteerId && (
+            <ErrorFormMessage>{errors.volunteerId.message}</ErrorFormMessage>
+          )}
         </div>
 
         <div className="mt-4 border border-stroke dark:border-strokedark rounded-md overflow-x-auto">
@@ -169,9 +192,8 @@ export default function BatchItemReturnForm() {
             {
               type: "button",
               label: "Registrar devolución",
-              onClick: handleSubmit,
+              onClick: handleSubmit(onSubmit),
               variant: "primary",
-              disabled: !selectedVolunteerName || selectedItems.length === 0,
               isLoading: isPending,
             },
             {

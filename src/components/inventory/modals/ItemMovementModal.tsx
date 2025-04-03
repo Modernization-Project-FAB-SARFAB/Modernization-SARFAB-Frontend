@@ -64,8 +64,6 @@ export function ItemMovementModal({
       <ItemMovementForm
         form={form}
         onSubmit={async (data) => {
-          // Verificamos condiciones, pero en lugar de establecer errores, dejamos que
-          // las advertencias visuales en el formulario guíen al usuario
           if (!isReturn && Number(data.quantity) > availableQuantity) {
             return;
           }

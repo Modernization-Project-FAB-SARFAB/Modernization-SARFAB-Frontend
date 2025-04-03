@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BackLink from "../common/BackLink/BackLink";
 import Button from "../common/Button/Button";
 import ButtonGroup from "../common/ButtonGroup/ButtonGroup";
 import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
 import { useVolunteersWithRank } from "@/hooks/inventory/querys/useVolunteersWithRank";
 import { useAllItems } from "@/hooks/inventory/querys/useAllItems";
-import { MovementDetail } from "@/types/invetory.schema";
+import { MovementDetail, BatchItemWithdrawalSchema, BatchItemWithdrawalForm as BatchItemWithdrawalFormType, InventoryItem } from "@/types/invetory.schema";
 import { useRegisterBatchWithdrawal } from "@/hooks/inventory/mutations/useRegisterBatchWithdrawal";
 import { useNavigate } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
+import { getInventoryItems } from "@/api/InventoryAPI";
+import toast from "react-hot-toast";
 
 export default function BatchItemWithdrawalForm() {
   const { data: volunteers } = useVolunteersWithRank();
@@ -26,9 +31,40 @@ export default function BatchItemWithdrawalForm() {
 
   const navigate = useNavigate();
 
+  const { control, handleSubmit: formSubmit, formState: { errors }, setValue, trigger } = useForm<BatchItemWithdrawalFormType>({
+    resolver: zodResolver(BatchItemWithdrawalSchema),
+    defaultValues: {
+      volunteerId: "",
+      items: []
+    } as any
+  });
+
   const [selectedVolunteerName, setSelectedVolunteerName] = useState('');
   const [selectedItemName, setSelectedItemName] = useState('');
   const [selectedItems, setSelectedItems] = useState<MovementDetail[]>([]);
+  const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
+
+  useEffect(() => {
+    setValue('items', selectedItems);
+    if (selectedItems.length > 0) {
+      trigger('items');
+    }
+  }, [selectedItems, setValue, trigger]);
+
+  // Cargar datos de inventario
+  useEffect(() => {
+    const loadInventoryItems = async () => {
+      try {
+        const result = await getInventoryItems();
+        setInventoryItems(result.data);
+      } catch (error) {
+        console.error("Error al cargar inventario:", error);
+        toast.error("Error al cargar datos de inventario");
+      }
+    };
+    
+    loadInventoryItems();
+  }, []);
 
   const handleAddItem = () => {
     const selected = itemOptions.find(i => i.name === selectedItemName);
@@ -42,12 +78,23 @@ export default function BatchItemWithdrawalForm() {
   };
 
   const updateQuantity = (itemId: number, delta: number) => {
+    const inventoryItem = inventoryItems.find(item => item.itemId === itemId);
+    if (!inventoryItem) return;
+
     setSelectedItems(prev =>
-      prev.map(item =>
-        item.itemId === itemId
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
+      prev.map(item => {
+        if (item.itemId === itemId) {
+          const newQuantity = item.quantity + delta;
+          // No permitir más que la cantidad disponible
+          if (delta > 0 && newQuantity > inventoryItem.availableQuantity) {
+            toast.error(`No puede extraer más de ${inventoryItem.availableQuantity} unidades disponibles`);
+            return item;
+          }
+          // No permitir menos de 1
+          return { ...item, quantity: Math.max(1, newQuantity) };
+        }
+        return item;
+      })
     );
   };
 
@@ -56,23 +103,23 @@ export default function BatchItemWithdrawalForm() {
   };
 
   const handleSubmit = () => {
-    const selectedVolunteer = volunteerOptions.find(v => v.name === selectedVolunteerName);
-    if (!selectedVolunteer) return;
+    formSubmit((values) => {
+      const payload = {
+        volunteerId: Number(values.volunteerId),
+        items: selectedItems,
+      };
 
-    const payload = {
-      volunteerId: selectedVolunteer.id,
-      items: selectedItems,
-    };
-
-    mutate(payload, {
-      onSuccess: () => {
-        navigate("/inventory/list");
-      },
-    });
+      mutate(payload, {
+        onSuccess: () => {
+          navigate("/inventory/list");
+        },
+      });
+    })();
   };
+
   const filteredItemOptions = itemOptions.filter(
     (item) => !selectedItems.some((selected) => selected.itemId === item.id)
-  );  
+  );
 
   return (
     <form>
@@ -90,26 +137,40 @@ export default function BatchItemWithdrawalForm() {
         </h2>
 
         <div className="flex-1 mb-4">
-          <FilterDatalist
-            name="volunteer"
-            label="Seleccionar un voluntario"
-            options={volunteerOptions}
-            onChange={(val) => setSelectedVolunteerName(val)}
-            value={selectedVolunteerName}
+          <Controller
+            name="volunteerId"
+            control={control}
+            render={({ field }) => (
+              <FilterDatalist
+                {...field}
+                label="Seleccionar un voluntario"
+                options={volunteerOptions}
+                onChange={(value) => {
+                  const selected = volunteerOptions.find(v => v.name === value);
+                  field.onChange(selected ? String(selected.id) : "");
+                  setSelectedVolunteerName(value);
+                }}
+                value={selectedVolunteerName}
+              />
+            )}
           />
+          
+          {errors.volunteerId && (
+            <ErrorFormMessage>{errors.volunteerId.message}</ErrorFormMessage>
+          )}
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-2 sm:items-end mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-end gap-4 mt-4">
           <div className="flex-1">
             <FilterDatalist
               name="item"
               label="Seleccionar un elemento"
               options={filteredItemOptions}
-              onChange={(val) => setSelectedItemName(val)}
+              onChange={(value) => setSelectedItemName(value)}
               value={selectedItemName}
             />
           </div>
-          <div className="sm:flex-none mt-2 sm:mt-0">
+          <div className="flex-none">
             <Button
               label="Agregar"
               onClick={handleAddItem}
@@ -130,6 +191,9 @@ export default function BatchItemWithdrawalForm() {
                   Cantidad
                 </th>
                 <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
+                  Disponible
+                </th>
+                <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
                   Acción
                 </th>
               </tr>
@@ -137,13 +201,14 @@ export default function BatchItemWithdrawalForm() {
             <tbody>
               {selectedItems.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="py-6 text-center text-sm text-gray-500">
+                  <td colSpan={4} className="py-6 text-center text-sm text-gray-500">
                     Aún no hay elementos seleccionados.
                   </td>
                 </tr>
               ) : (
                 selectedItems.map(item => {
                   const itemName = itemOptions.find(i => i.id === item.itemId)?.name ?? "—";
+                  const availableQuantity = inventoryItems.find(i => i.itemId === item.itemId)?.availableQuantity ?? 0;
                   return (
                     <tr key={item.itemId} className="border border-stroke dark:border-strokedark">
                       <td className="py-2 px-4 border border-stroke dark:border-strokedark">{itemName}</td>
@@ -153,6 +218,7 @@ export default function BatchItemWithdrawalForm() {
                             type="button" 
                             onClick={() => updateQuantity(item.itemId, +1)}
                             className="px-2 py-1 bg-gray-100 hover:bg-gray-200 rounded"
+                            disabled={item.quantity >= availableQuantity}
                           >
                             +
                           </button>
@@ -165,6 +231,9 @@ export default function BatchItemWithdrawalForm() {
                             -
                           </button>
                         </div>
+                      </td>
+                      <td className="py-2 px-4 border border-stroke dark:border-strokedark">
+                        {availableQuantity}
                       </td>
                       <td className="py-2 px-4 border border-stroke dark:border-strokedark">
                         <button 
@@ -182,6 +251,10 @@ export default function BatchItemWithdrawalForm() {
             </tbody>
           </table>
         </div>
+        
+        {errors.items && (
+          <ErrorFormMessage>{errors.items.message}</ErrorFormMessage>
+        )}
 
       </section>
 
@@ -193,7 +266,6 @@ export default function BatchItemWithdrawalForm() {
               label: 'Registrar extracción',
               onClick: handleSubmit,
               variant: 'primary',
-              disabled: !selectedVolunteerName || selectedItems.length === 0,
               isLoading: isPending,
             },
             { type: 'link', label: 'Cancelar', to: '/inventory/list' },

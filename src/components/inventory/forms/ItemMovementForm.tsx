@@ -51,7 +51,6 @@ export function ItemMovementForm({
 
   const volunteers = isReturn ? pendingReturns : allVolunteers;
 
-  // Ignorar el valor de volunteerId si es 0 (valor por defecto) para no mostrarlo en la UI
   const formVolunteerId = watch("volunteerId");
   const volunteerId = formVolunteerId === 0 ? undefined : formVolunteerId;
 
