@@ -9,7 +9,7 @@ import { useGetOperationCategories } from "./querys/useGetOperationCategories";
 import { FilterOption } from "@/components/common/FilterDatalist/FilterDatalist.type";
 
 const operationTypeFormSchema = z.object({
-  name: z.string().min(1, "El nombre del tipo de operativo es obligatorio"),
+  name: z.string().min(1, "El nombre del tipo de operativo es obligatorio").max(100, "El nombre del tipo de operativo debe tener máximo 100 caracteres"),
   operationCategoryId: z.number().min(1, "Debe seleccionar una categoría de operación")
 });
 

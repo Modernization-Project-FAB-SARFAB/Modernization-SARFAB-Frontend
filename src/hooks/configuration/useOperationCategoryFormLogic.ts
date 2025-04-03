@@ -7,7 +7,7 @@ import { useCreateOperationCategory } from "./mutations/useCreateOperationCatego
 import { useUpdateOperationCategory } from "./mutations/useUpdateOperationCategory";
 
 const categoryFormSchema = z.object({
-  name: z.string().min(1, "El nombre de la categoría es obligatorio"),
+  name: z.string().min(1, "El nombre de la categoría es obligatorio").max(100, "El nombre de la categoría debe tener máximo 100 caracteres"),
 });
 
 type FormValues = z.infer<typeof categoryFormSchema>;

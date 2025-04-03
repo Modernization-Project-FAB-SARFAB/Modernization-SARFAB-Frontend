@@ -28,7 +28,6 @@ export function OperationCategoryHeader({ onOpenTypeModal }: OperationCategoryHe
           <RiAddLine className="me-2" /> Registrar tipo de operación
         </button>
       </nav>
-
       <OperationCategoryFormModal
         isOpen={isCategoryModalOpen}
         onClose={closeCategoryModal}

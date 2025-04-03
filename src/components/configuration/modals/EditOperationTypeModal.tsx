@@ -9,7 +9,7 @@ import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 
 const editTypeSchema = z.object({
-  name: z.string().min(1, "El nombre del tipo de operativo es obligatorio"),
+  name: z.string().min(1, "El nombre del tipo de operativo es obligatorio").max(100, "El nombre del tipo de operativo debe tener máximo 100 caracteres"),
 });
 
 type FormValues = z.infer<typeof editTypeSchema>;

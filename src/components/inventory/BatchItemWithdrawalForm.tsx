@@ -85,12 +85,10 @@ export default function BatchItemWithdrawalForm() {
       prev.map(item => {
         if (item.itemId === itemId) {
           const newQuantity = item.quantity + delta;
-          // No permitir más que la cantidad disponible
           if (delta > 0 && newQuantity > inventoryItem.availableQuantity) {
             toast.error(`No puede extraer más de ${inventoryItem.availableQuantity} unidades disponibles`);
             return item;
           }
-          // No permitir menos de 1
           return { ...item, quantity: Math.max(1, newQuantity) };
         }
         return item;

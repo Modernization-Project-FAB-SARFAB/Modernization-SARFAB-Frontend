@@ -1,13 +1,20 @@
-import { CourseDetail } from "@/types/courses.schema";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+import {
+  assignCourseVolunteersSchema,
+  AssignCourseVolunteersForm,
+  CourseDetail,
+} from "@/types/courses.schema";
+import { useGetVolunteersWithoutCourse } from "@/hooks/courseVolunteer/querys/useGetVolunteersWithoutCourse";
+import { useAssignMultipleVolunteersToCourse } from "@/hooks/courseVolunteer/mutations/useAssignMultipleVolunteersToCourse";
 import BackLink from "../common/BackLink/BackLink";
 import FormInput from "../common/FormInput/FormInput";
 import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
 import Button from "../common/Button/Button";
-import { useGetVolunteersWithoutCourse } from "@/hooks/courseVolunteer/querys/useGetVolunteersWithoutCourse";
-import { useState } from "react";
 import ButtonGroup from "../common/ButtonGroup/ButtonGroup";
-import { useNavigate } from "react-router-dom";
-import { useAssignMultipleVolunteersToCourse } from "@/hooks/courseVolunteer/mutations/useAssignMultipleVolunteersToCourse";
+import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
 
 interface SelectedVolunteer {
   volunteerId: number;
@@ -16,100 +23,112 @@ interface SelectedVolunteer {
 }
 
 export default function AssignCourseVolunteersComponent({ course }: { course: CourseDetail }) {
-  const [selectedVolunteerName, setSelectedVolunteerName] = useState<string>("");
+  const [selectedVolunteerName, setSelectedVolunteerName] = useState("");
   const [addedVolunteers, setAddedVolunteers] = useState<SelectedVolunteer[]>([]);
   const [isAssigning, setIsAssigning] = useState(false);
+  const [addError, setAddError] = useState("");
   const navigate = useNavigate();
-  
+
   const courseId = (course as any).courseId || course.id;
-  
+
   const { data: volunteersWithoutCourse, isLoading } = useGetVolunteersWithoutCourse(courseId);
   const assignMutation = useAssignMultipleVolunteersToCourse();
-  
+
+  const {
+    handleSubmit,
+    setError,
+    setValue,
+    trigger,
+    formState: { errors },
+  } = useForm<AssignCourseVolunteersForm>({
+    resolver: zodResolver(assignCourseVolunteersSchema),
+    defaultValues: {
+      courseId,
+      volunteers: [],
+    },
+  });
+
+  useEffect(() => {
+    setValue(
+      "volunteers",
+      addedVolunteers.map(v => ({
+        volunteerId: v.volunteerId,
+        completionDate: new Date().toISOString().split("T")[0],
+      }))
+    );
+    if (addedVolunteers.length > 0) {
+      trigger("volunteers");
+    }
+  }, [addedVolunteers, setValue, trigger]);
+
   const volunteerOptions = volunteersWithoutCourse?.map(volunteer => ({
     id: volunteer.volunteerId.toString(),
-    name: `${volunteer.abbreviation} - ${volunteer.lastName} ${volunteer.firstName}`
+    name: `${volunteer.abbreviation} - ${volunteer.lastName} ${volunteer.firstName}`,
   })) || [];
-  
-  const filteredOptions = volunteerOptions.filter(option => 
-    !addedVolunteers.some(v => v.volunteerId.toString() === option.id)
+
+  const filteredOptions = volunteerOptions.filter(
+    option => !addedVolunteers.some(v => v.volunteerId.toString() === option.id)
   );
-  
+
   const handleVolunteerChange = (value: string) => {
     setSelectedVolunteerName(value);
+    setAddError("");
   };
-  
+
   const handleAddVolunteer = () => {
-    if (selectedVolunteerName) {
-      const selectedOption = volunteerOptions.find(
-        option => option.name === selectedVolunteerName
-      );
-      
-      if (selectedOption) {
-        const volunteerId = selectedOption.id;
-        
-        const volunteerData = volunteersWithoutCourse?.find(
-          volunteer => volunteer.volunteerId.toString() === volunteerId
-        );
-        
-        if (volunteerData) {
-          const isDuplicate = addedVolunteers.some(
-            v => v.volunteerId === volunteerData.volunteerId
-          );
-          
-          if (!isDuplicate) {
-            const newVolunteer: SelectedVolunteer = {
-              volunteerId: volunteerData.volunteerId,
-              fullName: `${volunteerData.lastName} ${volunteerData.firstName}`,
-              rank: volunteerData.abbreviation
-            };
-            
-            setAddedVolunteers(prev => [...prev, newVolunteer]);
-          }
-        }
-      }
-      setSelectedVolunteerName("");
+    if (!selectedVolunteerName) {
+      setAddError("Debe seleccionar un voluntario válido.");
+      return;
     }
+
+    const selectedOption = volunteerOptions.find(option => option.name === selectedVolunteerName);
+    if (!selectedOption) {
+      setAddError("Debe seleccionar un voluntario válido.");
+      return;
+    }
+
+    const volunteerData = volunteersWithoutCourse?.find(
+      v => v.volunteerId.toString() === selectedOption.id
+    );
+    if (!volunteerData) return;
+
+    const isDuplicate = addedVolunteers.some(v => v.volunteerId === volunteerData.volunteerId);
+    if (isDuplicate) return;
+
+    const newVolunteer: SelectedVolunteer = {
+      volunteerId: volunteerData.volunteerId,
+      fullName: `${volunteerData.lastName} ${volunteerData.firstName}`,
+      rank: volunteerData.abbreviation,
+    };
+
+    setAddedVolunteers(prev => [...prev, newVolunteer]);
+    setSelectedVolunteerName("");
+    setAddError("");
   };
-  
+
   const handleRemoveVolunteer = (volunteerId: number) => {
     setAddedVolunteers(prev => prev.filter(v => v.volunteerId !== volunteerId));
   };
-  
-  const handleAssign = () => {
-    if (addedVolunteers.length === 0) return;
-    
+
+  const onSubmit = (data: AssignCourseVolunteersForm) => {
     setIsAssigning(true);
-    
-    const assignmentData = {
-      courseId: courseId,
-      volunteers: addedVolunteers.map(volunteer => ({
-        volunteerId: volunteer.volunteerId,
-        completionDate: new Date().toISOString().split('T')[0],
-      }))
-    };
-    
-    assignMutation.mutate(assignmentData, {
+    assignMutation.mutate(data, {
       onSuccess: () => {
         setIsAssigning(false);
-        navigate('/courses/list');
+        navigate("/courses/list");
       },
       onError: () => {
         setIsAssigning(false);
-      }
+      },
     });
   };
-  
+
   return (
     <section>
       <div className="flex flex-col gap-6">
         <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <div className="-mx-6 -mt-2">
-          <BackLink
-            text="Regresar al listado de cursos"
-              link="/courses/list"
-              className="pt-0"
-            />
+          <div className="-mx-6 -mt-2">
+            <BackLink text="Regresar al listado de cursos" link="/courses/list" className="pt-0" />
           </div>
           <h2 className="text-2xl font-semibold mb-4 mx-4 text-black dark:text-white mt-4">
             Datos generales del curso
@@ -128,9 +147,7 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
                 Descripción del curso
               </label>
               <div className="relative">
-                <div 
-                  className="w-full rounded border-[1.5px] border-stroke bg-gray py-3 px-5 pr-10 font-medium outline-none dark:border-form-strokedark dark:bg-form-input text-black dark:text-white text-left whitespace-pre-wrap"
-                >
+                <div className="w-full rounded border-[1.5px] border-stroke bg-gray py-3 px-5 pr-10 font-medium outline-none dark:border-form-strokedark dark:bg-form-input text-black dark:text-white text-left whitespace-pre-wrap">
                   {course.description}
                 </div>
               </div>
@@ -143,28 +160,25 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
             Seleccionar los voluntarios que realizarán el curso
           </h2>
           <div className="mb-4 mx-4">
-            <div className="flex w-1/2">
-              <div className="flex-1">
-                <FilterDatalist
-                  label="Seleccionar voluntario" 
-                  name="volunteer" 
-                  options={filteredOptions} 
-                  onChange={handleVolunteerChange}
-                  value={selectedVolunteerName}
-                  showLabel={false}
-                />
-              </div>
-              <div className="ml-4">
-                <Button
-                  label="Agregar voluntario"
-                  type="button"
-                  onClick={handleAddVolunteer}
-                  disabled={isLoading || !selectedVolunteerName}
-                />
-              </div>
+            <div className="w-full flex flex-col sm:flex-row sm:w-1/2 gap-4">
+              <FilterDatalist
+                label="Seleccionar voluntario"
+                name="volunteer"
+                options={filteredOptions}
+                onChange={handleVolunteerChange}
+                value={selectedVolunteerName}
+                showLabel={false}
+              />
+              <Button
+                label="Agregar"
+                type="button"
+                onClick={handleAddVolunteer}
+                disabled={isLoading || !selectedVolunteerName}
+              />
             </div>
+            {addError && <ErrorFormMessage>{addError}</ErrorFormMessage>}
           </div>
-          
+
           <div className="mx-4 mt-4 border border-stroke dark:border-strokedark rounded-md">
             <table className="w-full table-auto text-center border-collapse border border-stroke dark:border-strokedark">
               <thead>
@@ -183,10 +197,7 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
               <tbody>
                 {addedVolunteers.length > 0 ? (
                   addedVolunteers.map((volunteer) => (
-                    <tr
-                      key={volunteer.volunteerId}
-                      className="border border-stroke dark:border-strokedark"
-                    >
+                    <tr key={volunteer.volunteerId} className="border border-stroke dark:border-strokedark">
                       <td className="py-2 px-4 border border-stroke dark:border-strokedark">
                         {volunteer.fullName}
                       </td>
@@ -215,19 +226,23 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
                 )}
               </tbody>
             </table>
+            {errors.volunteers?.message && (
+              <ErrorFormMessage>{errors.volunteers.message}</ErrorFormMessage>
+            )}
           </div>
         </div>
+
         <div className="mt-4 flex justify-end">
           <ButtonGroup
             buttons={[
               {
-                type: 'button',
-                label: isAssigning ? 'Asignando...' : 'Asignar voluntarios',
-                onClick: handleAssign,
-                variant: 'primary',
-                disabled: isAssigning || addedVolunteers.length === 0,
+                type: "button",
+                label: isAssigning ? "Asignando..." : "Asignar voluntarios",
+                onClick: handleSubmit(onSubmit),
+                variant: "primary",
+                disabled: isAssigning,
               },
-              { type: 'link', label: 'Cancelar', to: '/courses/list' },
+              { type: "link", label: "Cancelar", to: "/courses/list" },
             ]}
           />
         </div>
