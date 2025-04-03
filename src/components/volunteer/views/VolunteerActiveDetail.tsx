@@ -33,13 +33,13 @@ export default function VolunteerActiveDetail() {
   const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData;
   const isErrorAll = isError || isErrorTotalDemeritPoint || isErrorMedicalCheckupData;
 
-  if (isLoadingAll) return <Loader message="Cargando información del voluntario"/>;
+  if (isLoadingAll) return <Loader message="Cargando información del voluntario" />;
   if (isErrorAll) return <div>Error al cargar los datos. Intenta nuevamente.</div>;
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-4 lg:gap-5 gap-3">
-        <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-4 p-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-none lg:grid-rows-4 lg:gap-5 gap-3">
+        <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:row-span-1 md:row-span-2 lg:row-span-4 p-4">
           <BackLink
             text="Volver a listado de voluntarios"
             iconSize={20}
@@ -67,9 +67,14 @@ export default function VolunteerActiveDetail() {
           <MedicalData data={data} />
         </div>
         <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:col-span-2 lg:row-span-1 lg:row-start-6 p-4">
-          <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
-            Chequeos medicos
-          </h3>
+          <div className="flex items-center justify-between px-6.5 mt-3">
+            <h3 className="text-2xl font-semibold text-black dark:text-white">
+              Chequeos médicos
+            </h3>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+              Agregar Chequeo Médico
+            </button>
+          </div>
           {medicalCheckupData && (
             <SimpleSortableTable columns={volunteerMedicalCheckupColumnsDef} data={medicalCheckupData} initialPageSize={10} />
           )}
