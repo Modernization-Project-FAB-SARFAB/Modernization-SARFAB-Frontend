@@ -46,6 +46,7 @@ export default function VolunteerGuardsReport({ breadcrumb, columns }: Volunteer
                 isLoading={isLoading} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
+                noItemsMessage="No existen registros de guardias" noItemsLinkText="Agregar guardia" noItemsLinkUrl="/guards/create"
             />
         </>
     )

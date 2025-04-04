@@ -62,7 +62,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, isLoading }) => {
                         </div>
 
                         <div className='w-full flex flex-col'>
-                            <Button type='submit' label='Iniciar Sesión' variant='dark' isLoading={isLoading} loadingLabel="Iniciando sessión..." classname="btn-lg" />
+                            <Button type='submit' label='Iniciar Sesión' variant='dark' isLoading={isLoading} loadingLabel="Iniciando sesión..." classname="btn-lg" />
                         </div>
                     </form>
                 </div>

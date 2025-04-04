@@ -8,6 +8,7 @@ import { useState } from 'react';
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import { useNavigate } from 'react-router-dom';
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
+import Loader from "@/components/common/Loader";
 
 export default function NotificationListView() {
   const [filtro, setFiltro] = useState<'todas' | 'leidas' | 'no-leidas'>('todas');
@@ -175,11 +176,9 @@ export default function NotificationListView() {
 
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         {cargando ? (
-          <div className="flex h-60 items-center justify-center">
-            <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-          </div>
+          <Loader/>
         ) : notificacionesFiltradas.length === 0 ? (
-          <div className="flex h-60 flex-col items-center justify-center text-center p-4">
+          <div className="flex h-100 flex-col items-center justify-center text-center p-4">
             <RiNotification2Line className="mb-2 text-gray-400 dark:text-gray-600" size={48} />
             <h5 className="mb-1 text-lg font-medium text-black dark:text-white">
               No hay notificaciones
@@ -193,7 +192,7 @@ export default function NotificationListView() {
             </p>
           </div>
         ) : (
-          <div className="max-h-[calc(100vh-250px)] overflow-auto p-4">
+          <div className="p-4">
             {notificacionesFiltradas.map((notificacion: Notification) => (
               <div
                 key={notificacion.id}

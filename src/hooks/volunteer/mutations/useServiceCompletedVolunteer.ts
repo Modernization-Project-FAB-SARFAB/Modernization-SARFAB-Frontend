@@ -11,11 +11,11 @@ export function useServiceCompletedVolunteer() {
     onError: (error) => {
       const errorMessage = error.message?.trim() || "Ocurrió un error marcar como cumplido el servicio del voluntario";
       toast.error(errorMessage);
-      navigate("/volunteers/active-volunteers");
+      navigate(-1);
     },
     onSuccess: () => {
       toast.success("Voluntario ha sido marcado como cumplido el servicio correctamente");
-      navigate("/volunteers/active-volunteers");
+      navigate(-1);
     },
   });
 }

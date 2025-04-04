@@ -25,7 +25,7 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
 
     return (
         <div className="rounded-sm border border-stroke bg-white mt-3 px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-            <div className="max-w-full overflow-x-auto">
+            <div className="max-w-full ">
                 <table className="w-full table-auto text-center">
                     <thead>
                         {table.getHeaderGroups().map(headerGroup => (
@@ -62,7 +62,7 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                             {table.getRowModel().rows.slice(0, 10).map(row => (
                                 <tr key={row.id} className="border-b border-[#eee] dark:border-strokedark">
                                     {row.getVisibleCells().map(cell => (
-                                        <td key={cell.id} className={`py-5 px-4 text-black dark:text-white`}>
+                                        <td key={cell.id} className={`py-5 px-4 text-black dark:text-white relative`}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </td>
                                     ))}
