@@ -122,10 +122,9 @@ export const totalPointsLostSchema = z.object({
     totalPointsLost: z.number().int().nonnegative(),
 });
 
-export type VolunteerStatus = z.infer<typeof volunteerStatusSchema>;
-
 export type Volunteer = z.infer<typeof baseVolunteerSchema>;
 export type VolunteerOperation = z.infer<typeof operationVolunteerSchema>
+
 export type VolunteerGuard = z.infer<typeof guardSchema>
 export type VolunteerFormData = Pick<Volunteer, 'firstName' | 'lastName' | 'homeAddress' | 'ci' | 'birthDate' | 'phone' | 'mobilePhone' | 'email' | 'distinctiveFeatures' | 'volunteerType' | 'occupation' | 'bloodType' | 'religion' | 'allergies' | 'emergencyContactFullName' | 'emergencyContactRelation' | 'emergencyContactAddress' | 'emergencyContactPhone' | 'emergencyContactMobile' | 'departmentId' | 'gradeId' | 'checkupDate' | 'expirationDate' | 'observations'>;
 export type VolunteerUpdateFormData = Omit<Volunteer, 'id' | 'checkupDate' | 'expirationDate' | 'observations'>;

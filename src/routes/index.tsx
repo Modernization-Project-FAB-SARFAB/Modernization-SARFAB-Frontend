@@ -7,8 +7,9 @@ const EditVolunteerView = lazy(() => import('@/views/personal/Volunteers/EditVol
 const DetailsVolunteerView = lazy(() => import('@/views/personal/Volunteers/DetailVolunteerView'));
 const ReportGuardsVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerGuardsReportView'));
 const ReportOperationsVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerOperationsReportView'));
-
+const HistoryVolunteerDemeritPointsView = lazy(() => import('@/views/personal/Volunteers/HistoryVolunteerDemeritPointsView'));
 const CompletedCoursesVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerCompletedCoursesView'));
+
 
 const NotificationListView = lazy(() => import('@/views/notification/NotificationListView'));
 
@@ -130,6 +131,11 @@ const coreRoutes = [
     path: '/volunteers/:volunteerId/completed-courses',
     title: 'Cursos',
     component: CompletedCoursesVolunteerView
+  },
+  {
+    path: '/volunteers/:volunteerId/demerit-points',
+    title: 'Puntos de demérito',
+    component: HistoryVolunteerDemeritPointsView
   },
   // Military
   {

@@ -1,4 +1,5 @@
 import { RiClipboardFill } from "@remixicon/react";
+import { useNavigate } from "react-router-dom";
 
 interface AssistanceProps {
   volunteerId: string;
@@ -6,8 +7,15 @@ interface AssistanceProps {
 }
 
 const Assistance: React.FC<AssistanceProps> = ({ volunteerId, totalDemeritPoint }) => {
+  const navigate = useNavigate();
   const pointsLost = totalDemeritPoint?.totalPointsLost ?? 0;
-  const textColor = pointsLost > 10 ? "text-red-500" : "text-primary"; // Cambia el color a rojo si pasa de 10 puntos
+  const textColor = pointsLost > 10 ? "text-red-500" : "text-primary";
+
+  const redirectUrl = `/volunteers/${volunteerId}/demerit-points`;
+
+  const handleRedirect = () => {
+    navigate(redirectUrl);
+  };
 
   return (
     <div className="flex-row items-center h-full justify-center p-6">
@@ -18,8 +26,16 @@ const Assistance: React.FC<AssistanceProps> = ({ volunteerId, totalDemeritPoint 
           {pointsLost} Faltas
         </p>
         <div className="flex justify-between items-center mt-6">
-          <a href="#" className="text-primary text-lg">Ver registro</a>
-          <button className="bg-gray-300 p-3 rounded-lg">
+          <button
+            onClick={handleRedirect}
+            className="text-primary text-lg hover:underline"
+          >
+            Ver registro
+          </button>
+          <button
+            onClick={handleRedirect}
+            className="bg-gray-300 p-3 rounded-lg hover:bg-gray-400 transition-colors"
+          >
             <RiClipboardFill className="text-gray-700 w-6 h-6" />
           </button>
         </div>

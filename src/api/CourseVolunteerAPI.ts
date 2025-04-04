@@ -18,7 +18,6 @@ export async function getVolunteerCompletedCourses(id: Volunteer['id'], queryPar
     try {
         const { data } = await api(`/Course/volunteer/${id}/completed-courses`, { params: queryParams });
         const response = listVoluntareerCompletedCourses.safeParse(data);
-        console.log(response);
         
         if (response.success) {
             return response.data;
