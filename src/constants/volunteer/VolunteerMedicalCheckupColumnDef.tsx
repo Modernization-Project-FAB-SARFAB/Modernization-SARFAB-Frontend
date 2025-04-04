@@ -35,3 +35,9 @@ export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
         enableSorting: false,
     }
 ];
+
+export const volunteerHistoricalMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
+    { header: "Fecha de chequeo", accessorKey: "checkupDate" },
+    { header: "Fecha de expiración", accessorKey: "expirationDate" },
+    { header: "Observaciones", accessorKey: "observations" },
+];

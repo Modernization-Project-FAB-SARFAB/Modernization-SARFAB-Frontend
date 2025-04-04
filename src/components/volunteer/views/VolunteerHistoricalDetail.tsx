@@ -10,7 +10,7 @@ import EmergencyData from "@/components/volunteer/sections/detailViewSections/Em
 import MedicalData from "@/components/volunteer/sections/detailViewSections/MedicalData";
 import PersonalData from "@/components/volunteer/sections/detailViewSections/PersonalData";
 import Reports from "@/components/volunteer/sections/detailViewSections/Reports";
-import { volunteerMedicalCheckupColumnsDef } from "@/constants/volunteer/VolunteerMedicalCheckupColumnDef";
+import { volunteerHistoricalMedicalCheckupColumnsDef, volunteerMedicalCheckupColumnsDef } from "@/constants/volunteer/VolunteerMedicalCheckupColumnDef";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useDetailsVolunteer } from "@/hooks/volunteer/querys/useEditVolunteerData";
 import { useVolunteerTotalDemeritPoint } from "@/hooks/volunteer/querys/useVolunteerTotalDemeritPoint";
@@ -63,7 +63,7 @@ export default function VolunteerHistoricalDetail() {
         <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
           Chequeos medicos
         </h3>
-        {medicalCheckupData && (<SimpleSortableTable columns={volunteerMedicalCheckupColumnsDef}
+        {medicalCheckupData && (<SimpleSortableTable columns={volunteerHistoricalMedicalCheckupColumnsDef}
           data={medicalCheckupData}
           initialPageSize={10} />)}
       </div>
