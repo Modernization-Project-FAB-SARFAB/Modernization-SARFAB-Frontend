@@ -24,6 +24,7 @@ export default function VolunteerCompletedCourses({ columns }: VolunteerCourseLi
             text="Volver al listado de voluntarios"
             iconSize={20}
             link={`/volunteers/${volunteerIdString}/view`}
+            useRouter={true}
         />
         <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
             Cursos finalizados

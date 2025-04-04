@@ -35,6 +35,7 @@ export default function VolunteerHistoryDemeritPoints({ columns }: VolunteerHist
         text="Volver al listado de voluntarios"
         iconSize={20}
         link={`/volunteers/${volunteerIdString}/view`}
+        useRouter={true}
       />
 
       <h3 className="px-6.5 mt-3 text-2xl font-semibold text-black dark:text-white">

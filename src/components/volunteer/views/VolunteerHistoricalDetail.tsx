@@ -51,7 +51,7 @@ export default function VolunteerHistoricalDetail() {
         )}
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
-        <Reports volunteerId={volunteerId} />
+        <Reports volunteerId={volunteerId} from="history"/>
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-2 p-4">
         <EmergencyData data={data} />
