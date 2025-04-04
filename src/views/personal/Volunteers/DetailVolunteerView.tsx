@@ -91,7 +91,7 @@ export default function DetailVolunteerView() {
           </div>
 
           <div className="mb-4.5">
-            <FormInput label="Correo electronico"
+            <FormInput label="Correo electrónico"
               name="email"
               type="email"
               readonly
@@ -222,7 +222,7 @@ export default function DetailVolunteerView() {
         <div className="flex-row items-center h-full justify-center p-6">
           <div className="px-6 mt-5">
             <h3 className=" dark:text-white text-2xl font-semibold text-black">Cantidad total de faltas</h3>
-            <p className="text-gray-500">Total de faltas a operativos y guardias</p>
+            <p className="text-gray-500">Total de faltas a operaciones y guardias</p>
             <p className="text-title-xxl text-center font-bold text-primary mt-5">2 Faltas</p>
             <div className="flex justify-between items-center mt-6">
               <a href="#" className="text-primary text-lg">Ver registro</a>

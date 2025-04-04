@@ -37,7 +37,7 @@ export default function CreateMedicalTreatmentView() {
             <div className="p-6.5">
                 <ButtonGroup
                     buttons={[
-                        { type: "button", label: "Registrar tratamiento", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
+                        { type: "button", label: "Registrar", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
                         { type: "link", label: "Cancelar", to: "/medical-treatment/list" }
                     ]}
                 />

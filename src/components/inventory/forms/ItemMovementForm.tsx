@@ -69,7 +69,7 @@ export function ItemMovementForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="p-8 space-y-6">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="p-0 sm:p-8 space-y-6">
       <div className="space-y-1">
         <FilterDatalist
           name="volunteerId"

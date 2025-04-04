@@ -19,7 +19,7 @@ export const userBaseSchema = z.object({
   personId: z.number().min(1, "La persona obligatorio"),
   fullName: z.string(),
   userName: z.string().trim().min(1, "El nombre de usuario es obligatorio"),
-  email: z.string().trim().min(1, "El correo electronico es obligatorio").email({ message: "El correo electrónico no es válido. Ej: usuario@dominio.com" }),
+  email: z.string().trim().min(1, "El correo electrónico es obligatorio").email({ message: "El correo electrónico no es válido. Ej: usuario@dominio.com" }),
   status: z.number()
 })
 

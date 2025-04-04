@@ -18,7 +18,7 @@ export default function AppLayout() {
     return (
       <div className="h-screen flex flex-col items-center justify-center gap-4 text-xl font-medium">
         <img src="/src/assets/images/signIn/logo.png" alt="Logo" className="w-32 h-32 animate-pulse" />
-        <span>Verificando sesión...</span>
+        <span>Cargando...</span>
       </div>
     );
   }  

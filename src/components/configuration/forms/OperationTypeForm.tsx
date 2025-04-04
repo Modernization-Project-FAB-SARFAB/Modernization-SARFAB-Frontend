@@ -43,10 +43,10 @@ export function OperationTypeForm({
     <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
       <div>
         <FormInput
-          label="Nombre del tipo de operativo"
+          label="Nombre del tipo de operación"
           name="name"
           register={register}
-          placeholder="Ingrese el nombre del tipo de operativo"
+          placeholder="Ingrese el nombre del tipo de operación"
         />
         {errors.name && (
           <ErrorFormMessage>{errors.name.message as string}</ErrorFormMessage>

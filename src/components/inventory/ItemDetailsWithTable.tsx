@@ -39,7 +39,7 @@ export default function ItemDetailsWithTable({
           </div>
           <div className="md:col-span-2">
             <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
-              Personas pendientes de devolución
+              Voluntarios pendientes de devolución
             </h2>
           </div>
           <div className="md:col-span-2">

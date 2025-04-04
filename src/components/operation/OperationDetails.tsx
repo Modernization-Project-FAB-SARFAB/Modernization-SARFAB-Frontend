@@ -23,7 +23,7 @@ export default function OperationDetails({
         </h2>
         <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <FormInput
-            label="Categoria de operativo"
+            label="Categoria de operación"
             name="categoryName"
             type="text"
             readonly
@@ -32,7 +32,7 @@ export default function OperationDetails({
           />
           <div className="mb-4">
             <label className="mb-2.5 block text-black dark:text-white">
-              Tipo de operativo
+              Tipo de operación
             </label>
             <div className="w-full rounded border-[1.5px] border-stroke py-3 px-5 font-medium outline-none bg-[#F1F5F9] text-black dark:text-white text-center break-words dark:border-form-strokedark dark:bg-form-input">
               {operation.operationTypeName}

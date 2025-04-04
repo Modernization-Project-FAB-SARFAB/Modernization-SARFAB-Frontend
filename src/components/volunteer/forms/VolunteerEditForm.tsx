@@ -75,7 +75,7 @@ export default function VolunteerEditForm({ errors, register, control }: Volunte
                                 </div>
 
                                 <div className="mb-4.5">
-                                    <FormInput label="Correo electronico" placeholder="Ingresa el correo del voluntario del voluntario"
+                                    <FormInput label="Correo electrónico" placeholder="Ingresa el correo del voluntario del voluntario"
                                         register={register}
                                         errors={errors}
                                         name="email"

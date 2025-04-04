@@ -57,7 +57,7 @@ export default function DetailItemWithTableView() {
             <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
               Acciones
             </h2>
-            <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-10">
+            <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 sm:px-8">
               <Link to={`/inventory/movement-historical?search=${encodeURIComponent(item?.name || '')}`}>
                 <Button label="Ir al registro histórico" classname="w-full text-sm" />
               </Link>

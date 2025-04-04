@@ -66,7 +66,7 @@ export function ItemForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="p-8 space-y-4">
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="p-0 sm:p-8 space-y-4">
       <div className="space-y-0">
         <FormInput
           label="Nombre del elemento"

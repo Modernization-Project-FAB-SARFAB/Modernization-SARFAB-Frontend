@@ -160,7 +160,7 @@ export default function OperationCategoryListView() {
   ];
 
   return (
-    <div className="container mx-auto p-6"> 
+    <div className="container mx-auto"> 
       <OperationCategoryHeader
         onOpenTypeModal={openTypeModal}
       />

@@ -116,7 +116,7 @@ const coreRoutes = [
     },
     {
         path: '/volunteers/:volunteerId/report-operations',
-        title: 'Reporte de operativos',
+        title: 'Reporte de operaciones',
         component: ReportOperationsVolunteerView
     },
   // Military
