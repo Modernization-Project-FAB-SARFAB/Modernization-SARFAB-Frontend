@@ -71,10 +71,16 @@ export default function VolunteerActiveDetail() {
             <h3 className="text-2xl font-semibold text-black dark:text-white">
               Chequeos médicos
             </h3>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+            <button
+              className="bg-primary text-white rounded-lg px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base"
+              onClick={() => setModalAction('add-medical-checkup')}
+            >
               Agregar Chequeo Médico
             </button>
           </div>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 mx-5">
+            Solo puedes modificar el último chequeo médico.
+          </p>
           {medicalCheckupData && (
             <SimpleSortableTable columns={volunteerMedicalCheckupColumnsDef} data={medicalCheckupData} initialPageSize={10} />
           )}

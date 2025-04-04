@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { RiEdit2Line } from "@remixicon/react";
 import { MedicalCheckup } from "@/types/volunteerMedicalCheckup";
 
-const ActionsColumn = ({ row }: { row: any }) => {
+const ActionsColumn = ({ row, table }: { row: any; table:any }) => {
     const navigate = useNavigate();
     const { id } = row.original;
+    const totalRows = table.getRowModel().rows.length;
+    const isLastRow = row.index === totalRows - 1;
 
+    if (!isLastRow) return <></>;
     const items: DropdownItem[] = [
         {
             type: "link",
@@ -27,7 +30,7 @@ export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
     {
         id: "actions",
         header: "Acciones",
-        cell: ({ row }) => <ActionsColumn row={row} />,
+        cell: ({ row, table }) => <ActionsColumn row={row} table={table}/>,
         enableSorting: false,
     }
 ];

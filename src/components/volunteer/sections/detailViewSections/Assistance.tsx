@@ -1,14 +1,10 @@
 import { RiClipboardFill } from "@remixicon/react";
-import { useNavigate } from "react-router-dom";
-
 interface AssistanceProps {
   volunteerId: string;
   totalDemeritPoint: { totalPointsLost: number};
 }
 
 const Assistance: React.FC<AssistanceProps> = ({volunteerId, totalDemeritPoint}) => {
-  console.log(totalDemeritPoint);
-
   return (
     <div className="flex-row items-center h-full justify-center p-6">
       <div className="px-6 mt-5">

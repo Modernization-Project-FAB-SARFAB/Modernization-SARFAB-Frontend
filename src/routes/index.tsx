@@ -1,9 +1,9 @@
 import { lazy } from 'react';
 
 const ActiveVolunteersView = lazy(() => import('@/views/personal/Volunteers/ActiveVolunteersView'));
-const CreateAfiliationView = lazy(() => import ('@/views/personal/Volunteers/CreateVolunteerAfiliationView'));
-const HistoricalVolunteersView = lazy(() => import ('@/views/personal/Volunteers/HistoricalVolunteersView'));
-const EditVolunteerView = lazy(() => import ('@/views/personal/Volunteers/EditVolunteerAfiliationView'));
+const CreateAfiliationView = lazy(() => import('@/views/personal/Volunteers/CreateVolunteerAfiliationView'));
+const HistoricalVolunteersView = lazy(() => import('@/views/personal/Volunteers/HistoricalVolunteersView'));
+const EditVolunteerView = lazy(() => import('@/views/personal/Volunteers/EditVolunteerAfiliationView'));
 const DetailsVolunteerView = lazy(() => import('@/views/personal/Volunteers/DetailVolunteerView'));
 const ReportGuardsVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerGuardsReportView'));
 const ReportOperationsVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerOperationsReportView'));
@@ -60,71 +60,76 @@ const AttendanceGuardView = lazy(() => import('@/views/guard/AttendanceControlGu
 const UserListView = lazy(() => import('@/views/user/UserListView'))
 
 const coreRoutes = [
-    {
-        path: '/notificaciones',
-        title: 'Notificaciones',
-        component: NotificationListView
-    },
-    {
-        path: '/recruitment/list',
-        title: 'Reclutamiento',
-        component: RecruitmentPendingView
-    },
-    {
-        path: '/recruitment/approve-or-deny',
-        title: 'Aprobar o rechazar recluta',
-        component: ApproveDenyRecruitView
-    },
-    {
-        path: '/recruitment/create',
-        title: 'Registrar nuevo recluta',
-        component: CreateRecruitmentView
-    },
-    {
-        path: '/recruitment/:recruitId/edit',
-        title: 'Editar recluta',
-        component: EditRecruitmentView
-    },
-     // Volunteer 
-    {
-        path: '/volunteers/active-volunteers',
-        title:'Voluntarios activos',
-        component: ActiveVolunteersView
-    },
-    {
-        path: '/volunteers/create',
-        title: 'Crear nueva afiliación de voluntarios',
-        component: CreateAfiliationView
-    },
-    {
-        path: '/volunteers/volunteer-history',
-        title: 'Historico de voluntarios',
-        component: HistoricalVolunteersView
-    },
-    {
-        path: '/volunteers/:volunteerId/edit',
-        title: 'Editar voluntario',
-        component: EditVolunteerView
-    },
-    {
-        path: '/volunteers/:volunteerId/view',
-        title: 'Editar voluntario',
-        component: DetailsVolunteerView
-    },
-    {
-        path: '/volunteers/:volunteerId/report-guards',
-        title: 'Reporte de guardias',
-        component: ReportGuardsVolunteerView
-    },
-    {
-        path: '/volunteers/:volunteerId/report-operations',
-        title: 'Reporte de operativos',
-        component: ReportOperationsVolunteerView
-    },
-    {
-      path: '/volunteers/:volunteerId/completed-courses',
-      title: 'Cursos',
-      component: CompletedCoursesVolunteerView
+  {
+    path: '/',
+    title: 'Notificaciones',
+    component: NotificationListView
+  },
+  {
+    path: '/notificaciones',
+    title: 'Notificaciones',
+    component: NotificationListView
+  },
+  {
+    path: '/recruitment/list',
+    title: 'Reclutamiento',
+    component: RecruitmentPendingView
+  },
+  {
+    path: '/recruitment/approve-or-deny',
+    title: 'Aprobar o rechazar recluta',
+    component: ApproveDenyRecruitView
+  },
+  {
+    path: '/recruitment/create',
+    title: 'Registrar nuevo recluta',
+    component: CreateRecruitmentView
+  },
+  {
+    path: '/recruitment/:recruitId/edit',
+    title: 'Editar recluta',
+    component: EditRecruitmentView
+  },
+  // Volunteer 
+  {
+    path: '/volunteers/active-volunteers',
+    title: 'Voluntarios activos',
+    component: ActiveVolunteersView
+  },
+  {
+    path: '/volunteers/create',
+    title: 'Crear nueva afiliación de voluntarios',
+    component: CreateAfiliationView
+  },
+  {
+    path: '/volunteers/volunteer-history',
+    title: 'Historico de voluntarios',
+    component: HistoricalVolunteersView
+  },
+  {
+    path: '/volunteers/:volunteerId/edit',
+    title: 'Editar voluntario',
+    component: EditVolunteerView
+  },
+  {
+    path: '/volunteers/:volunteerId/view',
+    title: 'Editar voluntario',
+    component: DetailsVolunteerView
+  },
+  {
+    path: '/volunteers/:volunteerId/report-guards',
+    title: 'Reporte de guardias',
+    component: ReportGuardsVolunteerView
+  },
+  {
+    path: '/volunteers/:volunteerId/report-operations',
+    title: 'Reporte de operativos',
+    component: ReportOperationsVolunteerView
+  },
+  {
+    path: '/volunteers/:volunteerId/completed-courses',
+    title: 'Cursos',
+    component: CompletedCoursesVolunteerView
   },
   // Military
   {
@@ -189,26 +194,26 @@ const coreRoutes = [
     title: 'Tratamientos médicos',
     component: MedicalTreatmentView
   },
-    {
-        path: '/medical-treatment/create',
-        title: 'Editar tratamiento médico',
-        component: CreateMedicalTreatmentView
-    },
-    {
-        path: '/medical-treatment/:medicalTreatmentId/edit',
-        title: 'Editar tratamiento médico',
-        component: EditMedicalTreatmentView
-    },
-    {
-        path: '/medical-treatment/:medicalTreatmentId',
-        title: 'Ver tratamiento médico',
-        component: MedicalTreatmenDetailstView
-    },
-    //Configuration
-    {
-        path: '/configuration/operation-category/list',
-        title: 'Categorías de operación',
-        component: OperationCategoryListView
+  {
+    path: '/medical-treatment/create',
+    title: 'Editar tratamiento médico',
+    component: CreateMedicalTreatmentView
+  },
+  {
+    path: '/medical-treatment/:medicalTreatmentId/edit',
+    title: 'Editar tratamiento médico',
+    component: EditMedicalTreatmentView
+  },
+  {
+    path: '/medical-treatment/:medicalTreatmentId',
+    title: 'Ver tratamiento médico',
+    component: MedicalTreatmenDetailstView
+  },
+  //Configuration
+  {
+    path: '/configuration/operation-category/list',
+    title: 'Categorías de operación',
+    component: OperationCategoryListView
   },
   {
     path: '/configuration/requester/list',
@@ -231,37 +236,37 @@ const coreRoutes = [
     title: 'Asignar voluntarios',
     component: AssignCourseVolunteersView
   },
-    //Guards
-    {
-        path: '/guards/list',
-        title: 'Guardias',
-        component: GuardListView
-    },
-    {
-        path: '/guards/create',
-        title: 'Registrar guardias',
-        component: CreateGuardFormView
-    },
-    {
-        path: '/guards/:guardId',
-        title: 'Ver guardia',
-        component: GuardDetailsView
-    },
-    {
-        path: '/guards/:guardId/edit',
-        title: 'Editar guardia',
-        component: EditGuardView
-    },
-    {
-        path: '/guards/:guardId/attendance',
-        title: 'Editar guardia',
-        component: AttendanceGuardView
-    },
-    {
-        path: '/administration/users',
-        title: 'Lista de usuarios',
-        component: UserListView
-    }
+  //Guards
+  {
+    path: '/guards/list',
+    title: 'Guardias',
+    component: GuardListView
+  },
+  {
+    path: '/guards/create',
+    title: 'Registrar guardias',
+    component: CreateGuardFormView
+  },
+  {
+    path: '/guards/:guardId',
+    title: 'Ver guardia',
+    component: GuardDetailsView
+  },
+  {
+    path: '/guards/:guardId/edit',
+    title: 'Editar guardia',
+    component: EditGuardView
+  },
+  {
+    path: '/guards/:guardId/attendance',
+    title: 'Editar guardia',
+    component: AttendanceGuardView
+  },
+  {
+    path: '/administration/users',
+    title: 'Lista de usuarios',
+    component: UserListView
+  }
 ]
 
 const routes = [...coreRoutes];
