@@ -17,13 +17,16 @@ import { useDetailsVolunteer } from "@/hooks/volunteer/querys/useEditVolunteerDa
 import { useVolunteerTotalDemeritPoint } from "@/hooks/volunteer/querys/useVolunteerTotalDemeritPoint";
 import { useVolunteerMedicalCheckup } from "@/hooks/volunteerMedicalCheckup/querys/useVolunteerMedicalCheckup";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import VolunteerMedicalCheckupModal from "../modals/VolunteerMedicalCheckupModal";
+import VolunteerEditMedicalCheckupModal from "../modals/VolunteerEditMedicalCheckupModal";
 
 export default function VolunteerActiveDetail() {
   useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-volunteers" }, { label: "Ver voluntario" }]);
   const [modalAction, setModalAction] = useState<string | null>(null);
 
   const params = useParams();
+  const navigate = useNavigate();
   const volunteerId = params.volunteerId!;
 
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
@@ -73,7 +76,7 @@ export default function VolunteerActiveDetail() {
             </h3>
             <button
               className="bg-primary text-white rounded-lg px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base"
-              onClick={() => setModalAction('add-medical-checkup')}
+              onClick={() => navigate(`?add-medical-checkup=true&volunteerId=${volunteerId}`)}
             >
               Agregar Chequeo Médico
             </button>
@@ -90,6 +93,8 @@ export default function VolunteerActiveDetail() {
       <VolunteerGradePromotionModal />
       <VolunteerServiceCompletedModal />
       <VolunteerDischargeModal />
+      <VolunteerMedicalCheckupModal/>
+      <VolunteerEditMedicalCheckupModal/>
     </>
   );
 }

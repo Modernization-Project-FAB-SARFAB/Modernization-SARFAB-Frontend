@@ -4,18 +4,19 @@ import { useNavigate } from "react-router-dom";
 import { RiEdit2Line } from "@remixicon/react";
 import { MedicalCheckup } from "@/types/volunteerMedicalCheckup";
 
-const ActionsColumn = ({ row, table }: { row: any; table:any }) => {
+const ActionsColumn = ({ row, table }: { row: any; table: any }) => {
     const navigate = useNavigate();
     const { id } = row.original;
     const totalRows = table.getRowModel().rows.length;
-    const isLastRow = row.index === totalRows - 1;
-
-    if (!isLastRow) return <></>;
+    const isFirstRow = row.index === 0; // Verifica si es la primera fila
+    
+    if (!isFirstRow) return <></>; // Si no es la primera fila, no muestra las acciones
+    
     const items: DropdownItem[] = [
         {
             type: "link",
             label: "Editar chequeo",
-            href: `/volunteers/${id}/edit`,
+            onClick: () => navigate(`?edit-medical-checkup=true&medicalCheckupId=${row.original.checkupId}`),
             icon: <RiEdit2Line size={20} />,
         }
     ];
@@ -30,7 +31,7 @@ export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
     {
         id: "actions",
         header: "Acciones",
-        cell: ({ row, table }) => <ActionsColumn row={row} table={table}/>,
+        cell: ({ row, table }) => <ActionsColumn row={row} table={table} />,
         enableSorting: false,
     }
 ];

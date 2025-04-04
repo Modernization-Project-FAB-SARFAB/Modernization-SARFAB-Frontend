@@ -7,6 +7,26 @@ const checkupSchema = z.object({
   observations: z.string(),
 });
 
+export const medicalCheckupVounteerSchema = z.object({
+  checkupId: z.number().int().min(0, "El ID del chequeo médico debe ser un número positivo"),
+  volunteerId: z.number().int().min(0, "El ID del voluntario debe ser un número positivo"), 
+  checkupDate: z.string().refine((date) => !isNaN(Date.parse(date)), { message: "Fecha de chequeo inválida" }), 
+  expirationDate: z.string().refine((date) => !isNaN(Date.parse(date)), { message: "Fecha de expiración inválida" }),
+  observations: z.string().min(1, "Las observaciones no pueden estar vacías"),
+});
+
+export const medicalCheckupWithoutIdSchema = medicalCheckupVounteerSchema.omit({
+  checkupId: true,
+});
+
+export const medicalCheckupUpdateSchema = medicalCheckupVounteerSchema.omit({
+  checkupId: true,
+  volunteerId: true
+});
+
 export type MedicalCheckup = z.infer<typeof checkupSchema>;
+export type MedicalCheckupVolunteerFormData = Omit<z.infer<typeof medicalCheckupVounteerSchema>, "checkupId">;
+export type MedicalCheckupVolunteerUpdateFormData = Omit<z.infer<typeof medicalCheckupVounteerSchema>, "checkupId" | "volunteerId">;
+export type MedicalCheckupVolunteerEditFormData = Omit<MedicalCheckupVolunteerFormData, "volunteerId">;
 
 export const checkupListSchema = z.array(checkupSchema);
