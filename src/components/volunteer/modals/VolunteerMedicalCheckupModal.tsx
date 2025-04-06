@@ -15,7 +15,6 @@ export default function VolunteerMedicalCheckupModal() {
     const queryParams = new URLSearchParams(location.search);
 
     const volunteerId = Number(queryParams.get("volunteerId"));
-    console.log(volunteerId);
     
     const isAssingCourseModal = queryParams.get("add-medical-checkup");
     const isOpen = !!isAssingCourseModal;
@@ -33,7 +32,13 @@ export default function VolunteerMedicalCheckupModal() {
 
     const handleForm = async (formData: MedicalCheckupVolunteerFormData) => {
         setIsSubmitting(true);
-        await mutation.mutateAsync(formData)
+        try {
+            await mutation.mutateAsync(formData);
+            navigate(location.pathname, { replace: true });
+        } catch (error) {
+        } finally {
+            setIsSubmitting(false);
+        }
     }
 
     return (
@@ -45,7 +50,7 @@ export default function VolunteerMedicalCheckupModal() {
 
             <form onSubmit={handleSubmit(handleForm)} noValidate>
                 <div className="w-full">
-                    <input type="text" name="volunteerId" value={volunteerId} hidden/>
+                    <input  type="text" hidden {...register("volunteerId")} value={volunteerId} />
                     <FormDate
                         label="Fecha de realización del chequeo medico"
                         placeholder="Ingresa la fecha en la que se realizó el reclutamiento"

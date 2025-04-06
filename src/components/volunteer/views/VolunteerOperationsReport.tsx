@@ -1,11 +1,9 @@
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
-import { VolunteerHeader } from "../headers/VolunteerHeader";
 import { VolunteerTable } from "../table/VolunteerTable";
 import { useParams } from "react-router-dom";
 import { VolunteerOperationsReportFilters } from "../filters/VolunteerOperationsReportFilters";
 import { useVolunteerOperationsReport } from "@/hooks/volunteer/querys/useVolunteerOperationsReport";
 import { useGetOperationCategories } from "@/hooks/configuration/querys/useGetOperationCategories";
-import { FilterOption } from "@/components/common/FilterDatalist/FilterDatalist.type";
 import BackLink from "@/components/common/BackLink/BackLink";
 
 export default function VolunteerOperationsReport({ breadcrumb, columns }: VolunteerListViewProps) {

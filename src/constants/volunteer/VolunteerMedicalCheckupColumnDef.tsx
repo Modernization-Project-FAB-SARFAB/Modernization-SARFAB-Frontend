@@ -3,6 +3,7 @@ import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
 import { useNavigate } from "react-router-dom";
 import { RiEdit2Line } from "@remixicon/react";
 import { MedicalCheckup } from "@/types/volunteerMedicalCheckup";
+import ExpandableText from "@/components/common/ShowMoreText/ShowMoreText";
 
 const ActionsColumn = ({ row, table }: { row: any; table: any }) => {
     const navigate = useNavigate();
@@ -44,7 +45,9 @@ export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
             );
         }
     },
-    { header: "Observaciones", accessorKey: "observations" },
+    { header: "Observaciones", accessorKey: "observations",  cell: ({ getValue }) => <ExpandableText text={getValue<string>() ?? "Sin observaciones"} />
+        
+     },
     {
         id: "actions",
         header: "Acciones",
