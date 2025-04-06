@@ -9,9 +9,9 @@ export function useCreateRecruit() {
   return useMutation({
     mutationFn: createRecruitment,
     onError: () => toast.error("Ocurrió un error al registrar el recluta"),
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Recluta registrado correctamente");
-      navigate(`/recruitment/approve-or-deny?continue-afiliation=true&recruitId=${data.id}`);
+      navigate(`/recruitment/approve-or-deny`);
     },
   });
 }

@@ -60,7 +60,7 @@ export default function CreateVolunteerAfiliationView() {
         <ButtonGroup
           buttons={[
             { type: "button", label: "Registrar voluntario", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
-            { type: "link", label: "Cancelar", to: "" }
+            { type: "link", label: "Cancelar", to: "/volunteers/active-volunteers" }
           ]}
         />
       </form>
@@ -86,7 +86,7 @@ export default function CreateVolunteerAfiliationView() {
       <ButtonGroup
         buttons={[
           { type: "button", label: "Registrar voluntario", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
-          { type: "link", label: "Cancelar", to: "" }
+          { type: "link", label: "Cancelar", to: "/recruitment/approve-or-deny" }
         ]}
       />
     </form>

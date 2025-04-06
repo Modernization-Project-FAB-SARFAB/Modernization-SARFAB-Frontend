@@ -20,6 +20,8 @@ export async function getRecruitment(queryParams?: Record<string, any>) {
     try {
         const { data } = await api.get('/Recruitment', { params: queryParams })
         const response = listRecruitmentSchema.safeParse(data);
+        console.log(response);
+        
         if (response.success) {
             return response.data;
         }

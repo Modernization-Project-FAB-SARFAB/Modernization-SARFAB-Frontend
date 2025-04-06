@@ -1,10 +1,10 @@
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
-import { RecruitmentFilters } from "./RecruitmentFilters";
 import { RecruitmentHeader } from "./RecruitmentHeader";
 import { RecruitmentTable } from "./RecruitmentTable";
 import { useRecruitment } from "@/hooks/recruitment";
+import { RecruitmentPendingFilters } from "./RecruitmentPendingFilters";
 
-export function RecruitmentListView({ breadcrumb, initialStatusFilter, columns, modalComponent }: RecruitmentListViewProps) {
+export function RecruitmentPendingListView({ breadcrumb, initialStatusFilter, columns, modalComponent }: RecruitmentListViewProps) {
     useBreadcrumb(breadcrumb);
 
     const {
@@ -23,8 +23,10 @@ export function RecruitmentListView({ breadcrumb, initialStatusFilter, columns, 
     return (
         <>
             <RecruitmentHeader />
-            <RecruitmentFilters
+            <RecruitmentPendingFilters
                 searchValue={searchValue} setSearchValue={setSearchValue}
+                statusFilter={statusFilter} setStatusFilter={setStatusFilter}
+                statusOptions={statusOptions}
             />
             <RecruitmentTable
                 isLoading={isLoading} data={data} columns={columns}
