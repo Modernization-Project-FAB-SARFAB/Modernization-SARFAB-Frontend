@@ -5,10 +5,10 @@ import FormInput from "../../common/FormInput/FormInput";
 import FormSelect from "../../common/FormSelect/FormSelect";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
 import FormReadOnlyInput from "../../common/FormReadOnlyInput/FormReadOnlyInput";
-import { VolunteerFormProps } from "../types/VolunteerFormProps";
+import { VolunteerFormProps, VolunteerWithRecruitFormProps } from "../types/VolunteerFormProps";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 
-export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue }: VolunteerFormProps) {
+export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue, typeVolunteer }: VolunteerWithRecruitFormProps) {
 
     const { data: grades, isLoading, isError } = useGrades();
 
@@ -60,6 +60,14 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         setValue={setValue}
                                         name="birthDate"
                                         value={recruit?.birthDate || ''} />
+                                </div>
+
+                                <div className="mb-4.5">
+                                    <FormReadOnlyInput label="Tipo de voluntario" placeholder="Ingresa el tipo de voluntario"
+                                        register={register}
+                                        setValue={setValue}
+                                        name="volunteerType"
+                                        value={typeVolunteer} />
                                 </div>
                             </div>
                         </div>

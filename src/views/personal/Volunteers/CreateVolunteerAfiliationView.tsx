@@ -26,9 +26,7 @@ export default function CreateVolunteerAfiliationView() {
     mobilePhone: "",
     email: "",
     distinctiveFeatures: "",
-    volunteerType: recruitId 
-      ? (recruitData?.wantsMilitaryService ? 'Libretista' : 'Voluntario') 
-      : "",
+    volunteerType: "",
     occupation: "",
     bloodType: "",
     religion: "",
@@ -81,7 +79,8 @@ export default function CreateVolunteerAfiliationView() {
         register={register} 
         control={control} 
         setValue={setValue} 
-        recruit={recruitData} 
+        recruit={recruitData}
+        typeVolunteer={recruitData.wantsMilitaryService ? 'Libretista' : 'Voluntario'}
       />
       <ButtonGroup
         buttons={[
