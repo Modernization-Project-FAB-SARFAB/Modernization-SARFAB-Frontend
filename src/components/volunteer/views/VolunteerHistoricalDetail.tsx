@@ -12,6 +12,7 @@ import PersonalData from "@/components/volunteer/sections/detailViewSections/Per
 import Reports from "@/components/volunteer/sections/detailViewSections/Reports";
 import { volunteerHistoricalMedicalCheckupColumnsDef, volunteerMedicalCheckupColumnsDef } from "@/constants/volunteer/VolunteerMedicalCheckupColumnDef";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
+import { useLastCourseVolunteer } from "@/hooks/courseVolunteer/querys/useLastCourseVolunteer";
 import { useDetailsVolunteer } from "@/hooks/volunteer/querys/useEditVolunteerData";
 import { useVolunteerTotalDemeritPoint } from "@/hooks/volunteer/querys/useVolunteerTotalDemeritPoint";
 import { useVolunteerMedicalCheckup } from "@/hooks/volunteerMedicalCheckup/querys/useVolunteerMedicalCheckup";
@@ -26,22 +27,23 @@ export default function VolunteerHistoricalDetail() {
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
   const { data: totalDemeritPoint, isLoading: isLoadingTotalDemeritPoint, isError: isErrorTotalDemeritPoint } = useVolunteerTotalDemeritPoint(volunteerId);
   const { data: medicalCheckupData, isLoading: isLoadingMedicalCheckupData, isError: isErrorMedicalCheckupData } = useVolunteerMedicalCheckup({ initialVolunteerId: volunteerId });
+  const { data: lastCourseVolunteer, isLoading: isLoadingLastCourse, isError: isErrorLastCourse } = useLastCourseVolunteer(Number(volunteerId));
 
   const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData;
   const isErrorAll = isError || isErrorTotalDemeritPoint || isErrorMedicalCheckupData;
 
-  if (isLoadingAll) return <Loader message="Cargando información del voluntario"/>;
+  if (isLoadingAll) return <Loader message="Cargando información del voluntario" />;
   if (isErrorAll) return <div>Error al cargar los datos. Intenta nuevamente.</div>;
-  
+
   return <>
-    <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-4 lg:gap-5 gap-3">
+    <div className="grid grid-cols-1 lg:grid-cols-2 grid-rows-none lg:grid-rows-4 lg:gap-5 gap-3">
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-4 p-4">
         <BackLink
           text="Volver a listado de voluntarios"
           iconSize={20}
           link="/recruitment/approve-or-deny"
         />
-        <PersonalData data={data} />
+        <PersonalData data={data} lastCourse={isErrorLastCourse ? "No se pudo encontrar el último curso completado" : lastCourseVolunteer?.courseName}/>
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
         {totalDemeritPoint !== undefined && totalDemeritPoint !== null ? (
@@ -51,7 +53,7 @@ export default function VolunteerHistoricalDetail() {
         )}
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
-        <Reports volunteerId={volunteerId} from="history"/>
+        <Reports volunteerId={volunteerId} from="history" />
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-2 p-4">
         <EmergencyData data={data} />

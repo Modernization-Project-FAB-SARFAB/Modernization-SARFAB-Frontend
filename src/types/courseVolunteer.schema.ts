@@ -30,5 +30,9 @@ export const listVoluntareerCompletedCourses = z.object({
     totalPages: z.number().int(),
 });
 
+export const lastCourseVolunteer = z.object({
+  courseName: z.string()
+});
+
 export type CourseVolunteer = z.infer<typeof assignCourseSchema>;
 export type VolunteerCompletedCourse = z.infer<typeof volunteerCompletedCourse>;

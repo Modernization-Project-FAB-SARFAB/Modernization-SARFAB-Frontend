@@ -20,6 +20,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import VolunteerMedicalCheckupModal from "../modals/VolunteerMedicalCheckupModal";
 import VolunteerEditMedicalCheckupModal from "../modals/VolunteerEditMedicalCheckupModal";
+import { useLastCourseVolunteer } from "@/hooks/courseVolunteer/querys/useLastCourseVolunteer";
 
 export default function VolunteerActiveDetail() {
   useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-volunteers" }, { label: "Ver voluntario" }]);
@@ -32,8 +33,9 @@ export default function VolunteerActiveDetail() {
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
   const { data: totalDemeritPoint, isLoading: isLoadingTotalDemeritPoint, isError: isErrorTotalDemeritPoint } = useVolunteerTotalDemeritPoint(volunteerId);
   const { data: medicalCheckupData, isLoading: isLoadingMedicalCheckupData, isError: isErrorMedicalCheckupData } = useVolunteerMedicalCheckup({ initialVolunteerId: volunteerId });
+  const { data: lastCourseVolunteer, isLoading: isLoadingLastCourse, isError: isErrorLastCourse } = useLastCourseVolunteer(Number(volunteerId));
 
-  const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData;
+  const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData || isLoadingLastCourse;
   const isErrorAll = isError || isErrorTotalDemeritPoint || isErrorMedicalCheckupData;
 
   if (isLoadingAll) return <Loader message="Cargando información del voluntario" />;
@@ -48,7 +50,7 @@ export default function VolunteerActiveDetail() {
             iconSize={20}
             link="/recruitment/approve-or-deny"
           />
-          <PersonalData data={data} />
+          <PersonalData data={data} lastCourse={isErrorLastCourse ? "No se pudo encontrar el último curso completado" : lastCourseVolunteer?.courseName}/>
         </div>
         <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
           <Actions volunteerId={volunteerId} setModalAction={setModalAction} />

@@ -3,9 +3,10 @@ import FormInput from "@/components/common/FormInput/FormInput"
 
 interface PersonalDataProps {
     data: any;
+    lastCourse: any;
 }
 
-const PersonalData: React.FC<PersonalDataProps> = ({data}) => {
+const PersonalData: React.FC<PersonalDataProps> = ({data, lastCourse}) => {
     return <>
         <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
             Datos personales
@@ -140,6 +141,14 @@ const PersonalData: React.FC<PersonalDataProps> = ({data}) => {
                     name="distinctiveFeatures"
                     type="text" readonly
                     defaultValue={data.distinctiveFeatures}
+                    className="bg-gray text-black dark:text-white" />
+            </div>
+
+            <div className="mb-4.5">
+                <FormInput label="Último curso completado"
+                    name="lastCourse"
+                    type="text" readonly
+                    defaultValue={lastCourse}
                     className="bg-gray text-black dark:text-white" />
             </div>
         </div>
