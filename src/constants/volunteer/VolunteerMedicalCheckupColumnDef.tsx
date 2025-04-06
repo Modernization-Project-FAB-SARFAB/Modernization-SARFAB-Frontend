@@ -8,10 +8,10 @@ const ActionsColumn = ({ row, table }: { row: any; table: any }) => {
     const navigate = useNavigate();
     const { id } = row.original;
     const totalRows = table.getRowModel().rows.length;
-    const isFirstRow = row.index === 0; // Verifica si es la primera fila
-    
-    if (!isFirstRow) return <></>; // Si no es la primera fila, no muestra las acciones
-    
+    const isFirstRow = row.index === 0;
+
+    if (!isFirstRow) return <></>;
+
     const items: DropdownItem[] = [
         {
             type: "link",
@@ -26,7 +26,24 @@ const ActionsColumn = ({ row, table }: { row: any; table: any }) => {
 
 export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
     { header: "Fecha de chequeo", accessorKey: "checkupDate" },
-    { header: "Fecha de expiración", accessorKey: "expirationDate" },
+    {
+        header: "Fecha de expiración", accessorKey: "expirationDate",
+        cell: ({ row }) => {
+            const expiration = new Date(row.original.expirationDate);
+            const today = new Date();
+            const diffInDays = (expiration.getTime() - today.getTime()) / (1000 * 60 * 60 * 24);
+            const isExpiringSoon = diffInDays <= 3 && diffInDays >= 0;
+
+            return (
+                <div className="flex flex-col items-center gap-2">
+                    <span className={isExpiringSoon ? "text-danger font-bold" : ""}>
+                        {row.original.expirationDate}
+                    </span>
+                    {isExpiringSoon && <span className="text-sm text-danger font-bold bg-danger bg-opacity-25 p-2 rounded-t-md">¡Alerta! Este chequeo expira pronto.</span>}
+                </div>
+            );
+        }
+    },
     { header: "Observaciones", accessorKey: "observations" },
     {
         id: "actions",

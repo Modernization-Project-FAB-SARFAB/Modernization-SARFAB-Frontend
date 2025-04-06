@@ -15,6 +15,8 @@ export default function VolunteerMedicalCheckupModal() {
     const queryParams = new URLSearchParams(location.search);
 
     const volunteerId = Number(queryParams.get("volunteerId"));
+    console.log(volunteerId);
+    
     const isAssingCourseModal = queryParams.get("add-medical-checkup");
     const isOpen = !!isAssingCourseModal;
 
@@ -43,6 +45,7 @@ export default function VolunteerMedicalCheckupModal() {
 
             <form onSubmit={handleSubmit(handleForm)} noValidate>
                 <div className="w-full">
+                    <input type="text" name="volunteerId" value={volunteerId} hidden/>
                     <FormDate
                         label="Fecha de realización del chequeo medico"
                         placeholder="Ingresa la fecha en la que se realizó el reclutamiento"
