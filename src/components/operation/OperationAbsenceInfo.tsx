@@ -79,7 +79,7 @@ export default function OperationAbsenceInfo({
   
   return (
     <section className="flex flex-col gap-6">
-      <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-md border border-stroke bg-white py-6 px-2 sm:p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
       <div className="-mx-6 -mt-2">
           <BackLink
             text="Volver al listado de operaciones"
@@ -153,7 +153,7 @@ export default function OperationAbsenceInfo({
           Control de asistencia
         </h2>
         <p className="mb-2">
-          Lista de voluntarios que asistieron al operativo
+          Lista de voluntarios que asistieron a la operación
         </p>
         <div className="overflow-x-auto mx-auto px-0 sm:px-4">
           <table className="w-full table-auto text-center border-collapse border border-stroke dark:border-strokedark">

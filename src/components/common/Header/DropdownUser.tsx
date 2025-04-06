@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import UserOne from '@/assets/images/user/user-02.png';
 import { RiArrowDownSLine, RiSettings2Line, RiUser3Line } from '@remixicon/react';
 import { RiLogoutBoxLine } from 'react-icons/ri';
+import { useLogout } from '@/hooks/auth/useLogOut';
 
 interface DropdownUserProps {
   username: string;
@@ -80,7 +81,6 @@ const DropdownUser = ({ username }: DropdownUserProps) => {
               Mi perfil
             </Link>
           </li>
-
           <li>
             <Link
               to="/settings"
@@ -91,7 +91,7 @@ const DropdownUser = ({ username }: DropdownUserProps) => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={useLogout}>
           <RiLogoutBoxLine size={22} />
           Cerrar sesión
         </button>

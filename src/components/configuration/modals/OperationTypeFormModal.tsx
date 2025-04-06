@@ -34,8 +34,8 @@ export function OperationTypeFormModal({
       key={typeId}
       title={
         typeId
-          ? "Editar tipo de operativo"
-          : "Registrar tipo de operativo"
+          ? "Editar tipo de operación"
+          : "Registrar tipo de operación"
       }
       isOpen={isOpen}
       onClose={onClose}

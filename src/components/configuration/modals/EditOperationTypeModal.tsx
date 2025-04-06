@@ -9,7 +9,7 @@ import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 
 const editTypeSchema = z.object({
-  name: z.string().min(1, "El nombre del tipo de operativo es obligatorio"),
+  name: z.string().min(1, "El nombre del tipo de operación es obligatorio").max(100, "El nombre del tipo de operación debe tener máximo 100 caracteres"),
 });
 
 type FormValues = z.infer<typeof editTypeSchema>;
@@ -60,7 +60,7 @@ export function EditOperationTypeModal({
       });
       onClose();
     } catch (error) {
-      console.error("Error al actualizar el tipo de operativo:", error);
+      console.error("Error al actualizar el tipo de operación:", error);
     } finally {
       setIsLoading(false);
     }
@@ -73,16 +73,16 @@ export function EditOperationTypeModal({
   return (
     <Modal
       key={typeId}
-      title="Editar tipo de operativo"
+      title="Editar tipo de operación"
       isOpen={isOpen}
       onClose={onClose}
     >
       <form onSubmit={handleSubmit(handleFormSubmit)} className="p-6 space-y-4">
         <FormInput
-          label="Nombre del tipo de operativo"
+          label="Nombre del tipo de operación"
           name="name"
           register={register}
-          placeholder="Ingrese el nombre del tipo de operativo"
+          placeholder="Ingrese el nombre del tipo de operación"
         />
         {errors.name && (
           <ErrorFormMessage>{errors.name.message}</ErrorFormMessage>

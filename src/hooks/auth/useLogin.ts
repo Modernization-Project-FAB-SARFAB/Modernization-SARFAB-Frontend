@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { authenticateUser } from "@/api/AuthAPI";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { UserLoginForm } from "@/types/index";
+import { authenticateUser } from "@/api/AuthApi";
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ export const useLogin = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: authenticateUser,
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(error.message || "Ha ocurrido un error inesperado");
     },
     onSuccess: () => {
       navigate("/notificaciones");

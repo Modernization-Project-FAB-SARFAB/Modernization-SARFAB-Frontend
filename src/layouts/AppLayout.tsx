@@ -15,7 +15,14 @@ export default function AppLayout() {
 
   const { data, isError, isLoading } = useAuth();
 
-  if (isLoading) return <Loader fullWidth={true}/>;
+  if (isLoading) {
+    return (
+      <div className="h-screen flex flex-col items-center justify-center gap-4 text-xl font-medium">
+        <img src="/src/assets/images/signIn/logo.png" alt="Logo" className="w-32 h-32 animate-pulse" />
+        <span>Cargando...</span>
+      </div>
+    );
+  }  
   if (isError) {
     return <Navigate to='/auth/signin' />
   }

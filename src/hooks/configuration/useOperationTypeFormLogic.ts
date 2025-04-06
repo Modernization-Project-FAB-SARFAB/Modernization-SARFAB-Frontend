@@ -9,7 +9,7 @@ import { useGetOperationCategories } from "./querys/useGetOperationCategories";
 import { FilterOption } from "@/components/common/FilterDatalist/FilterDatalist.type";
 
 const operationTypeFormSchema = z.object({
-  name: z.string().min(1, "El nombre del tipo de operativo es obligatorio"),
+  name: z.string().min(1, "El nombre del tipo de operación es obligatorio").max(100, "El nombre del tipo de operación debe tener máximo 100 caracteres"),
   operationCategoryId: z.number().min(1, "Debe seleccionar una categoría de operación")
 });
 
@@ -88,7 +88,7 @@ export function useOperationTypeFormLogic({
       }
       onClose();
     } catch (error) {
-      console.error("Error al guardar el tipo de operativo:", error);
+      console.error("Error al guardar el tipo de operación:", error);
     } finally {
       setIsLoading(false);
     }

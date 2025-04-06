@@ -34,8 +34,8 @@ export type CourseDetail = z.infer<typeof courseDetailSchema>;
 export const createCourseSchema = z.object({
   name: z
     .string()
-    .min(2, { message: "El nombre debe tener entre 2 y 100 caracteres." })
-    .max(100, { message: "El nombre debe tener entre 2 y 100 caracteres." })
+    .min(2, { message: "Debe ingresar un nombre para el curso." })
+    .max(100, { message: "El nombre no puede tener más de 100 caracteres." })
     .regex(/^\S.*$/, { message: "El nombre no puede estar vacío o contener solo espacios." }),
   description: z
     .string()
@@ -77,3 +77,17 @@ export const assignMultipleVolunteersToCourseSchema = z.object({
     .min(1, { message: "Debe haber al menos un voluntario en la lista." }),
 });
 export type AssignMultipleVolunteersToCourseForm = z.infer<typeof assignMultipleVolunteersToCourseSchema>;
+
+export const assignCourseVolunteersSchema = z.object({
+  courseId: z.number(),
+  volunteers: z
+    .array(
+      z.object({
+        volunteerId: z.number(),
+        completionDate: z.string(),
+      })
+    )
+    .min(1, { message: "Debe agregar al menos un voluntario." }),
+});
+
+export type AssignCourseVolunteersForm = z.infer<typeof assignCourseVolunteersSchema>;

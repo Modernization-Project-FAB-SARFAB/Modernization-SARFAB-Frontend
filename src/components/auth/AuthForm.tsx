@@ -43,7 +43,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, isLoading }) => {
                                         placeholder='Contraseña'
                                         className='w-full text-black py-4 my-2 bg-transparent border-b border-black outline-none focus:outline-none'
                                         {...register("password", {
-                                            required: "El Password es obligatorio",
+                                            required: "La contraseña es obligatorio",
                                         })} />
                                     {errors.password && (
                                         <ErrorFormMessage>{errors.password.message}</ErrorFormMessage>
@@ -57,7 +57,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, isLoading }) => {
                                     <p>Recordar mi contraseña</p>
                                 </div>
 
-                                <p onClick={() => setIsModalOpen(true)} className='text-pm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2'>Olvidaste tu contraseña</p>
+                                <p onClick={() => setIsModalOpen(true)} className='text-pm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2'>¿Olvidaste tu contraseña?</p>
                             </div>
                         </div>
 

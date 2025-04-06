@@ -13,7 +13,7 @@ export function ItemFormModal({
   onClose,
   itemId,
 }: ItemFormModalProps) {
-  const { isLoading, handleFormSubmit, formProps } = useItemFormLogic({
+  const { isLoading, handleFormSubmit, formProps, assignedQuantity } = useItemFormLogic({
     isOpen,
     itemId,
     onClose,
@@ -24,7 +24,7 @@ export function ItemFormModal({
       key={itemId}
       title={
         itemId
-          ? "Editar elemento en inventario"
+          ? "Editar elemento"
           : "Registrar elemento en inventario"
       }
       isOpen={isOpen}
@@ -39,6 +39,7 @@ export function ItemFormModal({
           isLoading={isLoading}
           onClose={onClose}
           itemId={itemId}
+          assignedQuantity={assignedQuantity}
         />
       )}
     </Modal>

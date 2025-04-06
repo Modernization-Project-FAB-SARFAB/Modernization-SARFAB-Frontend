@@ -177,7 +177,7 @@ export default function EditOperationForm({
               <div className="flex flex-col">
                 <FilterDatalist
                   {...field}
-                  label="Tipo de Operativo"
+                  label="Tipo de Operación"
                   options={filteredOperationTypes}
                   onChange={(value) => {
                     const selected = filteredOperationTypes.find(

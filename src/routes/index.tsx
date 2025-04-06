@@ -93,19 +93,9 @@ const coreRoutes = [
   },
   // Volunteer 
   {
-    path: '/volunteers/active-volunteers',
-    title: 'Voluntarios activos',
-    component: ActiveVolunteersView
-  },
-  {
     path: '/volunteers/create',
     title: 'Crear nueva afiliación de voluntarios',
     component: CreateAfiliationView
-  },
-  {
-    path: '/volunteers/volunteer-history',
-    title: 'Historico de voluntarios',
-    component: HistoricalVolunteersView
   },
   {
     path: '/volunteers/:volunteerId/edit',
@@ -116,11 +106,6 @@ const coreRoutes = [
     path: '/volunteers/:volunteerId/view',
     title: 'Editar voluntario',
     component: DetailsVolunteerView
-  },
-  {
-    path: '/volunteers/:volunteerId/report-guards',
-    title: 'Reporte de guardias',
-    component: ReportGuardsVolunteerView
   },
   {
     path: '/volunteers/:volunteerId/report-operations',
@@ -136,6 +121,21 @@ const coreRoutes = [
     path: '/volunteers/:volunteerId/demerit-points',
     title: 'Puntos de demérito',
     component: HistoryVolunteerDemeritPointsView
+  }, 
+  {
+    path: '/volunteers/active-volunteers',
+    title: 'Voluntarios activos',
+    component: ActiveVolunteersView
+  },
+  {
+    path: '/volunteers/volunteer-history',
+    title: 'Historico de voluntarios',
+    component: HistoricalVolunteersView
+  },
+  {
+    path: '/volunteers/:volunteerId/report-guards',
+    title: 'Reporte de guardias',
+    component: ReportGuardsVolunteerView
   },
   // Military
   {

@@ -28,15 +28,17 @@ export function CourseForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
-      <FormInput
-        label="Nombre del curso"
-        name="name"
-        register={register}
-        placeholder="Ingrese el nombre del curso"
-      />
-      {errors.name && (
-        <ErrorFormMessage>{errors.name.message as string}</ErrorFormMessage>
-      )}
+      <div>
+        <FormInput
+          label="Nombre del curso"
+          name="name"
+          register={register}
+          placeholder="Ingrese el nombre del curso"
+        />
+        {errors.name && (
+          <ErrorFormMessage>{errors.name.message as string}</ErrorFormMessage>
+          )}
+      </div>
 
       <div className="mt-4">
         <FormTextArea

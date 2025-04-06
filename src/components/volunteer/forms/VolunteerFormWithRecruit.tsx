@@ -79,7 +79,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                             </h3>
                             <div className="p-6.5">
                                 <div className="mb-4.5">
-                                    <FormInput label="Correo electronico" placeholder="Ingresa el correo del voluntario del voluntario"
+                                    <FormInput label="Correo electrónico" placeholder="Ingresa el correo del voluntario del voluntario"
                                         register={register}
                                         errors={errors}
                                         name="email"
