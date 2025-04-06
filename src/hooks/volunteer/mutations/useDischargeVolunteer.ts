@@ -15,7 +15,7 @@ export function useDischargeVolunteer() {
     },
     onSuccess: () => {
       toast.success("Voluntario ha sido dado de baja correctamente");
-      navigate(-1);
+      navigate("/volunteers/volunteer-history");
     },
   });
 }

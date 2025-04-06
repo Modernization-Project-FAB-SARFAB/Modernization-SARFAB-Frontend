@@ -24,7 +24,7 @@ const Actions: React.FC<ActionsProps> = ({ volunteerId, setModalAction }) => {
             className="w-full bg-success text-white py-3 rounded-lg"
             onClick={() => handleOpenModal("gradePromotion")}
           >
-            Promover voluntario
+            Ascender voluntario
           </button>
           <button
             className="w-full border-2 border-success text-success py-3 rounded-lg"

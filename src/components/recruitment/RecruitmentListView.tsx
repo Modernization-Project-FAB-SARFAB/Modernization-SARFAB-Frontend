@@ -9,16 +9,9 @@ export function RecruitmentListView({ breadcrumb, initialStatusFilter, columns, 
 
     const {
         data, isLoading, refetch, searchValue,
-        setSearchValue, statusFilter, setStatusFilter,
+        setSearchValue,
         pageIndex, setPageIndex, pageSize, setPageSize
     } = useRecruitment({ initialStatusFilter });
-
-    const statusOptions = [
-        { value: '0', label: 'Rechazado' },
-        { value: '1', label: 'Pendiente de aprobación' },
-        { value: '2', label: 'Apto - Pendiente de registro de voluntario' },
-        { value: '3', label: 'Apto - Registrado como voluntario' }
-    ].map(option => ({ ...option, isSelected: option.value === initialStatusFilter }));
 
     return (
         <>

@@ -24,11 +24,10 @@ export default function VolunteerServiceCompletedModal() {
             {
                 onSettled: () => {
                     setIsSubmitting(false);
-                    navigate(location.pathname, { replace: true });
                 },
             }
         );
-    }, [mutate, volunteerId, navigate, location.pathname]);
+    }, [mutate, volunteerId]);
 
     return (
         <Modal
@@ -45,6 +44,7 @@ export default function VolunteerServiceCompletedModal() {
                     onClick={handleConfirm}
                     type="submit"
                     isLoading={isSubmitting}
+                    disabled={isSubmitting}
                 />
                 <button
                     className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"

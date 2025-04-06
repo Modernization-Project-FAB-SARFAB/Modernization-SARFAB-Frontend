@@ -15,7 +15,8 @@ export function useServiceCompletedVolunteer() {
     },
     onSuccess: () => {
       toast.success("Voluntario ha sido marcado como cumplido el servicio correctamente");
-      navigate(-1);
+      //navigate(`/volunteers/${id}/view?historicalData=true`);
+      navigate("/volunteers/volunteer-history");
     },
   });
 }

@@ -4,6 +4,7 @@ import RecruitStatusModal from "@/components/recruitment/RecruitStatusModal";
 import { RecruitmentApproveDenyColumnDef as columns } from "@/constants/recruitment/RecruitmentApproveDenyColumnDef";
 
 export default function RecruitmentApproveDenyView() {
+
   return (
     <>
       <RecruitmentListView

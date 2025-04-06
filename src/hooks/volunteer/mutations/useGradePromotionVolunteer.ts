@@ -9,7 +9,7 @@ export function useGradePromotionVolunteer() {
   return useMutation({
     mutationFn: gradePromotionVolunteer,
     onError: (error) => {
-      const errorMessage = error.message?.trim() || "Ocurrió un error al promover al voluntario";
+      const errorMessage = error.message?.trim() || "Ocurrió un error al Ascender al voluntario";
       toast.error(errorMessage);
       navigate(-1);
     },

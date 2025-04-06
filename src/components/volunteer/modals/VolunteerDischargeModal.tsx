@@ -27,11 +27,10 @@ export default function VolunteerDischargeModal() {
             {
                 onSettled: () => {
                     setIsSubmitting(false);
-                    navigate(location.pathname, { replace: true });
                 },
             }
         );
-    }, [mutate, volunteerId, dischargeReason, navigate, location.pathname]);
+    }, [mutate, volunteerId, dischargeReason]);
 
     return (
         <Modal
@@ -61,7 +60,7 @@ export default function VolunteerDischargeModal() {
                     onClick={handleConfirmDismissal}
                     type="submit"
                     isLoading={isSubmitting}
-                    disabled={!dischargeReason.trim()}
+                    disabled={isSubmitting}
                 />
                 <button
                     className="flex justify-center rounded border border-gray-300 py-2 px-6 font-medium text-gray-700 hover:shadow-md dark:border-gray-600 dark:text-white"

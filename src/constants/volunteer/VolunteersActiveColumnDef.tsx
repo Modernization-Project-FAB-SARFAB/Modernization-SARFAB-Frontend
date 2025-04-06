@@ -37,7 +37,7 @@ const ActionsColumn = ({ row }: { row: any }) => {
             ? ([
                   {
                       type: "button",
-                      label: "Promover de grado",
+                      label: "Ascender de grado",
                       onClick: () =>
                           navigate(`?gradePromotion=true&volunteerId=${id}`),
                       icon: <RiArrowUpCircleLine size={20} />,

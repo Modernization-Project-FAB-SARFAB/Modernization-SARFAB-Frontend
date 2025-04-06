@@ -26,16 +26,16 @@ export default function VolunteerGradePromotionModal() {
 
     return (
         <Modal
-            title="Promover a voluntario"
+            title="Ascender a voluntario"
             isOpen={isOpen}
             onClose={() => navigate(location.pathname, { replace: true })}
         >
             <p className="text-lg font-semibold text-gray-600 mb-6">
-                ¿Deseas promover a este recluta como voluntario?
+                ¿Deseas Ascender a este recluta como voluntario?
             </p>
             <div className="flex justify-end gap-4.5 mt-6">
                 <Button
-                    label={isSubmitting ? "Promoviendo..." : "Sí, deseo promover a este voluntario"}
+                    label={isSubmitting ? "Promoviendo..." : "Sí, deseo Ascender a este voluntario"}
                     onClick={handlePromote}
                     type="submit"
                     disabled={isSubmitting || !volunteerId}

@@ -28,7 +28,8 @@ export function useRecruitStatusModal() {
     const handleSubmit = () => {
         if (!recruitId) return;
         setIsSubmitting(true);
-        mutate({ recruitId: Number(recruitId), status }, { onSettled: () => setIsSubmitting(false) });
+        mutate({ recruitId: Number(recruitId), status }, { 
+            onSettled: () => setIsSubmitting(false) });
     };
 
     return {
