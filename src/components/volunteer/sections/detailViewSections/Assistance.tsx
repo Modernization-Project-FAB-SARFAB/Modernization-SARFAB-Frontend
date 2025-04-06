@@ -9,7 +9,7 @@ interface AssistanceProps {
 const Assistance: React.FC<AssistanceProps> = ({ volunteerId, totalDemeritPoint }) => {
   const navigate = useNavigate();
   const pointsLost = totalDemeritPoint?.totalPointsLost ?? 0;
-  const textColor = pointsLost > 10 ? "text-red-500" : "text-primary";
+  const textColor = pointsLost >= 10 ? "text-danger" : "text-primary";
 
   const redirectUrl = `/volunteers/${volunteerId}/demerit-points`;
 
