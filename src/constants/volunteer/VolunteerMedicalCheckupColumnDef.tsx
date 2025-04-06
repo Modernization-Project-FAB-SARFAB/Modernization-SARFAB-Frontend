@@ -5,10 +5,8 @@ import { RiEdit2Line } from "@remixicon/react";
 import { MedicalCheckup } from "@/types/volunteerMedicalCheckup";
 import ExpandableText from "@/components/common/ShowMoreText/ShowMoreText";
 
-const ActionsColumn = ({ row, table }: { row: any; table: any }) => {
+const ActionsColumn = ({ row }: { row: any; table: any }) => {
     const navigate = useNavigate();
-    const { id } = row.original;
-    const totalRows = table.getRowModel().rows.length;
     const isFirstRow = row.index === 0;
 
     if (!isFirstRow) return <></>;
@@ -59,5 +57,13 @@ export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
 export const volunteerHistoricalMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
     { header: "Fecha de chequeo", accessorKey: "checkupDate" },
     { header: "Fecha de expiración", accessorKey: "expirationDate" },
-    { header: "Observaciones", accessorKey: "observations" },
+    { header: "Observaciones", accessorKey: "observations",
+        cell: ({ getValue }) => {
+            const value = getValue<string>();
+
+            return (
+                <ExpandableText text={value ?? "Sin observaciones"} />
+            );
+        }
+     },
 ];

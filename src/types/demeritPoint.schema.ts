@@ -8,10 +8,11 @@ export const DemeritPointSchema = z.object({
 });
 
 export const demeritPointsListSchema = z.object({
-    reason: z.string(),
-    date: z.string(),
-    pointsLost: z.number(),
-    observation: z.string(),
+  demeritId: z.number(),
+  reason: z.string(),
+  date: z.string(),
+  pointsLost: z.number(),
+  observation: z.string(),
 });
 
 export const listDemeritPointsSchema = z.array(demeritPointsListSchema);

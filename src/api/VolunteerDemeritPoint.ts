@@ -1,7 +1,7 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
 import { totalPointsLostSchema, Volunteer } from "../types";
-import { listDemeritPointsSchema } from "@/types/demeritPoint.schema";
+import { DemeritPoint, listDemeritPointsSchema } from "@/types/demeritPoint.schema";
 
 export async function getVolunteerTotalDemeritPoint(id: Volunteer['id']) {
     try {
@@ -24,6 +24,17 @@ export async function getVolunteerDemeritPointLostPoints(id: Volunteer['id']) {
         if (response.success) {
             return response.data;
         }
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function deleteDemeritPoint(id: string) {
+    try {
+        const response = await api.delete(`/DemeritPoint/delete-demerit-point/${id}`);
+        return response.data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {
             throw new Error(error.response.data.error)
