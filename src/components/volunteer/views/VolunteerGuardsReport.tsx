@@ -35,8 +35,8 @@ export default function VolunteerGuardsReport({ breadcrumb, columns }: Volunteer
                     statusFilter={statusFilter} setStatusFilter={setStatusFilter}
                     statusOptions={[
                         { value: "", label: "Todos los estados", isSelected: true },
-                        { value: "0", label: "Completado", isSelected: false },
-                        { value: "1", label: "Falta", isSelected: false }
+                        { value: "1", label: "Completado", isSelected: false },
+                        { value: "2", label: "Falta", isSelected: false }
                     ]}
                     shiftFilter={shiftFilter} setShiftFilter={setShiftFilter}
                     shiftOptions={[
