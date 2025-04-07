@@ -22,12 +22,12 @@ export default function AppLayout() {
         <span>Cargando...</span>
       </div>
     );
-  }  
+  }
   if (isError) {
     return <Navigate to='/auth/signin' />
   }
 
-  if(data) return (
+  if (data) return (
     <>
       <div className="dark:bg-boxdark-2 dark:text-bodydark">
         <div className="flex h-screen overflow-hidden">
@@ -43,9 +43,10 @@ export default function AppLayout() {
           </div>
         </div>
       </div>
-      <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
+      <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} className="!z-[999999] !fixed"
+        position="top-right" />
       {
-        data && 
+        data &&
         <ChangePasswordFirstLoginModal isOpen={data.firstLogin === 1} userId={data.id} />
       }
     </>

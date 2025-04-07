@@ -41,7 +41,11 @@ export function useVolunteerActive({
     queryKey: ['volunteersActive', { searchTerm: debouncedSearch, gradeId: debouncedgradeId, page: pageIndex, pageSize, orderByLastNameAsc }],
     queryFn: () => getVolunteerActiveList({ searchTerm: debouncedSearch, gradeId: debouncedgradeId, page: pageIndex, pageSize, orderByLastNameAsc }),
     placeholderData: keepPreviousData,
-    retry: false
+    retry: false,
+    refetchOnWindowFocus: true,
+    refetchIntervalInBackground: true,
+    staleTime: 60000,
+    refetchInterval: 2000
   });
 
   return {
