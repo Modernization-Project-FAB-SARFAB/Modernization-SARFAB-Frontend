@@ -13,4 +13,5 @@ interface FormInputProps {
     className?: string;
   defaultValue?: string;
   value?: string;
+  title?: string;
 }

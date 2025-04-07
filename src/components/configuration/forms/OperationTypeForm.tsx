@@ -41,6 +41,7 @@ export function OperationTypeForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
+      <fieldset disabled={isLoading}>
       <div>
         <FormInput
           label="Nombre del tipo de operación"
@@ -51,7 +52,8 @@ export function OperationTypeForm({
         {errors.name && (
           <ErrorFormMessage>{errors.name.message as string}</ErrorFormMessage>
         )}
-      </div>
+        </div>
+        </fieldset>
 
       {!editNameOnly && (
         <div className="mt-4">

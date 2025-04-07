@@ -88,7 +88,6 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
     columns,
     state: {
       sorting,
-      pagination
     },
     meta: {
       expandedRows,
@@ -97,7 +96,7 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    manualPagination: true,
+    // Quitamos manualPagination: true para que no intente paginar los datos
   });
 
   return (
@@ -219,7 +218,7 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
       <div className="flex flex-col md:flex-row justify-center md:justify-between my-4 gap-4 text-center">
         <div className="text-sm">
           Mostrando {table.getRowModel().rows.length.toLocaleString()} de{' '}
-          {table.getRowCount().toLocaleString()} Filas
+          {data.length.toLocaleString()} Filas
         </div>
         <div className="flex flex-wrap justify-center items-center gap-2">
           <button

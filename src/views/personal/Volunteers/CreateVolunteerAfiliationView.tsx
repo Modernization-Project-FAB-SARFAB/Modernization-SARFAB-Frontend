@@ -67,7 +67,6 @@ export default function CreateVolunteerAfiliationView() {
     );
   }
 
-  // Si hay recruitId, ahora sí traemos los datos
   const { data: recruitData, isLoading, isError } = useRecruitData(recruitId);
 
   if (isLoading) return <p>Cargando datos del recluta...</p>;

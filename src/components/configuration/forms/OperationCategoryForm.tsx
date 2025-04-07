@@ -36,6 +36,7 @@ export function OperationCategoryForm({
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="p-8 space-y-4">
+      <fieldset disabled={isLoading}>
       <div>
         <FormInput
           label="Nombre de la categoría"
@@ -47,7 +48,8 @@ export function OperationCategoryForm({
         {errors.name && (
           <ErrorFormMessage>{errors.name.message}</ErrorFormMessage>
         )}
-      </div>
+        </div>
+      </fieldset>
 
       <div className="pt-6">
         <ButtonGroup

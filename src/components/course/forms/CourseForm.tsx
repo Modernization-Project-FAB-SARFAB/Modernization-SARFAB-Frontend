@@ -28,29 +28,31 @@ export function CourseForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
-      <div>
-        <FormInput
-          label="Nombre del curso"
-          name="name"
-          register={register}
-          placeholder="Ingrese el nombre del curso"
-        />
-        {errors.name && (
-          <ErrorFormMessage>{errors.name.message as string}</ErrorFormMessage>
+      <fieldset disabled={isLoading}>
+        <div>
+          <FormInput
+            label="Nombre del curso"
+            name="name"
+            register={register}
+            placeholder="Ingrese el nombre del curso"
+          />
+          {errors.name && (
+            <ErrorFormMessage>{errors.name.message as string}</ErrorFormMessage>
           )}
-      </div>
+        </div>
 
-      <div className="mt-4">
-        <FormTextArea
-          label="Descripción"
-          name="description"
-          register={register}
-          placeholder="Ingrese la descripción del curso"
-        />
-        {errors.description && (
-          <ErrorFormMessage>{errors.description.message as string}</ErrorFormMessage>
-        )}
-      </div>
+        <div className="mt-4">
+          <FormTextArea
+            label="Descripción"
+            name="description"
+            register={register}
+            placeholder="Ingrese la descripción del curso"
+          />
+          {errors.description && (
+            <ErrorFormMessage>{errors.description.message as string}</ErrorFormMessage>
+          )}
+        </div>
+      </fieldset>
 
       <div className="pt-6">
         <ButtonGroup

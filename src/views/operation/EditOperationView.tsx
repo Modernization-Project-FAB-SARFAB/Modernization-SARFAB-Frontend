@@ -9,6 +9,7 @@ import ButtonGroup from '@/components/common/ButtonGroup/ButtonGroup';
 import { UpdateOperationForm } from '@/types/operation.schema';
 import { useQueryClient } from '@tanstack/react-query';
 import { useBreadcrumb } from '@/hooks/components/useBreadcrumb';
+import Loader from '@/components/common/Loader';
 
 export default function EditOperationView() {
   useBreadcrumb([
@@ -94,20 +95,23 @@ export default function EditOperationView() {
   return (
     <div className="container mx-auto p-4">
       {isLoadingOperation || !operationContext ? (
-        <p className="text-center text-gray-500">Cargando datos...</p>
+        <Loader message="Cargando datos para editar la operación" />
       ) : (
         <form className="flex flex-col md:flex-row gap-6">
-          <div className="flex-1">
+            <div className="flex-1">
+            <fieldset disabled={isUpdating}>
             <EditOperationForm
               operation={operation}
               operationContext={operationContext}
               register={register}
               control={control}
               errors={errors}
-            />
+                />
+            </fieldset>
           </div>
           <div className="flex-1 flex flex-col">
-            <EditOperationPersonnelForm
+            <fieldset disabled={isUpdating}>
+              <EditOperationPersonnelForm
               operation={operation}
               volunteers={volunteers}
               military={military}
@@ -115,6 +119,7 @@ export default function EditOperationView() {
               errors={errors}
               setValue={setValue}
             />
+            </fieldset>
             <div className="mt-4 flex justify-end">
               <ButtonGroup
                 buttons={[
@@ -125,7 +130,7 @@ export default function EditOperationView() {
                     variant: 'primary',
                     disabled: isSubmitting || isUpdating,
                   },
-                  { type: 'link', label: 'Cancelar', to: '/operation/list' },
+                  { type: 'button', label: 'Cancelar', onClick: () => window.history.back(), variant: 'secondary', disabled: isSubmitting || isUpdating },
                 ]}
               />
             </div>

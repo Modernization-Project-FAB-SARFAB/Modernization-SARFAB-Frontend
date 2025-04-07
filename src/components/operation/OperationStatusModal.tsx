@@ -10,9 +10,17 @@ interface FinalizeOperationModalProps {
   isOpen: boolean;
   onClose: () => void;
   operationId: number;
+  onConfirm: () => void;
+  isFinalizing: boolean;
 }
 
-export const OperationStatusModal = ({ isOpen, onClose, operationId }: FinalizeOperationModalProps) => {
+export const OperationStatusModal = ({
+  isOpen,
+  onClose,
+  operationId,
+  onConfirm,
+  isFinalizing,
+}: FinalizeOperationModalProps) => {
   const { mutate, isPending } = useOperationStatusMutation();
   const [observations, setObservations] = useState<string>("");
 
@@ -21,11 +29,18 @@ export const OperationStatusModal = ({ isOpen, onClose, operationId }: FinalizeO
   }, []);
 
   const handleConfirm = useCallback(() => {
+    onConfirm();
     mutate(
-      { id: operationId, formData: { status: StatusEnum.Disabled, observations: observations.trim() || "Sin observaciones" } },
+      {
+        id: operationId,
+        formData: {
+          status: StatusEnum.Disabled,
+          observations: observations.trim() || "Sin observaciones",
+        },
+      },
       { onSuccess: onClose }
     );
-  }, [mutate, operationId, observations, onClose]);
+  }, [mutate, operationId, observations, onClose, onConfirm]);
 
   const buttons = useMemo(
     () => [
@@ -34,18 +49,18 @@ export const OperationStatusModal = ({ isOpen, onClose, operationId }: FinalizeO
         label: "Cancelar",
         onClick: onClose,
         variant: "secondary" as const,
-        disabled: isPending,
+        disabled: isPending || isFinalizing,
       },
       {
         type: "button" as const,
         label: "Sí, estoy seguro",
         onClick: handleConfirm,
         variant: "primary" as const,
-        isLoading: isPending,
-        disabled: isPending,
+        isLoading: isPending || isFinalizing,
+        disabled: isPending || isFinalizing,
       },
     ],
-    [isPending, handleConfirm, onClose]
+    [isPending, isFinalizing, handleConfirm, onClose]
   );
 
   return (
@@ -63,6 +78,7 @@ export const OperationStatusModal = ({ isOpen, onClose, operationId }: FinalizeO
             name="observations"
             defaultValue={observations}
             register={() => ({ onChange: handleChange })}
+            disabled={isPending || isFinalizing}
           />
         </div>
       </div>

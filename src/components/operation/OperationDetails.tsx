@@ -2,6 +2,7 @@ import FormInput from '../common/FormInput/FormInput';
 import FormDate from '../common/FormDate/FormDate';
 import { OperationDetailResponse } from '@/types/operation.schema';
 import BackLink from '../common/BackLink/BackLink';
+import FormTextArea from '../common/FormTextArea/FormTextArea';
 
 export default function OperationDetails({
   operation,
@@ -27,16 +28,20 @@ export default function OperationDetails({
             name="categoryName"
             type="text"
             readonly
-            value={operation.categoryName}
+            value={operation.categoryName.length > 25 ? operation.categoryName.slice(0, 22) + '...' : operation.categoryName}
+            title={operation.categoryName}
             className="bg-gray text-black dark:text-white text-center"
           />
           <div className="mb-4">
-            <label className="mb-2.5 block text-black dark:text-white">
-              Tipo de operación
-            </label>
-            <div className="w-full rounded border-[1.5px] border-stroke py-3 px-5 font-medium outline-none bg-[#F1F5F9] text-black dark:text-white text-center break-words dark:border-form-strokedark dark:bg-form-input">
-              {operation.operationTypeName}
-            </div>
+            <FormInput
+              label="Tipo de operación"
+              name="operationTypeName"
+              type="text"
+              readonly
+              value={operation.operationTypeName.length > 25 ? operation.operationTypeName.slice(0, 22) + '...' : operation.operationTypeName}
+              title={operation.operationTypeName}
+              className="bg-gray text-black dark:text-white text-center"
+            />
           </div>
           <div className="flex flex-col md:col-span-2 mb-4">
             <FormInput
@@ -99,6 +104,15 @@ export default function OperationDetails({
               type="text"
               readonly
               value={operation.operationStatus}
+              className="bg-gray text-black dark:text-white text-center"
+            />
+          </div>
+          <div className="flex flex-col md:col-span-2 mb-4 mt-4">
+            <FormTextArea
+              label="Observaciones"
+              name="observations"
+              readonly
+              defaultValue={operation.observations}
               className="bg-gray text-black dark:text-white text-center"
             />
           </div>

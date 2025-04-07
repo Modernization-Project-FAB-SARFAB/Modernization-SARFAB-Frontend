@@ -42,7 +42,6 @@ export function EditOperationTypeModal({
     reset,
   } = form;
 
-  // Actualizar form cuando cambian los props
   useEffect(() => {
     if (isOpen && typeName) {
       reset({ name: typeName });
@@ -78,6 +77,7 @@ export function EditOperationTypeModal({
       onClose={onClose}
     >
       <form onSubmit={handleSubmit(handleFormSubmit)} className="p-6 space-y-4">
+        <fieldset disabled={isLoading}>
         <FormInput
           label="Nombre del tipo de operación"
           name="name"
@@ -86,7 +86,8 @@ export function EditOperationTypeModal({
         />
         {errors.name && (
           <ErrorFormMessage>{errors.name.message}</ErrorFormMessage>
-        )}
+          )}
+        </fieldset>
 
         <div className="pt-6">
           <ButtonGroup
@@ -104,6 +105,7 @@ export function EditOperationTypeModal({
                 onClick: handleSubmit(handleFormSubmit),
                 variant: "primary",
                 isLoading: isLoading,
+                disabled: isLoading,
               },
             ]}
           />

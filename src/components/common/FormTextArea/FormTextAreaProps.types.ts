@@ -10,5 +10,6 @@ interface FormTextAreaProps {
 
     readonly?: boolean;
     className?: string;
-    defaultValue?: string;
+  defaultValue?: string;
+  disabled?: boolean;
 }

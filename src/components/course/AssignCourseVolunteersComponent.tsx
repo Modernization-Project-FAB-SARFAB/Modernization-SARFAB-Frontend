@@ -7,7 +7,6 @@ import {
   AssignCourseVolunteersForm,
   CourseDetail,
 } from "@/types/courses.schema";
-import { useGetVolunteersWithoutCourse } from "@/hooks/courseVolunteer/querys/useGetVolunteersWithoutCourse";
 import { useAssignMultipleVolunteersToCourse } from "@/hooks/courseVolunteer/mutations/useAssignMultipleVolunteersToCourse";
 import BackLink from "../common/BackLink/BackLink";
 import FormInput from "../common/FormInput/FormInput";
@@ -22,7 +21,19 @@ interface SelectedVolunteer {
   rank: string;
 }
 
-export default function AssignCourseVolunteersComponent({ course }: { course: CourseDetail }) {
+interface VolunteerWithoutCourse {
+  volunteerId: number;
+  firstName: string;
+  lastName: string;
+  abbreviation: string;
+}
+
+interface Props {
+  course: CourseDetail;
+  volunteersWithoutCourse: VolunteerWithoutCourse[];
+}
+
+export default function AssignCourseVolunteersComponent({ course, volunteersWithoutCourse }: Props) {
   const [selectedVolunteerName, setSelectedVolunteerName] = useState("");
   const [addedVolunteers, setAddedVolunteers] = useState<SelectedVolunteer[]>([]);
   const [isAssigning, setIsAssigning] = useState(false);
@@ -30,8 +41,6 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
   const navigate = useNavigate();
 
   const courseId = (course as any).courseId || course.id;
-
-  const { data: volunteersWithoutCourse, isLoading } = useGetVolunteersWithoutCourse(courseId);
   const assignMutation = useAssignMultipleVolunteersToCourse();
 
   const {
@@ -61,10 +70,10 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
     }
   }, [addedVolunteers, setValue, trigger]);
 
-  const volunteerOptions = volunteersWithoutCourse?.map(volunteer => ({
+  const volunteerOptions = volunteersWithoutCourse.map(volunteer => ({
     id: volunteer.volunteerId.toString(),
     name: `${volunteer.abbreviation} - ${volunteer.lastName} ${volunteer.firstName}`,
-  })) || [];
+  }));
 
   const filteredOptions = volunteerOptions.filter(
     option => !addedVolunteers.some(v => v.volunteerId.toString() === option.id)
@@ -76,24 +85,29 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
   };
 
   const handleAddVolunteer = () => {
-    if (!selectedVolunteerName) {
+    const input = selectedVolunteerName.trim();
+
+    if (!input) {
       setAddError("Debe seleccionar un voluntario válido.");
       return;
     }
 
-    const selectedOption = volunteerOptions.find(option => option.name === selectedVolunteerName);
+    const selectedOption = volunteerOptions.find(option => option.name === input);
     if (!selectedOption) {
       setAddError("Debe seleccionar un voluntario válido.");
       return;
     }
 
-    const volunteerData = volunteersWithoutCourse?.find(
+    const volunteerData = volunteersWithoutCourse.find(
       v => v.volunteerId.toString() === selectedOption.id
     );
     if (!volunteerData) return;
 
     const isDuplicate = addedVolunteers.some(v => v.volunteerId === volunteerData.volunteerId);
-    if (isDuplicate) return;
+    if (isDuplicate) {
+      setAddError("El voluntario ya fue agregado.");
+      return;
+    }
 
     const newVolunteer: SelectedVolunteer = {
       volunteerId: volunteerData.volunteerId,
@@ -168,12 +182,13 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
                 onChange={handleVolunteerChange}
                 value={selectedVolunteerName}
                 showLabel={false}
+                disabled={isAssigning}
               />
               <Button
                 label="Agregar"
                 type="button"
                 onClick={handleAddVolunteer}
-                disabled={isLoading || !selectedVolunteerName}
+                disabled={isAssigning}
               />
             </div>
             {addError && <ErrorFormMessage>{addError}</ErrorFormMessage>}
@@ -242,7 +257,13 @@ export default function AssignCourseVolunteersComponent({ course }: { course: Co
                 variant: "primary",
                 disabled: isAssigning,
               },
-              { type: "link", label: "Cancelar", to: "/courses/list" },
+              {
+                type: "button",
+                label: "Cancelar",
+                onClick: window.history.back,
+                variant: "secondary",
+                disabled: isAssigning,
+              },
             ]}
           />
         </div>

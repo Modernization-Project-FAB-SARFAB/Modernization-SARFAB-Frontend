@@ -31,6 +31,7 @@ export function MilitaryForm({
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="p-8 space-y-4">
+      <fieldset disabled={isLoading || isSubmitting}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5.5">
         <div className="flex flex-col">
           <FormInput
@@ -61,7 +62,7 @@ export function MilitaryForm({
           )}
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-4">
         <FormInput
           label="Teléfono"
           name="mobilePhone"
@@ -75,7 +76,7 @@ export function MilitaryForm({
           <ErrorFormMessage>{errors.mobilePhone.message}</ErrorFormMessage>
         )}
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-4">
         <FormSelectControlled
           label="Grado"
           name="militaryRankId"
@@ -87,7 +88,8 @@ export function MilitaryForm({
         {errors.militaryRankId && (
           <ErrorFormMessage>{errors.militaryRankId.message}</ErrorFormMessage>
         )}
-      </div>
+        </div>
+      </fieldset>
       <div className="pt-6">
         <ButtonGroup
           buttons={[

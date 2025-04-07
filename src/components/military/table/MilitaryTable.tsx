@@ -14,7 +14,7 @@ export function MilitaryTable({
   hasFilters,
 }: MilitaryTableProps & { hasFilters: boolean }) {
   
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader message="Cargando lista de personal militar..." />;
   if (!data || data.data.length === 0) return <NoMilitaryMessage hasFilters={hasFilters} />;
   const handlePaginationChange = ({ pageIndex, pageSize }: { pageIndex: number; pageSize: number }) => {
     setPageIndex(pageIndex);

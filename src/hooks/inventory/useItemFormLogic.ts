@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { CreateItemForm, UpdateItemForm, CreateItemSchema } from "@/types/invetory.schema";
+import {
+  CreateItemForm,
+  UpdateItemForm,
+  CreateItemSchema,
+} from "@/types/invetory.schema";
 import { useItemById } from "@/hooks/inventory/querys/useItemById";
 import { useCreateItem } from "@/hooks/inventory/mutations/useCreateItem";
 import { useUpdateItem } from "@/hooks/inventory/mutations/useUpdateItem";
@@ -17,64 +21,82 @@ interface UseItemFormLogicProps {
 
 export function useItemFormLogic({ isOpen, onClose, itemId }: UseItemFormLogicProps) {
   const isEditMode = !!itemId;
-  
+
   const form = useForm<CreateItemForm>({
     resolver: zodResolver(CreateItemSchema),
     mode: "onChange",
     defaultValues: {
       name: "",
-      quantity: undefined
-    }
+      quantity: undefined,
+    },
   });
+
   const queryClient = useQueryClient();
   const { data: itemData, isLoading: isItemLoading } = useItemById(itemId || 0);
-  
-  const { data: inventoryItemData, isLoading: isInventoryItemLoading } = useInventoryItemById(
-    isEditMode ? itemId || 0 : 0
-  );
-  
+  const { data: inventoryItemData, isLoading: isInventoryItemLoading } =
+    useInventoryItemById(isEditMode ? itemId || 0 : 0);
+
   const createMutation = useCreateItem();
   const updateMutation = useUpdateItem();
 
-  const assignedQuantity = isEditMode && inventoryItemData ? 
-    (inventoryItemData.assignedQuantity || 0) : 0;
+  const assignedQuantity = isEditMode && inventoryItemData
+    ? inventoryItemData.assignedQuantity || 0
+    : 0;
 
-  useEffect(() => {
-    if (isOpen && itemData && itemId) {
-      form.reset({
-        name: itemData.name,
-        quantity: itemData.quantity,
-      });
-    }
-  }, [isOpen, itemData, itemId, form]);
-  
   useEffect(() => {
     if (!isOpen) {
       form.reset({
         name: "",
-        quantity: undefined
+        quantity: undefined,
+      });
+      return;
+    }
+
+    if (itemId && itemData) {
+      form.reset({
+        name: itemData.name,
+        quantity: itemData.quantity,
+      });
+    } else {
+      form.reset({
+        name: "",
+        quantity: undefined,
       });
     }
-  }, [isOpen, form]);
+  }, [isOpen, itemId, itemData, form]);
 
   const handleFormSubmit = async (formData: CreateItemForm) => {
     try {
-      if (isEditMode && assignedQuantity > 0 && 
-          formData.quantity !== undefined && 
-          formData.quantity < assignedQuantity) {
-        toast.error(`La cantidad no puede ser menor a la cantidad asignada (${assignedQuantity})`);
-        return;
+      if (isEditMode && assignedQuantity > 0 && formData.quantity !== undefined) {
+        if (formData.quantity < assignedQuantity) {
+          toast.error(
+            `La cantidad no puede ser menor a la cantidad asignada (${assignedQuantity})`
+          );
+          return;
+        }
       }
-
+  
       if (isEditMode) {
-        await updateMutation.mutateAsync({ id: itemId, formData: formData as UpdateItemForm });
+        await updateMutation.mutateAsync({
+          id: itemId!,
+          formData: formData as UpdateItemForm,
+        });
         toast.success("Elemento actualizado correctamente");
       } else {
         await createMutation.mutateAsync(formData);
         toast.success("Elemento creado correctamente");
       }
+  
       queryClient.invalidateQueries({ queryKey: ["inventory-items"] });
-      onClose();
+      
+      if (isEditMode && itemId) {
+        queryClient.invalidateQueries({ queryKey: ["item-with-pending-table", itemId] });
+        queryClient.invalidateQueries({ queryKey: ["item-with-pending-table"] });
+      }
+      
+      setTimeout(() => {
+        onClose();
+      }, 100);
     } catch (error) {
       console.error("Error en la operación:", error);
       toast.error("Ocurrió un error al procesar la solicitud");

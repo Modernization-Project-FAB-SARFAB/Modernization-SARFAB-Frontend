@@ -1,6 +1,7 @@
 import { useOperationTypeFormLogic } from "@/hooks/configuration/useOperationTypeFormLogic";
 import Modal from "@/components/common/Modal/Modal";
 import { OperationTypeForm } from "../forms/OperationTypeForm";
+import Loader from "@/components/common/Loader";
 
 interface OperationTypeFormModalProps {
   isOpen: boolean;
@@ -41,7 +42,7 @@ export function OperationTypeFormModal({
       onClose={onClose}
     >
       {isLoading && !formProps.form ? (
-        <div className="p-8 text-center text-gray-500">Cargando datos...</div>
+        <Loader message="Cargando datos previos" />
       ) : (
         <OperationTypeForm
           {...formProps}

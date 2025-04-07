@@ -1,46 +1,35 @@
-import { useState } from 'react';
 import { OperationDetailResponse } from '@/types/operation.schema';
 import Button from '../common/Button/Button';
 import { Link } from 'react-router-dom';
-import { OperationStatusModal } from '@/components/operation/OperationStatusModal';
 
 export default function OperationPersonnelDetail({
   operation,
-  refetchOperation,
 }: {
   operation: OperationDetailResponse;
-  refetchOperation: () => void;
 }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    refetchOperation();
-  };
-
   return (
     <>
       <section className="space-y-6">
-        <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-          <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
-            Acciones
-          </h2>
-          <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-10">
-            {operation.operationStatus !== 'Finalizada' && (
+        {operation.operationStatus !== 'Finalizada' && (
+          <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
+            <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
+              Acciones
+            </h2>
+            <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-10">
               <div className="flex flex-col md:col-span-2">
-                <Button
-                  label="Marcar operación como finalizada"
-                  onClick={() => setIsModalOpen(true)}
-                  classname="bg-green-600 text-white"
-                />
+                <Link to={`/operation/${operation.operationId}/absence`}>
+                  <Button label="Marcar operación como finalizada" classname="w-full" />
+                </Link>
               </div>
-            )}
-            <Button label="Marcar inasistencia" onClick={() => {}} />
-            <Link to={`/operation/${operation.operationId}/edit`}>
-              <Button label="Editar operación" classname="w-full" />
-            </Link>
-          </article>
-        </div>
+              <div className="flex flex-col md:col-span-2">
+                <Link to={`/operation/${operation.operationId}/edit`}>
+                  <Button label="Editar operación" classname="w-full" />
+                </Link>
+              </div>
+            </article>
+          </div>
+        )}
+
 
         <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
           <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
@@ -101,14 +90,6 @@ export default function OperationPersonnelDetail({
           </table>
         </div>
       </section>
-
-      {isModalOpen && (
-        <OperationStatusModal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          operationId={operation.operationId}
-        />
-      )}
     </>
   );
 }

@@ -68,6 +68,7 @@ export function ItemForm({
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="p-0 sm:p-8 space-y-4">
       <div className="space-y-0">
+        <fieldset disabled={isLoading || isSubmitting}>
         <FormInput
           label="Nombre del elemento"
           name="name"
@@ -80,6 +81,7 @@ export function ItemForm({
             <ErrorFormMessage>{getErrorMessage(errors.name)}</ErrorFormMessage>
           </div>
         )}
+        </fieldset>
       </div>
 
       <div className="space-y-0 mt-4">
@@ -91,6 +93,7 @@ export function ItemForm({
             <input
               id="quantity"
               type="number"
+              disabled={isLoading || isSubmitting}
               placeholder="Cantidad disponible"
               min={1}
               {...register("quantity", { 

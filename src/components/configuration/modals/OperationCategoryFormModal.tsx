@@ -1,6 +1,7 @@
 import { useOperationCategoryFormLogic } from "@/hooks/configuration/useOperationCategoryFormLogic";
 import Modal from "@/components/common/Modal/Modal";
 import { OperationCategoryForm } from "../forms/OperationCategoryForm";
+import Loader from "@/components/common/Loader";
 
 interface OperationCategoryFormModalProps {
   isOpen: boolean;
@@ -34,7 +35,7 @@ export function OperationCategoryFormModal({
       onClose={onClose}
     >
       {isLoading && !formProps.form ? (
-        <div className="p-8 text-center text-gray-500">Cargando datos...</div>
+        <Loader message="Cargando datos previos para edición" />
       ) : (
         <OperationCategoryForm
           {...formProps}

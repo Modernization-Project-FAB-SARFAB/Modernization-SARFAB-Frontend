@@ -159,7 +159,7 @@ const coreRoutes = [
     component: OperationDetailsView
   }, {
     path: '/operation/:operationId/absence',
-    title: 'Marcar inasistencia',
+    title: 'Marcar asistencia',
     component: OperationAbsenceInfoView
   },
   // Inventory

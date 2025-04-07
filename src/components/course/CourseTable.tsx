@@ -27,7 +27,7 @@ export function CourseTable({
     refetch,
     totalPages
 }: CourseTableProps) {
-    if (isLoading) return <Loader />;
+    if (isLoading) return <Loader message="Cargando lista de cursos" />;
     if (!data.length)
         return <MessageWithLink
             message="No existen cursos."

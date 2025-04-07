@@ -5,7 +5,7 @@ import { OperationTableProps } from "./types/OperationTableProps";
 
 export function OperationTable(props: OperationTableProps) {
   const { isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch } = props;
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader message="Cargando lista de operaciones..." />;
   if (!data?.data.length) return <NoOperationMessage />;
 
   const formattedData = data.data.map((row) => ({

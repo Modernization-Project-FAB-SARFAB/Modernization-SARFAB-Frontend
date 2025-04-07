@@ -6,11 +6,12 @@ import { ItemMovementForm } from "../forms/ItemMovementForm";
 import { InventoryMovementForm, InventoryMovementSchema } from "@/types/invetory.schema";
 import { useInventoryItemById } from "@/hooks/inventory/querys/useInventoryItemById";
 import { useItemOwedQuantityByVolunteer } from "@/hooks/inventory/querys/useItemOwedQuantityByVolunteer";
+import Loader from "@/components/common/Loader";
+import Spinner from "@/components/common/Spinner/Spinner";
 
 interface ItemMovementModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
   onSubmit: (data: InventoryMovementForm) => void;
   isLoading: boolean;
   itemId: number;
@@ -20,7 +21,6 @@ interface ItemMovementModalProps {
 export function ItemMovementModal({
   isOpen,
   onClose,
-  title,
   onSubmit,
   isLoading,
   itemId,
@@ -28,7 +28,6 @@ export function ItemMovementModal({
 }: ItemMovementModalProps) {
   const { data: inventoryItem, isLoading: isLoadingItem } = useInventoryItemById(itemId);
   const availableQuantity = inventoryItem?.availableQuantity || 0;
-
   const form = useForm<InventoryMovementForm>({
     resolver: zodResolver(InventoryMovementSchema),
     defaultValues: {
@@ -58,14 +57,23 @@ export function ItemMovementModal({
 
   const { data: owedQuantity = 0, isLoading: isLoadingOwedQuantity } = 
     useItemOwedQuantityByVolunteer(volunteerId, itemId);
+    const modalTitle = (
+      <>
+        {isReturn ? "Registrar devolución de" : "Registrar extracción de"}:{" "}
+        {!inventoryItem?.name ? <Spinner size={16} /> : inventoryItem.name}
+      </>
+    );
 
   return (
-    <Modal title={title} isOpen={isOpen} onClose={onClose}>
-      <ItemMovementForm
-        form={form}
-        onSubmit={async (data) => {
-          if (!isReturn && Number(data.quantity) > availableQuantity) {
-            return;
+    <Modal title={modalTitle} isOpen={isOpen} onClose={onClose}>
+      {isLoadingItem || isLoadingOwedQuantity ? (
+        <Loader message="Cargando datos previos para el movimiento del elemento" />
+      ) : (
+        <ItemMovementForm
+          form={form}
+          onSubmit={async (data) => {
+            if (!isReturn && Number(data.quantity) > availableQuantity) {
+              return;
           }
           
           if (isReturn && Number(data.quantity) > owedQuantity) {
@@ -83,6 +91,7 @@ export function ItemMovementModal({
         availableQuantity={availableQuantity}
         owedQuantity={owedQuantity}
       />
+      )}
     </Modal>
   );
 }

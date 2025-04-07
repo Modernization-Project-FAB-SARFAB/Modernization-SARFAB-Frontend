@@ -5,8 +5,6 @@ import FormInput from '@/components/common/FormInput/FormInput';
 import FormDate from '@/components/common/FormDate/FormDate';
 import FilterDatalist from '@/components/common/FilterDatalist/FilterDatalist';
 import ErrorFormMessage from '@/components/common/ErrorFormMessage/ErrorFormMessage';
-import { Link } from 'react-router-dom';
-import { AiOutlineArrowLeft } from 'react-icons/ai';
 import BackLink from '../common/BackLink/BackLink';
 
 export default function EditOperationForm({
@@ -278,6 +276,7 @@ export default function EditOperationForm({
             placeholder="Ingrese la dirección"
             register={register}
             errors={errors}
+           
             required
           />
           {errors.address && (
@@ -291,6 +290,7 @@ export default function EditOperationForm({
               label="Fecha de salida"
               register={register}
               required
+           
             />
             {errors.departureDate && (
               <ErrorFormMessage>
@@ -337,6 +337,7 @@ export default function EditOperationForm({
             placeholder="Teléfono del solicitante"
             register={register}
             errors={errors}
+            
             defaultValue={operation?.requesterPhone || "Sin teléfono"} 
           />
           <div className="flex flex-col">

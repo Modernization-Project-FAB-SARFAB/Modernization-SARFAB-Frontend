@@ -51,12 +51,13 @@ export default function BatchItemWithdrawalForm() {
     }
   }, [selectedItems, setValue, trigger]);
 
-  // Cargar datos de inventario
+  //TODO: remove console.log cuando solucionemos el problem de solo traer 10 registros
   useEffect(() => {
     const loadInventoryItems = async () => {
       try {
         const result = await getInventoryItems();
         setInventoryItems(result.data);
+        console.log(result.data);
       } catch (error) {
         console.error("Error al cargar inventario:", error);
         toast.error("Error al cargar datos de inventario");

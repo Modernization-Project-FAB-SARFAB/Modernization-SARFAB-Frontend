@@ -281,7 +281,7 @@ export default function OperationDetailsForm({
           </div>
 
           <FormInput
-            name="requesterPhone"
+            name="requester.requesterPhone"
             label="Teléfono"
             placeholder="Teléfono del solicitante"
             register={register}

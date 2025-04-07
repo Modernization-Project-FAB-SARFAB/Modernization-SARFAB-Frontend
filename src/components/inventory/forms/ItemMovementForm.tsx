@@ -9,6 +9,8 @@ import { useVolunteersWithRank } from "@/hooks/inventory/querys/useVolunteersWit
 import { usePendingReturnsByItemId } from "@/hooks/inventory/querys/usePendingReturnsByItemId";
 import { VolunteerPendingReturn } from "@/types/invetory.schema";
 import { VolunteerWithRank } from "@/types/operationContext.schema";
+import Spinner from "@/components/common/Spinner/Spinner";
+import Loader from "@/components/common/Loader";
 
 interface ItemMovementFormProps {
   form: UseFormReturn<InventoryMovementForm>;
@@ -46,8 +48,10 @@ export function ItemMovementForm({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { data: pendingReturns = [] } = usePendingReturnsByItemId(itemId);
-  const { data: allVolunteers = [] } = useVolunteersWithRank({ enabled: !isReturn });
+  const { data: pendingReturns = [], isLoading: isLoadingPendingReturns } = usePendingReturnsByItemId(itemId);
+  const { data: allVolunteers = [], isLoading: isLoadingVolunteers } = useVolunteersWithRank({ enabled: !isReturn });
+
+  const isLoadingAll = isLoadingPendingReturns || isLoadingVolunteers;
 
   const volunteers = isReturn ? pendingReturns : allVolunteers;
 
@@ -68,7 +72,9 @@ export function ItemMovementForm({
     setIsSubmitting(false);
   };
 
-  return (
+  return isLoadingAll ? (
+    <Loader message="Cargando datos previos para el movimiento del elemento" />
+  ) : (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="p-0 sm:p-8 space-y-6">
       <div className="space-y-1">
         <FilterDatalist
@@ -112,18 +118,25 @@ export function ItemMovementForm({
         {isSubmitted && errors.quantity && (
           <ErrorFormMessage>{errors.quantity.message}</ErrorFormMessage>
         )}
-        
+
         {!isReturn && (
           <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
             <span className="font-bold">Importante:</span> Cantidad disponible: {_availableQuantity} unidades, no puede ingresar una cantidad mayor.
           </div>
         )}
-        
-        {isReturn && volunteerId && _owedQuantity !== undefined && (
+
+        {isReturn && volunteerId && (
           <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
-            <span className="font-bold">Importante:</span> El voluntario debe {_owedQuantity} unidades de este elemento, no puede ingresar una cantidad mayor.
+            <span className="font-bold">Importante:</span> El voluntario debe{" "}
+            {isLoadingOwedQuantity ? (
+              <Spinner size={16} />
+            ) : (
+              `${_owedQuantity} unidades`
+            )}{" "}
+            de este elemento, no puede ingresar una cantidad mayor.
           </div>
         )}
+
       </div>
 
       <div className="pt-4">

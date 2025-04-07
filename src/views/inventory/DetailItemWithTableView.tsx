@@ -9,11 +9,13 @@ import { ItemFormModal } from '@/components/inventory/modals/ItemFormModal';
 import { ItemMovementModal } from "@/components/inventory/modals/ItemMovementModal";
 import { useExtractItem } from "@/hooks/inventory/mutations/useExtractItem";
 import { useReturnItem } from "@/hooks/inventory/mutations/useReturnItem";
+import Loader from "@/components/common/Loader";
+import Spinner from "@/components/common/Spinner/Spinner";
 
 export default function DetailItemWithTableView() {
   useBreadcrumb([
     { label: 'Inventario', path: '/inventory/list' },
-    { label: 'Detalle del item' },
+    { label: 'Detalle del elemento' },
   ]);
 
   const { itemId } = useParams();
@@ -33,7 +35,6 @@ export default function DetailItemWithTableView() {
   const isReturn = searchParams.get('isReturn') === 'true';
   const closeModal = () => {
     navigate(location.pathname);
-    queryClient.invalidateQueries({ queryKey: ['item-with-pending-table', itemIdNumber] });
   };
   const handleCloseMovementModal = () => {
     searchParams.delete('openItemMovementModal');
@@ -44,7 +45,7 @@ export default function DetailItemWithTableView() {
   };
 
   return isLoadingItem ? (
-    <p className="text-center text-gray-500">Cargando datos...</p>
+    <Loader message="Cargando detalle del elemento" />
   ) : (
     <section className="container mx-auto p-4">
       <h2 className="text-2xl font-semibold mb-4">Detalle del elemento</h2>
@@ -88,7 +89,6 @@ export default function DetailItemWithTableView() {
         onClose={handleCloseMovementModal}
         itemId={Number(itemIdParam)}
         isReturn={isReturn}
-        title={`${isReturn ? "Registrar devolución de" : "Registrar extracción de"}: ${item?.name || `Item #${itemId}`}`}
         isLoading={
           isReturn ? returnItemMutation.isPending : extractItemMutation.isPending
         }
@@ -102,7 +102,6 @@ export default function DetailItemWithTableView() {
           handleCloseMovementModal();
         }}
       />
-
     </section>
   );
 }

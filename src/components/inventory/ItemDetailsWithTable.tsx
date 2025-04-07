@@ -1,12 +1,11 @@
 import { ItemWithPendingTable } from "@/types/invetory.schema";
 import FormInput from "../common/FormInput/FormInput";
 import BackLink from "../common/BackLink/BackLink";
-
 export default function ItemDetailsWithTable({
   item,
 }: {
   item: ItemWithPendingTable;
-}) {
+  }) {
   return (
     <section className="space-y-6">
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
