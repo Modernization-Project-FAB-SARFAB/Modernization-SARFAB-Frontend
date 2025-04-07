@@ -58,6 +58,8 @@ export type ListInventoryResponse = z.infer<typeof ListInventorySchema>;
 
 export const ItemSchema = BaseInventoryItemSchema.extend({
   quantity: z.number(),
+  assignedQuantity: z.number(),
+  availableQuantity: z.number(),
 });
 export type Item = z.infer<typeof ItemSchema>;
 
@@ -116,3 +118,12 @@ export const BatchItemWithdrawalSchema = z.object({
 });
 
 export type BatchItemWithdrawalForm = z.infer<typeof BatchItemWithdrawalSchema>;
+
+export const ExtractableItemSchema = z.object({
+  itemId: z.number(),
+  name: z.string(),
+  quantity: z.number(),
+  assignedQuantity: z.number(),
+  availableQuantity: z.number(),
+});
+export type ExtractableItem = z.infer<typeof ExtractableItemSchema>;

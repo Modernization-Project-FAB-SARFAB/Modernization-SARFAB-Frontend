@@ -11,7 +11,6 @@ import { useUpdateItem } from "@/hooks/inventory/mutations/useUpdateItem";
 import { useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import { useInventoryItemById } from "@/hooks/inventory/querys/useInventoryItemById";
 
 interface UseItemFormLogicProps {
   isOpen: boolean;
@@ -33,14 +32,12 @@ export function useItemFormLogic({ isOpen, onClose, itemId }: UseItemFormLogicPr
 
   const queryClient = useQueryClient();
   const { data: itemData, isLoading: isItemLoading } = useItemById(itemId || 0);
-  const { data: inventoryItemData, isLoading: isInventoryItemLoading } =
-    useInventoryItemById(isEditMode ? itemId || 0 : 0);
 
   const createMutation = useCreateItem();
   const updateMutation = useUpdateItem();
 
-  const assignedQuantity = isEditMode && inventoryItemData
-    ? inventoryItemData.assignedQuantity || 0
+  const assignedQuantity = isEditMode && itemData
+    ? itemData.assignedQuantity || 0
     : 0;
 
   useEffect(() => {
@@ -52,7 +49,7 @@ export function useItemFormLogic({ isOpen, onClose, itemId }: UseItemFormLogicPr
       return;
     }
 
-    if (itemId && itemData) {
+    if (isEditMode && itemData) {
       form.reset({
         name: itemData.name,
         quantity: itemData.quantity,
@@ -63,7 +60,7 @@ export function useItemFormLogic({ isOpen, onClose, itemId }: UseItemFormLogicPr
         quantity: undefined,
       });
     }
-  }, [isOpen, itemId, itemData, form]);
+  }, [isOpen, isEditMode, itemData, form]);
 
   const handleFormSubmit = async (formData: CreateItemForm) => {
     try {
@@ -75,7 +72,7 @@ export function useItemFormLogic({ isOpen, onClose, itemId }: UseItemFormLogicPr
           return;
         }
       }
-  
+
       if (isEditMode) {
         await updateMutation.mutateAsync({
           id: itemId!,
@@ -86,17 +83,16 @@ export function useItemFormLogic({ isOpen, onClose, itemId }: UseItemFormLogicPr
         await createMutation.mutateAsync(formData);
         toast.success("Elemento creado correctamente");
       }
-  
       queryClient.invalidateQueries({ queryKey: ["inventory-items"] });
-      
+
       if (isEditMode && itemId) {
         queryClient.invalidateQueries({ queryKey: ["item-with-pending-table", itemId] });
-        queryClient.invalidateQueries({ queryKey: ["item-with-pending-table"] });
+        queryClient.invalidateQueries({ queryKey: ["item", itemId] });
       }
-      
+
       setTimeout(() => {
         onClose();
-      }, 100);
+      }, 50);
     } catch (error) {
       console.error("Error en la operación:", error);
       toast.error("Ocurrió un error al procesar la solicitud");
@@ -104,7 +100,7 @@ export function useItemFormLogic({ isOpen, onClose, itemId }: UseItemFormLogicPr
   };
 
   return {
-    isLoading: isItemLoading || (isEditMode ? isInventoryItemLoading : false),
+    isLoading: isItemLoading,
     handleFormSubmit,
     formProps: {
       form,

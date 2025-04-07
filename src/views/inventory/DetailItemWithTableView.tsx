@@ -2,15 +2,14 @@ import Button from "@/components/common/Button/Button";
 import ItemDetailsWithTable from "@/components/inventory/ItemDetailsWithTable";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useItemWithPendingTable } from "@/hooks/inventory/querys/useItemWithPendingTable";
+import { useItemById } from "@/hooks/inventory/querys/useItemById";
 import { useQueryClient } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { ItemFormModal } from '@/components/inventory/modals/ItemFormModal';
 import { ItemMovementModal } from "@/components/inventory/modals/ItemMovementModal";
 import { useExtractItem } from "@/hooks/inventory/mutations/useExtractItem";
 import { useReturnItem } from "@/hooks/inventory/mutations/useReturnItem";
 import Loader from "@/components/common/Loader";
-import Spinner from "@/components/common/Spinner/Spinner";
 
 export default function DetailItemWithTableView() {
   useBreadcrumb([
@@ -23,6 +22,7 @@ export default function DetailItemWithTableView() {
 
   const queryClient = useQueryClient();
   const { data: item, isLoading: isLoadingItem } = useItemWithPendingTable(itemIdNumber);
+  const { data: itemData } = useItemById(itemIdNumber);
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -33,9 +33,11 @@ export default function DetailItemWithTableView() {
   const itemIdParam = searchParams.get('itemId');
   const openMovementModal = searchParams.get('openItemMovementModal') === 'true';
   const isReturn = searchParams.get('isReturn') === 'true';
+
   const closeModal = () => {
     navigate(location.pathname);
   };
+
   const handleCloseMovementModal = () => {
     searchParams.delete('openItemMovementModal');
     searchParams.delete('itemId');
@@ -62,28 +64,37 @@ export default function DetailItemWithTableView() {
               <Link to={`/inventory/movement-historical?search=${encodeURIComponent(item?.name || '')}`}>
                 <Button label="Ir al registro histórico" classname="w-full text-sm" />
               </Link>
+
               <Link to={`?openItemModal=true&itemId=${itemIdNumber}`}>
                 <Button label="Editar elemento" classname="w-full text-sm" />
               </Link>
-              <div className="flex flex-col md:col-span-2">
-                <Link to={`?openItemMovementModal=true&itemId=${itemIdNumber}&isReturn=true`}>
-                  <Button label="Registrar devolución" classname="w-full text-sm" />
-                </Link>
-              </div>
-              <div className="flex flex-col md:col-span-2">
-                <Link to={`?openItemMovementModal=true&itemId=${itemIdNumber}`}>
-                  <Button label="Registrar extracción" classname="w-full text-sm" />
-                </Link>
-              </div>
+
+              {itemData?.assignedQuantity !== undefined && itemData.assignedQuantity > 0 && (
+                <div className="flex flex-col md:col-span-2">
+                  <Link to={`?openItemMovementModal=true&itemId=${itemIdNumber}&isReturn=true`}>
+                    <Button label="Registrar devolución" classname="w-full text-sm" />
+                  </Link>
+                </div>
+              )}
+
+              {itemData?.availableQuantity !== undefined && itemData.availableQuantity > 0 && (
+                <div className="flex flex-col md:col-span-2">
+                  <Link to={`?openItemMovementModal=true&itemId=${itemIdNumber}`}>
+                    <Button label="Registrar extracción" classname="w-full text-sm" />
+                  </Link>
+                </div>
+              )}
             </article>
           </div>
         </article>
       </section>
+
       <ItemFormModal
         isOpen={openEditModal}
         onClose={closeModal}
         itemId={Number(itemIdParam)}
       />
+
       <ItemMovementModal
         isOpen={openMovementModal}
         onClose={handleCloseMovementModal}
@@ -98,6 +109,7 @@ export default function DetailItemWithTableView() {
           } else {
             await extractItemMutation.mutateAsync(data);
           }
+
           queryClient.invalidateQueries({ queryKey: ["inventory-items"] });
           handleCloseMovementModal();
         }}

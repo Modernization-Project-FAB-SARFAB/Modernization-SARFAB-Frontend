@@ -22,7 +22,7 @@ export default function ItemDetailsWithTable({
               name="name"
               type="text"
               readonly
-              defaultValue={item.name}
+              value={item.name}
               className="bg-gray text-black dark:text-white"
             />
           </div>
@@ -32,7 +32,7 @@ export default function ItemDetailsWithTable({
               name="totalQuantity"
               type="text"
               readonly
-              defaultValue={`${item.totalQuantity} elementos`}
+              value={`${item.totalQuantity} ${item.totalQuantity === 1 ? "elemento" : "elementos"}`}
               className="bg-gray text-black dark:text-white"
             />
           </div>

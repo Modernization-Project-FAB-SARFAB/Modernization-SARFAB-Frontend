@@ -51,15 +51,12 @@ export default function BatchItemWithdrawalForm() {
     }
   }, [selectedItems, setValue, trigger]);
 
-  //TODO: remove console.log cuando solucionemos el problem de solo traer 10 registros
   useEffect(() => {
     const loadInventoryItems = async () => {
       try {
         const result = await getInventoryItems();
         setInventoryItems(result.data);
-        console.log(result.data);
       } catch (error) {
-        console.error("Error al cargar inventario:", error);
         toast.error("Error al cargar datos de inventario");
       }
     };
@@ -87,7 +84,7 @@ export default function BatchItemWithdrawalForm() {
         if (item.itemId === itemId) {
           const newQuantity = item.quantity + delta;
           if (delta > 0 && newQuantity > inventoryItem.availableQuantity) {
-            toast.error(`No puede extraer más de ${inventoryItem.availableQuantity} unidades disponibles`);
+            toast.error(`No puede extraer más de ${inventoryItem.availableQuantity} ${inventoryItem.availableQuantity === 1 ? "unidad" : "unidades"} disponibles`);
             return item;
           }
           return { ...item, quantity: Math.max(1, newQuantity) };

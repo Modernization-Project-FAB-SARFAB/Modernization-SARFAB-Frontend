@@ -1,41 +1,35 @@
 import { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { InventoryMovementForm } from "@/types/invetory.schema";
+import { InventoryMovementForm, VolunteerPendingReturn } from "@/types/invetory.schema";
 import FormInput from "@/components/common/FormInput/FormInput";
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import FilterDatalist from "@/components/common/FilterDatalist/FilterDatalist";
-import { useVolunteersWithRank } from "@/hooks/inventory/querys/useVolunteersWithRank";
-import { usePendingReturnsByItemId } from "@/hooks/inventory/querys/usePendingReturnsByItemId";
-import { VolunteerPendingReturn } from "@/types/invetory.schema";
 import { VolunteerWithRank } from "@/types/operationContext.schema";
 import Spinner from "@/components/common/Spinner/Spinner";
-import Loader from "@/components/common/Loader";
 
 interface ItemMovementFormProps {
   form: UseFormReturn<InventoryMovementForm>;
   onSubmit: (data: InventoryMovementForm) => Promise<void>;
   isLoading: boolean;
-  isLoadingItem?: boolean;
-  isLoadingOwedQuantity?: boolean;
   onClose: () => void;
   itemId: number;
   isReturn: boolean;
   availableQuantity: number;
   owedQuantity?: number;
+  volunteers: (VolunteerPendingReturn | VolunteerWithRank)[];
 }
 
 export function ItemMovementForm({
   form,
   onSubmit,
   isLoading,
-  isLoadingItem = false,
-  isLoadingOwedQuantity = false,
   onClose,
   itemId,
   isReturn,
   availableQuantity: _availableQuantity,
   owedQuantity: _owedQuantity,
+  volunteers,
 }: ItemMovementFormProps) {
   const {
     register,
@@ -47,13 +41,6 @@ export function ItemMovementForm({
   } = form;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const { data: pendingReturns = [], isLoading: isLoadingPendingReturns } = usePendingReturnsByItemId(itemId);
-  const { data: allVolunteers = [], isLoading: isLoadingVolunteers } = useVolunteersWithRank({ enabled: !isReturn });
-
-  const isLoadingAll = isLoadingPendingReturns || isLoadingVolunteers;
-
-  const volunteers = isReturn ? pendingReturns : allVolunteers;
 
   const formVolunteerId = watch("volunteerId");
   const volunteerId = formVolunteerId === 0 ? undefined : formVolunteerId;
@@ -72,9 +59,7 @@ export function ItemMovementForm({
     setIsSubmitting(false);
   };
 
-  return isLoadingAll ? (
-    <Loader message="Cargando datos previos para el movimiento del elemento" />
-  ) : (
+  return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="p-0 sm:p-8 space-y-6">
       <div className="space-y-1">
         <FilterDatalist
@@ -113,7 +98,7 @@ export function ItemMovementForm({
           type="number"
           register={register}
           placeholder="Cantidad"
-          readonly={isLoading || isLoadingItem || isLoadingOwedQuantity}
+          readonly={isLoading}
         />
         {isSubmitted && errors.quantity && (
           <ErrorFormMessage>{errors.quantity.message}</ErrorFormMessage>
@@ -121,22 +106,22 @@ export function ItemMovementForm({
 
         {!isReturn && (
           <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
-            <span className="font-bold">Importante:</span> Cantidad disponible: {_availableQuantity} unidades, no puede ingresar una cantidad mayor.
+            <span className="font-bold">Importante:</span> Cantidad disponible: {_availableQuantity} {(_availableQuantity === 1) ? "unidad" : "unidades"}, no puede ingresar una cantidad mayor.
           </div>
         )}
 
         {isReturn && volunteerId && (
           <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
             <span className="font-bold">Importante:</span> El voluntario debe{" "}
-            {isLoadingOwedQuantity ? (
+            {_owedQuantity === undefined ? (
               <Spinner size={16} />
             ) : (
-              `${_owedQuantity} unidades`
-            )}{" "}
+              `${_owedQuantity} ${_owedQuantity === 1 ? "unidad" : "unidades"}`
+            )}
+            {" "}
             de este elemento, no puede ingresar una cantidad mayor.
           </div>
         )}
-
       </div>
 
       <div className="pt-4">
