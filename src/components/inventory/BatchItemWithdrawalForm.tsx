@@ -5,19 +5,25 @@ import ButtonGroup from "../common/ButtonGroup/ButtonGroup";
 import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
 import { useVolunteersWithRank } from "@/hooks/inventory/querys/useVolunteersWithRank";
 import { useAllItems } from "@/hooks/inventory/querys/useAllItems";
-import { MovementDetail, BatchItemWithdrawalSchema, BatchItemWithdrawalForm as BatchItemWithdrawalFormType, InventoryItem } from "@/types/invetory.schema";
+import {
+  MovementDetail,
+  BatchItemWithdrawalSchema,
+  BatchItemWithdrawalForm as BatchItemWithdrawalFormType,
+} from "@/types/invetory.schema";
 import { useRegisterBatchWithdrawal } from "@/hooks/inventory/mutations/useRegisterBatchWithdrawal";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
-import { getInventoryItems } from "@/api/InventoryAPI";
 import toast from "react-hot-toast";
+import Loader from "../common/Loader";
 
 export default function BatchItemWithdrawalForm() {
-  const { data: volunteers } = useVolunteersWithRank();
-  const { data: items } = useAllItems();
+  const { data: volunteers, isLoading: isLoadingVolunteers } = useVolunteersWithRank();
+  const { data: items, isLoading: isLoadingItems } = useAllItems();
+  const isLoadingForm = isLoadingVolunteers || isLoadingItems;
   const { mutate, isPending } = useRegisterBatchWithdrawal();
+  const navigate = useNavigate();
 
   const volunteerOptions = volunteers?.map(v => ({
     id: v.volunteerId,
@@ -28,8 +34,6 @@ export default function BatchItemWithdrawalForm() {
     id: i.itemId,
     name: i.name,
   })) ?? [];
-
-  const navigate = useNavigate();
 
   const { control, handleSubmit: formSubmit, formState: { errors }, setValue, trigger } = useForm<BatchItemWithdrawalFormType>({
     resolver: zodResolver(BatchItemWithdrawalSchema),
@@ -42,7 +46,6 @@ export default function BatchItemWithdrawalForm() {
   const [selectedVolunteerName, setSelectedVolunteerName] = useState('');
   const [selectedItemName, setSelectedItemName] = useState('');
   const [selectedItems, setSelectedItems] = useState<MovementDetail[]>([]);
-  const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
 
   useEffect(() => {
     setValue('items', selectedItems);
@@ -50,19 +53,6 @@ export default function BatchItemWithdrawalForm() {
       trigger('items');
     }
   }, [selectedItems, setValue, trigger]);
-
-  useEffect(() => {
-    const loadInventoryItems = async () => {
-      try {
-        const result = await getInventoryItems();
-        setInventoryItems(result.data);
-      } catch (error) {
-        toast.error("Error al cargar datos de inventario");
-      }
-    };
-    
-    loadInventoryItems();
-  }, []);
 
   const handleAddItem = () => {
     const selected = itemOptions.find(i => i.name === selectedItemName);
@@ -76,7 +66,7 @@ export default function BatchItemWithdrawalForm() {
   };
 
   const updateQuantity = (itemId: number, delta: number) => {
-    const inventoryItem = inventoryItems.find(item => item.itemId === itemId);
+    const inventoryItem = items?.find(item => item.itemId === itemId);
     if (!inventoryItem) return;
 
     setSelectedItems(prev =>
@@ -117,12 +107,16 @@ export default function BatchItemWithdrawalForm() {
     (item) => !selectedItems.some((selected) => selected.itemId === item.id)
   );
 
+  if (isLoadingForm) {
+    return <Loader message="Cargando datos para el registro de extracción..." />;
+  }  
+
   return (
     <form>
       <section className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark mb-6">
-      <div className="-mx-6 -mt-2">
-        <BackLink
-          text="Volver al listado de elementos"
+        <div className="-mx-6 -mt-2">
+          <BackLink
+            text="Volver al listado de elementos"
             link="/inventory/list"
             className="pt-0"
           />
@@ -147,6 +141,7 @@ export default function BatchItemWithdrawalForm() {
                   setSelectedVolunteerName(value);
                 }}
                 value={selectedVolunteerName}
+                disabled={isPending}
               />
             )}
           />
@@ -164,6 +159,7 @@ export default function BatchItemWithdrawalForm() {
               options={filteredItemOptions}
               onChange={(value) => setSelectedItemName(value)}
               value={selectedItemName}
+              disabled={isPending}
             />
           </div>
           <div className="flex-none">
@@ -204,7 +200,7 @@ export default function BatchItemWithdrawalForm() {
               ) : (
                 selectedItems.map(item => {
                   const itemName = itemOptions.find(i => i.id === item.itemId)?.name ?? "—";
-                  const availableQuantity = inventoryItems.find(i => i.itemId === item.itemId)?.availableQuantity ?? 0;
+                  const availableQuantity = items?.find(i => i.itemId === item.itemId)?.availableQuantity ?? 0;
                   return (
                     <tr key={item.itemId} className="border border-stroke dark:border-strokedark">
                       <td className="py-2 px-4 border border-stroke dark:border-strokedark">{itemName}</td>
@@ -251,7 +247,6 @@ export default function BatchItemWithdrawalForm() {
         {errors.items && (
           <ErrorFormMessage>{errors.items.message}</ErrorFormMessage>
         )}
-
       </section>
 
       <section>
@@ -264,7 +259,7 @@ export default function BatchItemWithdrawalForm() {
               variant: 'primary',
               isLoading: isPending,
             },
-            { type: 'link', label: 'Cancelar', to: '/inventory/list' },
+            { type: 'button', label: 'Cancelar', onClick: () => navigate("/inventory/list"), disabled: isPending, variant: 'secondary' },
           ]}
         />
       </section>

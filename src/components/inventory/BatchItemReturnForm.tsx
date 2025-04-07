@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import BackLink from "../common/BackLink/BackLink";
@@ -12,12 +11,13 @@ import { Item, BatchItemReturnSchema } from "@/types/invetory.schema";
 import { useNavigate } from "react-router-dom";
 import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
 import { z } from "zod";
+import Loader from "../common/Loader";
 
 type BatchItemReturnSchemaType = z.infer<typeof BatchItemReturnSchema>;
 
 export default function BatchItemReturnForm() {
-  const [selectedVolunteerName, setSelectedVolunteerName] = useState<string>("");
   const [returnQuantities, setReturnQuantities] = useState<Record<number, number>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     control,
@@ -30,7 +30,7 @@ export default function BatchItemReturnForm() {
 
   const volunteerId = watch("volunteerId");
 
-  const { data: volunteers = [] } = useVolunteersWithAnyPendingReturns();
+  const { data: volunteers = [], isLoading: isLoadingVolunteers } = useVolunteersWithAnyPendingReturns();
   const { data: owedItems = [], isLoading } = useItemsOwedByVolunteer(volunteerId ?? 0);
   const { mutate: registerReturn, isPending } = useRegisterBatchReturn();
   const navigate = useNavigate();
@@ -62,8 +62,11 @@ export default function BatchItemReturnForm() {
       }));
 
     if (itemsToReturn.length === 0) {
-      return toast.error("Debes seleccionar al menos un elemento para devolver");
+      setSubmitError("Debes seleccionar al menos un elemento para devolver");
+      return;
     }
+
+    setSubmitError(null);
 
     registerReturn(
       {
@@ -78,7 +81,9 @@ export default function BatchItemReturnForm() {
     );
   };
 
-  const selectedItems = Object.values(returnQuantities).filter((q) => q > 0);
+  if (isLoadingVolunteers) {
+    return <Loader message="Cargando datos para el registro de devolución..." />;
+  }
 
   return (
     <form>
@@ -110,11 +115,11 @@ export default function BatchItemReturnForm() {
                 onChange={(value) => {
                   const selected = volunteers.find((v) => v.volunteerWithGrade === value);
                   field.onChange(selected ? String(selected.volunteerId) : "");
-                  setSelectedVolunteerName(selected?.volunteerWithGrade ?? "");
                 }}
                 value={
                   volunteers.find((v) => v.volunteerId === Number(field.value))?.volunteerWithGrade || ""
                 }
+                disabled={isPending}
               />
             )}
           />
@@ -183,6 +188,12 @@ export default function BatchItemReturnForm() {
               )}
             </tbody>
           </table>
+
+          {submitError && (
+            <div className="mt-2">
+              <ErrorFormMessage>{submitError}</ErrorFormMessage>
+            </div>
+          )}
         </div>
       </section>
 
@@ -197,9 +208,11 @@ export default function BatchItemReturnForm() {
               isLoading: isPending,
             },
             {
-              type: "link",
+              type: "button",
               label: "Cancelar",
-              to: "/inventory/list",
+              onClick: () => navigate("/inventory/list"),
+              disabled: isPending,
+              variant: "secondary",
             },
           ]}
         />

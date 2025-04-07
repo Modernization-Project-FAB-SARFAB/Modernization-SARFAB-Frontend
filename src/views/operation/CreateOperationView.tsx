@@ -7,9 +7,11 @@ import OperationDetailsForm from '@/components/operation/OperationDetailsForm';
 import OperationPersonnelForm from '@/components/operation/OperationPersonnelForm';
 import ButtonGroup from '@/components/common/ButtonGroup/ButtonGroup';
 import Loader from '@/components/common/Loader';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateOperationView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
   useBreadcrumb([
     { label: 'Operaciones', path: '/operation/list' },
     { label: 'Registrar nueva operación' },
@@ -108,7 +110,7 @@ export default function CreateOperationView() {
                   disabled: isSubmitting,
                   isLoading: isSubmitting,
                 },
-                { type: 'button', label: 'Cancelar', onClick: () => window.history.back(), variant: 'secondary', disabled: isSubmitting },
+                { type: 'button', label: 'Cancelar', onClick: () => navigate("/operation/list"), variant: 'secondary', disabled: isSubmitting },
               ]}
             />
           </div>

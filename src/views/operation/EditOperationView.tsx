@@ -130,7 +130,7 @@ export default function EditOperationView() {
                     variant: 'primary',
                     disabled: isSubmitting || isUpdating,
                   },
-                  { type: 'button', label: 'Cancelar', onClick: () => window.history.back(), variant: 'secondary', disabled: isSubmitting || isUpdating },
+                  { type: 'button', label: 'Cancelar', onClick: () => navigate("/operation/list"), variant: 'secondary', disabled: isSubmitting || isUpdating },
                 ]}
               />
             </div>

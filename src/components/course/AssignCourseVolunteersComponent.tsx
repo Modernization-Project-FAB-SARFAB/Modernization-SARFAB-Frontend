@@ -260,7 +260,7 @@ export default function AssignCourseVolunteersComponent({ course, volunteersWith
               {
                 type: "button",
                 label: "Cancelar",
-                onClick: window.history.back,
+                onClick: () => navigate("/courses/list"),
                 variant: "secondary",
                 disabled: isAssigning,
               },

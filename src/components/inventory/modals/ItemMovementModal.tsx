@@ -6,13 +6,11 @@ import { ItemMovementForm } from "../forms/ItemMovementForm";
 import {
   InventoryMovementForm,
   InventoryMovementSchema,
-  VolunteerPendingReturn,
 } from "@/types/invetory.schema";
 import { useItemById } from "@/hooks/inventory/querys/useItemById";
 import { useItemOwedQuantityByVolunteer } from "@/hooks/inventory/querys/useItemOwedQuantityByVolunteer";
 import { usePendingReturnsByItemId } from "@/hooks/inventory/querys/usePendingReturnsByItemId";
 import { useVolunteersWithRank } from "@/hooks/inventory/querys/useVolunteersWithRank";
-import { VolunteerWithRank } from "@/types/operationContext.schema";
 import Loader from "@/components/common/Loader";
 import Spinner from "@/components/common/Spinner/Spinner";
 
@@ -40,9 +38,10 @@ export function ItemMovementModal({
     resolver: zodResolver(InventoryMovementSchema),
     defaultValues: {
       itemId: 0,
-      volunteerId: undefined as unknown as number,
-      quantity: undefined as unknown as number,
+      volunteerId: 0,
+      quantity: 1,
     },
+    mode: "onChange",
   });
 
   useEffect(() => {

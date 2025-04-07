@@ -82,13 +82,15 @@ export function ItemMovementForm({
             });
             if (selected) {
               setValue("volunteerId", selected.volunteerId);
-              trigger("volunteerId");
+            } else {
+              setValue("volunteerId", 0);
             }
+            trigger("volunteerId");
           }}
         />
-        {isSubmitted && errors.volunteerId && (
-          <ErrorFormMessage>{errors.volunteerId.message}</ErrorFormMessage>
-        )}
+        {errors.volunteerId && (
+  <ErrorFormMessage>Debe seleccionar un voluntario válido</ErrorFormMessage>
+)}
       </div>
 
       <div className="space-y-1">

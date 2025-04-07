@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 import { returnBatchItems } from "@/api/InventoryAPI";
 import { InventoryBatchMovementForm } from "@/types/invetory.schema";
 

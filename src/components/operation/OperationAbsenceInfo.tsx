@@ -11,6 +11,7 @@ import Modal from '@/components/common/Modal/Modal';
 import ButtonGroup from '../common/ButtonGroup/ButtonGroup';
 import { OperationStatusModal } from './OperationStatusModal';
 import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from 'react-router-dom';
 
 export default function OperationAbsenceInfo({
   data,
@@ -21,6 +22,7 @@ export default function OperationAbsenceInfo({
 }) {
   const { mutate: finalizeChanges, isPending } = useRegisterDemeritAndUpdateStatus();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const [selectedPerson, setSelectedPerson] = useState<{ personId: number; fullName: string } | null>(null);
   const [observation, setObservation] = useState('');
@@ -92,15 +94,9 @@ export default function OperationAbsenceInfo({
         setPendingFinalize(false);
         setShowFinalizeModal(false);
         queryClient.invalidateQueries({ queryKey: ['operationDetail', operationId] });
-        window.history.pushState(null, '', '/operation/list');
-      window.dispatchEvent(new PopStateEvent('popstate'));
+        navigate("/operation/list");
       },
     });
-  };
-
-  const handleCancel = () => {
-    setAttendanceList([]);
-    window.history.back();
   };
 
   return (
@@ -198,7 +194,7 @@ export default function OperationAbsenceInfo({
             {
               type: 'button',
               label: 'Cancelar',
-              onClick: handleCancel,
+              onClick: () => navigate("/operation/list"),
               variant: 'secondary',
               disabled: isPending,
             },
