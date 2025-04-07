@@ -9,13 +9,13 @@ import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import { useNavigate } from 'react-router-dom';
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import Loader from "@/components/common/Loader";
+import DeleteNotificationModal from "@/components/notifications/deleteNotificationModal";
 
 export default function NotificationListView() {
   const [filtro, setFiltro] = useState<'todas' | 'leidas' | 'no-leidas'>('todas');
   const [busqueda, setBusqueda] = useState("");
   const { data: notificaciones = [], isLoading: cargando } = useAllNotifications();
   const { mutate: marcarComoLeida } = useMarkNotificationAsRead();
-  const { mutate: eliminarNotificacion, isPending: eliminando } = useDeleteNotification();
   const navigate = useNavigate();
 
   const breadcrumbItems = [
@@ -114,7 +114,7 @@ export default function NotificationListView() {
   };
 
   const manejarEliminarNotificacion = (id: number) => {
-    eliminarNotificacion(id);
+    navigate(`?delete-notification=true&notificationId=${id}`)
   };
 
   const manejarMarcarTodasComoLeidas = () => {
@@ -223,7 +223,6 @@ export default function NotificationListView() {
                       <button
                         onClick={() => manejarEliminarNotificacion(notificacion.id)}
                         className="flex items-center gap-1 rounded-md bg-danger px-3 py-1 text-xs text-white hover:bg-opacity-90"
-                        disabled={eliminando}
                       >
                         <RiDeleteBinLine size={14} />
                         <span>Eliminar</span>
@@ -268,6 +267,7 @@ export default function NotificationListView() {
           </div>
         )}
       </div>
+      <DeleteNotificationModal />
     </>
   );
 }
