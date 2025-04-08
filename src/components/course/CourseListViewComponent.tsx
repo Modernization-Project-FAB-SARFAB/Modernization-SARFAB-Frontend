@@ -8,54 +8,57 @@ import { Course } from "@/types/courses.schema";
 import { ReactNode } from "react";
 
 interface CourseListViewComponentProps {
-    breadcrumb: { label: string; path?: string }[];
-    columns: ColumnDef<Course, any>[];
-    modalComponent?: ReactNode;
-    initialSearchValue?: string;
-    onOpenCourseModal: () => void;
+  breadcrumb: { label: string; path?: string }[];
+  columns: ColumnDef<Course, any>[];
+  modalComponent?: ReactNode;
+  initialSearchValue?: string;
+  onOpenCourseModal: () => void;
 }
 
-export function CourseListViewComponent({ 
-    breadcrumb, 
-    columns, 
-    modalComponent,
-    initialSearchValue,
-    onOpenCourseModal
+export function CourseListViewComponent({
+  breadcrumb,
+  columns,
+  modalComponent,
+  initialSearchValue,
+  onOpenCourseModal
 }: CourseListViewComponentProps) {
-    useBreadcrumb(breadcrumb);
+  useBreadcrumb(breadcrumb);
 
-    const {
-        data, 
-        totalPages,
-        isLoading, 
-        refetch, 
-        searchValue,
-        setSearchValue, 
-        pageIndex, 
-        setPageIndex, 
-        pageSize, 
-        setPageSize
-    } = useCourses({ initialSearchValue });
+  const {
+    data,
+    totalPages,
+    isLoading,
+    refetch,
+    searchValue,
+    setSearchValue,
+    pageIndex,
+    setPageIndex,
+    pageSize,
+    setPageSize
+  } = useCourses({ initialSearchValue });
 
-    return (
-        <>
-            <CourseHeader onOpenCourseModal={onOpenCourseModal} />
-            <CourseFilters
-                searchValue={searchValue} 
-                setSearchValue={setSearchValue}
-            />
-            <CourseTable
-                isLoading={isLoading} 
-                data={data} 
-                totalPages={totalPages}
-                columns={columns}
-                pageIndex={pageIndex} 
-                pageSize={pageSize}
-                setPageIndex={setPageIndex} 
-                setPageSize={setPageSize} 
-                refetch={refetch}
-            />
-            {modalComponent}
-        </>
-    );
+  const hasFilters = !!(searchValue);
+
+  return (
+    <>
+      <CourseHeader onOpenCourseModal={onOpenCourseModal} />
+      <CourseFilters
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
+      <CourseTable
+        isLoading={isLoading}
+        data={data}
+        totalPages={totalPages}
+        columns={columns}
+        pageIndex={pageIndex}
+        pageSize={pageSize}
+        setPageIndex={setPageIndex}
+        setPageSize={setPageSize}
+        refetch={refetch}
+        hasFilters={hasFilters}
+      />
+      {modalComponent}
+    </>
+  );
 }

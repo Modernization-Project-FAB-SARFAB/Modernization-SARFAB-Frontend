@@ -1,11 +1,11 @@
-import { RiHistoryLine } from "@remixicon/react";
-
-export function NoMovementHistoryMessage() {
+export function NoMovementHistoryMessage({ hasFilters }: { hasFilters: boolean }) {
   return (
-    <div className="flex flex-col items-center justify-center py-8">
-      <RiHistoryLine size={48} className="text-gray-400 mb-4" />
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">No hay movimientos registrados</h3>
-      <p className="text-gray-500">No se encontraron movimientos en el historial.</p>
+    <div className="h-[60vh] flex flex-col items-center justify-center">
+      <p className="text-gray-500 text-center px-4">
+        {hasFilters
+          ? "No se encontraron movimientos en el historial con los filtros aplicados."
+          : "No hay movimientos registrados."}
+      </p>
     </div>
   );
 }

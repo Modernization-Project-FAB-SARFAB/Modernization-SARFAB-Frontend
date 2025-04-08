@@ -13,6 +13,8 @@ export default function RequesterListComponent({ breadcrumb, columns }: Requeste
     pageSize, setPageSize, isLoading
   } = useRequester();
 
+  const hasFilters = searchValue !== "";
+
   return (
     <>
       <RequesterFilters
@@ -28,6 +30,7 @@ export default function RequesterListComponent({ breadcrumb, columns }: Requeste
         setPageSize={setPageSize}
         refetch={refetch}
         isLoading={isLoading}
+        hasFilters={hasFilters}
       />
     </>
   );

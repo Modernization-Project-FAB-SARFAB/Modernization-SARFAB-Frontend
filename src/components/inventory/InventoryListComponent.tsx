@@ -23,6 +23,8 @@ export function InventoryListComponent(props: InventoryListComponentProps) {
     setPageSize,
   } = useInventoryItems();
 
+  const hasFilters = !!(searchValue || orderByNameAsc);
+
   return (
     <>
       <InventoryHeader />
@@ -42,6 +44,7 @@ export function InventoryListComponent(props: InventoryListComponentProps) {
         setPageIndex={setPageIndex}
         setPageSize={setPageSize}
         refetch={refetch}
+        hasFilters={hasFilters}
       />
     </>
   );

@@ -3,7 +3,6 @@ import { useMovementHistory } from '@/hooks/inventory/querys/useMovementHistory'
 import { MovementHistoricalListComponentProps } from './types/MovementHistoricalListComponentProps';
 import { MovementHistoricalFilters } from './MovementHistoricalFilters';
 import { MovementHistoricalTable } from './MovementHistoricalTable';
-import { InventoryHeader } from './InventoryHeader';
 
 export function MovementHistoricalListComponent(props: MovementHistoricalListComponentProps) {
   const { breadcrumb, columns } = props;
@@ -26,6 +25,7 @@ export function MovementHistoricalListComponent(props: MovementHistoricalListCom
     pageSize,
     setPageSize,
   } = useMovementHistory();
+  const hasFilters = !!(searchValue || movementType || startDate || endDate);
 
   return (
     <>
@@ -49,6 +49,7 @@ export function MovementHistoricalListComponent(props: MovementHistoricalListCom
         setPageIndex={setPageIndex}
         setPageSize={setPageSize}
         refetch={refetch}
+        hasFilters={hasFilters}
       />
     </>
   );

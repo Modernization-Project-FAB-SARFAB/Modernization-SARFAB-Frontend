@@ -5,7 +5,7 @@ interface NoMilitaryMessageProps {
 }
 
 export function NoMilitaryMessage({ hasFilters }: NoMilitaryMessageProps) {
-  return (
+  return ( 
     <div className="h-fit">
       <p className="text-center py-20">
         {hasFilters

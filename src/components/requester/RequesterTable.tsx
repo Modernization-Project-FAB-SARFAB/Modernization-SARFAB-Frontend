@@ -11,6 +11,7 @@ interface RequesterTableProps {
   setPageSize: (size: number) => void;
   refetch: () => void;
   isLoading?: boolean;
+  hasFilters?: boolean;
 }
 
 export function RequesterTable({
@@ -21,12 +22,25 @@ export function RequesterTable({
   setPageIndex,
   setPageSize,
   refetch,
-  isLoading = false
+  isLoading = false,
+  hasFilters
 }: RequesterTableProps) {
   const requesters = data?.data || [];
   const totalPages = data?.totalPages || 0;
 
   if (isLoading) return <Loader />;
+
+  if (!requesters.length) {
+    return (
+      <div className="h-[60vh] flex flex-col items-center justify-center text-center px-4">
+        <p className="text-gray-500">
+          {hasFilters
+            ? "No se encontraron solicitantes con los filtros aplicados."
+            : "No hay solicitantes registrados."}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto">
@@ -40,6 +54,7 @@ export function RequesterTable({
           setPageSize(pageSize);
           refetch();
         }}
+       
       />
     </div>
   );
