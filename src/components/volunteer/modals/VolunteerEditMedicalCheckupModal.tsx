@@ -28,8 +28,13 @@ export default function VolunteerEditMedicalCheckupModal() {
     };
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { register, handleSubmit, formState: { errors }, control, reset } = useVolunteerUpdateMedicalCheckupForm(initialValues);
+    const { register, handleSubmit, formState: { errors }, reset } = useVolunteerUpdateMedicalCheckupForm(initialValues);
     const mutation = useUpdateVolunteerMedicalCheckup();
+
+    // Restablecer isSubmitting cuando se abra el modal
+    useEffect(() => {
+        setIsSubmitting(false); // Resetear isSubmitting cuando el modal se abre
+    }, [isOpen]);
 
     useEffect(() => {
         if (data) {
@@ -41,9 +46,20 @@ export default function VolunteerEditMedicalCheckupModal() {
         }
     }, [data, reset]);
 
+    const handleClose = () => {
+        navigate(location.pathname, { replace: true });
+    };
+
     const handleForm = async (formData: MedicalCheckupVolunteerUpdateFormData) => {
         setIsSubmitting(true);
-        await mutation.mutateAsync({ medicalCheckupId, formData });
+        try {
+            await mutation.mutateAsync({ medicalCheckupId, formData });
+            handleClose();
+        } catch (error) {
+            console.error("Error al asignar el chequeo médico", error);
+        } finally {
+            setIsSubmitting(false); // Restablecer isSubmitting cuando la mutación haya terminado
+        }
     };
 
     return (
@@ -54,14 +70,15 @@ export default function VolunteerEditMedicalCheckupModal() {
             </p>
 
             <form onSubmit={handleSubmit(handleForm)} noValidate>
-                {isLoading ?
+                {isLoading ? (
                     <div className="flex justify-center items-center">
                         <div className="spinner"></div> {/* Spinner CSS o componente */}
                         <p>Cargando...</p>
-                    </div> :
-                    isError ? (
-                        <p>Error al cargar los datos del reclutamiento.</p>
-                    ) : (<>
+                    </div>
+                ) : isError ? (
+                    <p>Error al cargar los datos del reclutamiento.</p>
+                ) : (
+                    <>
                         <div className="w-full">
                             <FormDate
                                 label="Fecha de realización del chequeo médico"
@@ -107,15 +124,15 @@ export default function VolunteerEditMedicalCheckupModal() {
 
                             <button
                                 className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
-                                onClick={() => navigate(location.pathname, { replace: true })}
+                                onClick={handleClose}
                                 type="button"
                             >
                                 Cancelar
                             </button>
                         </div>
                     </>
-                    )}
+                )}
             </form>
-        </Modal >
+        </Modal>
     );
 }

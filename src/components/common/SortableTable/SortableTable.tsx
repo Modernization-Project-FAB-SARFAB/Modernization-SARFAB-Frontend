@@ -105,8 +105,6 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                                 onChange={(e) => {
                                     let page = Number(e.target.value);
                                     if (isNaN(page)) return;
-
-                                    // Aseguramos que esté dentro del rango
                                     if (page < 1) page = 1;
                                     if (page > totalPages) page = totalPages;
 

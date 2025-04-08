@@ -43,9 +43,14 @@ export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
             );
         }
     },
-    { header: "Observaciones", accessorKey: "observations",  cell: ({ getValue }) => <ExpandableText text={getValue<string>() ?? "Sin observaciones"} />
-        
-     },
+    {
+        header: "Observaciones",
+        accessorKey: "observations",
+        cell: ({ getValue }) => {
+            const value = getValue<string>();
+            return <ExpandableText text={value && value.trim() !== "" ? value : "Sin observaciones"} />;
+        }
+    },
     {
         id: "actions",
         header: "Acciones",
@@ -57,7 +62,8 @@ export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
 export const volunteerHistoricalMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
     { header: "Fecha de chequeo", accessorKey: "checkupDate" },
     { header: "Fecha de expiración", accessorKey: "expirationDate" },
-    { header: "Observaciones", accessorKey: "observations",
+    {
+        header: "Observaciones", accessorKey: "observations",
         cell: ({ getValue }) => {
             const value = getValue<string>();
 
@@ -65,5 +71,5 @@ export const volunteerHistoricalMedicalCheckupColumnsDef: ColumnDef<MedicalCheck
                 <ExpandableText text={value ?? "Sin observaciones"} />
             );
         }
-     },
+    },
 ];
