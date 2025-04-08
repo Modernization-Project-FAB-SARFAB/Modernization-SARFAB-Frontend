@@ -5,7 +5,7 @@ import { useVolunteerFormState } from "./forms/useVolunteerFormState";
 import { useUpdateVolunteer } from "./mutations/useUpdateVolunteer";
 
 export function useDetailsVolunteerForm(data: VolunteerUpdateFormData, volunteerId: number) {
-    const { register, handleSubmit, formState: { errors }, control } = useVolunteerFormState(data);
+    const { register, handleSubmit, formState: { errors }, control, setValue } = useVolunteerFormState(data);
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const { mutate } = useUpdateVolunteer();
 
@@ -27,6 +27,7 @@ export function useDetailsVolunteerForm(data: VolunteerUpdateFormData, volunteer
         errors, 
         control, 
         isSubmitting, 
-        handleForm: onSubmit
+        handleForm: onSubmit,
+        setValue
     };
 }

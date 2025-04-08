@@ -6,10 +6,35 @@ import FormSelect from "../../common/FormSelect/FormSelect";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import { VolunteerUpdateFormProps } from "../types/VolunteerUpdateFormProps";
+import { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
 
-export default function VolunteerEditForm({ errors, register, control }: VolunteerUpdateFormProps) {
+export default function VolunteerEditForm({ errors, register, control, volunteerData, setValue }: VolunteerUpdateFormProps) {
 
     const { data: grades, isLoading, isError } = useGrades();
+
+    const departments = [{ id: 1, name: "Cochabamba" }];
+    const volunteerTypes = [{ id: "Libretista", name: "Libretista" }, { id: "Voluntario", name: "Voluntario" }];
+
+    useEffect(() => {
+        if (volunteerData && grades?.length && departments?.length && setValue) {
+          const gradeId = grades.find(
+            (grade) => grade.name === volunteerData.gradeName
+          )?.id;
+      
+          const departmentId = departments.find(
+            (dep) => dep.name === volunteerData.departmentName
+          )?.id;
+      
+          const volunteerTypeId = volunteerTypes.find(
+            (vt) => vt.name === volunteerData.volunteerType
+          )?.id;
+      
+          if (gradeId) setValue("gradeId", String(gradeId));
+          if (departmentId) setValue("departmentId", String(departmentId));
+          if (volunteerTypeId) setValue("volunteerType", volunteerTypeId);
+        }
+      }, [volunteerData, grades, departments, volunteerTypes, setValue]);
 
     return (
         <>
@@ -88,7 +113,7 @@ export default function VolunteerEditForm({ errors, register, control }: Volunte
                                 <div className="mb-4.5">
                                     <FormSelect
                                         label="Departamento"
-                                        options={[{ id: 1, name: "Cochabamba" }]}
+                                        options={departments}
                                         control={control}
                                         name="departmentId"
                                         required
@@ -152,7 +177,7 @@ export default function VolunteerEditForm({ errors, register, control }: Volunte
                                     <div className="w-full xl:w-1/2">
                                         <FormSelect
                                             label="Tipo de voluntario"
-                                            options={[{ id: 0, name: "Libretista" }, { id: 1, name: "Voluntario" }]}
+                                            options={volunteerTypes}
                                             control={control}
                                             name="volunteerType"
                                             required
@@ -273,7 +298,7 @@ export default function VolunteerEditForm({ errors, register, control }: Volunte
                             <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
                                 Datos medicos
                             </h3>
-                             <div className="p-6.5">
+                            <div className="p-6.5">
                                 <div className="mb-4.5">
                                     <FormInput label="Alergias" placeholder="Antibioticos, nuez, picadura de abeja, etc."
                                         register={register}

@@ -5,13 +5,13 @@ import VolunteerEditForm from "./VolunteerEditForm";
 import { useDetailsVolunteerForm } from "@/hooks/volunteer/useEditVolunteerForm";
 
 export default function EditVolunteerForm({ data, volunteerId }: EditVolunteerFormProps) {
-    const { register, handleSubmit, errors, control, isSubmitting, handleForm } = useDetailsVolunteerForm(data, volunteerId);
+    const { register, handleSubmit, errors, control, isSubmitting, handleForm, setValue } = useDetailsVolunteerForm(data, volunteerId);
     const navigate = useNavigate();
 
     return (
         <>
             <form onSubmit={handleSubmit(handleForm)} noValidate>
-                <VolunteerEditForm errors={errors} register={register} control={control} />
+                <VolunteerEditForm errors={errors} register={register} control={control} volunteerData={data} setValue={setValue}/>
                 <div className="p-6.5">
                     <ButtonGroup
                         buttons={[

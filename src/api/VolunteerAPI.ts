@@ -60,8 +60,6 @@ export async function getVolunteerOperationsReportList(id: Volunteer['id'], quer
     try {
         const { data } = await api.get(`/VolunteerOperation/volunteer/${id}/operations-report`, { params: queryParams })
         const response = listVolunteerOperationsReportSchema.safeParse(data);
-        console.log(response);
-        
         if (response.success) {
             return response.data;
         }
