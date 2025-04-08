@@ -1,7 +1,6 @@
 import COVER_IMAGE from "@/assets/images/signIn/sarfab2.png";
 import LOGO from '@/assets/images/signIn/logo.png'
 import ESCUDO from '@/assets/images/signIn/escudo.png'
-import LOGO_WITH_TEXT from '@/assets/images/logo/logo-sar-sidebar.webp'
 import LOGO_WITH_TEXT_LIGHT from '@/assets/images/logo/logo-sar-sidebar-light.webp'
 
 const AuthLoginLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
@@ -30,7 +29,7 @@ const AuthLoginLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                 <img
                     alt="sarfab-with-text"
                     src={LOGO_WITH_TEXT_LIGHT}
-                    className=" md:ml-auto w-80"
+                    className=" md:ml-auto w-60"
                 />
             </div>
             
