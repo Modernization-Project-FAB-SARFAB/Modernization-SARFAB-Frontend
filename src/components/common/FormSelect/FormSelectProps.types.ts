@@ -1,6 +1,6 @@
 interface FormSelectProps {
     label: string;
-    options: { id: number; name: string }[];
+    options: { id: number | string; name: string }[];
     required?: boolean;
     icon: JSX.Element;
 

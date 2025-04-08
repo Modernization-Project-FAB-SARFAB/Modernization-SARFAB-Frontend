@@ -3,11 +3,6 @@ import { RiSettings2Fill, RiUserCommunityFill, RiFileLine, RiFirstAidKitFill } f
 
 const menuItems: MenuItem[] = [
     {
-        label: "Inicio",
-        path: "/",
-        icon: <RiHome2Fill size={18} color="white" />,
-    },
-    {
         label: "Notificaciones",
         path: "/notificaciones",
         icon: <RiNotification2Line size={18} color="white" />,
@@ -85,7 +80,7 @@ const menuItems: MenuItem[] = [
         icon: <RiSettings2Fill size={18} color="white" />,
         path: "/configuration",
         subItems: [
-            { label: "Tipos y categorias de operativo", path: "/configuration/operation-category/list" },
+            { label: "Tipos y categorías de operación", path: "/configuration/operation-category/list" },
             { label: "Cursos", path: "/courses/list" },
             { label: "Solicitantes", path: "/configuration/requester/list" },
         ]

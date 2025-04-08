@@ -41,15 +41,19 @@ export function OperationTypeForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
-      <FormInput
-        label="Nombre del tipo de operativo"
-        name="name"
-        register={register}
-        placeholder="Ingrese el nombre del tipo de operativo"
-      />
-      {errors.name && (
-        <ErrorFormMessage>{errors.name.message as string}</ErrorFormMessage>
-      )}
+      <fieldset disabled={isLoading}>
+      <div>
+        <FormInput
+          label="Nombre del tipo de operación"
+          name="name"
+          register={register}
+          placeholder="Ingrese el nombre del tipo de operación"
+        />
+        {errors.name && (
+          <ErrorFormMessage>{errors.name.message as string}</ErrorFormMessage>
+        )}
+        </div>
+        </fieldset>
 
       {!editNameOnly && (
         <div className="mt-4">

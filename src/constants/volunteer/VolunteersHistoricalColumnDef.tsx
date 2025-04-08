@@ -1,19 +1,16 @@
 import { Volunteer } from "@/types/volunteer.schema";
 import { ColumnDef } from "@tanstack/react-table";
 import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
-import { useNavigate } from "react-router-dom";
 import { RiEyeFill, RiFileUserFill, RiShakeHandsFill } from "@remixicon/react";
 import ExpandableText from "@/components/common/ShowMoreText/ShowMoreText";
 
 const ActionsColumn = ({ row }: { row: any }) => {
-    const navigate = useNavigate();
-
     return (
         <DropdownMenu
             items={[
                 {
                     type: "link", label: "Ver voluntario",
-                    href: `/volunteers/${row.original.volunteerId}/view`,
+                    href: `/volunteers/${row.original.volunteerId}/view?historicalData=true`,
                     icon: <RiEyeFill size={20} />
                 },
                 {

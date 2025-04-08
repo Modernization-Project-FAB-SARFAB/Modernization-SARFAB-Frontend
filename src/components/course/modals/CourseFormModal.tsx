@@ -1,6 +1,7 @@
 import { useCourseFormLogic } from "@/hooks/courses/useCourseFormLogic";
 import Modal from "@/components/common/Modal/Modal";
 import { CourseForm } from "../forms/CourseForm";
+import Loader from "@/components/common/Loader";
 
 interface CourseFormModalProps {
   isOpen: boolean;
@@ -38,7 +39,7 @@ export function CourseFormModal({
       onClose={onClose}
     >
       {isLoading && !formProps.form ? (
-        <div className="p-8 text-center text-gray-500">Cargando datos...</div>
+        <Loader message={`Cargando datos previos para ${courseId ? 'edición' : 'registro'} de curso`} />
       ) : (
         <CourseForm
           {...formProps}

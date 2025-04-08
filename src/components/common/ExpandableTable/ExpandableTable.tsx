@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { 
-  ColumnDef, 
-  flexRender, 
-  getCoreRowModel, 
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
   getSortedRowModel,
   SortingState,
   useReactTable
@@ -33,10 +33,10 @@ interface ExpandableTableProps {
   operationColumns?: ColumnDef<any>[];
 }
 
-const ExpandableTable: React.FC<ExpandableTableProps> = ({ 
-  data, 
-  totalPages, 
-  pagination, 
+const ExpandableTable: React.FC<ExpandableTableProps> = ({
+  data,
+  totalPages,
+  pagination,
   onPaginationChange,
   categoryColumns,
   operationColumns
@@ -57,7 +57,7 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
       header: '',
       size: 50,
       cell: ({ row }) => (
-        <button 
+        <button
           onClick={() => toggleRowExpansion(row.original.categoryId)}
           className="flex items-center"
         >
@@ -86,9 +86,8 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
   const table = useReactTable({
     data,
     columns,
-    state: { 
+    state: {
       sorting,
-      pagination 
     },
     meta: {
       expandedRows,
@@ -97,7 +96,7 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    manualPagination: true,
+    // Quitamos manualPagination: true para que no intente paginar los datos
   });
 
   return (
@@ -108,17 +107,16 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
             {table.getHeaderGroups().map(headerGroup => (
               <tr key={headerGroup.id} className="bg-gray-2 text-left dark:bg-meta-4">
                 {headerGroup.headers.map(header => (
-                  <th 
-                    key={header.id} 
-                    colSpan={header.colSpan} 
-                    className={`py-4 text-left font-bold text-black dark:text-white ${
-                      header.id === 'expander' ? 'w-10 px-0 pl-1' : 
-                      header.id === 'categoryName' ? 'pl-0' : 
-                      header.id === 'actions' ? 'px-4 text-center' : 'px-4'
-                    }`}
+                  <th
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    className={`py-4 text-left font-bold text-black dark:text-white ${header.id === 'expander' ? 'w-10 px-0 pl-1' :
+                        header.id === 'categoryName' ? 'pl-0' :
+                          header.id === 'actions' ? 'px-4 text-center' : 'px-4'
+                      }`}
                   >
-                    {header.isPlaceholder 
-                      ? null 
+                    {header.isPlaceholder
+                      ? null
                       : flexRender(header.column.columnDef.header, header.getContext())
                     }
                   </th>
@@ -132,13 +130,12 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
                 <React.Fragment key={row.id}>
                   <tr className="border-b border-[#eee] dark:border-strokedark">
                     {row.getVisibleCells().map(cell => (
-                      <td 
-                        key={cell.id} 
-                        className={`py-5 ${
-                          cell.column.id === 'expander' ? 'px-0 pl-1' : 
-                          cell.column.id === 'categoryName' ? 'pl-0' : 
-                          cell.column.id === 'actions' ? 'px-4 text-center' : 'px-4'
-                        }`}
+                      <td
+                        key={cell.id}
+                        className={`py-5 ${cell.column.id === 'expander' ? 'px-0 pl-1' :
+                            cell.column.id === 'categoryName' ? 'pl-0' :
+                              cell.column.id === 'actions' ? 'px-4 text-center' : 'px-4'
+                          }`}
                       >
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                       </td>
@@ -154,9 +151,8 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
                                 {operationCols.map((col: any) => (
                                   <th
                                     key={col.accessorKey || col.id}
-                                    className={`py-2 text-left font-bold text-gray-500 dark:text-gray-400 ${
-                                      col.id === 'actions' ? 'px-4 text-center' : 'px-4'
-                                    }`}
+                                    className={`py-2 text-left font-bold text-gray-500 dark:text-gray-400 ${col.id === 'actions' ? 'px-4 text-center' : 'px-4'
+                                      }`}
                                   >
                                     {col.header}
                                   </th>
@@ -166,21 +162,20 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
                             <tbody>
                               {row.original.operations.length > 0 ? (
                                 row.original.operations.map((operation: Operation) => (
-                                  <tr 
-                                    key={operation.operationTypeId} 
+                                  <tr
+                                    key={operation.operationTypeId}
                                     className="border-b last:border-b-0"
                                   >
                                     {operationCols.map((col: any) => (
-                                      <td 
-                                        key={col.accessorKey || col.id} 
-                                        className={`py-2 ${
-                                          col.id === 'actions' ? 'px-4 text-center' : 'px-4'
-                                        }`}
+                                      <td
+                                        key={col.accessorKey || col.id}
+                                        className={`py-2 ${col.id === 'actions' ? 'px-4 text-center' : 'px-4'
+                                          }`}
                                       >
-                                        {col.accessorKey 
-                                          ? (operation as any)[col.accessorKey] 
-                                          : col.cell 
-                                            ? col.cell({ row: { original: operation } }) 
+                                        {col.accessorKey
+                                          ? (operation as any)[col.accessorKey]
+                                          : col.cell
+                                            ? col.cell({ row: { original: operation } })
                                             : null
                                         }
                                       </td>
@@ -189,11 +184,11 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
                                 ))
                               ) : (
                                 <tr>
-                                  <td 
+                                  <td
                                     colSpan={operationCols.length}
                                     className="py-6 px-4 text-center text-gray-500"
                                   >
-                                    No se han registrado tipos de operativo en esta categoría aún
+                                    No se han registrado tipos de operación en esta categoría aún
                                   </td>
                                 </tr>
                               )}
@@ -220,12 +215,12 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
       </div>
 
       <div className="h-2" />
-      <div className="flex flex-col md:flex-row justify-between my-4 gap-4">
+      <div className="flex flex-col md:flex-row justify-center md:justify-between my-4 gap-4 text-center">
         <div className="text-sm">
           Mostrando {table.getRowModel().rows.length.toLocaleString()} de{' '}
-          {table.getRowCount().toLocaleString()} Filas
+          {data.length.toLocaleString()} Filas
         </div>
-        <div className='flex flex-wrap items-center gap-2'>
+        <div className="flex flex-wrap justify-center items-center gap-2">
           <button
             className="border rounded p-1"
             onClick={() => onPaginationChange({ pageIndex: pagination.pageIndex - 1, pageSize: pagination.pageSize })}
@@ -234,8 +229,13 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
             {'<'}
           </button>
           <span className="flex items-center gap-1 text-sm">
-            <span className="hidden sm:inline">Página</span> <strong>{pagination.pageIndex}</strong> <span className="hidden sm:inline">de</span> <strong>{totalPages}</strong>
+            <span className="hidden sm:inline">Página</span>
+            <strong>{pagination.pageIndex}</strong>
+            <span className="sm:hidden">/</span>
+            <span className="hidden sm:inline">de</span>
+            <strong>{totalPages}</strong>
           </span>
+
           <button
             className="border rounded p-1"
             onClick={() => onPaginationChange({ pageIndex: pagination.pageIndex + 1, pageSize: pagination.pageSize })}

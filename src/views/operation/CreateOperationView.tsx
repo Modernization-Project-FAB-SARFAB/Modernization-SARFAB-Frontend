@@ -6,9 +6,12 @@ import { useState } from 'react';
 import OperationDetailsForm from '@/components/operation/OperationDetailsForm';
 import OperationPersonnelForm from '@/components/operation/OperationPersonnelForm';
 import ButtonGroup from '@/components/common/ButtonGroup/ButtonGroup';
+import Loader from '@/components/common/Loader';
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateOperationView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
   useBreadcrumb([
     { label: 'Operaciones', path: '/operation/list' },
     { label: 'Registrar nueva operación' },
@@ -46,6 +49,7 @@ export default function CreateOperationView() {
     operationContext,
     volunteers,
     military,
+    isLoading,
   } = useOperationForm(initialValues);
 
   const mutation = useCreateOperation();
@@ -67,28 +71,34 @@ export default function CreateOperationView() {
     }
   };
 
-  return (
+  return isLoading ? (
+    <Loader message="Cargando datos previos para registrar la operación" />
+  ) : (
     <div className="container mx-auto p-4">
       <form
         onSubmit={handleSubmit(handleForm)}
         className="flex flex-col md:flex-row gap-6"
       >
-        <div className="flex-1">
-          <OperationDetailsForm
-            register={register}
-            control={control}
-            errors={errors}
-            operationContext={operationContext}
-          />
+        <div className="flex-1 w-full md:w-1/2">
+          <fieldset disabled={isSubmitting} className="w-full h-full">
+            <OperationDetailsForm
+              register={register}
+              control={control}
+              errors={errors}
+              operationContext={operationContext}
+            />
+          </fieldset>
         </div>
 
-        <div className="flex-1 flex flex-col">
-          <OperationPersonnelForm
-            errors={errors}
-            setValue={setValue}
-            military={military}
-            volunteers={volunteers}
-          />
+        <div className="flex-1 flex flex-col w-full md:w-1/2">
+          <fieldset disabled={isSubmitting} className="w-full">
+            <OperationPersonnelForm
+              errors={errors}
+              setValue={setValue}
+              military={military}
+              volunteers={volunteers}
+            />
+          </fieldset>
           <div className="mt-4 flex justify-end">
             <ButtonGroup
               buttons={[
@@ -100,7 +110,7 @@ export default function CreateOperationView() {
                   disabled: isSubmitting,
                   isLoading: isSubmitting,
                 },
-                { type: 'link', label: 'Cancelar', to: '/operation/list' },
+                { type: 'button', label: 'Cancelar', onClick: () => navigate("/operation/list"), variant: 'secondary', disabled: isSubmitting },
               ]}
             />
           </div>

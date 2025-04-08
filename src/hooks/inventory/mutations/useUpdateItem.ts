@@ -12,7 +12,6 @@ interface UpdateItemParams {
 export function useUpdateItem() {
   return useMutation({
     mutationFn: ({ id, formData }: UpdateItemParams) => updateItem(id, formData),
-    onError: () => toast.error("Ocurrió un error al actualizar el elemento"),
-    onSuccess: () => toast.success("Elemento actualizado correctamente"),
+    onError: () => toast.error("Ocurrió un error al actualizar el elemento")
   });
 }

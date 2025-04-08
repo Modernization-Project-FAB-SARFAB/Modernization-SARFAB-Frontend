@@ -29,7 +29,6 @@ export function MovementHistoricalListComponent(props: MovementHistoricalListCom
 
   return (
     <>
-      <InventoryHeader />
       <MovementHistoricalFilters
         searchValue={searchValue}
         setSearchValue={setSearchValue}

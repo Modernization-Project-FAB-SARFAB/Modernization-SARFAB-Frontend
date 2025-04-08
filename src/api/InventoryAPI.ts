@@ -9,7 +9,8 @@ import {
   InventoryItem,
   VolunteerPendingReturn,
   MovementHistory,
-  VolunteerWithPending
+  VolunteerWithPending,
+  ExtractableItem
 } from "@/types/invetory.schema";
 import { GetInventoryItemsParams, GetMovementHistoryParams } from "@/api/types/InventoryAPIType.type";
 import { isAxiosError } from "axios";
@@ -77,7 +78,7 @@ export async function returnBatchItems(formData: InventoryBatchMovementForm) {
 }
 
 // Get all items (id + name)
-export async function getAllItems(): Promise<{ itemId: number; name: string }[]> {
+export async function getAllItems(): Promise<ExtractableItem[]> {
   const { data } = await api.get("/Item/all-items");
   return data;
 }

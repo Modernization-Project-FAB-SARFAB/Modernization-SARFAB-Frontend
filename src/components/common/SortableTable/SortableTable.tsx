@@ -62,7 +62,7 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                             {table.getRowModel().rows.slice(0, 10).map(row => (
                                 <tr key={row.id} className="border-b border-[#eee] dark:border-strokedark">
                                     {row.getVisibleCells().map(cell => (
-                                        <td key={cell.id} className={`py-5 px-4 text-black dark:text-white`}>
+                                        <td key={cell.id} className={`py-5 px-4 text-black dark:text-white relative`}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </td>
                                     ))}

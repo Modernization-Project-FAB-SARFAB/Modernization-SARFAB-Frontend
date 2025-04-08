@@ -16,21 +16,15 @@ export function OperationListComponent(props: OperationListComponentProps) {
 
   const { data: operationContext } = useOperationContext();
 
-  const municipalityOptions = [
-    { id: 0, name: 'Todos' },
-    ...operationContext?.municipalities.map(m => ({
-      id: m.municipalityId,
-      name: m.name
-    })) || []
-  ];
+  const municipalityOptions = operationContext?.municipalities.map(m => ({
+    id: m.municipalityId,
+    name: m.name
+  })) || [];
   
-  const categoryOptions = [
-    { id: 0, name: 'Todos' },
-    ...operationContext?.operationCategories.map(c => ({
-      id: c.operationCategoryId,
-      name: c.name
-    })) || []
-  ];
+  const categoryOptions = operationContext?.operationCategories.map(c => ({
+    id: c.operationCategoryId,
+    name: c.name
+  })) || [];
   
   const statusOptions = [
     { id: 1, name: 'Activa' },

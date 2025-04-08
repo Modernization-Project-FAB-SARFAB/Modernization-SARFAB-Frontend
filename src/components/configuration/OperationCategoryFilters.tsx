@@ -15,7 +15,7 @@ export function OperationCategoryFilters({
         name='searchTerm' 
         value={searchValue} 
         onChange={setSearchValue} 
-        placeholder="Buscar por nombre de categoría" 
+        placeholder="Buscar por nombre de categoría o nombre de tipo de operación" 
       />
     </div>
   );

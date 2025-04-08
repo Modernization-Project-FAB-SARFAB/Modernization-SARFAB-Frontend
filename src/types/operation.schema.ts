@@ -119,7 +119,6 @@ export const AbsenceMarkSchema = BaseOperationSchema.omit({ address: true }).ext
   municipalityName: z.string(),
   provinceName: z.string(),
   volunteers: z.array(OperationPersonnelSchema),
-  
 })
 
 export type AbsenceMarkResponse = z.infer<typeof AbsenceMarkSchema>;

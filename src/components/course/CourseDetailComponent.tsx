@@ -6,14 +6,14 @@ import BackLink from "../common/BackLink/BackLink";
 export default function CourseDetailComponent({ course }: { course: CourseDetail }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
-  
+
   const totalPages = Math.ceil(course.participants.length / itemsPerPage);
-  
+
   const currentParticipants = course.participants.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -22,9 +22,9 @@ export default function CourseDetailComponent({ course }: { course: CourseDetail
     <section>
       <div className="flex flex-col gap-6">
         <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
-        <div className="-mx-6 -mt-2">
-          <BackLink
-            text="Regresar al listado de cursos"
+          <div className="-mx-6 -mt-2">
+            <BackLink
+              text="Regresar al listado de cursos"
               link="/courses/list"
               className="pt-0"
             />
@@ -41,13 +41,13 @@ export default function CourseDetailComponent({ course }: { course: CourseDetail
               defaultValue={course.name}
               className="bg-gray text-black dark:text-white text-center"
             />
-            
+
             <div className="w-full">
               <label htmlFor="description" className="mb-2.5 block text-black dark:text-white">
                 Descripción del curso
               </label>
               <div className="relative">
-                <div 
+                <div
                   className="w-full rounded border-[1.5px] border-stroke bg-gray py-3 px-5 pr-10 font-medium outline-none dark:border-form-strokedark dark:bg-form-input text-black dark:text-white text-left whitespace-pre-wrap"
                 >
                   {course.description}
@@ -95,21 +95,17 @@ export default function CourseDetailComponent({ course }: { course: CourseDetail
                         {participant.rank}
                       </td>
                       <td className="py-4 px-4 text-center text-black dark:text-white">
-                        {new Date(participant.completionDate).toLocaleDateString('es-ES', {
-                          day: '2-digit',
-                          month: '2-digit',
-                          year: 'numeric'
-                        })}
+                      {participant.completionDate.split('-').reverse().join('/')}
                       </td>
                     </tr>
                   ))
                 )}
               </tbody>
             </table>
-            
+
             {course.participants.length > 0 && (
-              <div className="flex items-center justify-between mt-6 border-t border-stroke py-5 px-4 dark:border-strokedark">
-                <div className="flex items-center gap-3">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mt-6 border-t border-stroke py-5 px-4 dark:border-strokedark">
+                <div className="flex items-center gap-3 justify-center sm:justify-start">
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage <= 1}
@@ -117,13 +113,14 @@ export default function CourseDetailComponent({ course }: { course: CourseDetail
                       currentPage <= 1 ? 'opacity-50 cursor-not-allowed' : ''
                     }`}
                   >
-                    Anterior
+                    <span className="block sm:hidden">«</span>
+                    <span className="hidden sm:block">Anterior</span>
                   </button>
-                  
+
                   <div className="font-medium text-sm text-black dark:text-white">
                     Página <strong>{currentPage}</strong> de <strong>{totalPages}</strong>
                   </div>
-                  
+
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage >= totalPages}
@@ -131,17 +128,17 @@ export default function CourseDetailComponent({ course }: { course: CourseDetail
                       currentPage >= totalPages ? 'opacity-50 cursor-not-allowed' : ''
                     }`}
                   >
-                    Siguiente
+                    <span className="block sm:hidden">»</span>
+                    <span className="hidden sm:block">Siguiente</span>
                   </button>
                 </div>
-                
-                <div className="flex items-center gap-2">
+
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 items-center">
                   <span className="text-sm text-black dark:text-white">Ir a la página:</span>
                   <input
                     type="number"
                     min={1}
                     max={totalPages}
-                    defaultValue={currentPage}
                     value={currentPage}
                     onChange={(e) => {
                       const page = parseInt(e.target.value);

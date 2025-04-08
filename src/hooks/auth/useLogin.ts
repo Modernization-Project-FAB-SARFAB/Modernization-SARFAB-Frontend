@@ -13,7 +13,7 @@ export const useLogin = () => {
       toast.error(error.message || "Ha ocurrido un error inesperado");
     },
     onSuccess: () => {
-      navigate("/");
+      navigate("/notificaciones");
     },
   });
 

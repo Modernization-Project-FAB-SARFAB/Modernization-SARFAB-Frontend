@@ -1,6 +1,8 @@
+import Loader from "@/components/common/Loader";
 import AssignCourseVolunteersComponent from "@/components/course/AssignCourseVolunteersComponent";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useGetCourseById } from "@/hooks/courses/querys/useGetCourseById";
+import { useGetVolunteersWithoutCourse } from "@/hooks/courseVolunteer/querys/useGetVolunteersWithoutCourse";
 import { useParams } from "react-router-dom";
 
 export default function AssignCourseVolunteersView() {
@@ -13,18 +15,22 @@ export default function AssignCourseVolunteersView() {
   const courseIdNumber = Number(courseId);
 
   const { data: course, isLoading: isLoadingCourse, error: courseError } = useGetCourseById(courseIdNumber);
-  
-  if (isLoadingCourse) {
-    return <p className="text-center text-gray-500">Cargando datos del curso...</p>;
+  const { data: volunteers, isLoading: isLoadingVolunteers, error: volunteersError } = useGetVolunteersWithoutCourse(courseIdNumber);
+
+  const isLoading = isLoadingCourse || isLoadingVolunteers;
+  const hasError = courseError || volunteersError || !course || !volunteers;
+
+  if (isLoading) {
+    return <Loader message="Cargando datos del curso" />;
   }
-  
-  if (courseError || !course) {
-    return <p className="text-center text-red-500">Error al cargar los datos del curso</p>;
+
+  if (hasError) {
+    return <Loader message="Error al cargar los datos del curso" />;
   }
 
   return (
     <div className="container mx-auto p-4">
-      <AssignCourseVolunteersComponent course={course} />
+      <AssignCourseVolunteersComponent course={course} volunteersWithoutCourse={volunteers} />
     </div>
   );
 }

@@ -5,9 +5,10 @@ import { z } from "zod";
 import { CreateOperationCategoryForm, UpdateOperationCategoryForm } from "@/types/operationAndType.schema";
 import { useCreateOperationCategory } from "./mutations/useCreateOperationCategory";
 import { useUpdateOperationCategory } from "./mutations/useUpdateOperationCategory";
+import { useQueryClient } from "@tanstack/react-query";
 
 const categoryFormSchema = z.object({
-  name: z.string().min(1, "El nombre de la categoría es obligatorio"),
+  name: z.string().min(1, "El nombre de la categoría es obligatorio").max(100, "El nombre de la categoría debe tener máximo 100 caracteres"),
 });
 
 type FormValues = z.infer<typeof categoryFormSchema>;
@@ -25,10 +26,10 @@ export function useOperationCategoryFormLogic({
   categoryData,
   onClose,
 }: UseOperationCategoryFormLogicProps) {
+  const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const createCategory = useCreateOperationCategory();
   const updateCategory = useUpdateOperationCategory();
-
   const form = useForm<FormValues>({
     resolver: zodResolver(categoryFormSchema),
     defaultValues: { name: "" },
@@ -58,6 +59,9 @@ export function useOperationCategoryFormLogic({
         await createCategory.mutateAsync(data);
       }
       onClose();
+      queryClient.invalidateQueries({
+        queryKey: ["operation-categories"],
+      });
     } catch (error) {
       console.error("Error al guardar la categoría:", error);
     } finally {

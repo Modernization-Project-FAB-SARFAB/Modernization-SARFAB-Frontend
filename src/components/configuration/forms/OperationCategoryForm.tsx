@@ -36,16 +36,20 @@ export function OperationCategoryForm({
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="p-8 space-y-4">
-      <FormInput
-        label="Nombre de la categoría"
-        name="name"
-        type="text"
-        register={register}
-        placeholder="Ingresa el nombre de la categoría"
-      />
-      {errors.name && (
-        <ErrorFormMessage>{errors.name.message}</ErrorFormMessage>
-      )}
+      <fieldset disabled={isLoading}>
+      <div>
+        <FormInput
+          label="Nombre de la categoría"
+          name="name"
+          type="text"
+          register={register}
+          placeholder="Ingresa el nombre de la categoría"
+        />
+        {errors.name && (
+          <ErrorFormMessage>{errors.name.message}</ErrorFormMessage>
+        )}
+        </div>
+      </fieldset>
 
       <div className="pt-6">
         <ButtonGroup

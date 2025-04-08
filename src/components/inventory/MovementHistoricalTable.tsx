@@ -6,7 +6,7 @@ import { MovementHistoricalTableProps } from "./types/MovementHistoricalTablePro
 export function MovementHistoricalTable(props: MovementHistoricalTableProps) {
   const { isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch } = props;
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader message="Cargando lista del histórico de movimientos" />;
   if (!data?.data.length) return <NoMovementHistoryMessage />;
 
   return (

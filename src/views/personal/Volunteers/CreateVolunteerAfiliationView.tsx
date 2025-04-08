@@ -27,7 +27,7 @@ export default function CreateVolunteerAfiliationView() {
     email: "",
     distinctiveFeatures: "",
     volunteerType: recruitId 
-      ? (recruitData?.wantsMilitaryService ? '0' : '1') 
+      ? (recruitData?.wantsMilitaryService ? 'Libretista' : 'Voluntario') 
       : "",
     occupation: "",
     bloodType: "",
@@ -38,8 +38,8 @@ export default function CreateVolunteerAfiliationView() {
     emergencyContactAddress: "",
     emergencyContactPhone: "",
     emergencyContactMobile: "",
-    departmentId: 0,
-    gradeId: 0,
+    departmentId: "",
+    gradeId: "",
     checkupDate: "",
     expirationDate: "",
     observations: ""
@@ -67,7 +67,6 @@ export default function CreateVolunteerAfiliationView() {
     );
   }
 
-  // Si hay recruitId, ahora sí traemos los datos
   const { data: recruitData, isLoading, isError } = useRecruitData(recruitId);
 
   if (isLoading) return <p>Cargando datos del recluta...</p>;

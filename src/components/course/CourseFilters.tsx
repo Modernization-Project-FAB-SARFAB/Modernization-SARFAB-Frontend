@@ -11,7 +11,7 @@ export function CourseFilters({ searchValue, setSearchValue }: CourseFiltersProp
                 <div className="relative">
                     <FilterSearchBox
                         name="searchCourse"
-                        placeholder="Buscar cursos..."
+                        placeholder="Buscar por nombre del curso"
                         value={searchValue}
                         onChange={setSearchValue}
                         className="pl-8"

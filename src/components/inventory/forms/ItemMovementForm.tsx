@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { InventoryMovementForm } from "@/types/invetory.schema";
+import { InventoryMovementForm, VolunteerPendingReturn } from "@/types/invetory.schema";
 import FormInput from "@/components/common/FormInput/FormInput";
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import FilterDatalist from "@/components/common/FilterDatalist/FilterDatalist";
-import { useVolunteersWithRank } from "@/hooks/inventory/querys/useVolunteersWithRank";
-import { usePendingReturnsByItemId } from "@/hooks/inventory/querys/usePendingReturnsByItemId";
-import { VolunteerPendingReturn } from "@/types/invetory.schema";
 import { VolunteerWithRank } from "@/types/operationContext.schema";
+import Spinner from "@/components/common/Spinner/Spinner";
 
 interface ItemMovementFormProps {
   form: UseFormReturn<InventoryMovementForm>;
@@ -17,6 +15,9 @@ interface ItemMovementFormProps {
   onClose: () => void;
   itemId: number;
   isReturn: boolean;
+  availableQuantity: number;
+  owedQuantity?: number;
+  volunteers: (VolunteerPendingReturn | VolunteerWithRank)[];
 }
 
 export function ItemMovementForm({
@@ -26,23 +27,23 @@ export function ItemMovementForm({
   onClose,
   itemId,
   isReturn,
+  availableQuantity: _availableQuantity,
+  owedQuantity: _owedQuantity,
+  volunteers,
 }: ItemMovementFormProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitted },
     setValue,
     watch,
+    trigger,
   } = form;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { data: pendingReturns = [] } = usePendingReturnsByItemId(itemId);
-  const { data: allVolunteers = [] } = useVolunteersWithRank({ enabled: !isReturn });
-
-  const volunteers = isReturn ? pendingReturns : allVolunteers;
-
-  const volunteerId = watch("volunteerId");
+  const formVolunteerId = watch("volunteerId");
+  const volunteerId = formVolunteerId === 0 ? undefined : formVolunteerId;
 
   const selected = volunteers.find((v) => v.volunteerId === volunteerId);
   const displayName = selected
@@ -59,43 +60,73 @@ export function ItemMovementForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="p-8 space-y-4">
-      <FilterDatalist
-        name="volunteerId"
-        label="Voluntario"
-        options={volunteers.map((v) => ({
-          id: v.volunteerId,
-          name: isReturn
-            ? (v as VolunteerPendingReturn).volunteerWithGrade
-            : `${(v as VolunteerWithRank).abbreviation} - ${(v as VolunteerWithRank).lastName} ${(v as VolunteerWithRank).firstName}`,
-        }))}
-        value={displayName}
-        onChange={(value) => {
-          const selected = volunteers.find((v) => {
-            const name = isReturn
+    <form onSubmit={handleSubmit(handleFormSubmit)} className="p-0 sm:p-8 space-y-6">
+      <div className="space-y-1">
+        <FilterDatalist
+          name="volunteerId"
+          label="Voluntario"
+          options={volunteers.map((v) => ({
+            id: v.volunteerId,
+            name: isReturn
               ? (v as VolunteerPendingReturn).volunteerWithGrade
-              : `${(v as VolunteerWithRank).abbreviation} - ${(v as VolunteerWithRank).lastName} ${(v as VolunteerWithRank).firstName}`;
-            return name === value;
-          });
-          setValue("volunteerId", selected?.volunteerId ?? 0);
-        }}
-      />
-      {errors.volunteerId && (
-        <ErrorFormMessage>{errors.volunteerId.message}</ErrorFormMessage>
-      )}
+              : `${(v as VolunteerWithRank).abbreviation} - ${(v as VolunteerWithRank).lastName} ${(v as VolunteerWithRank).firstName}`,
+          }))}
+          value={displayName}
+          disabled={isLoading}
+          onChange={(value) => {
+            const selected = volunteers.find((v) => {
+              const name = isReturn
+                ? (v as VolunteerPendingReturn).volunteerWithGrade
+                : `${(v as VolunteerWithRank).abbreviation} - ${(v as VolunteerWithRank).lastName} ${(v as VolunteerWithRank).firstName}`;
+              return name === value;
+            });
+            if (selected) {
+              setValue("volunteerId", selected.volunteerId);
+            } else {
+              setValue("volunteerId", 0);
+            }
+            trigger("volunteerId");
+          }}
+        />
+        {errors.volunteerId && (
+  <ErrorFormMessage>Debe seleccionar un voluntario válido</ErrorFormMessage>
+)}
+      </div>
 
-      <FormInput
-        label="Cantidad"
-        name="quantity"
-        type="number"
-        register={register}
-        placeholder="Cantidad"
-      />
-      {errors.quantity && (
-        <ErrorFormMessage>{errors.quantity.message}</ErrorFormMessage>
-      )}
+      <div className="space-y-1">
+        <FormInput
+          label="Cantidad"
+          name="quantity"
+          type="number"
+          register={register}
+          placeholder="Cantidad"
+          readonly={isLoading}
+        />
+        {isSubmitted && errors.quantity && (
+          <ErrorFormMessage>{errors.quantity.message}</ErrorFormMessage>
+        )}
 
-      <div className="pt-6">
+        {!isReturn && (
+          <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
+            <span className="font-bold">Importante:</span> Cantidad disponible: {_availableQuantity} {(_availableQuantity === 1) ? "unidad" : "unidades"}, no puede ingresar una cantidad mayor.
+          </div>
+        )}
+
+        {isReturn && volunteerId && (
+          <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
+            <span className="font-bold">Importante:</span> El voluntario debe{" "}
+            {_owedQuantity === undefined ? (
+              <Spinner size={16} />
+            ) : (
+              `${_owedQuantity} ${_owedQuantity === 1 ? "unidad" : "unidades"}`
+            )}
+            {" "}
+            de este elemento, no puede ingresar una cantidad mayor.
+          </div>
+        )}
+      </div>
+
+      <div className="pt-4">
         <ButtonGroup
           buttons={[
             {

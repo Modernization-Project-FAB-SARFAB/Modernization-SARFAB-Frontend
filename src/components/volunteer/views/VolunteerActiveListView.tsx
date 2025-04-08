@@ -28,7 +28,8 @@ export default function VolunteerActiveListView({ breadcrumb, columns, modalComp
                     ...(grades?.map(grade => ({
                         value: grade.id.toString(),
                         label: grade.name,
-                        isSelected: false
+                        isSelected: false,
+                        key: grade.id.toString()
                     })) || [])
                 ]}
                 orderByLastNameAsc={orderByLastNameAsc}
@@ -38,6 +39,7 @@ export default function VolunteerActiveListView({ breadcrumb, columns, modalComp
                 isLoading={isLoading} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
+                noItemsMessage="No existen voluntarios activos" noItemsLinkText="Agregar nuevo voluntario" noItemsLinkUrl=""
             />
             {modalComponent}
         </>

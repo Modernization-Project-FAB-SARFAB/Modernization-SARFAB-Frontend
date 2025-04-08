@@ -11,11 +11,11 @@ export function useGradePromotionVolunteer() {
     onError: (error) => {
       const errorMessage = error.message?.trim() || "Ocurrió un error al promover al voluntario";
       toast.error(errorMessage);
-      navigate("/volunteers/active-volunteers");
+      navigate(-1);
     },
     onSuccess: () => {
       toast.success("Voluntario promovido correctamente");
-      navigate("/volunteers/active-volunteers");
+      navigate(-1);
     },
   });
 }

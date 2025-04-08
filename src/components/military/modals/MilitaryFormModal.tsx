@@ -2,6 +2,7 @@ import { useMilitaryFormLogic } from '@/hooks/military/forms/useMilitaryFormLogi
 import Modal from '@/components/common/Modal/Modal';
 import { MilitaryForm } from './MilitaryForm';
 import { MilitaryFormModalProps } from '@/components/military/types/MilitaryFormModalProps';
+import Loader from '@/components/common/Loader';
 
 export function MilitaryFormModal({
   isOpen,
@@ -24,7 +25,7 @@ export function MilitaryFormModal({
       onClose={onClose}
     >
       {isLoading ? (
-        <div className="p-8 text-center text-gray-500">Cargando datos...</div>
+        <Loader message={`Cargando datos previos para ${militaryId ? 'edición' : 'registro'} de personal militar`} />
       ) : (
         <MilitaryForm
           {...formProps}

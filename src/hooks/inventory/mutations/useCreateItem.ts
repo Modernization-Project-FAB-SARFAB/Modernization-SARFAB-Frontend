@@ -6,6 +6,5 @@ export function useCreateItem() {
   return useMutation({
     mutationFn: createItem,
     onError: () => toast.error("Ocurrió un error al registrar el elemento"),
-    onSuccess: () => toast.success("Elemento registrado correctamente"),
   });
 }

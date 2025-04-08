@@ -75,7 +75,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                 </div>
 
                                 <div className="mb-4.5">
-                                    <FormInput label="Correo electronico" placeholder="Ingresa el correo del voluntario del voluntario"
+                                    <FormInput label="Correo electrónico" placeholder="Ingresa el correo del voluntario del voluntario"
                                         register={register}
                                         errors={errors}
                                         name="email"
@@ -152,7 +152,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                     <div className="w-full xl:w-1/2">
                                         <FormSelect
                                             label="Tipo de voluntario"
-                                            options={[{ id: 0, name: "Libretista" }, { id: 1, name: "Voluntario" }]}
+                                            options={[{ id: "Libretista", name: "Libretista" }, { id: "Voluntario", name: "Voluntario" }]}
                                             control={control}
                                             name="volunteerType"
                                             required

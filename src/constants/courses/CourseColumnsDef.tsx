@@ -21,7 +21,7 @@ const ActionsColumn = ({ row, openEditModal }: ActionsColumnProps) => {
       items={[
         {
           type: "link", 
-          label: "Asignar personas",
+          label: "Asignar voluntarios",
           onClick: () => {
             if (courseId !== undefined) {
               navigate(`/courses/${courseId}/assign-volunteers`);

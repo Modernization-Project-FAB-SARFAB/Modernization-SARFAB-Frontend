@@ -3,29 +3,41 @@ import { useUpdateStatusPersonOperation } from "./useUpdateStatusPersonOperation
 import { useCreateDemeritPoint } from "./useCreateDemeritPoint";
 import { UpdatePersonStatusForm } from "@/types/operation.schema";
 import { DemeritPoint } from "@/types/demeritPoint.schema";
+import { toast } from "react-toastify";
+
+type AttendanceEntry = {
+  statusData: UpdatePersonStatusForm;
+  demeritData?: DemeritPoint;
+};
 
 export function useRegisterDemeritAndUpdateStatus() {
-  const updateStatusMutation = useUpdateStatusPersonOperation();
-  const createDemeritMutation = useCreateDemeritPoint();
+  const { mutateAsync: createDemerit } = useCreateDemeritPoint();
+  const { mutateAsync: updateStatus } = useUpdateStatusPersonOperation();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ statusData, demeritData }: { statusData: UpdatePersonStatusForm; demeritData: DemeritPoint }) => {
+    mutationFn: async (data: AttendanceEntry[]) => {
       try {
-        await createDemeritMutation.mutateAsync(demeritData);
-
-        await updateStatusMutation.mutateAsync(statusData);
+        await Promise.all([
+          ...data.map(entry => updateStatus(entry.statusData)),
+          ...data
+            .filter(entry => entry.demeritData)
+            .map(entry => createDemerit(entry.demeritData!)),
+        ]);
       } catch (error) {
-        console.error("❌ Error en la transacción:", error);
-        throw new Error("Error al registrar demérito y actualizar estado");
+        console.error("❌ Error al aplicar cambios de asistencia:", error);
+        throw new Error("Error al registrar asistencias e inasistencias");
       }
     },
     onSuccess: async () => {
+      toast.success("Asistencias e inasistencias registradas correctamente");
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ["operationAbsence"] }),
         queryClient.invalidateQueries({ queryKey: ["demeritPoints"] }),
       ]);
     },
+    onError: () => {
+      toast.error("Ocurrió un error al registrar las asistencias");
+    },
   });
 }
-

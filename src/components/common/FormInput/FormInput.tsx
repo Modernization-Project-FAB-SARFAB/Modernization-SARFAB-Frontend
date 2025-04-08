@@ -12,6 +12,7 @@ const FormInput: React.FC<FormInputProps> = ({
   className,
   defaultValue = "",
   value,
+  title,
 }) => {
   const isControlled = readonly && value !== undefined;
 
@@ -24,6 +25,7 @@ const FormInput: React.FC<FormInputProps> = ({
         <input
           id={name}
           type={type}
+          title={title}
           placeholder={placeholder}
           {...(isControlled
             ? { value, readOnly: true }

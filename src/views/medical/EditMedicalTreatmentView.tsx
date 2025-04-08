@@ -57,7 +57,7 @@ export default function EditMedicalTreatment() {
                 <div className="p-6.5">
                     <ButtonGroup
                         buttons={[
-                            { type: "button", label: "Actualizar tratamiento", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
+                            { type: "button", label: "Actualizar", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
                             { type: "link", label: "Cancelar", to: "/medical-treatment/list" }
                         ]}
                     />

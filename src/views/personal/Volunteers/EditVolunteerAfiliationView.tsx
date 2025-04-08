@@ -1,3 +1,4 @@
+import Loader from "@/components/common/Loader";
 import EditVolunteerForm from "@/components/volunteer/forms/EditVolunteerForm";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useDetailsVolunteer } from "@/hooks/volunteer/querys/useEditVolunteerData";
@@ -11,7 +12,7 @@ export default function EditVolunteerView() {
 
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
 
-  if (isLoading) return 'Cargando...';
+  if (isLoading) return <Loader message="Cangando información del voluntario"/>;
   if (isError) return 'Error'; //<Navigate to="/404" />
   if (data) return <EditVolunteerForm data={data} volunteerId={Number(volunteerId)} />
 }

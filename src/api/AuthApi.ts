@@ -23,16 +23,18 @@ export async function authenticateUser(formData: UserLoginForm) {
 }
 
 export async function getUser() {
-   try {
-      const url = '/Auth/user';
-      const { data } = await api(url);
-      const response = userSchema.safeParse(data.user);
-      if (response.success) {
-         return response.data;
-      }
-   } catch (error) {
-      if (isAxiosError(error) && error.response) {
-         throw new Error(error.response.data.message);
-      }
-   }
+  try {
+     const url = '/Auth/user';
+     const { data } = await api(url);
+     const response = userSchema.safeParse(data.user);
+     if (response.success) {
+        return response.data;
+     }
+     return null;
+  } catch (error) {
+     if (isAxiosError(error) && error.response) {
+        throw new Error(error.response.data.message);
+     }
+     throw error;
+  }
 }

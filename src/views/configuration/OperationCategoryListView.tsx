@@ -10,6 +10,7 @@ import { RiArrowRightSLine, RiArrowDownSLine } from '@remixicon/react';
 import { OperationCategoryFormModal } from '@/components/configuration/modals/OperationCategoryFormModal';
 import { OperationTypeFormModal } from '@/components/configuration/modals/OperationTypeFormModal';
 import { EditOperationTypeModal } from '@/components/configuration/modals/EditOperationTypeModal';
+import Loader from '@/components/common/Loader';
 
 interface Operation {
   operationTypeId: number;
@@ -160,7 +161,7 @@ export default function OperationCategoryListView() {
   ];
 
   return (
-    <div className="container mx-auto p-6"> 
+    <div className="container mx-auto"> 
       <OperationCategoryHeader
         onOpenTypeModal={openTypeModal}
       />
@@ -169,9 +170,7 @@ export default function OperationCategoryListView() {
         setSearchValue={setSearchValue} 
       />
       {isLoading ? (
-        <div className="flex justify-center items-center h-40">
-          <p className="text-gray-500">Cargando datos...</p>
-        </div>
+        <Loader message="Cargando lista de categorías y tipos de operación" />
       ) : isError ? (
         <div className="flex justify-center items-center h-40">
           <p className="text-red-500">Error al cargar los datos: {error?.message}</p>

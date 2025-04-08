@@ -5,7 +5,7 @@ import { InventoryTableProps } from "./types/inventoryTableProps";
 
 export function InventoryTable(props: InventoryTableProps) {
   const { isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch } = props;
-  if (isLoading) return <Loader />;
+  if (isLoading) return <Loader message="Cargando lista de elementos" />;
   if (!data?.data.length) return <NoInventoryMessage />;
 
   return (

@@ -1,12 +1,11 @@
 import { ItemWithPendingTable } from "@/types/invetory.schema";
 import FormInput from "../common/FormInput/FormInput";
 import BackLink from "../common/BackLink/BackLink";
-
 export default function ItemDetailsWithTable({
   item,
 }: {
   item: ItemWithPendingTable;
-}) {
+  }) {
   return (
     <section className="space-y-6">
       <div className="rounded-md border border-stroke bg-white p-6 shadow-md dark:border-strokedark dark:bg-boxdark">
@@ -23,7 +22,7 @@ export default function ItemDetailsWithTable({
               name="name"
               type="text"
               readonly
-              defaultValue={item.name}
+              value={item.name}
               className="bg-gray text-black dark:text-white"
             />
           </div>
@@ -33,13 +32,13 @@ export default function ItemDetailsWithTable({
               name="totalQuantity"
               type="text"
               readonly
-              defaultValue={`${item.totalQuantity} elementos`}
+              value={`${item.totalQuantity} ${item.totalQuantity === 1 ? "elemento" : "elementos"}`}
               className="bg-gray text-black dark:text-white"
             />
           </div>
           <div className="md:col-span-2">
             <h2 className="text-2xl font-semibold mb-4 text-black dark:text-white">
-              Personas pendientes de devolución
+              Voluntarios pendientes de devolución
             </h2>
           </div>
           <div className="md:col-span-2">

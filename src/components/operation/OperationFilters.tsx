@@ -50,7 +50,7 @@ export function OperationFilter({
       </div>
       <FilterDatalist
         name="municipality"
-        label="Seleccionar municipio"
+        label="Todos los municipios"
         options={municipalityOptions}
         onChange={(value) => {
           const selected = municipalityOptions.find((option) => option.name === value);
@@ -67,7 +67,7 @@ export function OperationFilter({
         name="category"
         label="Seleccionar por categoría"
         options={[
-          { value: "", label: "Seleccionar categoría", isSelected: categoryFilter === undefined },
+          { value: "", label: "Todas las categorías", isSelected: categoryFilter === undefined },
           ...categoryOptions.map(({ id, name }) => ({
             value: id.toString(),
             label: name,

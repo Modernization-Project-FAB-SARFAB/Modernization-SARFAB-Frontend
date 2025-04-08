@@ -1,6 +1,7 @@
 import { useItemFormLogic } from "@/hooks/inventory/useItemFormLogic";
 import Modal from "@/components/common/Modal/Modal";
 import { ItemForm } from "../forms/ItemForm";
+import Loader from "@/components/common/Loader";
 
 interface ItemFormModalProps {
   isOpen: boolean;
@@ -13,7 +14,7 @@ export function ItemFormModal({
   onClose,
   itemId,
 }: ItemFormModalProps) {
-  const { isLoading, handleFormSubmit, formProps } = useItemFormLogic({
+  const { isLoading, handleFormSubmit, formProps, assignedQuantity } = useItemFormLogic({
     isOpen,
     itemId,
     onClose,
@@ -24,14 +25,14 @@ export function ItemFormModal({
       key={itemId}
       title={
         itemId
-          ? "Editar elemento en inventario"
-          : "Registrar elemento en inventario"
+          ? "Editar elemento"
+          : "Registrar elemento"
       }
       isOpen={isOpen}
       onClose={onClose}
     >
       {isLoading ? (
-        <div className="p-8 text-center text-gray-500">Cargando datos...</div>
+        <Loader message="Cargando datos previos para edición de elemento" />
       ) : (
         <ItemForm
           {...formProps}
@@ -39,6 +40,7 @@ export function ItemFormModal({
           isLoading={isLoading}
           onClose={onClose}
           itemId={itemId}
+          assignedQuantity={assignedQuantity}
         />
       )}
     </Modal>

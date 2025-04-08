@@ -14,7 +14,7 @@ export function RequesterFilters({ searchValue, setSearchValue }: RequesterFilte
             name="searchRequester"
             value={searchValue}
             onChange={setSearchValue}
-            placeholder="Buscar solicitante por nombre..."
+            placeholder="Buscar por nombre del solicitante"
             className="w-full"
           />
         </div>

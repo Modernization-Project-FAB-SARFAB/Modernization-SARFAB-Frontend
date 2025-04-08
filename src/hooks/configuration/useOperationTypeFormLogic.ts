@@ -9,7 +9,7 @@ import { useGetOperationCategories } from "./querys/useGetOperationCategories";
 import { FilterOption } from "@/components/common/FilterDatalist/FilterDatalist.type";
 
 const operationTypeFormSchema = z.object({
-  name: z.string().min(1, "El nombre del tipo de operativo es obligatorio"),
+  name: z.string().min(1, "El nombre del tipo de operación es obligatorio").max(100, "El nombre del tipo de operación debe tener máximo 100 caracteres"),
   operationCategoryId: z.number().min(1, "Debe seleccionar una categoría de operación")
 });
 
@@ -32,7 +32,7 @@ export function useOperationTypeFormLogic({
   const [selectedCategoryName, setSelectedCategoryName] = useState<string>("");
   const createType = useCreateOperationType();
   const updateType = useUpdateOperationType();
-  const { data: categories = [], isLoading: isLoadingCategories } = useGetOperationCategories();
+  const { data: categories = [], isLoading: isLoadingCategories, refetch } = useGetOperationCategories();
 
   const categoryOptions: FilterOption[] = categories.map(category => ({
     id: category.operationCategoryId,
@@ -69,6 +69,12 @@ export function useOperationTypeFormLogic({
     }
   }, [isOpen, typeId, typeData, categories, reset]);
 
+  useEffect(() => {
+    if (isOpen) {
+      refetch();
+    }
+  }, [isOpen, refetch]);
+
   const handleCategoryChange = (value: string) => {
     setSelectedCategoryName(value);
     const selectedCategory = categories.find(category => category.name === value);
@@ -86,9 +92,10 @@ export function useOperationTypeFormLogic({
       } else {
         await createType.mutateAsync(data);
       }
+      await refetch();
       onClose();
     } catch (error) {
-      console.error("Error al guardar el tipo de operativo:", error);
+      console.error("Error al guardar el tipo de operación:", error);
     } finally {
       setIsLoading(false);
     }
