@@ -1,6 +1,8 @@
 import COVER_IMAGE from "@/assets/images/signIn/sarfab2.png";
 import LOGO from '@/assets/images/signIn/logo.png'
 import ESCUDO from '@/assets/images/signIn/escudo.png'
+import LOGO_WITH_TEXT from '@/assets/images/logo/logo-sar-sidebar.webp'
+import LOGO_WITH_TEXT_LIGHT from '@/assets/images/logo/logo-sar-sidebar-light.webp'
 
 const AuthLoginLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <div className="w-full h-screen flex items-start">
@@ -23,11 +25,22 @@ const AuthLoginLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                 <img alt="sarfab" src={COVER_IMAGE} className="w-full h-full object-cover" />
             </div>
         </div>
-        <div className="w-full 2xl:w-1/2 h-full bg-[#f5f5f5] flex flex-col justify-between  p-10 sm:p-6 md:p-8 lg:p-10 xl:p-15 2xl:p-20">
-            <h1 className='text-xl text-[#060606] font-semibold'>Salvamento y Rescate de la Fuerza Aérea Boliviana</h1>
-
+        <div className="w-full 2xl:w-1/2 h-full bg-[#f5f5f5] flex flex-col justify-between p-10 sm:p-6 md:p-8 lg:p-10 xl:p-15 2xl:p-20">
+            <div className="">
+                <img
+                    alt="sarfab-with-text"
+                    src={LOGO_WITH_TEXT_LIGHT}
+                    className=" md:ml-auto w-80"
+                />
+            </div>
+            
             {children}
+
+            <div className="text-center">
+                <p>Powered 💙 by Univalle</p>
+            </div>
         </div>
+
     </div>
 );
 
