@@ -10,7 +10,7 @@ export function useAttendanceControlGuard() {
         mutationFn: attendanceControlGuard,
         onError: () => toast.error("Ocurrió un error al registrar la asistencia"),
         onSuccess: () => {
-            toast.success("Se regsitro la asistencia correctamente");
+            toast.success("Asistencia registrada correctamente");
             navigate("/guards/list");
         },
     });

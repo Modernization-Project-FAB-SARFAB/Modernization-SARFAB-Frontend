@@ -32,7 +32,7 @@ export default function MedicalTreatmentDetailsView() {
     if (isLoading || volunteersDataIsLoading) return 'Cargando...';
     if (isError) return 'Error';
     return (
-        <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div>
             <BackLink text="Volver a listado de tratamientos" iconSize={20} link="/medical-treatment/list" />
             <EditMedicalTreatmentForm volunteersData={volunteersData} register={register} errors={errors} control={control} readonly={true} watch={watch} />
         </div>

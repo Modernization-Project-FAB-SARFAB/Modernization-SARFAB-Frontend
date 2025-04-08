@@ -25,7 +25,7 @@ export function GuardFilters({ shiftData, searchValue, setSearchValue, setStartD
 
     return (
         <div className='flex flex-col gap-5.5 sm:flex-row mt-3'>
-            <FilterSearchBox name='searchTerm' value={searchValue} onChange={setSearchValue} placeholder="Buscar por nombre o carnet de identidad" />
+            <FilterSearchBox name='searchTerm' value={searchValue} onChange={setSearchValue} placeholder="Buscar por nombre" />
             <FilterSelect
                 name="status"
                 label="Seleccionar por estado"

@@ -50,7 +50,7 @@ export default function EditMedicalTreatment() {
     if (isLoading || volunteersDataIsLoading) return 'Cargando...';
     if (isError) return 'Error';
     return (
-        <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div >
             <BackLink text="Volver a listado de tratamientos" iconSize={20} link="/medical-treatment/list" />
             <form onSubmit={handleSubmit(handleForm)} noValidate>
                 <EditMedicalTreatmentForm volunteersData={volunteersData} register={register} errors={errors} control={control} readonly={false} watch={watch} />

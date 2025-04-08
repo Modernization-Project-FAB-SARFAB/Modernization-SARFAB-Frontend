@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { DateRangePicker, RangeKeyDict, createStaticRanges, defaultStaticRanges } from "react-date-range";
@@ -25,14 +25,22 @@ const customStaticRanges = createStaticRanges(
 
 
 const FilterRangeDates: React.FC<FilterRangeDateProps> = ({ onChange, refetch }) => {
+  const [isMobile, setIsMobile] = useState(false);
   const [showPicker, setShowPicker] = useState(false);
   const [range, setRange] = useState<{ startDate?: Date; endDate?: Date; key: string }[]>([
     { startDate: undefined, endDate: undefined, key: "selection" },
   ]);
 
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const handleSelect = (ranges: RangeKeyDict) => {
     const selection = ranges["selection"];
-  
+
     if (selection) {
       const formattedStartDate = selection.startDate
         ? format(selection.startDate, "yyyy/MM/dd")
@@ -40,7 +48,7 @@ const FilterRangeDates: React.FC<FilterRangeDateProps> = ({ onChange, refetch })
       const formattedEndDate = selection.endDate
         ? format(selection.endDate, "yyyy/MM/dd")
         : undefined;
-  
+
       setRange([{ startDate: selection.startDate, endDate: selection.endDate, key: "selection" }]);
       onChange({ startDate: formattedStartDate, endDate: formattedEndDate });
     }
@@ -82,12 +90,14 @@ const FilterRangeDates: React.FC<FilterRangeDateProps> = ({ onChange, refetch })
           <DateRangePicker
             editableDateInputs
             onChange={handleSelect}
-            moveRangeOnFirstSelection={false}
             ranges={range}
             staticRanges={customStaticRanges}
             locale={es}
             showDateDisplay={false}
             inputRanges={[]}
+            moveRangeOnFirstSelection={false}
+            months={isMobile ? 1 : 2}
+            direction={isMobile ? "vertical" : "horizontal"}
           />
         </div>
       )}

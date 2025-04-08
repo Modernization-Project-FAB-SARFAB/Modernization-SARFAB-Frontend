@@ -1,4 +1,5 @@
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
+import Loader from "@/components/common/Loader";
 import CreateGuardForm from "@/components/guard/CreateGuardForm";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useGuardForm } from "@/hooks/guard/forms/useGuardForm";
@@ -7,8 +8,10 @@ import { useShift } from "@/hooks/guard/querys/useShift";
 import { useVolunteerDataContext } from "@/hooks/guard/querys/useVolunteersDataContext";
 import { GuardFormData } from "@/types/guard.schema";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateGuardView() {
+    const goTo = useNavigate();
     useBreadcrumb([{ label: "GUARDIAS", path: "/guards/list" }, { label: "Registrar guardia" }]);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,14 +53,16 @@ export default function CreateGuardView() {
     return (
         <form onSubmit={handleSubmit(handleForm)} noValidate>
             {
-                (!shiftDataIsLoading && !volunteersDataIsLoading) &&
-                <CreateGuardForm setVoluntareeIds={setVoluntareeIds} volunteersData={volunteersData} shiftData={shiftData} register={register} errors={errors} control={control} />
+                (!shiftDataIsLoading && !volunteersDataIsLoading) ?
+                    <CreateGuardForm setVoluntareeIds={setVoluntareeIds} volunteersData={volunteersData} shiftData={shiftData} register={register} errors={errors} control={control} />
+                    :
+                    <Loader />
             }
             <div className="p-6.5">
                 <ButtonGroup
                     buttons={[
                         { type: "button", label: "Registrar guardia", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
-                        { type: "link", label: "Cancelar", to: "/guards/list" }
+                        { type: "button", label: "Cancelar", onClick: () => { goTo("/guards/list") }, disabled: isSubmitting}
                     ]}
                 />
             </div>
