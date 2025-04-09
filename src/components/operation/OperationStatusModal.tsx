@@ -72,14 +72,16 @@ export const OperationStatusModal = ({
           ¿Estás seguro de que deseas finalizarla?
         </p>
         <div className="w-full">
-          <FormTextArea
-            label="Observación"
-            placeholder="Añadir observaciones si es necesario"
-            name="observations"
-            defaultValue={observations}
-            register={() => ({ onChange: handleChange })}
-            disabled={isPending || isFinalizing}
-          />
+          <fieldset disabled={isFinalizing}>
+            <FormTextArea
+              label="Observación"
+              placeholder="Añadir observaciones si es necesario"
+              name="observations"
+              defaultValue={observations}
+              register={() => ({ onChange: handleChange })}
+              disabled={isPending || isFinalizing}
+            />
+          </fieldset>
         </div>
       </div>
       <div className="mt-4">

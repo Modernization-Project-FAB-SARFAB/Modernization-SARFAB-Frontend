@@ -62,12 +62,16 @@ export function ItemMovementModal({
 
   const volunteerId = form.watch("volunteerId");
 
-  const { data: owedQuantity } = useItemOwedQuantityByVolunteer(volunteerId, itemId);
+  const { data: owedQuantity } = useItemOwedQuantityByVolunteer(
+    volunteerId, 
+    itemId,
+    { enabled: isReturn && !!volunteerId && !!itemId }
+  );
 
   const {
     data: pendingReturns = [],
     isLoading: isLoadingPendingReturns,
-  } = usePendingReturnsByItemId(itemId);
+  } = usePendingReturnsByItemId(itemId, isReturn);
 
   const {
     data: allVolunteers = [],

@@ -38,6 +38,7 @@ export async function getCourses(courseName?: string, page = 1, pageSize = 10) {
       if (error.response.status === 404) return { data: [], totalPages: 0 };
       throw new Error(error.response.data.error);
     }
+    return { data: [], totalPages: 0 };
   }
 }
 
