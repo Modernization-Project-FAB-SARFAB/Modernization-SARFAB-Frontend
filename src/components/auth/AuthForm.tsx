@@ -52,11 +52,6 @@ const AuthForm: React.FC<AuthFormProps> = ({ onSubmit, isLoading }) => {
                             </div>
 
                             <div className='w-full flex items-conter justify-between'>
-                                <div className='w-full flex items-center'>
-                                    <input type='checkbox' className='w-4 h-4 mr-2' />
-                                    <p>Recordar mi contraseña</p>
-                                </div>
-
                                 <p onClick={() => setIsModalOpen(true)} className='text-pm font-medium whitespace-nowrap cursor-pointer underline underline-offset-2'>¿Olvidaste tu contraseña?</p>
                             </div>
                         </div>

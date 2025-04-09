@@ -108,7 +108,11 @@ const FilterRangeDates: React.FC<FilterRangeDateProps> = ({ onChange, refetch })
                 direction={"vertical"}
               />
               :
-              <Modal isOpen={showPicker} onClose={() => setShowPicker(false)} title="">
+              <Modal isOpen={showPicker} onClose={() => setShowPicker(false)} title="" fitContent={true}>
+                <div className="flex justify-between mb-2">
+                  <RiCloseLine size={25} className="text-gray-500 cursor-pointer" onClick={handleClear} />
+                  <span onClick={() => setShowPicker(false)}>Finalizar</span>
+                </div>
                 <div className="custom-date-range">
                   <DateRange
                     editableDateInputs
