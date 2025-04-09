@@ -3,11 +3,11 @@ import SortableTable from "../common/SortableTable/SortableTable";
 import { NoMovementHistoryMessage } from "./NoMovementHistoryMessage";
 import { MovementHistoricalTableProps } from "./types/MovementHistoricalTableProps";
 
-export function MovementHistoricalTable(props: MovementHistoricalTableProps) {
-  const { isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch } = props;
+export function MovementHistoricalTable(props: MovementHistoricalTableProps & { hasFilters: boolean }) {
+  const { isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch, hasFilters } = props;
 
   if (isLoading) return <Loader message="Cargando lista del histórico de movimientos" />;
-  if (!data?.data.length) return <NoMovementHistoryMessage />;
+  if (!data?.data.length) return <NoMovementHistoryMessage hasFilters={hasFilters} />;
 
   return (
     <SortableTable

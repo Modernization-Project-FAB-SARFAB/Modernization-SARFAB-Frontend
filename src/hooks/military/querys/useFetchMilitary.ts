@@ -1,6 +1,5 @@
 import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
 import { getMilitary } from "@/api/MilitaryAPI";
-// import { keepPreviousData } from "@tanstack/react-query";
 import { MilitaryFilters } from "@/hooks/types/militaryTypes";
 
 const fetchMilitary = async ({ queryKey }: QueryFunctionContext<[string, MilitaryFilters]>) => {
@@ -20,7 +19,6 @@ export function useFetchMilitary(filters: MilitaryFilters) {
   return useQuery({
     queryKey: ["military", filters],
     queryFn: fetchMilitary,
-    // placeholderData: keepPreviousData,
     retry: false,
   });
 }

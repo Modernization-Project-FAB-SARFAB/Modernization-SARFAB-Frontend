@@ -3,10 +3,10 @@ import SortableTable from "../common/SortableTable/SortableTable";
 import { NoInventoryMessage } from "./NoInventoryMessage";
 import { InventoryTableProps } from "./types/inventoryTableProps";
 
-export function InventoryTable(props: InventoryTableProps) {
-  const { isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch } = props;
+export function InventoryTable(props: InventoryTableProps & { hasFilters: boolean }) {
+  const { isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch, hasFilters } = props;
   if (isLoading) return <Loader message="Cargando lista de elementos" />;
-  if (!data?.data.length) return <NoInventoryMessage />;
+  if (!data?.data.length) return <NoInventoryMessage hasFilters={hasFilters} />;
 
   return (
     <SortableTable

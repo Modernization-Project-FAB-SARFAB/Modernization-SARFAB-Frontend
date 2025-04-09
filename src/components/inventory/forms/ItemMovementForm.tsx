@@ -107,13 +107,13 @@ export function ItemMovementForm({
         )}
 
         {!isReturn && (
-          <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
+          <div className="text-sm text-red-600 dark:text-red-400 mt-2 pt-2">
             <span className="font-bold">Importante:</span> Cantidad disponible: {_availableQuantity} {(_availableQuantity === 1) ? "unidad" : "unidades"}, no puede ingresar una cantidad mayor.
           </div>
         )}
 
         {isReturn && volunteerId && (
-          <div className="text-sm text-amber-600 dark:text-amber-400 mt-2 pt-2">
+          <div className="text-sm text-red-600 dark:text-red-400 mt-2 pt-2">
             <span className="font-bold">Importante:</span> El voluntario debe{" "}
             {_owedQuantity === undefined ? (
               <Spinner size={16} />

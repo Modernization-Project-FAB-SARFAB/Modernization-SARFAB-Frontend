@@ -31,6 +31,8 @@ export function OperationListComponent(props: OperationListComponentProps) {
     { id: 0, name: 'Finalizada' },
   ].map(option => ({ ...option, isSelected: option.id === statusFilterNumber }));
 
+  const hasFilters = !!(searchValue || statusFilter !== 1 || municipalityFilter || categoryFilter);
+
   return (
     <>
       <OperationHeader />
@@ -50,6 +52,7 @@ export function OperationListComponent(props: OperationListComponentProps) {
         isLoading={isLoading} data={data} columns={columns}
         pageIndex={pageIndex} pageSize={pageSize}
         setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
+        hasFilters={hasFilters}
       />
     </>
   );

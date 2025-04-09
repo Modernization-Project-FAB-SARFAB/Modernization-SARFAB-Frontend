@@ -3,10 +3,10 @@ import SortableTable from "../common/SortableTable/SortableTable";
 import { NoOperationMessage } from "./NoOperationMessage";
 import { OperationTableProps } from "./types/OperationTableProps";
 
-export function OperationTable(props: OperationTableProps) {
-  const { isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch } = props;
+export function OperationTable(props: OperationTableProps & { hasFilters: boolean }) {
+  const { isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch, hasFilters } = props;
   if (isLoading) return <Loader message="Cargando lista de operaciones..." />;
-  if (!data?.data.length) return <NoOperationMessage />;
+  if (!data?.data.length) return <NoOperationMessage hasFilters={hasFilters} />;
 
   const formattedData = data.data.map((row) => ({
     ...row,

@@ -68,16 +68,20 @@ const FilterRangeDates: React.FC<FilterRangeDateProps> = ({ onChange, refetch })
     <div className="relative w-full">
       <div
         className="relative z-20 bg-white dark:bg-form-input border border-stroke 
-                   py-3 px-6 rounded cursor-pointer flex justify-between items-center 
-                   focus-within:border-primary dark:border-form-strokedark"
+             py-3.5 px-6 rounded cursor-pointer flex justify-between items-center 
+             focus-within:border-primary dark:border-form-strokedark"
         onClick={() => setShowPicker(!showPicker)}
       >
-        <span className="text-gray-600 dark:text-white">
+        <span
+          className={`text-gray-600 dark:text-white leading-none ${range[0].startDate && range[0].endDate
+            ? 'text-base md:text-xs whitespace-nowrap'
+            : 'text-base'
+            }`}
+        >
           {range[0].startDate && range[0].endDate
             ? `${format(range[0].startDate, "dd/MM/yyyy")} - ${format(range[0].endDate, "dd/MM/yyyy")}`
             : "Seleccionar rango"}
         </span>
-
         <div className="flex gap-2 items-center">
           {range[0].startDate && range[0].endDate && (
             <RiCloseLine size={20} className="text-gray-500 cursor-pointer" onClick={handleClear} />

@@ -46,7 +46,7 @@ export default function OperationPersonnelDetail({
             </div>
           </div>
 
-          <p>Personal asignado</p>
+          <label className="mb-2.5 block text-black dark:text-white">Personal asignado</label>
           <table className="w-full table-auto text-center border-collapse border border-stroke dark:border-strokedark">
             <thead>
               <tr className="bg-gray-2 text-left dark:bg-meta-4 border border-stroke dark:border-strokedark">

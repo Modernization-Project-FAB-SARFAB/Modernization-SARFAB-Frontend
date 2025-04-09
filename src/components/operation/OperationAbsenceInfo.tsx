@@ -12,6 +12,7 @@ import ButtonGroup from '../common/ButtonGroup/ButtonGroup';
 import { OperationStatusModal } from './OperationStatusModal';
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from 'react-router-dom';
+import ErrorFormMessage from '../common/ErrorFormMessage/ErrorFormMessage';
 
 export default function OperationAbsenceInfo({
   data,
@@ -177,7 +178,11 @@ export default function OperationAbsenceInfo({
             </tbody>
           </table>
         </div>
-        {errorMessage && <p className="text-red-500 mt-4 text-right">{errorMessage}</p>}
+        {errorMessage && (
+          <div className="mt-4 text-right">
+            <ErrorFormMessage customClass="text-sm md:text-sm font-semibold">{errorMessage}</ErrorFormMessage>
+          </div>
+        )}
       </div>
 
       <div className="flex justify-end gap-4 mt-6">

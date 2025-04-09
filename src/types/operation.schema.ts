@@ -27,7 +27,8 @@ export const OperationPersonnelSchema = z.object({
 export const RequesterSchema = z.object({
   requesterName: z.string().min(1, 'Debe ingresar el nombre del solicitante').max(50, 'El nombre no puede tener más de 50 caracteres'),
   requesterPhone: z.string(),
-  requesterMobilePhone: z.string().min(1, 'Debe ingresar el celular del solicitante').max(50, 'El celular no puede tener más de 50 caracteres'),
+  requesterMobilePhone: z.string().min(1, 'Debe ingresar el celular del solicitante').max(15, 'El teléfono debe tener entre 8 y 15 dígitos')
+    .regex(/^[0-9]*$/, 'El teléfono debe contener solo números'),
 })
 
 // Active Operation
