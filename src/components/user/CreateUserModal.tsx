@@ -51,12 +51,14 @@ export default function CreateUserModal({ isOpen, onClose }: CreateUserModalProp
     return (
         <Modal isOpen={isOpen} onClose={onClose} title="Crear nuevo usuario">
             <form onSubmit={handleSubmit(handleForm)}>
-                <CreateUserForm
-                    militarsData={militaries}
-                    register={register}
-                    errors={errors}
-                    control={control}
-                />
+                <fieldset disabled={isPending}>
+                    <CreateUserForm
+                        militarsData={militaries}
+                        register={register}
+                        errors={errors}
+                        control={control}
+                    />
+                </fieldset>
                 <div className="mt-4">
                     <ButtonGroup buttons={buttons} />
                 </div>

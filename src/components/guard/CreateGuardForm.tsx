@@ -6,7 +6,7 @@ import { GuardFormProps } from "../guard/types/GuardFormProps.type";
 import FormInput from "../common/FormInput/FormInput";
 import FormSearchableSelect from "../common/FormSearchableSelect/FormSearchableSelect";
 import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Button from "../common/Button/Button";
 import VoluntareeGuardTable from "./VoluntareeGuardTable";
 import { VoluntareeGuard } from "@/types/guard.schema";
@@ -15,22 +15,31 @@ import { VoluntareeGuard } from "@/types/guard.schema";
 export default function CreateGuardForm({ setVoluntareeIds, volunteersData, shiftData, errors, register, control }: GuardFormProps) {
     const [voluntaries, setVoluntaries] = useState<VoluntareeGuard[]>([]);
     const [selectedVolunteer, setSelectedVolunteer] = useState<string>();
+    const [responsible, setResponsible] = useState<number>(0);
 
     useEffect(() => {
         setVoluntareeIds && setVoluntareeIds(voluntaries.map((v) => v.voluntareeId));
-    }, [voluntaries.map(v => v.voluntareeId).join(',')]); // Generamos una dependencia con los personIds
 
+    }, [voluntaries.map(v => v.voluntareeId).join(',')]);
 
     const shiftOptions = shiftData?.map((data) => ({
         value: data.shiftId,
         label: data.name
     }));
 
-    const volunteersOptions = volunteersData?.map((data) => ({
-        id: data.volunteerId,
-        name: `${data.lastName} ${data.firstName}, ${data.abbreviation} `
-    }));
+    const volunteersOptions = useMemo(() => {
+        const voluntariesIds = voluntaries.map(v => v.voluntareeId);
 
+        return volunteersData
+            ?.filter((data) =>
+                data.volunteerId !== responsible &&
+                !voluntariesIds.includes(data.volunteerId)
+            )
+            .map((data) => ({
+                id: data.volunteerId,
+                name: `${data.lastName} ${data.firstName}, ${data.abbreviation}`
+            })) || [];
+    }, [volunteersData, responsible, voluntaries]);
 
     const handleAddVolunteer = () => {
         if (selectedVolunteer == '') return
@@ -57,16 +66,16 @@ export default function CreateGuardForm({ setVoluntareeIds, volunteersData, shif
     return (
         <>
             <div className="grid grid-cols-1 gap-9 sm:grid-cols-2 mx-5 items-start">
-          <div className="h-auto gap-4 rounded-xl p-4 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-        <div className="-mx-6 -mt-2">
-            
-                    <BackLink
-                        text="Volver a listado de guardias"
-                        iconSize={20}
-                link="/guards/list"
-                className="pt-1"
-              />
-              </div>
+                <div className="h-auto gap-4 rounded-xl p-4 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                    <div className="-mx-6 -mt-2">
+
+                        <BackLink
+                            text="Volver a listado de guardias"
+                            iconSize={20}
+                            link="/guards/list"
+                            className="pt-1"
+                        />
+                    </div>
                     <h3 className="my-3 dark:text-white text-2xl font-semibold text-black">
                         Datos generales
                     </h3>
@@ -116,6 +125,7 @@ export default function CreateGuardForm({ setVoluntareeIds, volunteersData, shif
                                 ? volunteersOptions
                                 : [{ id: 0, name: "No hay opciones" }]}
                             control={control}
+                            onSelectionChange={(value) => setResponsible(Number(value))}
                         />
                         {errors.responsibleId && (
                             <ErrorFormMessage>{errors.responsibleId.message}</ErrorFormMessage>

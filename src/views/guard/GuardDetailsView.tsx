@@ -1,3 +1,4 @@
+import Loader from "@/components/common/Loader";
 import EditGuardForm from "@/components/guard/EditGuardForm";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useGuardForm } from "@/hooks/guard/forms/useGuardForm";
@@ -41,7 +42,7 @@ export default function GuardDetailsView() {
         }
     }, [data, reset]);
 
-    if (isLoading || shiftDataIsLoading || volunteersDataIsLoading) return 'Cargando...';
+    if (isLoading || shiftDataIsLoading || volunteersDataIsLoading) return <Loader message="Cargando datos previos" />;
     if (isError) return 'Error';
     return (
         <EditGuardForm register={register} errors={errors} control={control} readonly={true} watch={watch} volunteersData={volunteersData} shiftData={shiftData} voluntaries={voluntaries} setVoluntaries={setVoluntaries} />

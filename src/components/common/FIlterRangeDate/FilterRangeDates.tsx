@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { DateRangePicker, RangeKeyDict, createStaticRanges, defaultStaticRanges } from "react-date-range";
+import { DateRange, DateRangePicker, RangeKeyDict, createStaticRanges, defaultStaticRanges } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { RiCalendarLine, RiCloseLine } from "@remixicon/react";
 import { FilterRangeDateProps } from "./FilterRangeDateProps.type";
+import Modal from "../Modal/Modal";
+import './FilterRangeDate.css'
 
 const translationMap: Record<string, string> = {
   "Today": "Hoy",
@@ -22,7 +24,6 @@ const customStaticRanges = createStaticRanges(
     label: range.label ? translationMap[range.label] || range.label : "Sin etiqueta",
   }))
 );
-
 
 const FilterRangeDates: React.FC<FilterRangeDateProps> = ({ onChange, refetch }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -86,19 +87,38 @@ const FilterRangeDates: React.FC<FilterRangeDateProps> = ({ onChange, refetch })
       </div>
 
       {showPicker && (
-        <div className="absolute z-30 mt-2 bg-white dark:bg-gray-800 shadow-md p-4 rounded min-w-[250px] w-fit" style={{ right: 0, left: "auto" }}>
-          <DateRangePicker
-            editableDateInputs
-            onChange={handleSelect}
-            ranges={range}
-            staticRanges={customStaticRanges}
-            locale={es}
-            showDateDisplay={false}
-            inputRanges={[]}
-            moveRangeOnFirstSelection={false}
-            months={isMobile ? 1 : 2}
-            direction={isMobile ? "vertical" : "horizontal"}
-          />
+        <div className={`absolute z-30 mt-2 bg-white dark:bg-gray-800 shadow-md p-4 rounded min-w-[250px] w-fit ${!isMobile ? 'right-0 left-auto' : ''
+          }`}>
+          {
+            !isMobile ?
+              <DateRangePicker
+                editableDateInputs
+                onChange={handleSelect}
+                ranges={range}
+                staticRanges={customStaticRanges}
+                locale={es}
+                showDateDisplay={false}
+                inputRanges={[]}
+                moveRangeOnFirstSelection={false}
+                months={2}
+                direction={"vertical"}
+              />
+              :
+              <Modal isOpen={showPicker} onClose={() => setShowPicker(false)} title="">
+                <div className="custom-date-range">
+                  <DateRange
+                    editableDateInputs
+                    onChange={handleSelect}
+                    ranges={range}
+                    locale={es}
+                    showDateDisplay={false}
+                    moveRangeOnFirstSelection={false}
+                    months={2}
+                    direction="vertical"
+                  />
+                </div>
+              </Modal>
+          }
         </div>
       )}
     </div>

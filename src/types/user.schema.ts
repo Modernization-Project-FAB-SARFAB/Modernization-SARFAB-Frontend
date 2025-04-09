@@ -47,10 +47,25 @@ export const updateUserPasswordFormDataSchema = userBaseSchema.pick({
   password: z.string()
     .nonempty({ message: 'La contraseña es requerida' })
     .min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
-
   confirmPassword: z.string()
     .nonempty({ message: 'La confirmación de contraseña es requerida' })
 }).refine((data) => data.password === data.confirmPassword, {
+  message: 'Las contraseñas no coinciden',
+  path: ['confirmPassword'], // el error aparecerá en el campo confirmPassword
+});
+
+
+export const userChangePasswordFormDataSchema = userBaseSchema.pick({
+  userName: true
+}).extend({
+  lastPassword: z.string().nonempty({ message: 'La contraseña actual es requerida' }),
+  newPassword: z.string()
+    .nonempty({ message: 'La contraseña nueva es requerida' })
+    .min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
+
+  confirmPassword: z.string()
+    .nonempty({ message: 'La confirmación de contraseña es requerida' })
+}).refine((data) => data.newPassword === data.confirmPassword, {
   message: 'Las contraseñas no coinciden',
   path: ['confirmPassword'], // el error aparecerá en el campo confirmPassword
 });
@@ -63,5 +78,6 @@ export const passwordRecoveryFormDataSchema = userBaseSchema.pick({
 export type UserSchema = z.infer<typeof userBaseSchema>;
 export type CreateUserFormDataSchema = z.infer<typeof createUserFormDataSchema>;
 export type UpdateUserFormDataSchema = z.infer<typeof updateUserFormDataSchema>;
+export type UserChangePasswordFormDataSchema = z.infer<typeof userChangePasswordFormDataSchema>;
 export type UpdateUserPasswordFormDataSchema = z.infer<typeof updateUserPasswordFormDataSchema>;
 export type PasswordRecoveryFormDataSchema = z.infer<typeof passwordRecoveryFormDataSchema>

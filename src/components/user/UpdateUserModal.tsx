@@ -6,6 +6,7 @@ import { useUpdateUser } from "@/hooks/user/mutations/useUpdateUser";
 import { useUpdateUserForm } from "@/hooks/user/forms/useUpdateUserForm";
 import { useGetUserById } from "@/hooks/user/querys/useGetUserById";
 import UpdateUserForm from "./UpdateUserForm";
+import Loader from "../common/Loader";
 
 interface UpdateUserModalProps {
     isOpen: boolean;
@@ -61,15 +62,17 @@ export default function UpdateUserModal({ isOpen, onClose, userId, readonly }: U
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} title={readonly ? 'Detalles del usuario' : "Actualizar usuario"}>
-            {!isLoading &&
+            {!isLoading ?
                 <form onSubmit={handleSubmit(handleForm)}>
-                    <UpdateUserForm
-                        data={data}
-                        register={register}
-                        errors={errors}
-                        readonly={readonly}
-                        watch={watch}
-                    />
+                    <fieldset disabled={isPending}>
+                        <UpdateUserForm
+                            data={data}
+                            register={register}
+                            errors={errors}
+                            readonly={readonly}
+                            watch={watch}
+                        />
+                    </fieldset>
                     {
                         !readonly &&
                         <div className="mt-4">
@@ -77,6 +80,8 @@ export default function UpdateUserModal({ isOpen, onClose, userId, readonly }: U
                         </div>
                     }
                 </form>
+                :
+                <Loader message="Cargando datos previos" />
             }
         </Modal>
     );

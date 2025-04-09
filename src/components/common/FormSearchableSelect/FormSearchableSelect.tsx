@@ -12,6 +12,7 @@ interface FormSearchableSelectProps {
     control: any;
     defaultValue?: string | number;
     disabled?: boolean;
+    onSelectionChange?: (value: number | string) => void
 }
 
 const FormSearchableSelect: React.FC<FormSearchableSelectProps> = ({
@@ -21,6 +22,7 @@ const FormSearchableSelect: React.FC<FormSearchableSelectProps> = ({
     control,
     defaultValue = "",
     disabled = false,
+    onSelectionChange
 }) => {
     return (
         <Controller
@@ -47,6 +49,7 @@ const FormSearchableSelect: React.FC<FormSearchableSelectProps> = ({
                                 const text = e.target.value;
                                 const selectedOption = options.find(option => option.name === text);
                                 field.onChange(selectedOption ? selectedOption.id : 0);
+                                onSelectionChange && onSelectionChange(selectedOption ? selectedOption.id : 0)
                             }}
                             className="relative z-20 w-full appearance-none rounded border border-stroke 
                         bg-transparent py-3 px-6 outline-none transition 

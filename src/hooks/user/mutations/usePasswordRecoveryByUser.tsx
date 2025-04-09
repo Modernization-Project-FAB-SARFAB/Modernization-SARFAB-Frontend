@@ -5,7 +5,7 @@ import { passwordRecoveryByUser } from "@/api/UserAPI";
 export function usePasswordRecoveryByUser() {
     return useMutation({
         mutationFn: passwordRecoveryByUser,
-        onError: () => toast.error("Ocurrio un error inesperado"),
+        onError: (e) => toast.error(e.message),
         onSuccess: () => {
             toast.success("Se restauro su contrseña, revise su correo");
         },

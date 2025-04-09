@@ -31,6 +31,7 @@ export function useGetUsers({
     const [debouncedSearch] = useDebounce(searchValue, 500);
     const [debouncedStatus] = useDebounce(status, 500);
 
+    const hasFilters = Boolean(searchValue ||  status);
 
     const { data, isLoading, refetch } = useQuery({
         queryKey: ['getUsers', {
@@ -67,5 +68,6 @@ export function useGetUsers({
         setPageIndex,
         pageSize,
         setPageSize,
+        hasFilters
     };
 }

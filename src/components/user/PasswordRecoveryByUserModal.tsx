@@ -50,24 +50,26 @@ export default function PasswordRecoveryByUserModal({ isOpen, onClose }: Passwor
     return (
         <Modal isOpen={isOpen} onClose={onClose} title="Recuperar contraseña">
             <form onSubmit={handleSubmit(handleForm)}>
-                <div className="mb-4.5 flex flex-col w-full md:flex-1">
-                    <FormInput register={register} label="Correo electrónico asociado al usuario" required
-                        placeholder="Ingresa el correo electrónico"
-                        name="email"
-                    />
-                    {errors.email && (
-                        <ErrorFormMessage>{errors.email.message}</ErrorFormMessage>
-                    )}
-                </div>
-                <div className="mb-4.5 flex flex-col">
-                    <FormInput register={register} label="Nombre de usuario" required
-                        placeholder="Ingresa el nombre de usuario"
-                        name="userName"
-                    />
-                    {errors.userName && (
-                        <ErrorFormMessage>{errors.userName.message}</ErrorFormMessage>
-                    )}
-                </div>
+                <fieldset disabled={isPending}>
+                    <div className="mb-4.5 flex flex-col w-full md:flex-1">
+                        <FormInput register={register} label="Correo electrónico asociado al usuario" required
+                            placeholder="Ingresa el correo electrónico"
+                            name="email"
+                        />
+                        {errors.email && (
+                            <ErrorFormMessage>{errors.email.message}</ErrorFormMessage>
+                        )}
+                    </div>
+                    <div className="mb-4.5 flex flex-col">
+                        <FormInput register={register} label="Nombre de usuario" required
+                            placeholder="Ingresa el nombre de usuario"
+                            name="userName"
+                        />
+                        {errors.userName && (
+                            <ErrorFormMessage>{errors.userName.message}</ErrorFormMessage>
+                        )}
+                    </div>
+                </fieldset>
                 <div className="mt-4">
                     <ButtonGroup buttons={buttons} />
                 </div>

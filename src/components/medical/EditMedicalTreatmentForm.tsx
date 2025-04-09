@@ -13,7 +13,7 @@ export default function EditMedicalTreatmentForm({ volunteersData, errors, regis
         <>
             <div className="grid grid-cols-1 gap-9 sm:grid-cols-2 mx-5 items-start">
                 <div className="h-auto gap-4 rounded-xl p-4 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                    <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
+                    <h3 className="my-3 dark:text-white text-2xl font-semibold text-black">
                         Datos generales
                     </h3>
                     <div className="mb-4.5 flex flex-col">
@@ -56,7 +56,7 @@ export default function EditMedicalTreatmentForm({ volunteersData, errors, regis
                     </div>
                 </div>
                 <div className="gap-4 p-4 rounded-xl border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                    <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
+                    <h3 className="my-3 dark:text-white text-2xl font-semibold text-black">
                         Diagnostico y tratamiento
                     </h3>
                     <div className="mb-4.5">

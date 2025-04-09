@@ -48,10 +48,12 @@ export default function ChangePasswordFirstLoginModal({ isOpen, userId }: Create
         <Modal isOpen={isOpen} onClose={() => { }} title="Primer inicio de sesión">
             <h2 className="mb-2">Por seguridad debe cambiar su contraseña</h2>
             <form onSubmit={handleSubmit(handleForm)}>
-                <ChangePasswordFirstLoginForm
-                    register={register}
-                    errors={errors}
-                />
+                <fieldset disabled={isPending}>
+                    <ChangePasswordFirstLoginForm
+                        register={register}
+                        errors={errors}
+                    />
+                </fieldset>
                 <div className="mt-4">
                     <ButtonGroup buttons={buttons} />
                 </div>

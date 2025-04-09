@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
-import { CreateUserFormDataSchema, UpdateUserFormDataSchema, listUsersSchema, userBaseSchema, UserSchema, UpdateUserPasswordFormDataSchema, PasswordRecoveryFormDataSchema } from "../types";
+import { CreateUserFormDataSchema, UpdateUserFormDataSchema, listUsersSchema, userBaseSchema, UserSchema, UpdateUserPasswordFormDataSchema, PasswordRecoveryFormDataSchema, UserChangePasswordFormDataSchema } from "../types";
 
 export async function getUsers(queryParams?: Record<string, any>) {
     try {
@@ -110,7 +110,26 @@ export async function passwordRecoveryByUser(formData: PasswordRecoveryFormDataS
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.error)
+            const apiError = error.response.data;
+
+            throw new Error(apiError.message || 'Error desconocido');
+        } else {
+            throw new Error('Ha ocurrido un error inesperado');
+        }
+    }
+}
+
+export async function userChangePassword(formData: UserChangePasswordFormDataSchema) {
+    try {
+        const { data } = await api.put('/User/change-password/user', formData)
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            const apiError = error.response.data;
+
+            throw new Error(apiError.message || 'Error desconocido');
+        } else {
+            throw new Error('Ha ocurrido un error inesperado');
         }
     }
 }

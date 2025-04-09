@@ -4,14 +4,16 @@ import { RiArrowUpCircleFill } from "@remixicon/react";
 import FormTextArea from "../common/FormTextArea/FormTextArea";
 import ButtonGroup from "../common/ButtonGroup/ButtonGroup";
 import { useEndGuard } from "@/hooks/guard/mutations/useEndGuard";
+import { VolunteerAttendance } from "@/types/guard.schema";
 
 interface FinalizeGuardModalProps {
     isOpen: boolean;
     onClose: () => void;
     guardId: number;
+    volunteerAttendance: VolunteerAttendance[];
 }
 
-export const FinalizeGuardModal = ({ isOpen, onClose, guardId }: FinalizeGuardModalProps) => {
+export const FinalizeGuardModal = ({ isOpen, onClose, guardId, volunteerAttendance }: FinalizeGuardModalProps) => {
     const { mutate, isPending } = useEndGuard();
     const [observations, setObservations] = useState<string>("");
 
@@ -21,7 +23,7 @@ export const FinalizeGuardModal = ({ isOpen, onClose, guardId }: FinalizeGuardMo
 
     const handleConfirm = useCallback(() => {
         mutate(
-            { observations: observations.trim() || "Sin observaciones", guardId: guardId },
+            { observations: observations.trim() || "Sin observaciones", guardId: guardId, volunteerAttendances: volunteerAttendance },
             { onSuccess: onClose }
         );
     }, [mutate, guardId, observations, onClose]);

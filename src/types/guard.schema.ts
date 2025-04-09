@@ -9,7 +9,8 @@ const VoluntareeGuarShema = z.object({
 
 const volunteerAttendance = z.object({
     voluntareeId: z.number(),
-    status: z.number()
+    status: z.number(),
+    observation: z.string()
 })
 
 export const baseGuardSchema = z.object({
@@ -40,12 +41,13 @@ export const guardCreateFormDataSchema = baseGuardSchema.pick({
     voluntareeIds: z.array(z.number())
 })
 
-export const attendanceGuardFormDataSchema = z.object({
+export const endGuardFormData = z.object({
     guardId: z.number(),
+    observations: z.string(),
     volunteerAttendances: z.array(
         volunteerAttendance
     ),
-});
+})
 
 const shiftSchema = z.object({
     shiftId: z.number(),
@@ -53,11 +55,10 @@ const shiftSchema = z.object({
 });
 
 export const listShiftSchema = z.array(shiftSchema);
-
 export type ShiftList = z.infer<typeof listShiftSchema>;
 
 export type Guard = z.infer<typeof baseGuardSchema>;
 export type GuardFormData = z.infer<typeof guardCreateFormDataSchema>;
 export type VoluntareeGuard = z.infer<typeof VoluntareeGuarShema>;
-export type AttendanceGuardFormData = z.infer<typeof attendanceGuardFormDataSchema>;
 export type VolunteerAttendance = z.infer<(typeof volunteerAttendance)>;
+export type EndGuardFormData = z.infer<(typeof endGuardFormData)>

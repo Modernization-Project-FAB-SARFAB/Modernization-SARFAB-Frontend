@@ -1,4 +1,5 @@
 import BackLink from "@/components/common/BackLink/BackLink";
+import Loader from "@/components/common/Loader";
 import EditMedicalTreatmentForm from "@/components/medical/EditMedicalTreatmentForm";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useVolunteerDataContext } from "@/hooks/guard/querys/useVolunteersDataContext";
@@ -29,7 +30,7 @@ export default function MedicalTreatmentDetailsView() {
         }
     }, [data, reset]);
 
-    if (isLoading || volunteersDataIsLoading) return 'Cargando...';
+    if (isLoading || volunteersDataIsLoading) return <Loader message="Cargando datos previos" />;
     if (isError) return 'Error';
     return (
         <div>

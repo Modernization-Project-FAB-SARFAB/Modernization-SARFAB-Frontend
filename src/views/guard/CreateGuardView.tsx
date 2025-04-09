@@ -54,18 +54,22 @@ export default function CreateGuardView() {
         <form onSubmit={handleSubmit(handleForm)} noValidate>
             {
                 (!shiftDataIsLoading && !volunteersDataIsLoading) ?
-                    <CreateGuardForm setVoluntareeIds={setVoluntareeIds} volunteersData={volunteersData} shiftData={shiftData} register={register} errors={errors} control={control} />
+                    <>
+                        <fieldset disabled={isSubmitting}>
+                            <CreateGuardForm setVoluntareeIds={setVoluntareeIds} volunteersData={volunteersData} shiftData={shiftData} register={register} errors={errors} control={control} />
+                        </fieldset>
+                        <div className="p-6.5">
+                            <ButtonGroup
+                                buttons={[
+                                    { type: "button", label: "Registrar guardia", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
+                                    { type: "button", label: "Cancelar", onClick: () => { goTo("/guards/list") }, variant: 'secondary', disabled: isSubmitting }
+                                ]}
+                            />
+                        </div>
+                    </>
                     :
-                    <Loader />
+                    <Loader message="Cargando datos previos" />
             }
-            <div className="p-6.5">
-                <ButtonGroup
-                    buttons={[
-                        { type: "button", label: "Registrar guardia", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
-                        { type: "button", label: "Cancelar", onClick: () => { goTo("/guards/list") }, disabled: isSubmitting}
-                    ]}
-                />
-            </div>
         </form>
     );
 }

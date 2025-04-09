@@ -64,19 +64,21 @@ export function useGuard({
                 page: pageIndex,
                 pageSize
             };
-    
+
             if (debouncedStatus !== -1) {
                 params.status = debouncedStatus;
             }
-    
+
             if (debouncedShift !== -1) {
                 params.shift = debouncedShift;
             }
-    
+
             return getGuards(params);
         },
         retry: false,
     });
+
+    const hasFilters = Boolean(searchValue || shift || status || startDate || endDate);
 
     return {
         data,
@@ -94,5 +96,6 @@ export function useGuard({
         setPageIndex,
         pageSize,
         setPageSize,
+        hasFilters
     };
 }

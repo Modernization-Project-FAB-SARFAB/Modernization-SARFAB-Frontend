@@ -14,6 +14,7 @@ export default function UserListView() {
         status, setStatus,
         pageIndex, setPageIndex,
         pageSize, setPageSize,
+        hasFilters
     } = useGetUsers();
 
     return (
@@ -25,10 +26,10 @@ export default function UserListView() {
                 setStatus={setStatus}
             />
             <UserTable
-                
                 isLoading={isLoading} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
+                hasFilters={hasFilters}
             />
         </>
     )

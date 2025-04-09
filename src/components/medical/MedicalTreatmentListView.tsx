@@ -13,7 +13,7 @@ export default function MedicalTreatmentListView({ breadcrumb, columns }: Medica
         setStartDate,
         setEndDate,
         pageIndex, setPageIndex,
-        pageSize, setPageSize,
+        pageSize, setPageSize, hasFilters
     } = useMedicalTreatment();
 
     return (
@@ -22,13 +22,13 @@ export default function MedicalTreatmentListView({ breadcrumb, columns }: Medica
             <MedicalTreatmentFilters
                 searchValue={searchValue} setSearchValue={setSearchValue}
                 setStartDate={setStartDate}
-                setEndDate={setEndDate} 
+                setEndDate={setEndDate}
                 refetch={refetch}
             />
             <MedicalTreatmentTable
                 isLoading={isLoading} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
-                setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
+                setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch} hasFilters={hasFilters}
             />
         </>
     )

@@ -18,6 +18,7 @@ export default function GuardView() {
         status, setStatus,
         pageIndex, setPageIndex,
         pageSize, setPageSize,
+        hasFilters
     } = useGuard();
 
     const { shiftData, shiftDataIsLoading: shiftDataisLoading } = useShift()
@@ -41,7 +42,7 @@ export default function GuardView() {
             <GuardTable
                 isLoading={isLoading} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
-                setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
+                setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch} hasFilters={hasFilters}
             />
         </>
     )

@@ -1,5 +1,6 @@
 import { UpdateGuardAPIType } from "@/api/types/GuardAPIType.type";
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
+import Loader from "@/components/common/Loader";
 import EditGuardForm from "@/components/guard/EditGuardForm";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useGuardForm } from "@/hooks/guard/forms/useGuardForm";
@@ -9,10 +10,11 @@ import { useShift } from "@/hooks/guard/querys/useShift";
 import { useVolunteerDataContext } from "@/hooks/guard/querys/useVolunteersDataContext";
 import { GuardFormData, VoluntareeGuard } from "@/types/guard.schema";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditGuardView() {
     useBreadcrumb([{ label: "GUARDIAS", path: "/guards/list" }, { label: "Editar guardia" }]);
+    const goTo = useNavigate();
     const params = useParams();
     const guardId = params.guardId!;
 
@@ -72,16 +74,18 @@ export default function EditGuardView() {
         await mutation.mutateAsync(newData).catch(() => setIsSubmitting(false));
     };
 
-    if (isLoading || shiftDataIsLoading || volunteersDataIsLoading) return 'Cargando...';
+    if (isLoading || shiftDataIsLoading || volunteersDataIsLoading) return <Loader message="Cargando datos previos" />;
     if (isError) return 'Error';
     return (
         <form onSubmit={handleSubmit(handleForm)} noValidate>
-            <EditGuardForm register={register} errors={errors} control={control} readonly={false} watch={watch} volunteersData={volunteersData} shiftData={shiftData} voluntaries={voluntaries} setVoluntaries={setVoluntaries} />
+            <fieldset disabled={isSubmitting}>
+                <EditGuardForm register={register} errors={errors} control={control} readonly={false} watch={watch} volunteersData={volunteersData} shiftData={shiftData} voluntaries={voluntaries} setVoluntaries={setVoluntaries} />
+            </fieldset>
             <div className="p-6.5">
                 <ButtonGroup
                     buttons={[
                         { type: "button", label: "Actualizar guardia", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
-                        { type: "link", label: "Cancelar", to: "/guards/list" }
+                        { type: "button", label: "Cancelar", onClick: () => { goTo("/guards/list") }, variant: 'secondary', disabled: isSubmitting }
                     ]}
                 />
             </div>

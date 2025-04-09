@@ -35,6 +35,7 @@ export function useMedicalTreatment({
     const [debouncedStartDate] = useDebounce(startDate, 500);
     const [debouncedEndDate] = useDebounce(endDate, 500);
 
+    const hasFilters = Boolean(searchValue || startDate || endDate);
 
     const { data, isLoading, refetch } = useQuery({
         queryKey: ['medicalTreatment', { query: debouncedSearch, startDate: debouncedStartDate, endDate: debouncedEndDate, page: pageIndex, pageSize }],
@@ -54,5 +55,6 @@ export function useMedicalTreatment({
         setPageIndex,
         pageSize,
         setPageSize,
+        hasFilters
     };
 }

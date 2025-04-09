@@ -1,23 +1,31 @@
+import { useState } from "react";
 import BackLink from "../common/BackLink/BackLink";
 import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
 import FormInput from "../common/FormInput/FormInput";
 import { AttendanceGuardProps } from "./types/AttendanceGuardProps.type";
 import { format } from "date-fns";
 import { FaRegCircleCheck, FaRegCircleXmark } from "react-icons/fa6";
+import Modal from "../common/Modal/Modal";
+import FormTextArea from "../common/FormTextArea/FormTextArea";
+import ButtonGroup from "../common/ButtonGroup/ButtonGroup";
+import { VoluntareeGuard } from "@/types/guard.schema";
 
 export default function AttendanceControlGuard({ data, volunteerAttendances, setVolunteerAttendances, errors }: AttendanceGuardProps) {
-    const handleAssignAssistance = (volunteerId: number, status: number) => {
-        // Actualizar estado visual (ya lo tenías)
+    const [observation, setObservation] = useState<string>('');
+    const [person, setPerson] = useState<VoluntareeGuard | null>(null);
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+    const [isPersonReady, setIsPersonReady] = useState<boolean>(false);
+
+    const handleAssignAssistance = (volunteerId: number, status: number, observation: string) => {
         const index = volunteerAttendances.findIndex(v => v.voluntareeId === volunteerId);
         if (index !== -1) {
             const updated = [...volunteerAttendances];
             updated[index] = { ...updated[index], status };
             setVolunteerAttendances(updated);
         } else {
-            setVolunteerAttendances([...volunteerAttendances, { voluntareeId: volunteerId, status }]);
+            const validateObservation = observation.trim() === '' ? 'Ninguna' : observation.trim()
+            setVolunteerAttendances([...volunteerAttendances, { voluntareeId: volunteerId, status, observation: validateObservation }]);
         }
-
-        // Actualizar el status directamente en el objeto `data`
         if (data) {
             const guardIndex = data.voluntareeGuards.findIndex(v => v.voluntareeId === volunteerId);
             if (guardIndex !== -1) {
@@ -26,19 +34,37 @@ export default function AttendanceControlGuard({ data, volunteerAttendances, set
         }
     };
 
+    function handleConfirmNoAssistance(): void {
+        if (person) {
+            handleAssignAssistance(person?.voluntareeId, 2, observation);
+            closeModal()
+        }
+    }
+
+    function closeModal(): void {
+        setIsOpenModal(false);
+        setPerson(null);
+        setObservation('');
+        setIsPersonReady(false);
+    }
+
+    function OpenModal(person: VoluntareeGuard): void {
+        setIsOpenModal(true);
+        setPerson(person);
+    }
 
     return (
         <>
             <div className="grid grid-cols-1 gap-9 mx-5 items-start">
-          <div className="h-auto gap-4 rounded-xl p-4 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <div className="-mx-6 -mt-2">
-                    <BackLink
-                        text="Volver a listado de guardias"
-                        iconSize={20}
-                        link="/guards/list"
-                        className="pt-1"
-              />
-              </div>
+                <div className="h-auto gap-4 rounded-xl p-4 border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                    <div className="-mx-6 -mt-2">
+                        <BackLink
+                            text="Volver a listado de guardias"
+                            iconSize={20}
+                            link="/guards/list"
+                            className="pt-1"
+                        />
+                    </div>
                     <h3 className="my-3 dark:text-white text-2xl font-semibold text-black">
                         Datos generales de la guardia
                     </h3>
@@ -81,7 +107,7 @@ export default function AttendanceControlGuard({ data, volunteerAttendances, set
                     <h3 className="my-3 dark:text-white text-2xl font-semibold text-black">
                         Control de asistencia
                     </h3>
-                    <h5 className="my-3 dark:text-white text-2xl font-semibold text-black">
+                    <h5 className="my-3 dark:text-white font-semibold text-black">
                         Selecciona los voluntarios que asistieron
                     </h5>
                     <div className="mt-4 border border-stroke dark:border-strokedark rounded-md">
@@ -114,13 +140,13 @@ export default function AttendanceControlGuard({ data, volunteerAttendances, set
                                                     size={24}
                                                     color={person.status === 1 ? 'green' : 'grey'}
                                                     style={{ cursor: 'pointer' }}
-                                                    onClick={() => (person.status === 0 || volunteerAttendances.some(v => v.voluntareeId === person.voluntareeId)) && handleAssignAssistance(person.voluntareeId, 1)}
+                                                    onClick={() => (person.status === 0 || volunteerAttendances.some(v => v.voluntareeId === person.voluntareeId)) && handleAssignAssistance(person.voluntareeId, 1, '')}
                                                 />
                                                 <FaRegCircleXmark
                                                     size={24}
                                                     color={person.status === 2 ? 'red' : 'grey'}
                                                     style={{ cursor: 'pointer' }}
-                                                    onClick={() => (person.status === 0 || volunteerAttendances.some(v => v.voluntareeId === person.voluntareeId)) && handleAssignAssistance(person.voluntareeId, 2)}
+                                                    onClick={() => (person.status === 0 || volunteerAttendances.some(v => v.voluntareeId === person.voluntareeId)) && OpenModal(person)}
                                                 />
                                             </td>
 
@@ -141,6 +167,45 @@ export default function AttendanceControlGuard({ data, volunteerAttendances, set
                     </div>
                 </div>
             </div>
+            <Modal
+                title="Confirmar inasistencia"
+                isOpen={isOpenModal}
+                onClose={() => setIsOpenModal(false)}
+            >
+                <p className="text-gray-600 mb-4">
+                    ¿Estás seguro de que <strong>{person?.voluntareeFullname}</strong> NO asistió a la operación?
+                </p>
+                <FormTextArea
+                    label="Observaciones"
+                    placeholder="Ingrese observaciones..."
+                    name="observation"
+                    defaultValue={observation}
+                    className="mb-4"
+                    register={() => ({
+                        onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => setObservation(e.target.value),
+                    })}
+                />
+                <div className="flex justify-end gap-4 mt-6">
+                    <ButtonGroup
+                        buttons={[
+                            {
+                                type: 'button',
+                                label: 'Confirmar',
+                                onClick: handleConfirmNoAssistance,
+                                variant: 'primary',
+                                disabled: isPersonReady
+                            },
+                            {
+                                type: 'button',
+                                label: 'Cancelar',
+                                onClick: () => closeModal(),
+                                variant: 'secondary',
+                                disabled: isPersonReady
+                            },
+                        ]}
+                    />
+                </div>
+            </Modal>
         </>
     )
 }

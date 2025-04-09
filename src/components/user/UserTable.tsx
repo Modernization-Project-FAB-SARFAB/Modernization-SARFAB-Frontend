@@ -12,13 +12,15 @@ interface UserTableProps {
     refetch: () => void;
 }
 
-export function UserTable({ isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch }: UserTableProps) {
+export function UserTable({ isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch, hasFilters }: UserTableProps & { hasFilters: boolean }) {
     if (isLoading) return <Loader />;
     if (!data?.data.length)
         return (
             <div className='h-fit'>
                 <p className='text-center py-20'>
-                    No existen usuarios.
+                    {hasFilters
+                        ? "No se encontraron registros con los filtros aplicados."
+                        : "No existen usuarios. "}
                 </p>
             </div>
         );
