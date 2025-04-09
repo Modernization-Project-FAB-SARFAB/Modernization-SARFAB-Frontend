@@ -18,7 +18,6 @@ api.interceptors.response.use(
         if (error.response) {
             if (error.response.status === 401) {
                 window.location.href = '/auth/signin';
-                console.log("Sesión expirada")
                 return Promise.reject(new Error("Sesión expirada"));
             }
 

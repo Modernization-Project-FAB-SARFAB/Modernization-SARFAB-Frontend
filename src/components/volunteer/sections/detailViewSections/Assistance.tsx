@@ -20,10 +20,10 @@ const Assistance: React.FC<AssistanceProps> = ({ volunteerId, totalDemeritPoint 
   return (
     <div className="flex-row items-center h-full justify-center p-6">
       <div className="px-6 mt-5">
-        <h3 className="dark:text-white text-2xl font-semibold text-black">Cantidad total de faltas</h3>
-        <p className="text-gray-500">Total de faltas a operativos y guardias</p>
+        <h3 className="dark:text-white text-2xl font-semibold text-black">Cantidad total de puntos perdidos</h3>
+        <p className="text-gray-500">Total de puntos perdidos en operativos y guardias</p>
         <p className={`text-title-xxl text-center font-bold mt-5 ${textColor}`}>
-          {pointsLost} Faltas
+          {pointsLost} Puntos
         </p>
         <div className="flex justify-between items-center mt-6">
           <button
