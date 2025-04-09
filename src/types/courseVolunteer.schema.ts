@@ -13,7 +13,7 @@ export const assignCourseSchema = z.object({
   completionDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine(value => {
     const completionDate = new Date(value);
     const currentDate = new Date();
-    return completionDate <= currentDate; // Verifica que la fecha no sea posterior a la actual
+    return completionDate <= currentDate;
   }, {
     message: "completionDate no puede ser una fecha posterior a la actual",
   }),
