@@ -10,7 +10,7 @@ export default function VolunteerActiveListView({ breadcrumb, columns, modalComp
     const { data: grades, isLoading: isLoadingGrades, isError } = useGrades();
 
     const {
-        data, isLoading, refetch, searchValue,
+        data, isLoading, refetch, isFetching, searchValue,
         setSearchValue, gradeIdFilter, setgradeIdFilter,
         pageIndex, setPageIndex, pageSize, setPageSize,
         orderByLastNameAsc,
@@ -36,7 +36,7 @@ export default function VolunteerActiveListView({ breadcrumb, columns, modalComp
                 setOrderByLastNameAsc={setOrderByLastNameAsc}
             />
             <VolunteerTable
-                isLoading={isLoading} data={data} columns={columns}
+                isLoading={isLoading} isFetching={isFetching} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
                 noItemsMessage="No existen voluntarios activos" noItemsLinkText="Agregar nuevo voluntario" noItemsLinkUrl=""

@@ -2,7 +2,6 @@ import { useMutation } from "@tanstack/react-query";
 import { updateRecruitStatus } from "@/api/RecruitmentAPI";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
 export function useUpdateRecruitStatus() {
   const navigate = useNavigate();
 
@@ -13,7 +12,7 @@ export function useUpdateRecruitStatus() {
     },
     onSuccess: (_, { status }) => {
       toast.success(`El recluta ha sido ${status === 2 ? "aprobado" : "rechazado"} correctamente.`);
-      navigate("/recruitment/list");
+      status === 2 ? navigate("/recruitment/list") : navigate("/recruitment/approve-or-deny");
     },
   });
 }

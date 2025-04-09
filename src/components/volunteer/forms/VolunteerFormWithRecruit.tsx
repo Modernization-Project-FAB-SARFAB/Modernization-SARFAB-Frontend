@@ -5,10 +5,10 @@ import FormInput from "../../common/FormInput/FormInput";
 import FormSelect from "../../common/FormSelect/FormSelect";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
 import FormReadOnlyInput from "../../common/FormReadOnlyInput/FormReadOnlyInput";
-import { VolunteerFormProps } from "../types/VolunteerFormProps";
+import { VolunteerFormProps, VolunteerWithRecruitFormProps } from "../types/VolunteerFormProps";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 
-export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue }: VolunteerFormProps) {
+export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue, typeVolunteer }: VolunteerWithRecruitFormProps) {
 
     const { data: grades, isLoading, isError } = useGrades();
 
@@ -60,6 +60,14 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         setValue={setValue}
                                         name="birthDate"
                                         value={recruit?.birthDate || ''} />
+                                </div>
+
+                                <div className="mb-4.5">
+                                    <FormReadOnlyInput label="Tipo de voluntario" placeholder="Ingresa el tipo de voluntario"
+                                        register={register}
+                                        setValue={setValue}
+                                        name="volunteerType"
+                                        value={typeVolunteer} />
                                 </div>
                             </div>
                         </div>
@@ -175,7 +183,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                 </div>
 
                                 <div className="mb-4.5">
-                                    <FormInput label="Señas particulares" placeholder=""
+                                    <FormInput label="Señas particulares" placeholder="Lunares, cicatrices, etc."
                                         register={register}
                                         errors={errors}
                                         name="distinctiveFeatures"
@@ -222,7 +230,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                     </div>
                                 </div>
                                 <div className="mb-4.5">
-                                    <FormInput label="Dirección del contacto" placeholder=""
+                                    <FormInput label="Dirección del contacto" placeholder="Dirección del contacto de emergencia"
                                         register={register}
                                         errors={errors}
                                         name="emergencyContactAddress"
@@ -234,7 +242,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                 </div>
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Telefono de contacto de emergancia" placeholder=""
+                                        <FormInput label="Telefono de contacto de emergancia" placeholder="Teléfono del contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactPhone"
@@ -246,7 +254,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Celular de contacto de emergancia" placeholder=""
+                                        <FormInput label="Celular de contacto de emergancia" placeholder="Celular del contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactMobile"

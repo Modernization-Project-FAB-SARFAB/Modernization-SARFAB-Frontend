@@ -9,6 +9,7 @@ import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
 import { useNavigate } from 'react-router-dom';
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import Loader from "@/components/common/Loader";
+import DeleteNotificationModal from "@/components/notifications/deleteNotificationModal";
 
 export default function NotificationListView() {
   const [filtro, setFiltro] = useState<'todas' | 'leidas' | 'no-leidas'>('todas');
@@ -18,7 +19,6 @@ export default function NotificationListView() {
 
   const { data: notificaciones = [], isLoading: cargando } = useAllNotifications();
   const { mutate: marcarComoLeida } = useMarkNotificationAsRead();
-  const { mutate: eliminarNotificacion, isPending: eliminando } = useDeleteNotification();
   const navigate = useNavigate();
 
   const breadcrumbItems = [
@@ -94,8 +94,14 @@ export default function NotificationListView() {
     return notificacionesFiltradas.slice(inicio, inicio + forPage);
   }, [notificacionesFiltradas, paginaActual]);
 
-  const manejarMarcarComoLeida = (id: number) => marcarComoLeida(id);
-  const manejarEliminarNotificacion = (id: number) => eliminarNotificacion(id);
+  const manejarMarcarComoLeida = (id: number) => {
+    marcarComoLeida(id);
+  };
+
+  const manejarEliminarNotificacion = (id: number) => {
+    navigate(`?delete-notification=true&notificationId=${id}`)
+  };
+
   const manejarMarcarTodasComoLeidas = () => {
     notificacionesFiltradas.filter(n => !n.wasRead).forEach(n => marcarComoLeida(n.id));
   };
@@ -153,112 +159,100 @@ export default function NotificationListView() {
           </div>
         </div>
 
-        <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          {cargando ? (
-            <Loader message="Cargando notificaciones..." />
-          ) : notificacionesFiltradas.length === 0 ? (
-            <div className="flex h-100 flex-col items-center justify-center text-center p-4">
-              <RiNotification2Line className="mb-2 text-gray-400 dark:text-gray-600" size={48} />
-              <h5 className="mb-1 text-lg font-medium text-black dark:text-white">
-                No hay notificaciones
-              </h5>
-              <p className="text-sm text-body">
-                {filtro === 'todas'
-                  ? 'No tienes notificaciones en este momento'
-                  : filtro === 'leidas'
-                  ? 'No tienes notificaciones leídas'
-                  : 'No tienes notificaciones sin leer'}
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2">
-              {notificacionesPaginadas.map((notificacion: Notification) => (
-                <div
-                  key={notificacion.id}
-                  className={`rounded-lg border p-5 h-full transition-all hover:shadow-md ${
-                    notificacion.wasRead
-                      ? 'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800'
-                      : 'border-primary bg-blue-50 dark:border-blue-900/20 dark:bg-boxdark'
-                  }`}
-                >
-                  <div className="flex justify-between items-start">
-                    <div className="flex items-center gap-3">
-                      {obtenerIcono(notificacion.type)}
-                      <h5 className="font-medium text-black dark:text-white">
-                        {obtenerTextoTipo(notificacion.type)}
-                      </h5>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {!notificacion.wasRead && (
-                        <button
-                          onClick={() => manejarMarcarComoLeida(notificacion.id)}
-                          className="flex items-center gap-1 rounded-md bg-primary px-3 py-1 text-xs text-white hover:bg-opacity-90"
-                        >
-                          <RiCheckDoubleFill size={14} />
-                          <span>Marcar como leída</span>
-                        </button>
-                      )}
-                      {notificacion.wasRead && (
-                        <button
-                          onClick={() => manejarEliminarNotificacion(notificacion.id)}
-                          className="flex items-center gap-1 rounded-md bg-danger px-3 py-1 text-xs text-white hover:bg-opacity-90"
-                          disabled={eliminando}
-                        >
-                          <RiDeleteBinLine size={14} />
-                          <span>Eliminar</span>
-                        </button>
-                      )}
-                      {notificacion.volunteerId > 0 && (
-                        <button
-                          onClick={() => navigate(`/volunteers/${notificacion.volunteerId}/view`)}
-                          className="flex items-center gap-1 rounded-md bg-primary px-3 py-1 text-xs text-white hover:bg-opacity-90"
-                        >
-                          <RiUserSearchLine size={14} />
-                          <span>Ver voluntario</span>
-                        </button>
-                      )}
-                    </div>
+      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        {cargando ? (
+          <Loader/>
+        ) : notificacionesFiltradas.length === 0 ? (
+          <div className="flex h-100 flex-col items-center justify-center text-center p-4">
+            <RiNotification2Line className="mb-2 text-gray-400 dark:text-gray-600" size={48} />
+            <h5 className="mb-1 text-lg font-medium text-black dark:text-white">
+              No hay notificaciones
+            </h5>
+            <p className="text-sm text-body">
+              {filtro === 'todas'
+                ? 'No tienes notificaciones en este momento'
+                : filtro === 'leidas'
+                ? 'No tienes notificaciones leídas'
+                : 'No tienes notificaciones sin leer'}
+            </p>
+          </div>
+        ) : (
+          <div className="p-4">
+            {notificacionesFiltradas.map((notificacion: Notification) => (
+              <div
+                key={notificacion.id}
+                className={`mb-4 rounded-lg border p-4 transition-all hover:shadow-md ${
+                  notificacion.wasRead
+                    ? 'border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800'
+                    : 'border-primary bg-blue-50 dark:border-blue-900/20 dark:bg-boxdark'
+                }`}
+              >
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-3">
+                    {obtenerIcono(notificacion.type)}
+                    <h5 className="font-medium text-black dark:text-white">
+                      {obtenerTextoTipo(notificacion.type)}
+                    </h5>
                   </div>
-                  <div className="mt-2 border-l-2 border-gray-300 pl-4 dark:border-gray-600">
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {notificacion.message}
-                    </p>
-                  </div>
-                  <div className="mt-3 flex justify-between items-center text-xs">
-                    <span className="text-gray-500 dark:text-gray-400">
-                      {formatearFecha(notificacion.sentAt)}
-                    </span>
+                  <div className="flex items-center gap-2">
+                    {!notificacion.wasRead && (
+                      <button
+                        onClick={() => manejarMarcarComoLeida(notificacion.id)}
+                        className="flex items-center gap-1 rounded-md bg-primary px-3 py-1 text-xs text-white hover:bg-opacity-90"
+                      >
+                        <RiCheckDoubleFill size={14} />
+                        <span>Marcar como leída</span>
+                      </button>
+                    )}
+                    {notificacion.wasRead && (
+                      <button
+                        onClick={() => manejarEliminarNotificacion(notificacion.id)}
+                        className="flex items-center gap-1 rounded-md bg-danger px-3 py-1 text-xs text-white hover:bg-opacity-90"
+                      >
+                        <RiDeleteBinLine size={14} />
+                        <span>Eliminar</span>
+                      </button>
+                    )}
+                    {notificacion.volunteerId > 0 && (
+                      <button
+                        onClick={() => navigate(`/volunteers/${notificacion.volunteerId}/view`)}
+                        className="flex items-center gap-1 rounded-md bg-primary px-3 py-1 text-xs text-white hover:bg-opacity-90"
+                      >
+                        <RiUserSearchLine size={14} />
+                        <span>Ver voluntario</span>
+                      </button>
+                    )}
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
 
-      {totalPaginas > 1 && (
-        <div className="mt-6 flex justify-center gap-2 py-6">
-          <button
-            onClick={() => setPaginaActual(prev => Math.max(1, prev - 1))}
-            disabled={paginaActual === 1}
-            className="rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300 disabled:opacity-50"
-          >Anterior</button>
-          {Array.from({ length: totalPaginas }, (_, i) => i + 1).map(num => (
-            <button
-              key={num}
-              onClick={() => setPaginaActual(num)}
-              className={`rounded px-3 py-1 text-sm ${
-                paginaActual === num ? 'bg-primary text-white' : 'bg-gray-100 text-black hover:bg-gray-200'
-              }`}
-            >{num}</button>
-          ))}
-          <button
-            onClick={() => setPaginaActual(prev => Math.min(totalPaginas, prev + 1))}
-            disabled={paginaActual === totalPaginas}
-            className="rounded bg-gray-200 px-3 py-1 text-sm hover:bg-gray-300 disabled:opacity-50"
-          >Siguiente</button>
-        </div>
-      )}
-    </div>
+                <div className="mt-2 border-l-2 border-gray-300 pl-4 dark:border-gray-600">
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    {notificacion.message}
+                  </p>
+                </div>
+                
+                <div className="mt-3 flex justify-between items-center text-xs">
+                  <span className="text-gray-500 dark:text-gray-400">
+                    {formatearFecha(notificacion.sentAt)}
+                  </span>
+                  {notificacion.daysBeforeExpiration !== null && notificacion.daysBeforeExpiration !== undefined && (
+                    <span className={`rounded-full px-2 py-1 ${
+                      notificacion.daysBeforeExpiration <= 1
+                        ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' 
+                        : notificacion.daysBeforeExpiration <= 3
+                        ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
+                        : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                    }`}>
+                      Expira en {notificacion.daysBeforeExpiration} {notificacion.daysBeforeExpiration === 1 ? 'día' : 'días'}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <DeleteNotificationModal />
+    </>
   );
 }

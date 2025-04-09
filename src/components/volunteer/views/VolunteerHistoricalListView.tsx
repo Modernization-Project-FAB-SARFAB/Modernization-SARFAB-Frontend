@@ -10,7 +10,7 @@ export default function VolunteerHistoricalListView({ breadcrumb, columns }: Vol
     const { data: grades, isLoading: isLoadingGrades, isError } = useGrades();
 
     const {
-        data, isLoading, refetch, searchValue,
+        data, isLoading, isFetching, refetch, searchValue,
         setSearchValue, gradeIdFilter, setgradeIdFilter,
         pageIndex, setPageIndex, pageSize, setPageSize,
         setStartDate,
@@ -46,7 +46,7 @@ export default function VolunteerHistoricalListView({ breadcrumb, columns }: Vol
                 statusOptions={statusOptions}
             />
             <VolunteerTable
-                isLoading={isLoading} data={data} columns={columns}
+                isLoading={isLoading} isFetching={isFetching} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
                 noItemsMessage="No existen voluntarios historicos" noItemsLinkText="Agregar nuevo voluntario" noItemsLinkUrl=""

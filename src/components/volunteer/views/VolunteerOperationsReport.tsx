@@ -1,11 +1,10 @@
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
-import { VolunteerHeader } from "../headers/VolunteerHeader";
 import { VolunteerTable } from "../table/VolunteerTable";
 import { useParams } from "react-router-dom";
 import { VolunteerOperationsReportFilters } from "../filters/VolunteerOperationsReportFilters";
 import { useVolunteerOperationsReport } from "@/hooks/volunteer/querys/useVolunteerOperationsReport";
 import { useGetOperationCategories } from "@/hooks/configuration/querys/useGetOperationCategories";
-import { FilterOption } from "@/components/common/FilterDatalist/FilterDatalist.type";
+import BackLink from "@/components/common/BackLink/BackLink";
 
 export default function VolunteerOperationsReport({ breadcrumb, columns }: VolunteerListViewProps) {
     useBreadcrumb(breadcrumb);
@@ -14,6 +13,7 @@ export default function VolunteerOperationsReport({ breadcrumb, columns }: Volun
     const {
         data,
         isLoading,
+        isFetching,
         refetch,
         searchValue,
         setSearchValue,
@@ -42,26 +42,35 @@ export default function VolunteerOperationsReport({ breadcrumb, columns }: Volun
             isSelected: false
         }))
     ];
-    
-    
+
+
     return (
         <>
-            <VolunteerHeader />
-            <VolunteerOperationsReportFilters
-                searchValue={searchValue} setSearchValue={setSearchValue}
-                categoryFilter={categoryFilter} setCategoryFilter={setCateforyFilter} categoryOptions={categoryOptions}
-                setStartDate={setStartDate}
-                setEndDate={setEndDate}
-                orderByDateAsc={orderByDateAsc}
-                setOrderByDateAsc={setOrderByDateAsc}
-                refetch={refetch}
-            />
-            <VolunteerTable
-                isLoading={isLoading} data={data} columns={columns}
-                pageIndex={pageIndex} pageSize={pageSize}
-                setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
-                noItemsMessage="No existen registros de operativos para este voluntario" noItemsLinkText="Agregar operativo" noItemsLinkUrl="/operation/create"
-            />
+            <div className="bg-white dark:bg-boxdark rounded-lg border border-stroke shadow-default dark:border-strokedark p-4 mb-4">
+                <BackLink
+                    text="Volver atrás"
+                    iconSize={20}
+                    link="/volunteers"
+                    useRouter={true}
+                />
+                <VolunteerOperationsReportFilters
+                    searchValue={searchValue} setSearchValue={setSearchValue}
+                    categoryFilter={categoryFilter} setCategoryFilter={setCateforyFilter} categoryOptions={categoryOptions}
+                    setStartDate={setStartDate}
+                    setEndDate={setEndDate}
+                    orderByDateAsc={orderByDateAsc}
+                    setOrderByDateAsc={setOrderByDateAsc}
+                    refetch={refetch}
+                />
+                <VolunteerTable isFetching={isFetching}
+                    isLoading={isLoading} data={data} columns={columns}
+                    pageIndex={pageIndex} pageSize={pageSize}
+                    setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
+                    noItemsMessage="No existen registros de operativos para este voluntario" noItemsLinkText="Agregar operativo" noItemsLinkUrl="/operation/create"
+                />
+            </div>
+
+
         </>
     )
 }

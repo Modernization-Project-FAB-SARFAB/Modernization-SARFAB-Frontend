@@ -16,7 +16,7 @@ export function VolunteerGuardsReportFilters({ searchValue, setSearchValue,
 
     return (
         <div className='flex flex-col gap-5.5 sm:flex-row mt-3'>
-            <FilterSearchBox name='searchTerm' value={searchValue} onChange={setSearchValue} placeholder="Buscar por nombre o carnet de identidad" />
+            <FilterSearchBox name='searchTerm' value={searchValue} onChange={setSearchValue} placeholder="Buscar por comandante de guardia o por el lugar de la guardia" />
             <FilterSelect name='status' label="Seleccionar estado" options={statusOptions} value={statusFilter} onChange={setStatusFilter} />
             <FilterSelect name='shift' label="Seleccionar turno" options={shiftOptions} value={shiftFilter} onChange={setShiftFilter} />
             <FilterRangeDates onChange={handleRangeSelect} refetch={refetch} />

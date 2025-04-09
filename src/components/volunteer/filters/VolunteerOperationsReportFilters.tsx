@@ -18,7 +18,7 @@ export function VolunteerOperationsReportFilters({ searchValue, setSearchValue,
 
     return (
         <div className='flex flex-col gap-5.5 sm:flex-row mt-3'>
-            <FilterSearchBox name='searchTerm' value={searchValue} onChange={setSearchValue} placeholder="Buscar por nombre o carnet de identidad" />
+            <FilterSearchBox name='searchTerm' value={searchValue} onChange={setSearchValue} placeholder="Buscar por responsable o por lugar" />
             <FilterSelect name='category' label="Seleccionar categoria" options={categoryOptions} value={categoryFilter} onChange={setCategoryFilter} />
             <FilterRangeDates onChange={handleRangeSelect} refetch={refetch} />
             <SortToggle isAscending={orderByDateAsc} onToggle={() => setOrderByDateAsc(prev => !prev)} />

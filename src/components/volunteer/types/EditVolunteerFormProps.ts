@@ -1,6 +1,6 @@
-import { Volunteer, VolunteerFormData } from "@/types/index"
+import { Volunteer, VolunteerData } from "@/types/index"
 
 export interface EditVolunteerFormProps {
-    data: VolunteerFormData;
+    data: VolunteerData;
     volunteerId: Volunteer['id']
 }

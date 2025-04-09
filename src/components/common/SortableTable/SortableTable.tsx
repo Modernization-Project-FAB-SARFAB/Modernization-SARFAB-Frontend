@@ -72,11 +72,11 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                     </tbody>
                 </table>
                 <div className="h-2" />
-                <div className="flex justify-between  my-4">
-                    <div >
+                <div className="flex justify-end  my-4">
+                    {/*<!--<div>
                         Mostrando {table.getRowModel().rows.length.toLocaleString()} de{' '}
                         {table.getRowCount().toLocaleString()} Filas
-                    </div>
+                    </div>-->*/}
                     <div className='flex  items-center gap-2'>
                         <button
                             className="border rounded p-1"
@@ -86,7 +86,7 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                             {'<'}
                         </button>
                         <span className="flex items-center gap-1">
-                            Página <strong>{pagination.pageIndex}</strong>
+                            Página <strong>{pagination.pageIndex}</strong> de <strong>{totalPages}</strong>
                         </span>
                         <button
                             className="border rounded p-1"
@@ -98,15 +98,19 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                         <span className="flex items-center gap-1">
                             | Ir a página:
                             <input
-                              type="number"
-                              min="1"
-                              max={totalPages}
-                              value={pagination.pageIndex}
-                              onChange={(e) => {
-                                const page = Number(e.target.value);
-                                onPaginationChange({ pageIndex: page, pageSize: pagination.pageSize });
-                              }}
-                              className="border p-1 rounded w-16 dark:bg-form-input"
+                                type="number"
+                                min="1"
+                                max={totalPages}
+                                value={pagination.pageIndex}
+                                onChange={(e) => {
+                                    let page = Number(e.target.value);
+                                    if (isNaN(page)) return;
+                                    if (page < 1) page = 1;
+                                    if (page > totalPages) page = totalPages;
+
+                                    onPaginationChange({ pageIndex: page, pageSize: pagination.pageSize });
+                                }}
+                                className="border p-1 rounded w-16 dark:bg-form-input"
                             />
                         </span>
                     </div>

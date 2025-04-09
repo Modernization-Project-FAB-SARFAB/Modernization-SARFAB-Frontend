@@ -189,7 +189,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                                 </div>
 
                                 <div className="mb-4.5">
-                                    <FormInput label="Señas particulares" placeholder=""
+                                    <FormInput label="Señas particulares" placeholder="Lunares, cicatrices, etc."
                                         register={register}
                                         errors={errors}
                                         name="distinctiveFeatures"

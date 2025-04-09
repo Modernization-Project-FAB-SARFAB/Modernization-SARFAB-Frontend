@@ -2,10 +2,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react/jsx-runtime";
 import { ModalProps } from "./Modal.types";
 
-const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose = () => {}, children }) => {
     return (
         <Transition appear show={isOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-999999" onClose={onClose} >
+            <Dialog as="div" className="relative z-99999" onClose={onClose} static>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"

@@ -7,8 +7,9 @@ const EditVolunteerView = lazy(() => import('@/views/personal/Volunteers/EditVol
 const DetailsVolunteerView = lazy(() => import('@/views/personal/Volunteers/DetailVolunteerView'));
 const ReportGuardsVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerGuardsReportView'));
 const ReportOperationsVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerOperationsReportView'));
-
+const HistoryVolunteerDemeritPointsView = lazy(() => import('@/views/personal/Volunteers/HistoryVolunteerDemeritPointsView'));
 const CompletedCoursesVolunteerView = lazy(() => import('@/views/personal/Volunteers/VolunteerCompletedCoursesView'));
+
 
 const NotificationListView = lazy(() => import('@/views/notification/NotificationListView'));
 
@@ -92,19 +93,9 @@ const coreRoutes = [
   },
   // Volunteer 
   {
-    path: '/volunteers/active-volunteers',
-    title: 'Voluntarios activos',
-    component: ActiveVolunteersView
-  },
-  {
     path: '/volunteers/create',
     title: 'Crear nueva afiliación de voluntarios',
     component: CreateAfiliationView
-  },
-  {
-    path: '/volunteers/volunteer-history',
-    title: 'Historico de voluntarios',
-    component: HistoricalVolunteersView
   },
   {
     path: '/volunteers/:volunteerId/edit',
@@ -117,11 +108,6 @@ const coreRoutes = [
     component: DetailsVolunteerView
   },
   {
-    path: '/volunteers/:volunteerId/report-guards',
-    title: 'Reporte de guardias',
-    component: ReportGuardsVolunteerView
-  },
-  {
     path: '/volunteers/:volunteerId/report-operations',
     title: 'Reporte de operativos',
     component: ReportOperationsVolunteerView
@@ -130,6 +116,26 @@ const coreRoutes = [
     path: '/volunteers/:volunteerId/completed-courses',
     title: 'Cursos',
     component: CompletedCoursesVolunteerView
+  },
+  {
+    path: '/volunteers/:volunteerId/demerit-points',
+    title: 'Puntos de demérito',
+    component: HistoryVolunteerDemeritPointsView
+  }, 
+  {
+    path: '/volunteers/active-volunteers',
+    title: 'Voluntarios activos',
+    component: ActiveVolunteersView
+  },
+  {
+    path: '/volunteers/volunteer-history',
+    title: 'Historico de voluntarios',
+    component: HistoricalVolunteersView
+  },
+  {
+    path: '/volunteers/:volunteerId/report-guards',
+    title: 'Reporte de guardias',
+    component: ReportGuardsVolunteerView
   },
   // Military
   {

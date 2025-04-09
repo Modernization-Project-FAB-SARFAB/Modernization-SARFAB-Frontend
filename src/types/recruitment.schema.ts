@@ -5,7 +5,7 @@ export const recruitmentSchema = z.object({
   recruitmentId: z.number(),
   firstName: z.string().min(1, "El nombre es obligatorio"),
   lastName: z.string().min(1, "El apellido es obligatorio"),
-  ci: z.string().min(1, "El documento de identidad es obligatorio"),
+  ci: z.string().min(5, "El documento de identidad es obligatorio y como minimos 5 caracteres"), 
   birthDate: z.string().refine((date) => {
     const age = isAdult(new Date(date)); 
     return age >= 18;

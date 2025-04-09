@@ -2,6 +2,7 @@ import Modal from "../common/Modal/Modal";
 import RecruitDetails from "./RecriutDetails";
 import Button from "../common/Button/Button";
 import { useRecruitStatusModal } from "@/hooks/recruitment";
+import Loader from "../common/Loader";
 
 export default function RecruitStatusModal() {
     const {
@@ -23,7 +24,7 @@ export default function RecruitStatusModal() {
         <Modal title={title} isOpen={isOpen} onClose={() => navigate(location.pathname, { replace: true })}>
             {
                 isLoading ?
-                    <><p>Cargando...</p></> :
+                    <><Loader message="Cargando datos del recluta..."/></> :
 
                     <>{error || !data ?
                         <p>Error al cargar los datos del reclutamiento.</p> :

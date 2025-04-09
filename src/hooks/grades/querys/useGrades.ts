@@ -5,6 +5,6 @@ export const useGrades = () => {
     return useQuery({
         queryKey: ["grades"],
         queryFn: getGrades,
-        staleTime: 1000 * 60 * 5,
+        retry: false
     });
 };

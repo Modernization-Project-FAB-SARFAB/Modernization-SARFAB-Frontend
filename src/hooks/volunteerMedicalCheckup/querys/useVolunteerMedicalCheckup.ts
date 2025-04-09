@@ -16,7 +16,7 @@ export function useVolunteerMedicalCheckup({ initialVolunteerId}: UseVolunteerMe
     queryKey: ["volunteerMedicalCheckup", debouncedVolunteerId],
     queryFn: () => (debouncedVolunteerId ? getVolunteerMedicalCheckup(Number(debouncedVolunteerId)) : Promise.resolve(null)),
     enabled: !!debouncedVolunteerId,
-    retry: false,
+    retry: false
   });
 
   return {

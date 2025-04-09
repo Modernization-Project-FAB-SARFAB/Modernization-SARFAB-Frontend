@@ -24,20 +24,20 @@ const ActionsColumn = ({ row }: { row: any }) => {
         {
             type: "link",
             label: "Reporte de guardias",
-            href: `/volunteers/${id}/report-guards`,
+            href: `/volunteers/${id}/report-guards?from=active`,
             icon: <RiFileUserFill size={20} />,
         },
         {
             type: "link",
             label: "Rep. de operaciones",
-            href: `/volunteers/${id}/report-operations`,
+            href: `/volunteers/${id}/report-operations?from=active`,
             icon: <RiShakeHandsFill size={20} />,
         },
         ...(gradeName !== "Rescatista"
             ? ([
                   {
                       type: "button",
-                      label: "Promover de grado",
+                      label: "Ascender de grado",
                       onClick: () =>
                           navigate(`?gradePromotion=true&volunteerId=${id}`),
                       icon: <RiArrowUpCircleLine size={20} />,

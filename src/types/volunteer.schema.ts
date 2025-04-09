@@ -82,6 +82,13 @@ export const volunteerFormSchema = z.object(
     }
 );
 
+export const volunteerUpdateFormSchema = baseVolunteerSchema.omit({
+    id: true,
+    checkupDate: true,
+    expirationDate: true,
+    observations: true,
+});
+
 export const volunteerStatusSchema = z.object({
     status: z.number(),
     dischargeReason: z.string().nullish()
@@ -111,6 +118,7 @@ export const operationVolunteerSchema = z.object({
     address: z.string(),
     responsible: z.string(),
     observations: z.string(),
+    status: z.number()
 });
 
 export const listVolunteerOperationsReportSchema = z.object({
@@ -122,12 +130,17 @@ export const totalPointsLostSchema = z.object({
     totalPointsLost: z.number().int().nonnegative(),
 });
 
-export type VolunteerStatus = z.infer<typeof volunteerStatusSchema>;
+export const volunteerResponseSchema = baseVolunteerSchema.extend({
+    departmentName: z.string(),
+    gradeName: z.string(),
+    volunteerType: z.string(),
+});
 
 export type Volunteer = z.infer<typeof baseVolunteerSchema>;
 export type VolunteerOperation = z.infer<typeof operationVolunteerSchema>
+export type VolunteerData = z.infer<typeof volunteerResponseSchema>
 export type VolunteerGuard = z.infer<typeof guardSchema>
-export type VolunteerFormData = Pick<Volunteer, 'firstName' | 'lastName' | 'homeAddress' | 'ci' | 'birthDate' | 'phone' | 'mobilePhone' | 'email' | 'distinctiveFeatures' | 'volunteerType' | 'occupation' | 'bloodType' | 'religion' | 'allergies' | 'emergencyContactFullName' | 'emergencyContactRelation' | 'emergencyContactAddress' | 'emergencyContactPhone' | 'emergencyContactMobile' | 'departmentId' | 'gradeId' | 'checkupDate' | 'expirationDate' | 'observations'>;
+export type VolunteerFormData = z.infer<typeof volunteerFormSchema>;
 export type VolunteerUpdateFormData = Omit<Volunteer, 'id' | 'checkupDate' | 'expirationDate' | 'observations'>;
 
 

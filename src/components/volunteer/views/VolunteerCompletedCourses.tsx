@@ -12,6 +12,7 @@ export default function VolunteerCompletedCourses({ columns }: VolunteerCourseLi
     const {
         data,
         isLoading,
+        isFetching,
         isError,
         refetch,
         pageIndex,
@@ -24,15 +25,16 @@ export default function VolunteerCompletedCourses({ columns }: VolunteerCourseLi
             text="Volver al listado de voluntarios"
             iconSize={20}
             link={`/volunteers/${volunteerIdString}/view`}
+            useRouter={true}
         />
         <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
             Cursos finalizados
         </h3>
         <VolunteerTable
-            isLoading={isLoading} data={data} columns={columns}
+            isLoading={isLoading} isFetching={isFetching} data={data} columns={columns}
             pageIndex={pageIndex} pageSize={pageSize}
             setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
-            noItemsMessage="No existen cursos finalizados" noItemsLinkText="Agregar curso a voluntario" noItemsLinkUrl={`volunteers/active-volunteers?assingCourse=true&volunteerId=${volunteerIdString}`}
+            noItemsMessage="No existen cursos finalizados" noItemsLinkText="" noItemsLinkUrl={``}
         />
     </div>
 }

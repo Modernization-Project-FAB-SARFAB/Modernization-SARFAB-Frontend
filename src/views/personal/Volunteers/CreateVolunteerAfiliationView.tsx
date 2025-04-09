@@ -1,21 +1,23 @@
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
-import VolunteerForm from "@/components/volunteer/forms/VolunteerForm"
+import Loader from "@/components/common/Loader";
+import VolunteerForm from "@/components/volunteer/forms/VolunteerForm";
 import VolunteerFormWithRecruit from "@/components/volunteer/forms/VolunteerFormWithRecruit";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
-import { useRecruitData } from "@/hooks/recruitment";
+import { useRecruitData, useUpdateRecruitStatus } from "@/hooks/recruitment";
 import { useVolunteerForm } from "@/hooks/volunteer";
 import { useCreateVolunteer } from "@/hooks/volunteer/mutations/useCreateVolunteer";
 import { VolunteerFormData } from "@/types/volunteer.schema";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function CreateVolunteerAfiliationView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-volunteers" }, { label: "Registrar afiliación de voluntario" }]);
-  
+
   const queryParams = new URLSearchParams(location.search);
   const recruitId = queryParams.get('recruitId');
 
+  // Función para obtener valores iniciales
   const getInitialValues = (recruitData?: any): VolunteerFormData => ({
     firstName: "",
     lastName: "",
@@ -26,9 +28,7 @@ export default function CreateVolunteerAfiliationView() {
     mobilePhone: "",
     email: "",
     distinctiveFeatures: "",
-    volunteerType: recruitId 
-      ? (recruitData?.wantsMilitaryService ? 'Libretista' : 'Voluntario') 
-      : "",
+    volunteerType: "",
     occupation: "",
     bloodType: "",
     religion: "",
@@ -46,48 +46,88 @@ export default function CreateVolunteerAfiliationView() {
   });
 
   const { register, handleSubmit, formState: { errors }, control, setValue } = useVolunteerForm(getInitialValues());
+
+  const { mutate } = useUpdateRecruitStatus();
   const mutation = useCreateVolunteer();
-
-  const handleForm = async (formData: VolunteerFormData) => {
-    setIsSubmitting(true);
-    await mutation.mutateAsync(formData);
-  }
-
-  if (!recruitId) {
-    return (
-      <form onSubmit={handleSubmit(handleForm)} noValidate>
-        <VolunteerForm errors={errors} register={register} control={control} />
-        <ButtonGroup
-          buttons={[
-            { type: "button", label: "Registrar voluntario", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
-            { type: "link", label: "Cancelar", to: "" }
-          ]}
-        />
-      </form>
-    );
-  }
 
   const { data: recruitData, isLoading, isError } = useRecruitData(recruitId);
 
-  if (isLoading) return <p>Cargando datos del recluta...</p>;
+  const handleForm = async (formData: VolunteerFormData) => {
+    setIsSubmitting(true);
+    try {
+      await mutation.mutateAsync(formData);
+      if (recruitId) {
+        await mutate({ recruitId: Number(recruitId), status: 3 });
+      }
+    } catch (error) {
+      console.error("Error al registrar voluntario", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-  if (isError) return <p>Error al cargar los datos del recluta.</p>;
+  const renderForm = () => {
+    if (!recruitId) {
+      return (
+        <>
+          <VolunteerForm errors={errors} register={register} control={control} />
+          <ButtonGroup
+            buttons={[
+              {
+                type: "button",
+                label: "Registrar voluntario",
+                onClick: handleSubmit(handleForm),
+                variant: "primary",
+                disabled: isSubmitting,
+                isLoading: isSubmitting,
+              },
+              {
+                type: "link",
+                label: "Cancelar",
+                to: "/volunteers/active-volunteers",
+              },
+            ]}
+          />
+        </>
+      );
+    }
 
-  return (
-    <form onSubmit={handleSubmit(handleForm)} noValidate>
-      <VolunteerFormWithRecruit 
-        errors={errors} 
-        register={register} 
-        control={control} 
-        setValue={setValue} 
-        recruit={recruitData} 
+    if (isLoading) return <Loader message="Cargando datos del recluta..."/>;
+    if (isError) return <p>Error al cargar los datos del recluta.</p>;
+
+    return (<>
+      <VolunteerFormWithRecruit
+        errors={errors}
+        register={register}
+        control={control}
+        setValue={setValue}
+        recruit={recruitData}
+        typeVolunteer={recruitData.wantsMilitaryService ? 'Libretista' : 'Voluntario'}
       />
       <ButtonGroup
         buttons={[
-          { type: "button", label: "Registrar voluntario", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
-          { type: "link", label: "Cancelar", to: "" }
+          {
+            type: "button",
+            label: "Registrar voluntario",
+            onClick: handleSubmit(handleForm),
+            variant: "primary",
+            disabled: isSubmitting,
+            isLoading: isSubmitting,
+          },
+          {
+            type: "link",
+            label: "Cancelar",
+            to: recruitId ? "/recruitment/approve-or-deny" : "/volunteers/active-volunteers",
+          },
         ]}
       />
+    </>
+    );
+  };
+
+  return (
+    <form onSubmit={handleSubmit(handleForm)} noValidate>
+      {renderForm()}
     </form>
   );
 }

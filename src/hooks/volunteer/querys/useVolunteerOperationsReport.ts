@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import { useQuery } from '@tanstack/react-query';
 import { keepPreviousData } from '@tanstack/react-query';
-import { getVolunteerGuardsReportList, getVolunteerOperationsReportList } from '@/api/VolunteerAPI';
+import { getVolunteerOperationsReportList } from '@/api/VolunteerAPI';
 
 const DEFAULTS = {
     pageIndex: 1,
@@ -44,21 +44,17 @@ export function useVolunteerOperationsReport({
     const [pageSize, setPageSize] = useState(initialPageSize);
 
     const [debouncedSearch] = useDebounce(searchValue, 500);
-    const [debouncedCategory] = useDebounce(categoryFilter, 500);
-    const [debouncedStartDate] = useDebounce(startDate, 500);
-    const [debouncedEndDate] = useDebounce(endDate, 500);
 
     const [orderByDateAsc, setOrderByDateAsc] = useState<boolean>(initialOrderByDateAsc);
 
-
-    const { data, isLoading, refetch } = useQuery({
+    const { data, isLoading, refetch, isFetching } = useQuery({
         queryKey: ['volunteerOperationReport', initialVolunteerId, {
-            query: debouncedSearch, categoryId: debouncedCategory, startDate: debouncedStartDate,
-            endDate: debouncedEndDate, page: pageIndex, pageSize, orderByDateAsc
+            query: debouncedSearch, categoryId: categoryFilter, startDate: startDate,
+            endDate: endDate, page: pageIndex, pageSize, orderByDateAsc
         }],
         queryFn: () => getVolunteerOperationsReportList(Number(initialVolunteerId), {
-            query: debouncedSearch, categoryId: debouncedCategory, startDate: debouncedStartDate,
-            endDate: debouncedEndDate, page: pageIndex, pageSize, orderByDateAsc
+            query: debouncedSearch, categoryId: categoryFilter, startDate: startDate,
+            endDate: endDate, page: pageIndex, pageSize, orderByDateAsc
         }),
         placeholderData: keepPreviousData,
         retry: false,
@@ -67,6 +63,7 @@ export function useVolunteerOperationsReport({
     return {
         data,
         isLoading,
+        isFetching,
         refetch,
         searchValue,
         setSearchValue,

@@ -1,5 +1,6 @@
 interface RecruitmentTableProps {
     isLoading: boolean;
+    isFetching: boolean;
     data: any;
     columns: any;
     pageIndex: number;

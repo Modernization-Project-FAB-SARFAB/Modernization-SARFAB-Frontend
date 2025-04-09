@@ -17,20 +17,25 @@ import { useDetailsVolunteer } from "@/hooks/volunteer/querys/useEditVolunteerDa
 import { useVolunteerTotalDemeritPoint } from "@/hooks/volunteer/querys/useVolunteerTotalDemeritPoint";
 import { useVolunteerMedicalCheckup } from "@/hooks/volunteerMedicalCheckup/querys/useVolunteerMedicalCheckup";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import VolunteerMedicalCheckupModal from "../modals/VolunteerMedicalCheckupModal";
+import VolunteerEditMedicalCheckupModal from "../modals/VolunteerEditMedicalCheckupModal";
+import { useLastCourseVolunteer } from "@/hooks/courseVolunteer/querys/useLastCourseVolunteer";
 
 export default function VolunteerActiveDetail() {
   useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-volunteers" }, { label: "Ver voluntario" }]);
   const [modalAction, setModalAction] = useState<string | null>(null);
 
   const params = useParams();
+  const navigate = useNavigate();
   const volunteerId = params.volunteerId!;
 
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
   const { data: totalDemeritPoint, isLoading: isLoadingTotalDemeritPoint, isError: isErrorTotalDemeritPoint } = useVolunteerTotalDemeritPoint(volunteerId);
   const { data: medicalCheckupData, isLoading: isLoadingMedicalCheckupData, isError: isErrorMedicalCheckupData } = useVolunteerMedicalCheckup({ initialVolunteerId: volunteerId });
+  const { data: lastCourseVolunteer, isLoading: isLoadingLastCourse, isError: isErrorLastCourse } = useLastCourseVolunteer(Number(volunteerId));
 
-  const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData;
+  const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData || isLoadingLastCourse;
   const isErrorAll = isError || isErrorTotalDemeritPoint || isErrorMedicalCheckupData;
 
   if (isLoadingAll) return <Loader message="Cargando información del voluntario" />;
@@ -45,7 +50,7 @@ export default function VolunteerActiveDetail() {
             iconSize={20}
             link="/recruitment/approve-or-deny"
           />
-          <PersonalData data={data} />
+          <PersonalData data={data} lastCourse={isErrorLastCourse ? "No se pudo encontrar el último curso completado" : lastCourseVolunteer?.courseName}/>
         </div>
         <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
           <Actions volunteerId={volunteerId} setModalAction={setModalAction} />
@@ -58,7 +63,7 @@ export default function VolunteerActiveDetail() {
           )}
         </div>
         <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
-          <Reports volunteerId={volunteerId} />
+          <Reports volunteerId={volunteerId} from="active"/>
         </div>
         <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-2 p-4">
           <EmergencyData data={data} />
@@ -73,7 +78,7 @@ export default function VolunteerActiveDetail() {
             </h3>
             <button
               className="bg-primary text-white rounded-lg px-3 py-1.5 text-sm sm:px-4 sm:py-2 sm:text-base"
-              onClick={() => setModalAction('add-medical-checkup')}
+              onClick={() => navigate(`?add-medical-checkup=true&volunteerId=${volunteerId}`)}
             >
               Agregar Chequeo Médico
             </button>
@@ -90,6 +95,8 @@ export default function VolunteerActiveDetail() {
       <VolunteerGradePromotionModal />
       <VolunteerServiceCompletedModal />
       <VolunteerDischargeModal />
+      <VolunteerMedicalCheckupModal/>
+      <VolunteerEditMedicalCheckupModal/>
     </>
   );
 }

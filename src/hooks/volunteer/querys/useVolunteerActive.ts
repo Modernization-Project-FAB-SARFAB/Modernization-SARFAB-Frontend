@@ -34,12 +34,10 @@ export function useVolunteerActive({
   const [orderByLastNameAsc, setOrderByLastNameAsc] = useState<boolean>(initialOrderByLastNameAsc);
 
   const [debouncedSearch] = useDebounce(searchValue, 500);
-  const [debouncedgradeId] = useDebounce(gradeIdFilter, 500);
 
-
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['volunteersActive', { searchTerm: debouncedSearch, gradeId: debouncedgradeId, page: pageIndex, pageSize, orderByLastNameAsc }],
-    queryFn: () => getVolunteerActiveList({ searchTerm: debouncedSearch, gradeId: debouncedgradeId, page: pageIndex, pageSize, orderByLastNameAsc }),
+  const { data, isLoading, refetch, isFetching } = useQuery({
+    queryKey: ['volunteersActive', { searchTerm: debouncedSearch, gradeId: gradeIdFilter, page: pageIndex, pageSize, orderByLastNameAsc }],
+    queryFn: () => getVolunteerActiveList({ searchTerm: debouncedSearch, gradeId: gradeIdFilter, page: pageIndex, pageSize, orderByLastNameAsc }),
     placeholderData: keepPreviousData,
     retry: false,
   });
@@ -48,6 +46,7 @@ export function useVolunteerActive({
     data,
     isLoading,
     refetch,
+    isFetching,
     searchValue,
     setSearchValue,
     gradeIdFilter,
