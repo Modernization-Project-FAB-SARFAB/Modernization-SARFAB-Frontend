@@ -48,7 +48,7 @@ export function useVolunteerHistorical({
   const [debouncedEndDate] = useDebounce(endDate, 500);
   const [debouncedStatus] = useDebounce(statusFilter, 500);
 
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch, isFetching } = useQuery({
     queryKey: ['volunteersHistorical', {
       searchTerm: debouncedSearch, gradeId: debouncedgradeId,
       page: pageIndex, pageSize, startDate: debouncedStartDate, 
@@ -66,6 +66,7 @@ export function useVolunteerHistorical({
   return {
     data,
     isLoading,
+    isFetching,
     refetch,
     searchValue,
     setSearchValue,

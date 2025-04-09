@@ -2,8 +2,9 @@ import Loader from "../common/Loader";
 import { MessageWithLink } from "../common/MesaggeWithLink/MessageWithLink";
 import SortableTable from "../common/SortableTable/SortableTable";
 
-export function RecruitmentTable({ isLoading, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch }: RecruitmentTableProps) {
-    if (isLoading) return <Loader />;
+export function RecruitmentTable({ isLoading, isFetching, data, columns, pageIndex, pageSize, setPageIndex, setPageSize, refetch }: RecruitmentTableProps) {
+    if (isLoading) return <Loader message="Cargando datos..."/>;
+    if (isFetching) return <Loader message="Cargando datos..."/>;
     if (!data?.data.length)
         return <MessageWithLink
             message="No existen reclutas."

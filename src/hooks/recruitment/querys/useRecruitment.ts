@@ -30,11 +30,10 @@ export function useRecruitment({
   const [pageSize, setPageSize] = useState(initialPageSize);
 
   const [debouncedSearch] = useDebounce(searchValue, 500);
-  const [debouncedStatus] = useDebounce(statusFilter, 500);
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['recruitment', { searchTerm: debouncedSearch, status: debouncedStatus, page: pageIndex, pageSize }],
-    queryFn: () => getRecruitment({ searchTerm: debouncedSearch, status: debouncedStatus, page: pageIndex, pageSize }),
+  const { data, isLoading, refetch,   isFetching, } = useQuery({
+    queryKey: ['recruitment', { searchTerm: debouncedSearch, status: statusFilter, page: pageIndex, pageSize }],
+    queryFn: () => getRecruitment({ searchTerm: debouncedSearch, status: statusFilter, page: pageIndex, pageSize }),
     placeholderData: keepPreviousData,
     retry: false,
   });
@@ -43,6 +42,7 @@ export function useRecruitment({
     data,
     isLoading,
     refetch,
+    isFetching,
     searchValue,
     setSearchValue,
     statusFilter,

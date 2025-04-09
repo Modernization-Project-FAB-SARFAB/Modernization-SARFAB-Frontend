@@ -8,7 +8,7 @@ export function RecruitmentPendingListView({ breadcrumb, initialStatusFilter, co
     useBreadcrumb(breadcrumb);
 
     const {
-        data, isLoading, refetch, searchValue,
+        data, isLoading, refetch, isFetching, searchValue,
         setSearchValue, statusFilter, setStatusFilter,
         pageIndex, setPageIndex, pageSize, setPageSize
     } = useRecruitment({ initialStatusFilter });
@@ -29,7 +29,7 @@ export function RecruitmentPendingListView({ breadcrumb, initialStatusFilter, co
                 statusOptions={statusOptions}
             />
             <RecruitmentTable
-                isLoading={isLoading} data={data} columns={columns}
+                isLoading={isLoading} isFetching={isFetching} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
                 noItemsMessage="No se encontraron candidatos"

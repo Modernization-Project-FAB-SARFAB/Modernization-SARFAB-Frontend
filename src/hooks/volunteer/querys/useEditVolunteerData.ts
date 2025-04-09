@@ -5,7 +5,6 @@ export function useDetailsVolunteer(volunteerId?: string | null) {
   return useQuery({
     queryKey: ['editVolunteer', volunteerId],
     queryFn: () => getVolunteerById(Number(volunteerId)),
-    retry: false,
-    refetchOnWindowFocus: true,
+    retry: false
   });
 }

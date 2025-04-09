@@ -29,7 +29,7 @@ export default function VolunteerCourseAssingModal() {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { data, isLoading, error } = useCoursesSelect(volunteerId);
-    const { register, handleSubmit, formState: { errors }, control, reset } = useCourseVolunteerForm(initialValues);
+    const { register, handleSubmit, formState: { errors }, control } = useCourseVolunteerForm(initialValues);
 
     const { mutate } = useAssingCourseVolunteer();
 

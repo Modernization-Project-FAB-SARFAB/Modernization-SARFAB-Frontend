@@ -1,4 +1,5 @@
 import ButtonGroup from "@/components/common/ButtonGroup/ButtonGroup";
+import Loader from "@/components/common/Loader";
 import VolunteerForm from "@/components/volunteer/forms/VolunteerForm";
 import VolunteerFormWithRecruit from "@/components/volunteer/forms/VolunteerFormWithRecruit";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
@@ -68,11 +69,30 @@ export default function CreateVolunteerAfiliationView() {
   const renderForm = () => {
     if (!recruitId) {
       return (
-        <VolunteerForm errors={errors} register={register} control={control} />
+        <>
+          <VolunteerForm errors={errors} register={register} control={control} />
+          <ButtonGroup
+            buttons={[
+              {
+                type: "button",
+                label: "Registrar voluntario",
+                onClick: handleSubmit(handleForm),
+                variant: "primary",
+                disabled: isSubmitting,
+                isLoading: isSubmitting,
+              },
+              {
+                type: "link",
+                label: "Cancelar",
+                to: "/volunteers/active-volunteers",
+              },
+            ]}
+          />
+        </>
       );
     }
 
-    if (isLoading) return <p>Cargando datos del recluta...</p>;
+    if (isLoading) return <Loader message="Cargando datos del recluta..."/>;
     if (isError) return <p>Error al cargar los datos del recluta.</p>;
 
     return (<>

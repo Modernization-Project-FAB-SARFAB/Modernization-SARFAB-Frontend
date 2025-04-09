@@ -22,7 +22,7 @@ export function useVolunteerCompletedCourses({
     const [pageIndex, setPageIndex] = useState(initialPageIndex);
     const [pageSize, setPageSize] = useState(initialPageSize);
   
-    const { data, isLoading, refetch, isError } = useQuery({
+    const { data, isLoading, refetch, isError, isFetching } = useQuery({
         queryKey: ["volunteerCompletedCourses", {volunteerId, page: pageIndex, pageSize,}],
         queryFn: () => getVolunteerCompletedCourses(Number(volunteerId), {page: pageIndex, pageSize}),
         enabled: !!volunteerId,
@@ -32,6 +32,7 @@ export function useVolunteerCompletedCourses({
     return {
         data,
         isLoading,
+        isFetching,
         isError,
         refetch,
         volunteerId,

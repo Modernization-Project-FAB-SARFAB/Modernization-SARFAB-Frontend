@@ -8,7 +8,7 @@ export function RecruitmentListView({ breadcrumb, initialStatusFilter, columns, 
     useBreadcrumb(breadcrumb);
 
     const {
-        data, isLoading, refetch, searchValue,
+        data, isLoading, refetch, isFetching, searchValue,
         setSearchValue,
         pageIndex, setPageIndex, pageSize, setPageSize
     } = useRecruitment({ initialStatusFilter });
@@ -20,7 +20,7 @@ export function RecruitmentListView({ breadcrumb, initialStatusFilter, columns, 
                 searchValue={searchValue} setSearchValue={setSearchValue}
             />
             <RecruitmentTable
-                isLoading={isLoading} data={data} columns={columns}
+                isLoading={isLoading} isFetching={isFetching} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
                 noItemsMessage="No se encontraron candidatos"
