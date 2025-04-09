@@ -118,6 +118,7 @@ export const operationVolunteerSchema = z.object({
     address: z.string(),
     responsible: z.string(),
     observations: z.string(),
+    status: z.number()
 });
 
 export const listVolunteerOperationsReportSchema = z.object({

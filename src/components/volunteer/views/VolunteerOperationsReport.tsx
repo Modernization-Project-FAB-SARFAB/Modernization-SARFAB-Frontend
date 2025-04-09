@@ -13,6 +13,7 @@ export default function VolunteerOperationsReport({ breadcrumb, columns }: Volun
     const {
         data,
         isLoading,
+        isFetching,
         refetch,
         searchValue,
         setSearchValue,
@@ -61,7 +62,7 @@ export default function VolunteerOperationsReport({ breadcrumb, columns }: Volun
                     setOrderByDateAsc={setOrderByDateAsc}
                     refetch={refetch}
                 />
-                <VolunteerTable
+                <VolunteerTable isFetching={isFetching}
                     isLoading={isLoading} data={data} columns={columns}
                     pageIndex={pageIndex} pageSize={pageSize}
                     setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}

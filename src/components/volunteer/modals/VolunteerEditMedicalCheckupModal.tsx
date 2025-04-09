@@ -2,6 +2,7 @@ import Button from "@/components/common/Button/Button";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import FormDate from "@/components/common/FormDate/FormDate";
 import FormInput from "@/components/common/FormInput/FormInput";
+import Loader from "@/components/common/Loader";
 import Modal from "@/components/common/Modal/Modal";
 import { useVolunteerUpdateMedicalCheckupForm } from "@/hooks/volunteerMedicalCheckup/forms/useVolunteerUpdateMedicalCheckupForm";
 import { useUpdateVolunteerMedicalCheckup } from "@/hooks/volunteerMedicalCheckup/mutations/useUpdateVolunteerMedicalCheckup";
@@ -71,10 +72,7 @@ export default function VolunteerEditMedicalCheckupModal() {
 
             <form onSubmit={handleSubmit(handleForm)} noValidate>
                 {isLoading ? (
-                    <div className="flex justify-center items-center">
-                        <div className="spinner"></div> {/* Spinner CSS o componente */}
-                        <p>Cargando...</p>
-                    </div>
+                    <Loader/>
                 ) : isError ? (
                     <p>Error al cargar los datos del reclutamiento.</p>
                 ) : (

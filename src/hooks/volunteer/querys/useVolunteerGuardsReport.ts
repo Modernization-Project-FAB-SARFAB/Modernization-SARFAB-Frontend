@@ -45,19 +45,15 @@ export function useVolunteerGuardsReport({
     const [pageSize, setPageSize] = useState(initialPageSize);
 
     const [debouncedSearch] = useDebounce(searchValue, 500);
-    const [debouncedStatus] = useDebounce(statusFilter, 500);
-    const [debouncedShift] = useDebounce(shiftFilter, 500);
-    const [debouncedStartDate] = useDebounce(startDate, 500);
-    const [debouncedEndDate] = useDebounce(endDate, 500);
 
-    const { data, isLoading, refetch } = useQuery({
+    const { data, isLoading, refetch , isFetching} = useQuery({
         queryKey: ['volunteerGuardReport', initialVolunteerId, {
-            query: debouncedSearch, status: debouncedStatus, shift: debouncedShift, startDate: debouncedStartDate,
-            endDate: debouncedEndDate, page: pageIndex, pageSize
+            query: debouncedSearch, status: statusFilter, shift: shiftFilter, startDate: startDate,
+            endDate: endDate, page: pageIndex, pageSize
         }],
         queryFn: () => getVolunteerGuardsReportList(Number(initialVolunteerId) ,{
-            query: debouncedSearch, statusId: debouncedStatus, shift: debouncedShift, startDate: debouncedStartDate,
-            endDate: debouncedEndDate, page: pageIndex, pageSize
+            query: debouncedSearch, statusId: statusFilter, shift: shiftFilter, startDate: startDate,
+            endDate: endDate, page: pageIndex, pageSize
         }),
         placeholderData: keepPreviousData,
         retry: false,
@@ -67,6 +63,7 @@ export function useVolunteerGuardsReport({
         data,
         isLoading,
         refetch,
+        isFetching,
         searchValue,
         setSearchValue,
 

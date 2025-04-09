@@ -1,5 +1,4 @@
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
-import { VolunteerHeader } from "../headers/VolunteerHeader";
 import { VolunteerTable } from "../table/VolunteerTable";
 import { useVolunteerGuardsReport } from "@/hooks/volunteer/querys/useVolunteerGuardsReport";
 import { VolunteerGuardsReportFilters } from "../filters/VolunteerGuardsReportFilters";
@@ -11,7 +10,7 @@ export default function VolunteerGuardsReport({ breadcrumb, columns }: Volunteer
     const { volunteerId } = useParams();
 
     const {
-        data, isLoading, refetch, searchValue, setSearchValue,
+        data, isLoading, refetch, isFetching, searchValue, setSearchValue,
         statusFilter, setStatusFilter,
         shiftFilter, setShiftFilter,
         setStartDate, setEndDate,
@@ -51,7 +50,7 @@ export default function VolunteerGuardsReport({ breadcrumb, columns }: Volunteer
                     refetch={refetch}
                 />
                 <VolunteerTable
-                    isLoading={isLoading} data={data} columns={columns}
+                    isLoading={isLoading} isFetching={isFetching} data={data} columns={columns}
                     pageIndex={pageIndex} pageSize={pageSize}
                     setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
                     noItemsMessage="No existen registros de guardias"

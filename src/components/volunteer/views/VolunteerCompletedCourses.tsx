@@ -34,7 +34,7 @@ export default function VolunteerCompletedCourses({ columns }: VolunteerCourseLi
             isLoading={isLoading} isFetching={isFetching} data={data} columns={columns}
             pageIndex={pageIndex} pageSize={pageSize}
             setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
-            noItemsMessage="No existen cursos finalizados" noItemsLinkText="Agregar curso a voluntario" noItemsLinkUrl={`volunteers/active-volunteers?assingCourse=true&volunteerId=${volunteerIdString}`}
+            noItemsMessage="No existen cursos finalizados" noItemsLinkText="" noItemsLinkUrl={``}
         />
     </div>
 }
