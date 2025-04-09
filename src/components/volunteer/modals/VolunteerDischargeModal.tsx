@@ -1,7 +1,6 @@
 import Button from "@/components/common/Button/Button";
 import Modal from "@/components/common/Modal/Modal";
 import { useDischargeVolunteer } from "@/hooks/volunteer/mutations/useDischargeVolunteer";
-import { useServiceCompletedVolunteer } from "@/hooks/volunteer/mutations/useServiceCompletedVolunteer";
 import { useState, useMemo, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 

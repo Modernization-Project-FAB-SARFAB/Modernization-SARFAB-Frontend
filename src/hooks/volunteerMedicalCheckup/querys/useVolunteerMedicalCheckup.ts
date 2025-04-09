@@ -1,22 +1,11 @@
-import { useState } from "react";
-import { useDebounce } from "use-debounce";
 import { useQuery } from "@tanstack/react-query";
 import { getVolunteerMedicalCheckup } from "@/api/VolunteerMedicalCheckupAPI";
 
-interface UseVolunteerMedicalCheckupOptions {
-  initialVolunteerId?: string;
-}
-
-export function useVolunteerMedicalCheckup({ initialVolunteerId}: UseVolunteerMedicalCheckupOptions = {}) {
-  
-  const [volunteerId, setVolunteerId] = useState(initialVolunteerId);
-  const [debouncedVolunteerId] = useDebounce(volunteerId, 500);
-
+export function useVolunteerMedicalCheckup(initialVolunteerId: string) {
   const { data, isLoading, refetch, isError } = useQuery({
-    queryKey: ["volunteerMedicalCheckup", debouncedVolunteerId],
-    queryFn: () => (debouncedVolunteerId ? getVolunteerMedicalCheckup(Number(debouncedVolunteerId)) : Promise.resolve(null)),
-    enabled: !!debouncedVolunteerId,
-    retry: false
+    queryKey: ["volunteerMedicalCheckup", initialVolunteerId],
+    queryFn: () => getVolunteerMedicalCheckup(Number(initialVolunteerId)),
+    retry: false,
   });
 
   return {
@@ -24,7 +13,5 @@ export function useVolunteerMedicalCheckup({ initialVolunteerId}: UseVolunteerMe
     isLoading,
     isError,
     refetch,
-    volunteerId,
-    setVolunteerId
   };
 }

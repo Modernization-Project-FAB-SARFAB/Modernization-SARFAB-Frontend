@@ -2,6 +2,7 @@ import COVER_IMAGE from "@/assets/images/signIn/sarfab2.png";
 import LOGO from '@/assets/images/signIn/logo.png'
 import ESCUDO from '@/assets/images/signIn/escudo.png'
 import LOGO_WITH_TEXT_LIGHT from '@/assets/images/logo/logo-sar-sidebar-light.webp'
+import LOGO_UMA from '@/assets/images/uma/logo_uma_positivo.png';
 
 const AuthLoginLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <div className="w-full h-screen flex items-start">
@@ -32,11 +33,15 @@ const AuthLoginLayout: React.FC<{ children: React.ReactNode }> = ({ children }) 
                     className=" md:ml-auto w-60"
                 />
             </div>
-            
+
             {children}
 
             <div className="text-center">
-                <p>Powered 💙 by Univalle</p>
+                <img
+                    alt="sarfab-with-text"
+                    src={LOGO_UMA}
+                    className="w-30 mx-auto"
+                />
             </div>
         </div>
 

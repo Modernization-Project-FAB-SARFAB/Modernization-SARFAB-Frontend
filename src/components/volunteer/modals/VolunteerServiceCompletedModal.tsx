@@ -31,12 +31,12 @@ export default function VolunteerServiceCompletedModal() {
 
     return (
         <Modal
-            title="Servicio Cumplido"
+            title="Servicio Finalizado"
             isOpen={isOpen}
             onClose={() => navigate(location.pathname, { replace: true })}
         >
             <p className="text-lg font-semibold text-gray-600 mb-6">
-                Este voluntario ha cumplido con su servicio.
+                El voluntario ha finalizado satisfactoriamente su periodo de servicio
             </p>
             <div className="flex justify-end gap-4.5 mt-6">
                 <Button
