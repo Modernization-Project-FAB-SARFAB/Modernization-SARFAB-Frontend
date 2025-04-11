@@ -1,3 +1,4 @@
+import Loader from "../common/Loader";
 import Modal from "../common/Modal/Modal";
 import RecruitDetails from "./RecriutDetails";
 import { useRecruitData, useRecruitModal } from "@/hooks/recruitment";
@@ -10,7 +11,7 @@ export default function DetailsRecruitModal() {
         <Modal title="Detalles del recluta" isOpen={!!isModalOpen} onClose={closeModal}>
             {
                 isLoading ?
-                    <><p>Cargando...</p></> :
+                    <><Loader message="Cargando datos del recluta"/></> :
 
                     <>{error || !data ?
                         <p>Error al cargar los datos del reclutamiento.</p> :
