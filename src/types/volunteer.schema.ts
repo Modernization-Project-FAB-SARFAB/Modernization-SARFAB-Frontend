@@ -118,7 +118,8 @@ export const operationVolunteerSchema = z.object({
     address: z.string(),
     responsible: z.string(),
     observations: z.string(),
-    status: z.number()
+    status: z.number(),
+    totalRecords: z.number().optional()
 });
 
 export const listVolunteerOperationsReportSchema = z.object({

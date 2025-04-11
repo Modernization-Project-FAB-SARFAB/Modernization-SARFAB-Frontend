@@ -13,7 +13,7 @@ export function VolunteerTable({ isLoading, data, columns, pageIndex, pageSize, 
             linkText={noItemsLinkText}
             linkUrl={noItemsLinkUrl}
         />;
-
+  // const totalRecords = data.data[0].totalRecords;
     return (
         <SortableTable
             columns={columns} data={data.data}
