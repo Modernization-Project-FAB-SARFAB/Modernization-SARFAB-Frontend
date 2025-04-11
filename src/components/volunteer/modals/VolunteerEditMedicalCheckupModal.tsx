@@ -18,34 +18,34 @@ export default function VolunteerEditMedicalCheckupModal() {
 
     const medicalCheckupId = Number(queryParams.get("medicalCheckupId"));
     const isAssingCourseModal = queryParams.get("edit-medical-checkup");
-    const isOpen = !!isAssingCourseModal;
+    const isOpen = Boolean(isAssingCourseModal);
+
+    const [initialValues, setInitialValues] = useState<MedicalCheckupVolunteerUpdateFormData>({
+        checkupDate: "",
+        expirationDate: "",
+        observations: ""
+    });
 
     const { data, isLoading, isError } = useEditVolunteerMedicalCheckup(medicalCheckupId);
 
-    const initialValues = {
-        checkupDate: data?.checkupDate || "",
-        expirationDate: data?.expirationDate || "",
-        observations: data?.observations || ""
-    };
-
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const { register, handleSubmit, formState: { errors }, reset } = useVolunteerUpdateMedicalCheckupForm(initialValues);
     const mutation = useUpdateVolunteerMedicalCheckup();
 
-    // Restablecer isSubmitting cuando se abra el modal
     useEffect(() => {
-        setIsSubmitting(false); // Resetear isSubmitting cuando el modal se abre
-    }, [isOpen]);
-
-    useEffect(() => {
-        if (data) {
-            reset({
+        if (isOpen && data) {
+            setInitialValues({
                 checkupDate: data.checkupDate,
                 expirationDate: data.expirationDate,
                 observations: data.observations
             });
         }
-    }, [data, reset]);
+    }, [isOpen, data]);
+
+    useEffect(() => {
+        reset(initialValues);
+    }, [initialValues, reset]);
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleClose = () => {
         navigate(location.pathname, { replace: true });
@@ -59,12 +59,15 @@ export default function VolunteerEditMedicalCheckupModal() {
         } catch (error) {
             console.error("Error al asignar el chequeo médico", error);
         } finally {
-            setIsSubmitting(false); // Restablecer isSubmitting cuando la mutación haya terminado
+            setIsSubmitting(false);
         }
     };
 
     return (
-        <Modal title={"Editar chequeo médico"} isOpen={isOpen} onClose={() => navigate(location.pathname, { replace: true })}>
+        <Modal 
+            title={"Editar chequeo médico"} 
+            isOpen={isOpen} 
+            onClose={() => navigate(location.pathname, { replace: true })}>
             <p className="text-lg font-thin text-gray-600 mb-6">
                 Parece que estás editando un chequeo médico para este voluntario.
                 <span className="text-body font-semibold"> Actualiza los datos del chequeo médico.</span>

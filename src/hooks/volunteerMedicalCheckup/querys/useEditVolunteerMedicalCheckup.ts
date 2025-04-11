@@ -6,9 +6,6 @@ export function useEditVolunteerMedicalCheckup(medicalCheckupId?: number | null)
     queryKey: ['editVolunteerMedicalCheckup', medicalCheckupId],
     queryFn: () => getMedicalCheckupById(Number(medicalCheckupId)),
     retry: false,
-    refetchOnWindowFocus: true,
-    refetchIntervalInBackground: true,
-    staleTime: 60000,
-    refetchInterval: 2000
+    enabled: Boolean(medicalCheckupId),
   });
 }
