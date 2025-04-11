@@ -2,6 +2,7 @@ import Button from "@/components/common/Button/Button";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import FormDate from "@/components/common/FormDate/FormDate";
 import FormSelect from "@/components/common/FormSelect/FormSelect";
+import Loader from "@/components/common/Loader";
 import Modal from "@/components/common/Modal/Modal";
 import { useCoursesSelect } from "@/hooks/courses/querys/useCoursesSelectData";
 import { useAssingCourseVolunteer } from "@/hooks/courseVolunteer/mutations/useAssingCourseVolunteer";
@@ -56,10 +57,7 @@ export default function VolunteerCourseAssingModal() {
         <Modal title={"Agregar curso a voluntario"} isOpen={isOpen} onClose={() => navigate(location.pathname, { replace: true })}>
             {
                 isLoading ?
-                    <div className="flex justify-center items-center">
-                        <div className="spinner"></div> {/* Spinner CSS o componente */}
-                        <p>Cargando...</p>
-                    </div> :
+                    <Loader message="Cargando cursos..."/> :
                     error ? (
                         <p>Error al cargar los datos del reclutamiento.</p>
                     ) : !data || data.length === 0 ? (
