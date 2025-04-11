@@ -16,7 +16,7 @@ export function useGradePromotionVolunteer() {
       navigate(-1);
     },
     onSuccess: (_, variables) => {
-      toast.success("Voluntario promovido correctamente");
+      toast.success("Voluntario ascendido correctamente");
       queryClient.invalidateQueries({queryKey: ["volunteersActive"]});
       queryClient.invalidateQueries({queryKey: ['editVolunteer', variables]});
       navigate(-1);

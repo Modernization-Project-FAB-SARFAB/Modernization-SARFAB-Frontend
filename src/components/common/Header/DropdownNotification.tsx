@@ -77,7 +77,7 @@ const DropdownNotification = () => {
   const obtenerTextoTipo = (tipo: string) => {
     const tipoEnMinusculas = tipo.toLowerCase();
     if (tipoEnMinusculas.includes('demérito') || tipoEnMinusculas.includes('demerit') || tipoEnMinusculas.includes('puntos')) {
-      return 'Límite de puntos perdidos';
+      return 'Límite de faltas acumuladas';
     } 
     else if (tipoEnMinusculas.includes('venc') || tipoEnMinusculas.includes('expired') || 
             (tipoEnMinusculas.includes('médico') && tipoEnMinusculas.includes('venc'))) {

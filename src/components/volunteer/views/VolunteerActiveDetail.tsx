@@ -48,7 +48,7 @@ export default function VolunteerActiveDetail() {
           <BackLink
             text="Volver a listado de voluntarios"
             iconSize={20}
-            link="/recruitment/approve-or-deny"
+            link="/volunteers/active-volunteers"
           />
           <PersonalData data={data} lastCourse={isErrorLastCourse ? "No se pudo encontrar el último curso completado" : lastCourseVolunteer?.courseName}/>
         </div>
@@ -57,9 +57,9 @@ export default function VolunteerActiveDetail() {
         </div>
         <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
           {totalDemeritPoint !== undefined && totalDemeritPoint !== null ? (
-            <Assistance volunteerId={volunteerId} totalDemeritPoint={totalDemeritPoint} />
+            <Assistance volunteerId={volunteerId} totalDemeritPoint={totalDemeritPoint} volunteerType={data.volunteerType} />
           ) : (
-            <div>Cargando puntos de demérito...</div> // O un mensaje de carga específico
+            <div>Cargando faltas...</div>
           )}
         </div>
         <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
