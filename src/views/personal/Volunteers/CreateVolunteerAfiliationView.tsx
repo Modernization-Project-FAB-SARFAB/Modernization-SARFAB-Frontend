@@ -70,7 +70,47 @@ export default function CreateVolunteerAfiliationView() {
     if (!recruitId) {
       return (
         <>
-          <VolunteerForm errors={errors} register={register} control={control} />
+          <form onSubmit={handleSubmit(handleForm)} noValidate>
+            <fieldset disabled={isSubmitting}>
+              <VolunteerForm errors={errors} register={register} control={control} />
+            </fieldset>
+            <ButtonGroup
+              buttons={[
+                {
+                  type: "button",
+                  label: "Registrar voluntario",
+                  onClick: handleSubmit(handleForm),
+                  variant: "primary",
+                  disabled: isSubmitting,
+                  isLoading: isSubmitting,
+                },
+                {
+                  type: "link",
+                  label: "Cancelar",
+                  to: "/volunteers/active-volunteers",
+                },
+              ]}
+            />
+          </form>
+        </>
+      );
+    }
+
+    if (isLoading) return <Loader message="Cargando datos del recluta..." />;
+    if (isError) return <p>Error al cargar los datos del recluta.</p>;
+
+    return (
+      <>
+        <fieldset disabled={isSubmitting}>
+            <VolunteerFormWithRecruit
+              errors={errors}
+              register={register}
+              control={control}
+              setValue={setValue}
+              recruit={recruitData}
+              typeVolunteer={recruitData.wantsMilitaryService ? 'Libretista' : 'Voluntario'}
+            />
+          </fieldset>
           <ButtonGroup
             buttons={[
               {
@@ -84,44 +124,11 @@ export default function CreateVolunteerAfiliationView() {
               {
                 type: "link",
                 label: "Cancelar",
-                to: "/volunteers/active-volunteers",
+                to: recruitId ? "/recruitment/approve-or-deny" : "/volunteers/active-volunteers",
               },
             ]}
           />
-        </>
-      );
-    }
-
-    if (isLoading) return <Loader message="Cargando datos del recluta..."/>;
-    if (isError) return <p>Error al cargar los datos del recluta.</p>;
-
-    return (<>
-      <VolunteerFormWithRecruit
-        errors={errors}
-        register={register}
-        control={control}
-        setValue={setValue}
-        recruit={recruitData}
-        typeVolunteer={recruitData.wantsMilitaryService ? 'Libretista' : 'Voluntario'}
-      />
-      <ButtonGroup
-        buttons={[
-          {
-            type: "button",
-            label: "Registrar voluntario",
-            onClick: handleSubmit(handleForm),
-            variant: "primary",
-            disabled: isSubmitting,
-            isLoading: isSubmitting,
-          },
-          {
-            type: "link",
-            label: "Cancelar",
-            to: recruitId ? "/recruitment/approve-or-deny" : "/volunteers/active-volunteers",
-          },
-        ]}
-      />
-    </>
+      </>
     );
   };
 

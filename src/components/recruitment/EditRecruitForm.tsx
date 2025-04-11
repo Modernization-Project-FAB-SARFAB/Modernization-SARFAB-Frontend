@@ -23,12 +23,14 @@ export default function EditRecruitForm({ data, recruitId }: EditRecruitFormProp
                     Editar recluta
                 </h3>
                 <form onSubmit={handleSubmit(handleForm)} noValidate>
-                    <RecruitForm errors={errors} register={register} control={control} />
+                    <fieldset disabled={isSubmitting}>
+                        <RecruitForm errors={errors} register={register} control={control} />
+                    </fieldset>
                     <div className="p-6.5">
                         <ButtonGroup
                             buttons={[
                                 { type: "button", label: "Editar recluta", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
-                                { type: "button", label: "Cancelar", onClick: ()=> navigate(-1), variant:"secondary" }
+                                { type: "button", label: "Cancelar", onClick: () => navigate(-1), variant: "secondary" }
                             ]}
                         />
                     </div>

@@ -64,36 +64,37 @@ export default function VolunteerMedicalCheckupModal() {
       </p>
 
       <form onSubmit={handleSubmit(handleForm)} noValidate>
-        <input type="text" hidden {...register("volunteerId")} />
+        <fieldset disabled={isSubmitting}>
+          <input type="text" hidden {...register("volunteerId")} />
 
-        <FormDate
-          label="Fecha de realización del chequeo médico"
-          placeholder="Ingresa la fecha en la que se realizó el chequeo"
-          required
-          register={register}
-          name="checkupDate"
-        />
-        {errors.checkupDate && <ErrorFormMessage>{errors.checkupDate.message}</ErrorFormMessage>}
+          <FormDate
+            label="Fecha de realización del chequeo médico"
+            placeholder="Ingresa la fecha en la que se realizó el chequeo"
+            required
+            register={register}
+            name="checkupDate"
+          />
+          {errors.checkupDate && <ErrorFormMessage>{errors.checkupDate.message}</ErrorFormMessage>}
 
-        <FormDate
-          label="Fecha de caducidad del chequeo médico"
-          placeholder="Ingresa la fecha de caducidad del chequeo"
-          required
-          register={register}
-          name="expirationDate"
-        />
-        {errors.expirationDate && <ErrorFormMessage>{errors.expirationDate.message}</ErrorFormMessage>}
+          <FormDate
+            label="Fecha de caducidad del chequeo médico"
+            placeholder="Ingresa la fecha de caducidad del chequeo"
+            required
+            register={register}
+            name="expirationDate"
+          />
+          {errors.expirationDate && <ErrorFormMessage>{errors.expirationDate.message}</ErrorFormMessage>}
 
-        <FormInput
-          label="Observaciones"
-          placeholder="Observaciones sobre el chequeo"
-          register={register}
-          errors={errors}
-          name="observations"
-          type="text"
-        />
-        {errors.observations && <ErrorFormMessage>{errors.observations.message}</ErrorFormMessage>}
-
+          <FormInput
+            label="Observaciones"
+            placeholder="Observaciones sobre el chequeo"
+            register={register}
+            errors={errors}
+            name="observations"
+            type="text"
+          />
+          {errors.observations && <ErrorFormMessage>{errors.observations.message}</ErrorFormMessage>}
+        </fieldset>
         <div className="flex justify-end gap-4.5 mt-6">
           <Button
             label={isSubmitting ? "Procesando..." : "Agregar chequeo médico"}

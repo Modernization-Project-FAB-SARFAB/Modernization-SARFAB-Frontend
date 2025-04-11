@@ -21,7 +21,7 @@ export default function CreateRecruitView() {
 
   const { register, handleSubmit, formState: { errors }, control } = useRecruitForm(initialValues);
   const mutation = useCreateRecruit();
-  
+
   const handleForm = async (formData: RecruitmentFormData) => {
     setIsSubmitting(true);
     await mutation.mutateAsync(formData)
@@ -41,12 +41,14 @@ export default function CreateRecruitView() {
               Registro de nuevo recluta
             </h3>
             <form onSubmit={handleSubmit(handleForm)} noValidate>
-              <RecruitForm errors={errors} register={register} control={control} />
+              <fieldset disabled={isSubmitting}>
+                <RecruitForm errors={errors} register={register} control={control} />
+              </fieldset>
               <div className="p-6.5">
                 <ButtonGroup
                   buttons={[
-                    { type: "button", label: "Registrar recluta", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading:isSubmitting },
-                    { type: "link", label: "Cancelar", to: "/recruitment/approve-or-deny" } 
+                    { type: "button", label: "Registrar recluta", onClick: handleSubmit(handleForm), variant: "primary", disabled: isSubmitting, isLoading: isSubmitting },
+                    { type: "link", label: "Cancelar", to: "/recruitment/approve-or-deny" }
                   ]}
                 />
               </div>

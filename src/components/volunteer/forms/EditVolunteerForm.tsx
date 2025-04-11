@@ -11,7 +11,9 @@ export default function EditVolunteerForm({ data, volunteerId }: EditVolunteerFo
     return (
         <>
             <form onSubmit={handleSubmit(handleForm)} noValidate>
-                <VolunteerEditForm errors={errors} register={register} control={control} volunteerData={data} setValue={setValue}/>
+                <fieldset disabled={isSubmitting}>
+                    <VolunteerEditForm errors={errors} register={register} control={control} volunteerData={data} setValue={setValue} />
+                </fieldset>
                 <div className="p-6.5">
                     <ButtonGroup
                         buttons={[
