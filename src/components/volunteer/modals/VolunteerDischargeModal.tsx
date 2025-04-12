@@ -15,11 +15,16 @@ export default function VolunteerDischargeModal() {
 
     const [dischargeReason, setDischargeReason] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState("");
     const { mutate } = useDischargeVolunteer();
 
     const handleConfirmDismissal = useCallback(() => {
-        if (!dischargeReason.trim()) return;
+        if (!dischargeReason.trim()) {
+            setError("Este campo es obligatorio");
+            return;
+        }
 
+        setError("");
         setIsSubmitting(true);
         mutate(
             { volunteerId, formData: { status: 0, dischargeReason } },
@@ -41,17 +46,22 @@ export default function VolunteerDischargeModal() {
                 ¿Estás seguro de que deseas dar de baja a este voluntario?
             </p>
 
-            <label htmlFor="dischargeReason" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Motivo de la baja:
-            </label>
-            <input
-                id="dischargeReason"
-                type="text"
-                value={dischargeReason}
-                onChange={(e) => setDischargeReason(e.target.value)}
-                className="w-full rounded border-[1.5px] border-stroke py-3 px-5 pr-10 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default :bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                placeholder="Escribe el motivo..."
-            />
+            <fieldset disabled={isSubmitting}>
+                <label htmlFor="dischargeReason" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Motivo de la baja:
+                </label>
+                <input
+                    id="dischargeReason"
+                    type="text"
+                    value={dischargeReason}
+                    onChange={(e) => setDischargeReason(e.target.value)}
+                    className={`w-full rounded border-[1.5px] py-3 px-5 pr-10 font-medium outline-none transition
+                        ${error ? 'border-danger focus:border-danger' : 'border-stroke focus:border-primary'}
+                        disabled:cursor-default :bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary`}
+                    placeholder="Escribe el motivo..."
+                />
+                {error && <p className="mt-1 text-sm text-danger font-bold">{error}</p>}
+            </fieldset>
 
             <div className="flex justify-end gap-4 mt-6">
                 <Button

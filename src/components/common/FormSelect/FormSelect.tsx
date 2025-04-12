@@ -26,7 +26,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
               {...field}
               className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
             >
-              <option value={0} disabled>Seleccionar una opción</option>
+              <option value="" disabled>Seleccionar una opción</option>
               {options.map((option) => (
                 <option key={option.id} value={option.id}>
                   {option.name}

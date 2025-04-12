@@ -6,6 +6,7 @@ import { RecruitAPIType, RecruitStatusAPIType } from "./types/RecruitAPIType.typ
 export async function createRecruitment(formData: RecruitmentFormData) {
     try {
         const { data } = await api.post('/Recruitment', formData)
+
         return data;
     } catch (error) {
         if (isAxiosError(error) && error.response) {
@@ -18,6 +19,7 @@ export async function getRecruitment(queryParams?: Record<string, any>) {
     try {
         const { data } = await api.get('/Recruitment', { params: queryParams })
         const response = listRecruitmentSchema.safeParse(data);
+
         if (response.success) {
             return response.data;
         }

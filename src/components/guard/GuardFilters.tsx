@@ -10,10 +10,10 @@ export function GuardFilters({ shiftData, searchValue, setSearchValue, setStartD
     }
 
     const statusOptions = [
-        { id: -1, name: 'Todos' },
-        { id: 1, name: 'Programado' },
-        { id: 0, name: 'Finalizado' },
-    ];
+      { id: 1, name: 'Programado' },
+      { id: -1, name: 'Todos' },
+      { id: 0, name: 'Finalizado' },
+  ];
 
     const shiftOptions = [
         { id: -1, name: 'Todos' },

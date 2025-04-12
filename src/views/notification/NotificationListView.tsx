@@ -62,7 +62,7 @@ export default function NotificationListView() {
 
   const obtenerTextoTipo = (tipo: string) => {
     const t = tipo.toLowerCase();
-    if (t.includes('demérito') || t.includes('demerit') || t.includes('puntos')) return 'Límite de puntos perdidos';
+    if (t.includes('demérito') || t.includes('demerit') || t.includes('puntos')) return 'Límite de faltas acumuladas';
     if (t.includes('venc') || t.includes('expired') || (t.includes('médico') && t.includes('venc'))) return 'Chequeo médico vencido';
     if (t.includes('recordatorio') || (t.includes('médico') && !t.includes('venc'))) return 'Recordatorio de chequeo médico';
     if (t.includes('medical') && (t.includes('checkup') || t.includes('check'))) return t.includes('expired') ? 'Chequeo médico vencido' : 'Recordatorio de chequeo médico';

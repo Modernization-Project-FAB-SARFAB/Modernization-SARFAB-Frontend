@@ -7,7 +7,7 @@ const DEFAULTS = {
     pageIndex: 1,
     pageSize: 10,
     defaultDate: '',
-    defultStatus: -1,
+    defultStatus: 1,
     defaultShift: -1
 };
 
@@ -26,7 +26,7 @@ export function useGuard({
     initialStartDateValue = DEFAULTS.defaultDate,
     initialEndDateValue = DEFAULTS.defaultDate,
     initialShiftValue = DEFAULTS.defaultShift,
-    initialStatusValue = DEFAULTS.defaultShift,
+    initialStatusValue = DEFAULTS.defultStatus,
     initialPageIndex = DEFAULTS.pageIndex,
     initialPageSize = DEFAULTS.pageSize,
 }: UseGuardOptions = {}) {

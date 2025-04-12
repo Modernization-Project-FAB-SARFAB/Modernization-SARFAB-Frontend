@@ -14,7 +14,7 @@ export function VolunteerHistoricalFilters({ searchValue, setSearchValue, gradeI
 
     return (
         <div className='flex flex-col gap-5.5 sm:flex-row mt-3'>
-            <FilterSearchBox name='searchTerm' value={searchValue} onChange={setSearchValue} placeholder="Buscar por nombre o carnet de identidad" />
+            <FilterSearchBox name='searchTerm' value={searchValue} onChange={setSearchValue} placeholder="Buscar por nombres o apellidos" />
             <FilterSelect name='gradeId' label="Seleccionar grado" options={gradeIdOptions} value={gradeIdFilter} onChange={setgradeIdFilter} />
             <FilterSelect name='status' label="Seleccionar estado" options={statusOptions} value={statusFilter} onChange={setStatusFilter} />
             <FilterRangeDates onChange={handleRangeSelect} refetch={refetch} />

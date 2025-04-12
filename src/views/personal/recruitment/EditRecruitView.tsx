@@ -12,7 +12,7 @@ export default function EditRecruitView() {
 
   const { data, isLoading, isError } = useEditRecruit(recruitId);
 
-  if (isLoading) return <Loader/>;
+  if (isLoading) return <Loader message="Cargando datos del recluta"/>;
   if (isError) return 'Error'; //<Navigate to="/404" />
   if (data) return <EditRecruitForm data={data} recruitId={Number(recruitId)} />
 }

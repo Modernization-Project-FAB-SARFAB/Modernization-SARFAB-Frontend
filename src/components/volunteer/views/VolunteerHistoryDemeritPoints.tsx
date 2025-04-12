@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import BackLink from "@/components/common/BackLink/BackLink";
 import SimpleSortableTable from "@/components/common/SimpleSortableTable/SimpleSortableTable";
 import VolunteerDeleteDemeritPointModal from "../modals/VolunteerDeleteDemeritPointModal";
+import Loader from "@/components/common/Loader";
 
 // Mejora el tipo si usas react-table
 interface VolunteerHistoryDemeritPointsProps {
@@ -46,7 +47,7 @@ export default function VolunteerHistoryDemeritPoints({ columns }: VolunteerHist
 
         <div className="p-6">
           {isLoading && (
-            <p className="text-gray-500">Cargando historial...</p>
+            <Loader message="Cargando historial..."/>
           )}
 
           {isError && (

@@ -64,9 +64,9 @@ export default function VolunteerEditMedicalCheckupModal() {
     };
 
     return (
-        <Modal 
-            title={"Editar chequeo médico"} 
-            isOpen={isOpen} 
+        <Modal
+            title={"Editar chequeo médico"}
+            isOpen={isOpen}
             onClose={() => navigate(location.pathname, { replace: true })}>
             <p className="text-lg font-thin text-gray-600 mb-6">
                 Parece que estás editando un chequeo médico para este voluntario.
@@ -75,46 +75,47 @@ export default function VolunteerEditMedicalCheckupModal() {
 
             <form onSubmit={handleSubmit(handleForm)} noValidate>
                 {isLoading ? (
-                    <Loader/>
+                    <Loader />
                 ) : isError ? (
                     <p>Error al cargar los datos del reclutamiento.</p>
                 ) : (
                     <>
-                        <div className="w-full">
-                            <FormDate
-                                label="Fecha de realización del chequeo médico"
-                                placeholder="Ingresa la fecha en la que se realizó el chequeo"
-                                required
-                                register={register}
-                                name="checkupDate"
-                            />
-                            {errors.checkupDate && (
-                                <ErrorFormMessage>{errors.checkupDate.message}</ErrorFormMessage>
-                            )}
-                        </div>
-                        <div className="w-full">
-                            <FormDate
-                                label="Fecha de caducidad del chequeo médico"
-                                placeholder="Ingresa la fecha de caducidad del chequeo"
-                                required
-                                register={register}
-                                name="expirationDate"
-                            />
-                            {errors.expirationDate && (
-                                <ErrorFormMessage>{errors.expirationDate.message}</ErrorFormMessage>
-                            )}
-                        </div>
-                        <div className="mb-4.5">
-                            <FormInput label="Observaciones" placeholder="Observaciones sobre el chequeo"
-                                register={register}
-                                errors={errors}
-                                name="observations"
-                                type="text" />
-                            {errors.observations && (
-                                <ErrorFormMessage>{errors.observations.message}</ErrorFormMessage>
-                            )}
-                        </div>
-
+                        <fieldset disabled={isSubmitting}>
+                            <div className="w-full">
+                                <FormDate
+                                    label="Fecha de realización del chequeo médico"
+                                    placeholder="Ingresa la fecha en la que se realizó el chequeo"
+                                    required
+                                    register={register}
+                                    name="checkupDate"
+                                />
+                                {errors.checkupDate && (
+                                    <ErrorFormMessage>{errors.checkupDate.message}</ErrorFormMessage>
+                                )}
+                            </div>
+                            <div className="w-full">
+                                <FormDate
+                                    label="Fecha de caducidad del chequeo médico"
+                                    placeholder="Ingresa la fecha de caducidad del chequeo"
+                                    required
+                                    register={register}
+                                    name="expirationDate"
+                                />
+                                {errors.expirationDate && (
+                                    <ErrorFormMessage>{errors.expirationDate.message}</ErrorFormMessage>
+                                )}
+                            </div>
+                            <div className="mb-4.5">
+                                <FormInput label="Observaciones" placeholder="Observaciones sobre el chequeo"
+                                    register={register}
+                                    errors={errors}
+                                    name="observations"
+                                    type="text" />
+                                {errors.observations && (
+                                    <ErrorFormMessage>{errors.observations.message}</ErrorFormMessage>
+                                )}
+                            </div>
+                        </fieldset>
                         <div className="flex justify-end gap-4.5 mt-6">
                             <Button
                                 label={isSubmitting ? "Procesando..." : "Actualizar chequeo médico"}

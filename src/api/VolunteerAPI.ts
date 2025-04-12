@@ -116,3 +116,15 @@ export async function statusChangeVolunteer({volunteerId, formData}: VolunteerSt
         throw new Error("Error de conexión con el servidor");
     }
 }
+
+export async function getAllVolunteerOperationsForReport(id: Volunteer['id'], queryParams?: Record<string, any>) {
+  try {
+      const { data } = await api.get(`/VolunteerOperation/volunteer/${id}/all-operations-for-report`, { params: queryParams });
+      return data;
+  } catch (error) {
+      if (isAxiosError(error) && error.response) {
+          throw new Error(error.response.data.error);
+      }
+      throw new Error("Error al obtener datos para el reporte");
+  }
+}

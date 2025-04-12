@@ -4,12 +4,19 @@ import { useNavigate } from "react-router-dom";
 interface AssistanceProps {
   volunteerId: string;
   totalDemeritPoint: { totalPointsLost: number };
+  volunteerType: string;
 }
 
-const Assistance: React.FC<AssistanceProps> = ({ volunteerId, totalDemeritPoint }) => {
+const Assistance: React.FC<AssistanceProps> = ({ volunteerId, totalDemeritPoint, volunteerType }) => {
   const navigate = useNavigate();
   const pointsLost = totalDemeritPoint?.totalPointsLost ?? 0;
-  const textColor = pointsLost >= 10 ? "text-danger" : "text-primary";
+  
+  let textColor = "";
+  if (volunteerType === "Libretista") {
+    textColor = pointsLost >= 6 ? "text-danger" : "text-primary";
+  } else {
+    textColor = pointsLost >= 12 ? "text-danger" : "text-primary";
+  }
 
   const redirectUrl = `/volunteers/${volunteerId}/demerit-points`;
 
@@ -20,10 +27,10 @@ const Assistance: React.FC<AssistanceProps> = ({ volunteerId, totalDemeritPoint 
   return (
     <div className="flex-row items-center h-full justify-center p-6">
       <div className="px-6 mt-5">
-        <h3 className="dark:text-white text-2xl font-semibold text-black">Cantidad total de puntos perdidos</h3>
-        <p className="text-gray-500">Total de puntos perdidos en operativos y guardias</p>
+        <h3 className="dark:text-white text-2xl font-semibold text-black">Cantidad total de faltas acomuladas</h3>
+        <p className="text-gray-500">Total de faltas acomuladas en operativos y guardias</p>
         <p className={`text-title-xxl text-center font-bold mt-5 ${textColor}`}>
-          {pointsLost} Puntos
+          {pointsLost} {pointsLost === 1 ? "Falta" : "Faltas"}
         </p>
         <div className="flex justify-between items-center mt-6">
           <button
