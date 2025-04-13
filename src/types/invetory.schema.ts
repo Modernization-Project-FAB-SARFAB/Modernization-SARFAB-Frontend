@@ -53,6 +53,7 @@ export type InventoryItem = z.infer<typeof InventoryItemSchema>;
 export const ListInventorySchema = z.object({
   data: z.array(InventoryItemSchema), 
   totalPages: z.number(),
+  totalRecords: z.number()
 });
 export type ListInventoryResponse = z.infer<typeof ListInventorySchema>;
 

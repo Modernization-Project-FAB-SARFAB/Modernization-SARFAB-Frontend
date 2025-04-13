@@ -33,7 +33,7 @@ export default function VolunteerOperationsReport({ breadcrumb, columns }: Volun
         setPageSize
     } = useVolunteerOperationsReport({ initialVolunteerId: Number(volunteerId) });
 
-    const { data: categories = [], isLoading: isLoadingCategories } = useGetOperationCategories();
+    const { data: categories = [] } = useGetOperationCategories();
     const categoryOptions = [
         { value: "", label: "Todas las categorías", isSelected: true },
         ...categories.map(category => ({

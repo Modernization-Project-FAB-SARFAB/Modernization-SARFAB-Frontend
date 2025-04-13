@@ -13,12 +13,13 @@ export function VolunteerTable({ isLoading, data, columns, pageIndex, pageSize, 
             linkText={noItemsLinkText}
             linkUrl={noItemsLinkUrl}
         />;
-  // const totalRecords = data.data[0].totalRecords;
+
     return (
         <SortableTable
             columns={columns} data={data.data}
             pagination={{ pageIndex, pageSize }}
             totalPages={data.totalPages}
+            totalRecords={data.totalRecords}
             onPaginationChange={({ pageIndex, pageSize }) => {
                 setPageIndex(pageIndex);
                 setPageSize(pageSize);

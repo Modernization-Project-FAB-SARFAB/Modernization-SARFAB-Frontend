@@ -20,7 +20,7 @@ export const CategoryActionsColumn = ({ row, openEditModal }: { row: any; openEd
         >
           <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white dark:border-strokedark dark:bg-boxdark py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
             <Menu.Item>
-              {({ active }) => (
+              {({}) => (
                 <button
                   type="button"
                   className="px-3 py-1 text-sm leading-6 flex items-center text-left justify-start gap-3.5 font-medium duration-300 ease-in-out lg:text-base"
@@ -59,7 +59,9 @@ export const OperationTypeActionsColumn = ({ row, openEditModal }: { row: any; o
               {({ active }) => (
                 <button
                   type="button"
-                  className="px-3 py-1 text-sm leading-6 flex items-center text-left justify-start gap-3.5 font-medium duration-300 ease-in-out lg:text-base"
+                  className={`px-3 py-1 text-sm leading-6 flex items-center text-left justify-start gap-3.5 font-medium duration-300 ease-in-out lg:text-base ${
+                    active ? 'bg-gray-100' : ''
+                  }`}
                   onClick={() => openEditModal(row.original.operationTypeId, row.original.operationCategoryId)}
                 >
                   <span className="mr-2"><RiEdit2Line size={20} /></span>

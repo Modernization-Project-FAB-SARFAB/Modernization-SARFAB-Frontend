@@ -1,5 +1,5 @@
 import useColorMode from '@/hooks/components/useColorMode';
-import { RiMoonFill, RiMoonLine, RiSunFill, RiSunLine } from '@remixicon/react';
+import { RiMoonFill, RiSunFill } from '@remixicon/react';
 
 const DarkModeSwitcher = () => {
   const [colorMode, setColorMode] = useColorMode();

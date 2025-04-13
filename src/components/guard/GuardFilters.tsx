@@ -4,16 +4,22 @@ import FilterRangeDates from "../common/FilterRangeDate/FilterRangeDates";
 import FilterSelect from "../common/FilterSelect/FilterSelect";
 
 export function GuardFilters({ shiftData, searchValue, setSearchValue, setStartDate, setEndDate, shift, setShift, status, setStatus, refetch }: GuardFiltersProp) {
-    function handleRangeSelect(range: { startDate: Date | undefined; endDate: Date | undefined | undefined; }): void {
+    function handleRangeSelectAdapted(range: { startDate: string | undefined; endDate: string | undefined }): void {
+        const parsedStart = range.startDate ? new Date(range.startDate) : undefined;
+        const parsedEnd = range.endDate ? new Date(range.endDate) : undefined;
+        handleRangeSelect({ startDate: parsedStart, endDate: parsedEnd });
+    }
+
+    function handleRangeSelect(range: { startDate: Date | undefined; endDate: Date | undefined }): void {
         setStartDate(range.startDate ? format(range.startDate, "yyyy-MM-dd") : undefined);
         setEndDate(range.endDate ? format(range.endDate, "yyyy-MM-dd") : undefined);
     }
 
     const statusOptions = [
-      { id: 1, name: 'Programado' },
-      { id: -1, name: 'Todos' },
-      { id: 0, name: 'Finalizado' },
-  ];
+        { id: 1, name: 'Programado' },
+        { id: -1, name: 'Todos' },
+        { id: 0, name: 'Finalizado' },
+    ];
 
     const shiftOptions = [
         { id: -1, name: 'Todos' },
@@ -48,7 +54,7 @@ export function GuardFilters({ shiftData, searchValue, setSearchValue, setStartD
                 value={shift?.toString() || shiftOptions[0]?.id.toString()}
                 onChange={(value) => setShift(value ? Number(value) : shiftOptions[0]?.id)}
             />
-            <FilterRangeDates onChange={handleRangeSelect} refetch={refetch} />
+            <FilterRangeDates onChange={handleRangeSelectAdapted} refetch={refetch} />
         </div>
     );
 }

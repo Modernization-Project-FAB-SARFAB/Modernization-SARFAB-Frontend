@@ -72,6 +72,7 @@ export const UpdateMilitarySchema = BaseMilitarySchema
 export const ListMilitarySchema = z.object({
   data: z.array(MilitarySchema),
   totalPages: z.number(),
+  totalRecords: z.number()
 });
 
 export type Military = z.infer<typeof MilitarySchema>;

@@ -25,7 +25,8 @@ export const userBaseSchema = z.object({
 
 export const listUsersSchema = z.object({
   data: z.array(userBaseSchema),
-  totalPages: z.number()
+  totalPages: z.number(),
+  totalRecords: z.number()
 })
 
 export const createUserFormDataSchema = userBaseSchema.pick({

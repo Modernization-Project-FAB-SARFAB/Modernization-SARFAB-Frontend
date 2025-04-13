@@ -17,7 +17,7 @@ export default function InventoryListView() {
   const openItemModal = searchParams.get("openItemModal") === "true";
   const itemId = Number(searchParams.get("itemId"));
   const { data: selectedItem } = useItemById(itemId);
-  const [cachedItem, setCachedItem] = useState<Item | null>(null);
+  const [, setCachedItem] = useState<Item | null>(null);
 
   const handleCloseItemModal = () => {
     searchParams.delete("openItemModal");
@@ -62,7 +62,6 @@ export default function InventoryListView() {
         onClose={handleCloseMovementModal}
         itemId={itemId}
         isReturn={isReturn}
-        title={`${isReturn ? "Registrar devolución de" : "Registrar extracción de"}: ${selectedItem?.name || cachedItem?.name || `Item #${itemId}`}`}
         isLoading={
           isReturn ? returnItemMutation.isPending : extractItemMutation.isPending
         }

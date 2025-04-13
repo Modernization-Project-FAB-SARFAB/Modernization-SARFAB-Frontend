@@ -11,10 +11,10 @@ interface GetCoursesParams {
 export function useGetCourses(params?: GetCoursesParams) {
   const { courseName, page = 1, pageSize = 10 } = params || {};
   
-  return useQuery<{ data: Course[]; totalPages: number }>({
+  return useQuery<{ data: Course[]; totalPages: number, totalRecords:number }>({
     queryKey: ["courses", courseName, page, pageSize],
     queryFn: () => getCourses(courseName, page, pageSize),
-    staleTime: 1000 * 60 * 5, // 5 minutos
+    staleTime: 1000 * 60 * 5, 
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   });

@@ -3,13 +3,10 @@ import BackLink from "../../common/BackLink/BackLink";
 import FormDate from "../../common/FormDate/FormDate";
 import FormInput from "../../common/FormInput/FormInput";
 import FormSelect from "../../common/FormSelect/FormSelect";
-import { useGrades } from "@/hooks/grades/querys/useGrades";
 import { VolunteerFormProps } from "../types/VolunteerFormProps";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 
-export default function VolunteerForm({ errors, register, control }: VolunteerFormProps) {
-
-    const { data: grades, isLoading, isError } = useGrades();
+export default function VolunteerForm({ errors, register, control, grades }: VolunteerFormProps) {
 
     return (
         <>
@@ -319,7 +316,7 @@ export default function VolunteerForm({ errors, register, control }: VolunteerFo
                             <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
                                 Datos medicos
                             </h3>
-                             <div className="p-6.5">
+                            <div className="p-6.5">
                                 <div className="mb-4.5">
                                     <FormInput label="Alergias" placeholder="Antibioticos, nuez, picadura de abeja, etc."
                                         register={register}

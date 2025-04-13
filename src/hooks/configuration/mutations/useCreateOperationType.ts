@@ -12,7 +12,7 @@ export function useCreateOperationType() {
       queryClient.invalidateQueries({ queryKey: ["categoriesWithTypes"] });
       toast.success("Tipo de operación creado exitosamente");
     },
-    onError: (error) => {
+    onError: () => {
       toast.error("Error al crear el tipo de operación");
     }
   });

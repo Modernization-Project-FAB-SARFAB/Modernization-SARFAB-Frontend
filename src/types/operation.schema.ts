@@ -46,6 +46,7 @@ export type ActiveOperation = z.infer<typeof ActiveOperationSchema>;
 export const ListOperationSchema = z.object({
   data: z.array(ActiveOperationSchema),
   totalPages: z.number(),
+  totalRecords: z.number()
 });
 
 export type ListOperationResponse = z.infer<typeof ListOperationSchema>;

@@ -3,11 +3,12 @@ import Loader from "@/components/common/Loader";
 import VolunteerForm from "@/components/volunteer/forms/VolunteerForm";
 import VolunteerFormWithRecruit from "@/components/volunteer/forms/VolunteerFormWithRecruit";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
+import { useGrades } from "@/hooks/grades/querys/useGrades";
 import { useRecruitData, useUpdateRecruitStatus } from "@/hooks/recruitment";
 import { useVolunteerForm } from "@/hooks/volunteer";
 import { useCreateVolunteer } from "@/hooks/volunteer/mutations/useCreateVolunteer";
 import { VolunteerFormData } from "@/types/volunteer.schema";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function CreateVolunteerAfiliationView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -18,7 +19,7 @@ export default function CreateVolunteerAfiliationView() {
   const recruitId = queryParams.get('recruitId');
 
   // Función para obtener valores iniciales
-  const getInitialValues = (recruitData?: any): VolunteerFormData => ({
+  const getInitialValues = (): VolunteerFormData => ({
     firstName: "",
     lastName: "",
     homeAddress: "",
@@ -46,6 +47,7 @@ export default function CreateVolunteerAfiliationView() {
   });
 
   const { register, handleSubmit, formState: { errors }, control, setValue } = useVolunteerForm(getInitialValues());
+  const { data: grades, isLoading: isLoadingGrades, isError: isErrorGrades } = useGrades();
 
   const { mutate } = useUpdateRecruitStatus();
   const mutation = useCreateVolunteer();
@@ -67,12 +69,14 @@ export default function CreateVolunteerAfiliationView() {
   };
 
   const renderForm = () => {
+    if (isLoadingGrades) return <Loader message="Cargando datos..." />;
+    if (isErrorGrades) return <p>Error al cargar datos.</p>;
     if (!recruitId) {
       return (
         <>
           <form onSubmit={handleSubmit(handleForm)} noValidate>
             <fieldset disabled={isSubmitting}>
-              <VolunteerForm errors={errors} register={register} control={control} />
+              <VolunteerForm errors={errors} register={register} control={control} grades={grades} />
             </fieldset>
             <ButtonGroup
               buttons={[
@@ -102,32 +106,33 @@ export default function CreateVolunteerAfiliationView() {
     return (
       <>
         <fieldset disabled={isSubmitting}>
-            <VolunteerFormWithRecruit
-              errors={errors}
-              register={register}
-              control={control}
-              setValue={setValue}
-              recruit={recruitData}
-              typeVolunteer={recruitData.wantsMilitaryService ? 'Libretista' : 'Voluntario'}
-            />
-          </fieldset>
-          <ButtonGroup
-            buttons={[
-              {
-                type: "button",
-                label: "Registrar voluntario",
-                onClick: handleSubmit(handleForm),
-                variant: "primary",
-                disabled: isSubmitting,
-                isLoading: isSubmitting,
-              },
-              {
-                type: "link",
-                label: "Cancelar",
-                to: recruitId ? "/recruitment/approve-or-deny" : "/volunteers/active-volunteers",
-              },
-            ]}
+          <VolunteerFormWithRecruit
+            errors={errors}
+            register={register}
+            control={control}
+            setValue={setValue}
+            recruit={recruitData}
+            typeVolunteer={recruitData.wantsMilitaryService ? 'Libretista' : 'Voluntario'}
+            grades={grades}
           />
+        </fieldset>
+        <ButtonGroup
+          buttons={[
+            {
+              type: "button",
+              label: "Registrar voluntario",
+              onClick: handleSubmit(handleForm),
+              variant: "primary",
+              disabled: isSubmitting,
+              isLoading: isSubmitting,
+            },
+            {
+              type: "link",
+              label: "Cancelar",
+              to: recruitId ? "/recruitment/approve-or-deny" : "/volunteers/active-volunteers",
+            },
+          ]}
+        />
       </>
     );
   };

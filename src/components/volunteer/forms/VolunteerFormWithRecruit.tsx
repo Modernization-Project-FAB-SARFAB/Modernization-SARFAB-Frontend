@@ -3,14 +3,11 @@ import BackLink from "../../common/BackLink/BackLink";
 import FormDate from "../../common/FormDate/FormDate";
 import FormInput from "../../common/FormInput/FormInput";
 import FormSelect from "../../common/FormSelect/FormSelect";
-import { useGrades } from "@/hooks/grades/querys/useGrades";
 import FormReadOnlyInput from "../../common/FormReadOnlyInput/FormReadOnlyInput";
-import { VolunteerFormProps, VolunteerWithRecruitFormProps } from "../types/VolunteerFormProps";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
+import { VolunteerWithRecruitFormProps } from "../types/VolunteerFormProps";
 
-export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue, typeVolunteer }: VolunteerWithRecruitFormProps) {
-
-    const { data: grades, isLoading, isError } = useGrades();
+export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue, typeVolunteer, grades }: VolunteerWithRecruitFormProps) {
 
     return (
         <>

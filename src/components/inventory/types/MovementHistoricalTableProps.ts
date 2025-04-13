@@ -6,6 +6,7 @@ export type MovementHistoricalTableProps = {
   data?: {
     data: MovementHistory[];
     totalPages: number;
+    totalRecords: number;
   };
   columns: ColumnDef<MovementHistory>[];
   pageIndex: number;

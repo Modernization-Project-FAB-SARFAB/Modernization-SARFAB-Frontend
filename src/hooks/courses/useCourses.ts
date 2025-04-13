@@ -23,6 +23,7 @@ export function useCourses({ initialSearchValue = "" }: UseCoursesProps = {}) {
   return {
     data: data?.data || [],
     totalPages: data?.totalPages || 0,
+    totalRecords: data?.totalRecords || 0,
     isLoading,
     refetch,
     searchValue,

@@ -5,9 +5,9 @@ import { DateRange, DateRangePicker, RangeKeyDict, createStaticRanges, defaultSt
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { RiCalendarLine, RiCloseLine } from "@remixicon/react";
-import { FilterRangeDateProps } from "./FilterRangeDateProps.type";
 import Modal from "../Modal/Modal";
 import './FilterRangeDate.css'
+import { FilterRangeDateProps } from "./FilterRangeDateProps.type";
 
 const translationMap: Record<string, string> = {
   "Today": "Hoy",

@@ -27,6 +27,7 @@ export function CourseListViewComponent({
   const {
     data,
     totalPages,
+    totalRecords,
     isLoading,
     refetch,
     searchValue,
@@ -50,6 +51,7 @@ export function CourseListViewComponent({
         isLoading={isLoading}
         data={data}
         totalPages={totalPages}
+        totalRecords={totalRecords}
         columns={columns}
         pageIndex={pageIndex}
         pageSize={pageSize}

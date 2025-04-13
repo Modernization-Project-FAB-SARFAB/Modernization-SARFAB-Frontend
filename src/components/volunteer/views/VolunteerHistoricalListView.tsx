@@ -7,7 +7,7 @@ import { useVolunteerHistorical } from "@/hooks/volunteer/querys/useVolunteerHis
 
 export default function VolunteerHistoricalListView({ breadcrumb, columns }: VolunteerListViewProps) {
     useBreadcrumb(breadcrumb);
-    const { data: grades, isLoading: isLoadingGrades, isError } = useGrades();
+    const { data: grades } = useGrades();
 
     const {
         data, isLoading, isFetching, refetch, searchValue,

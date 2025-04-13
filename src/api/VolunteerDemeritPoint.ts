@@ -1,7 +1,7 @@
 import api from "@/lib/axios";
 import { isAxiosError } from "axios";
 import { totalPointsLostSchema, Volunteer } from "../types";
-import { DemeritPoint, listDemeritPointsSchema } from "@/types/demeritPoint.schema";
+import { listDemeritPointsSchema } from "@/types/demeritPoint.schema";
 
 export async function getVolunteerTotalDemeritPoint(id: Volunteer['id']) {
     try {

@@ -12,7 +12,7 @@ export function InventoryTable(props: InventoryTableProps & { hasFilters: boolea
     <SortableTable
       columns={columns} data={data.data}
       pagination={{ pageIndex, pageSize }}
-      totalPages={data.totalPages}
+      totalPages={data.totalPages} totalRecords={data.totalRecords}
       onPaginationChange={({ pageIndex, pageSize }) => {
         setPageIndex(pageIndex);
         setPageSize(pageSize);

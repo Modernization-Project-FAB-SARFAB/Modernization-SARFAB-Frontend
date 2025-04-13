@@ -10,7 +10,7 @@ import EmergencyData from "@/components/volunteer/sections/detailViewSections/Em
 import MedicalData from "@/components/volunteer/sections/detailViewSections/MedicalData";
 import PersonalData from "@/components/volunteer/sections/detailViewSections/PersonalData";
 import Reports from "@/components/volunteer/sections/detailViewSections/Reports";
-import { volunteerHistoricalMedicalCheckupColumnsDef, volunteerMedicalCheckupColumnsDef } from "@/constants/volunteer/VolunteerMedicalCheckupColumnDef";
+import { volunteerHistoricalMedicalCheckupColumnsDef } from "@/constants/volunteer/VolunteerMedicalCheckupColumnDef";
 import { useBreadcrumb } from "@/hooks/components/useBreadcrumb";
 import { useLastCourseVolunteer } from "@/hooks/courseVolunteer/querys/useLastCourseVolunteer";
 import { useDetailsVolunteer } from "@/hooks/volunteer/querys/useEditVolunteerData";
@@ -33,7 +33,7 @@ export default function VolunteerHistoricalDetail() {
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
   const { data: totalDemeritPoint, isLoading: isLoadingTotalDemeritPoint, isError: isErrorTotalDemeritPoint } = useVolunteerTotalDemeritPoint(volunteerId);
   const { data: medicalCheckupData, isLoading: isLoadingMedicalCheckupData, isError: isErrorMedicalCheckupData } = useVolunteerMedicalCheckup(volunteerId);
-  const { data: lastCourseVolunteer, isLoading: isLoadingLastCourse, isError: isErrorLastCourse } = useLastCourseVolunteer(Number(volunteerId));
+  const { data: lastCourseVolunteer, isError: isErrorLastCourse } = useLastCourseVolunteer(Number(volunteerId));
 
   const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData;
   const isErrorAll = isError || isErrorTotalDemeritPoint || isErrorMedicalCheckupData;
@@ -89,7 +89,7 @@ export default function VolunteerHistoricalDetail() {
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
         {totalDemeritPoint !== undefined && totalDemeritPoint !== null ? (
-          <Assistance volunteerId={volunteerId} totalDemeritPoint={totalDemeritPoint} />
+          <Assistance volunteerId={volunteerId} totalDemeritPoint={totalDemeritPoint} volunteerType={data.volunteerType}/>
         ) : (
           <div>Cargando puntos de demérito...</div> // O un mensaje de carga específico
         )}

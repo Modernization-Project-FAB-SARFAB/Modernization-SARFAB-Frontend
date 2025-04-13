@@ -3,7 +3,7 @@ import { RequesterType } from "@/types/requester.schema";
 import Loader from "@/components/common/Loader";
 
 interface RequesterTableProps {
-  data: { data: RequesterType[]; totalPages: number } | undefined;
+  data: { data: RequesterType[]; totalPages: number, totalRecords: number } | undefined;
   columns: any;
   pageIndex: number;
   pageSize: number;
@@ -27,6 +27,7 @@ export function RequesterTable({
 }: RequesterTableProps) {
   const requesters = data?.data || [];
   const totalPages = data?.totalPages || 0;
+  const totalRecords = data?.totalRecords || 0;
 
   if (isLoading) return <Loader />;
 
@@ -48,7 +49,7 @@ export function RequesterTable({
         columns={columns}
         data={requesters}
         pagination={{ pageIndex, pageSize }}
-        totalPages={totalPages}
+        totalPages={totalPages} totalRecords={totalRecords}
         onPaginationChange={({ pageIndex, pageSize }) => {
           setPageIndex(pageIndex);
           setPageSize(pageSize);

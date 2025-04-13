@@ -1,4 +1,4 @@
-import { Volunteer, VolunteerStatus, VolunteerUpdateFormData } from "@/types/volunteer.schema"
+import { Volunteer,  VolunteerStatus,  VolunteerUpdateFormData } from "@/types/volunteer.schema"
 
 export type VolunteerAPIType = {
     formData: VolunteerUpdateFormData,
