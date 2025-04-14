@@ -4,6 +4,8 @@ import { useVolunteerGuardsReport } from "@/hooks/volunteer/querys/useVolunteerG
 import { VolunteerGuardsReportFilters } from "../filters/VolunteerGuardsReportFilters";
 import { useParams } from "react-router-dom";
 import BackLink from "@/components/common/BackLink/BackLink";
+import Button from "@/components/common/Button/Button";
+import { usePrintVolunteerReport } from "@/hooks/reports/usePrintVolunteerReport";
 
 export default function VolunteerGuardsReport({ breadcrumb, columns }: VolunteerListViewProps) {
     useBreadcrumb(breadcrumb);
@@ -29,6 +31,9 @@ export default function VolunteerGuardsReport({ breadcrumb, columns }: Volunteer
                     link="/volunteers"
                     useRouter={true}
                 />
+                <nav>
+                    <Button variant='primary' label="Imprimir reporte" classname="mt-2" onClick={() => usePrintVolunteerReport('Bitacora de guardias', '', [], [])} />
+                </nav>
                 <VolunteerGuardsReportFilters
                     searchValue={searchValue} setSearchValue={setSearchValue}
                     statusFilter={statusFilter} setStatusFilter={setStatusFilter}
