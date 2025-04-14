@@ -19,7 +19,7 @@ export const useDeleteNotification = () => {
       toast.success('Notificación eliminada exitosamente');
     },
     
-    onError: (error: unknown) => {
+    onError: () => {
       toast.error('Ocurrió un error al eliminar la notificación');
     },
   });

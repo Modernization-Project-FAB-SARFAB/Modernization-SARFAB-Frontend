@@ -25,7 +25,6 @@ export function ItemMovementForm({
   onSubmit,
   isLoading,
   onClose,
-  itemId,
   isReturn,
   availableQuantity: _availableQuantity,
   owedQuantity: _owedQuantity,

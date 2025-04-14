@@ -14,7 +14,8 @@ const baseMedicalTreatmentSchema = z.object({
 
 export const listMedicalTreatmentSchema = z.object({
     data: z.array(baseMedicalTreatmentSchema),
-    totalPages: z.number().optional()
+    totalPages: z.number().optional(),
+    totalRecords: z.number()
 });
 
 export const medicalTreatmentFormSchema = baseMedicalTreatmentSchema.omit({

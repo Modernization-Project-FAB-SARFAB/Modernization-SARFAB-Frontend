@@ -1,4 +1,4 @@
-import { RiMap2Line, RiMapLine, RiUser2Line, RiUserStarLine } from "@remixicon/react";
+import { RiMapLine, RiUser2Line, RiUserStarLine } from "@remixicon/react";
 import BackLink from "../../common/BackLink/BackLink";
 import FormDate from "../../common/FormDate/FormDate";
 import FormInput from "../../common/FormInput/FormInput";
@@ -7,11 +7,10 @@ import { useGrades } from "@/hooks/grades/querys/useGrades";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import { VolunteerUpdateFormProps } from "../types/VolunteerUpdateFormProps";
 import { useEffect } from "react";
-import { useFormContext } from "react-hook-form";
 
 export default function VolunteerEditForm({ errors, register, control, volunteerData, setValue }: VolunteerUpdateFormProps) {
 
-    const { data: grades, isLoading, isError } = useGrades();
+    const { data: grades } = useGrades();
 
     const departments = [{ id: 1, name: "Cochabamba" }];
     const volunteerTypes = [{ id: "Libretista", name: "Libretista" }, { id: "Voluntario", name: "Voluntario" }];

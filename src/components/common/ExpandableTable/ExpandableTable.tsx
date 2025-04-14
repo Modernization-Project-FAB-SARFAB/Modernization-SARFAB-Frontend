@@ -215,11 +215,11 @@ const ExpandableTable: React.FC<ExpandableTableProps> = ({
       </div>
 
       <div className="h-2" />
-      <div className="flex flex-col md:flex-row justify-center md:justify-between my-4 gap-4 text-center">
-        <div className="text-sm">
+      <div className="flex flex-col md:flex-row justify-center md:justify-end my-4 gap-4 text-center">
+        {/*<div className="text-sm">
           Mostrando {table.getRowModel().rows.length.toLocaleString()} de{' '}
           {data.length.toLocaleString()} Filas
-        </div>
+        </div>*/}
         <div className="flex flex-wrap justify-center items-center gap-2">
           <button
             className="border rounded p-1"

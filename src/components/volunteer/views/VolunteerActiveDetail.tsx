@@ -24,7 +24,7 @@ import { useLastCourseVolunteer } from "@/hooks/courseVolunteer/querys/useLastCo
 
 export default function VolunteerActiveDetail() {
   useBreadcrumb([{ label: "Voluntarios", path: "/volunteers/active-volunteers" }, { label: "Ver voluntario" }]);
-  const [modalAction, setModalAction] = useState<string | null>(null);
+  const [, setModalAction] = useState<string | null>(null);
 
   const params = useParams();
   const navigate = useNavigate();

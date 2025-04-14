@@ -1,6 +1,6 @@
-import { GuardFormData, ShiftList, VoluntareeGuard } from "@/types/guard.schema";
+import { GuardFormData, ShiftList } from "@/types/guard.schema";
 import { VolunteerWithRankList } from "@/types/operationContext.schema";
-import { Control, FieldErrors, UseFormRegister, UseFormWatch } from "react-hook-form";
+import { Control, FieldErrors, UseFormRegister } from "react-hook-form";
 
 export interface GuardFormProps {
     setVoluntareeIds?: (value: number[]) => void;

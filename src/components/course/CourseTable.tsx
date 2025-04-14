@@ -13,6 +13,7 @@ interface CourseTableProps {
   setPageSize: (size: number) => void;
   refetch: () => void;
   totalPages: number;
+  totalRecords:number;
   hasFilters?: boolean;
 }
 
@@ -26,6 +27,7 @@ export function CourseTable({
   setPageSize,
   refetch,
   totalPages,
+  totalRecords,
   hasFilters
 }: CourseTableProps) {
   if (isLoading) return <Loader message="Cargando lista de cursos" />;
@@ -45,7 +47,7 @@ export function CourseTable({
     <SortableTable
       columns={columns} data={data}
       pagination={{ pageIndex, pageSize }}
-      totalPages={totalPages}
+      totalPages={totalPages} totalRecords={totalRecords}
       onPaginationChange={({ pageIndex, pageSize }) => {
         setPageIndex(pageIndex);
         setPageSize(pageSize);

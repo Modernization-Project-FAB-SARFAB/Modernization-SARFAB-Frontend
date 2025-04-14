@@ -8,7 +8,7 @@ import React, { ReactElement } from 'react';
 
 export default function VolunteerActiveListView({ breadcrumb, columns, modalComponent }: VolunteerListViewProps) {
   useBreadcrumb(breadcrumb);
-  const { data: grades, isLoading: isLoadingGrades, isError } = useGrades();
+  const { data: grades } = useGrades();
 
   const {
     data, isLoading, refetch, isFetching, searchValue,

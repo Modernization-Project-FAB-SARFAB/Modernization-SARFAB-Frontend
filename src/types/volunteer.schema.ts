@@ -42,6 +42,7 @@ export const listVolunteerActiveSchema = z.object({
         })
     ),
     totalPages: z.number(),
+    totalRecords: z.number()
 });
 
 
@@ -59,6 +60,7 @@ export const listVolunteerHistoricalSchema = z.object({
         })
     ),
     totalPages: z.number(),
+    totalRecords: z.number()
 });
 
 export const volunteerFormSchema = z.object(
@@ -108,7 +110,8 @@ export const guardSchema = z.object({
 
 export const listVolunteerGuardsReportSchema = z.object({
     data: z.array(guardSchema),
-    totalPages: z.number()
+    totalPages: z.number(),
+    totalRecords: z.number()
 });
 
 export const operationVolunteerSchema = z.object({
@@ -137,6 +140,7 @@ export const volunteerResponseSchema = baseVolunteerSchema.extend({
     volunteerType: z.string(),
 });
 
+export type VolunteerStatus = z.infer<typeof volunteerStatusSchema>;
 export type Volunteer = z.infer<typeof baseVolunteerSchema>;
 export type VolunteerOperation = z.infer<typeof operationVolunteerSchema>
 export type VolunteerData = z.infer<typeof volunteerResponseSchema>

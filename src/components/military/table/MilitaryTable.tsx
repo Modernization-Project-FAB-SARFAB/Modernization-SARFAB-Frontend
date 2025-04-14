@@ -25,7 +25,7 @@ export function MilitaryTable({
   return (
     <SortableTable
       columns={columns}
-      data={data.data}
+      data={data.data} totalRecords={data.totalRecords}
       pagination={{ pageIndex, pageSize }}
       totalPages={data.totalPages}
       onPaginationChange={handlePaginationChange}

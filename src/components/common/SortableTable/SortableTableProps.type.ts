@@ -5,5 +5,6 @@ export interface SortableTableProps<T> {
   data: T[];
   pagination: { pageIndex: number; pageSize: number };
   totalPages: number;
+  totalRecords: number;
   onPaginationChange: (pagination: { pageIndex: number; pageSize: number }) => void;
 }

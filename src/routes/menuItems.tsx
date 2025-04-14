@@ -1,4 +1,4 @@
-import { RiAccountBox2Fill, RiAlarmWarningFill, RiHome2Fill, RiShieldFill, RiNotification2Line } from '@remixicon/react';
+import { RiAccountBox2Fill, RiAlarmWarningFill, RiShieldFill, RiNotification2Line } from '@remixicon/react';
 import { RiSettings2Fill, RiUserCommunityFill, RiFileLine, RiFirstAidKitFill } from 'react-icons/ri';
 
 const menuItems: MenuItem[] = [

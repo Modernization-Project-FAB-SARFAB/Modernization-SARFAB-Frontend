@@ -45,7 +45,6 @@ export default function AssignCourseVolunteersComponent({ course, volunteersWith
 
   const {
     handleSubmit,
-    setError,
     setValue,
     trigger,
     formState: { errors },

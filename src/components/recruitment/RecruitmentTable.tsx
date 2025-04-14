@@ -17,6 +17,7 @@ export function RecruitmentTable({ isLoading, isFetching, data, columns, pageInd
             columns={columns} data={data.data}
             pagination={{ pageIndex, pageSize }}
             totalPages={data.totalPages}
+            totalRecords={data.totalRecords}
             onPaginationChange={({ pageIndex, pageSize }) => {
                 setPageIndex(pageIndex);
                 setPageSize(pageSize);

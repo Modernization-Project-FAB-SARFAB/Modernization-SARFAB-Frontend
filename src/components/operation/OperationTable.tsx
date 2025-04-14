@@ -18,7 +18,7 @@ export function OperationTable(props: OperationTableProps & { hasFilters: boolea
     <SortableTable
       columns={columns} data={formattedData}
       pagination={{ pageIndex, pageSize }}
-      totalPages={data.totalPages}
+      totalPages={data.totalPages} totalRecords={data.totalRecords}
       onPaginationChange={({ pageIndex, pageSize }) => {
         setPageIndex(pageIndex);
         setPageSize(pageSize);

@@ -7,7 +7,7 @@ export interface VolunteerFormProps {
     control: Control<VolunteerFormData>;
     recruit ?: Recruit
     setValue ?: UseFormSetValue<VolunteerFormData>;
-    
+    grades: any;
 }
 
 export interface VolunteerWithRecruitFormProps extends VolunteerFormProps {

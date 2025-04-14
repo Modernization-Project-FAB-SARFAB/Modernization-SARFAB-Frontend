@@ -10,7 +10,7 @@ export function MedicalTreatmentTable({ isLoading, data, columns, pageIndex, pag
             <SortableTable
                 columns={columns} data={data.data}
                 pagination={{ pageIndex, pageSize }}
-                totalPages={data.totalPages}
+                totalPages={data.totalPages} totalRecords={data.totalRecords}
                 onPaginationChange={({ pageIndex, pageSize }) => {
                     setPageIndex(pageIndex);
                     setPageSize(pageSize);

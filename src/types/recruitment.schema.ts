@@ -29,6 +29,7 @@ export const listRecruitmentSchema = z.object({
     })
   ),
   totalPages: z.number(),
+  totalRecords: z.number()
 });
 
 export const recruitmentFormSchema = recruitmentSchema.omit({

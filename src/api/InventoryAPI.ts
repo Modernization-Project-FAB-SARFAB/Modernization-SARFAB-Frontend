@@ -48,9 +48,9 @@ export async function getItemByIdWithPendingTable(id: number): Promise<ItemWithP
 }
 
 // Get inventory items
-export async function getInventoryItems(params?: GetInventoryItemsParams): Promise<{ data: InventoryItem[]; totalPages: number }> {
+export async function getInventoryItems(params?: GetInventoryItemsParams): Promise<{ data: InventoryItem[]; totalPages: number, totalRecords: number }> {
   const { data } = await api.get("/Item/inventory-items", { params });
-  return { data: data.data, totalPages: data.totalPages };
+  return { data: data.data, totalPages: data.totalPages, totalRecords: data.totalRecords };
 }
 
 // Extract item
@@ -96,9 +96,9 @@ export async function getVolunteerPendingReturns(itemId: number): Promise<Volunt
 }
 
 // Get movement history
-export async function getMovementHistory(params?: GetMovementHistoryParams): Promise<{ data: MovementHistory[]; totalPages: number }> {
+export async function getMovementHistory(params?: GetMovementHistoryParams): Promise<{ data: MovementHistory[]; totalPages: number, totalRecords: number }> {
   const { data } = await api.get("/Item/movement-history", { params });
-  return { data: data.data, totalPages: data.totalPages };
+  return { data: data.data, totalPages: data.totalPages, totalRecords: data.totalRecords };
 }
 
 export async function getVolunteersWithAnyPendingReturns(): Promise<VolunteerWithPending[]> {

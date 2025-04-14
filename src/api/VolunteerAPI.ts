@@ -18,6 +18,7 @@ export async function getVolunteerActiveList(queryParams?: Record<string, any>) 
     try {
         const { data } = await api.get('/Volunteer/active-volunteers', { params: queryParams })
         const response = listVolunteerActiveSchema.safeParse(data);
+
         if (response.success) {
             return response.data;
         }
@@ -105,7 +106,7 @@ export async function gradePromotionVolunteer(volunteerId: Volunteer['id']) {
     }
 }
 
-export async function statusChangeVolunteer({volunteerId, formData}: VolunteerStatusAPIType) {
+export async function statusChangeVolunteer({ volunteerId, formData }: VolunteerStatusAPIType) {
     try {
         const { data } = await api.patch(`/Volunteer/${volunteerId}/status`, formData);
         return data;
@@ -118,13 +119,13 @@ export async function statusChangeVolunteer({volunteerId, formData}: VolunteerSt
 }
 
 export async function getAllVolunteerOperationsForReport(id: Volunteer['id'], queryParams?: Record<string, any>) {
-  try {
-      const { data } = await api.get(`/VolunteerOperation/volunteer/${id}/all-operations-for-report`, { params: queryParams });
-      return data;
-  } catch (error) {
-      if (isAxiosError(error) && error.response) {
-          throw new Error(error.response.data.error);
-      }
-      throw new Error("Error al obtener datos para el reporte");
-  }
+    try {
+        const { data } = await api.get(`/VolunteerOperation/volunteer/${id}/all-operations-for-report`, { params: queryParams });
+        return data;
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error);
+        }
+        throw new Error("Error al obtener datos para el reporte");
+    }
 }

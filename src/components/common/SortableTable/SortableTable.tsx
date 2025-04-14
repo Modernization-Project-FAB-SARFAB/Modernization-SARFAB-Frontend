@@ -1,8 +1,23 @@
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, PaginationState, SortingState, useReactTable } from '@tanstack/react-table';
+import {
+    flexRender,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    SortingState,
+    useReactTable,
+} from '@tanstack/react-table';
 import { useState } from 'react';
 import { SortableTableProps } from './SortableTableProps.type';
 
-const SortableTable = <T,>({ columns, data, pagination, totalPages, onPaginationChange }: SortableTableProps<T>) => {
+const SortableTable = <T,>({
+    columns,
+    data,
+    pagination,
+    totalPages,
+    totalRecords,
+    onPaginationChange,
+}: SortableTableProps<T>) => {
     const [sorting, setSorting] = useState<SortingState>([]);
 
     const table = useReactTable({
@@ -20,7 +35,7 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                 recruitmentId: false,
                 id: false,
             },
-        }
+        },
     });
 
     return (
@@ -31,11 +46,17 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                         {table.getHeaderGroups().map(headerGroup => (
                             <tr key={headerGroup.id} className="bg-gray-2 text-left dark:bg-meta-4">
                                 {headerGroup.headers.map(header => (
-                                    <th key={header.id} colSpan={header.colSpan} className={`py-4 px-4 text-center font-bold text-black dark:text-white`}>
+                                    <th
+                                        key={header.id}
+                                        colSpan={header.colSpan}
+                                        className="py-4 px-4 text-center font-bold text-black dark:text-white"
+                                    >
                                         {header.isPlaceholder ? null : (
                                             <div
                                                 className={
-                                                    header.column.getCanSort() ? 'cursor-pointer select-none' : ''
+                                                    header.column.getCanSort()
+                                                        ? 'cursor-pointer select-none'
+                                                        : ''
                                                 }
                                                 onClick={header.column.getToggleSortingHandler()}
                                                 title={
@@ -43,13 +64,16 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                                                         ? header.column.getNextSortingOrder() === 'asc'
                                                             ? 'Sort ascending'
                                                             : header.column.getNextSortingOrder() === 'desc'
-                                                                ? 'Sort descending'
-                                                                : 'Clear sort'
+                                                            ? 'Sort descending'
+                                                            : 'Clear sort'
                                                         : undefined
                                                 }
                                             >
                                                 {flexRender(header.column.columnDef.header, header.getContext())}
-                                                {{ asc: ' 🔼', desc: ' 🔽' }[header.column.getIsSorted() as string] ?? null}
+                                                {{
+                                                    asc: ' 🔼',
+                                                    desc: ' 🔽',
+                                                }[header.column.getIsSorted() as string] ?? null}
                                             </div>
                                         )}
                                     </th>
@@ -58,29 +82,33 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                         ))}
                     </thead>
                     <tbody>
-                        <>
-                            {table.getRowModel().rows.slice(0, 10).map(row => (
-                                <tr key={row.id} className="border-b border-[#eee] dark:border-strokedark">
-                                    {row.getVisibleCells().map(cell => (
-                                        <td key={cell.id} className={`py-5 px-4 text-black dark:text-white relative`}>
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </td>
-                                    ))}
-                                </tr>
-                            ))}
-                        </>
+                        {table.getRowModel().rows.map(row => (
+                            <tr key={row.id} className="border-b border-[#eee] dark:border-strokedark">
+                                {row.getVisibleCells().map(cell => (
+                                    <td key={cell.id} className="py-5 px-4 text-black dark:text-white relative">
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
                 <div className="h-2" />
-                <div className="flex justify-end  my-4">
-                    {/*<!--<div>
-                        Mostrando {table.getRowModel().rows.length.toLocaleString()} de{' '}
-                        {table.getRowCount().toLocaleString()} Filas
-                    </div>-->*/}
-                    <div className='flex  items-center gap-2'>
+
+                <div className="flex justify-between items-center my-4 flex-wrap gap-4">
+                    <div>
+                        Mostrando {data.length.toLocaleString()} de {totalRecords} registros
+                    </div>
+
+                    <div className="flex items-center gap-2">
                         <button
                             className="border rounded p-1"
-                            onClick={() => onPaginationChange({ pageIndex: pagination.pageIndex - 1, pageSize: pagination.pageSize })}
+                            onClick={() =>
+                                onPaginationChange({
+                                    pageIndex: pagination.pageIndex - 1,
+                                    pageSize: pagination.pageSize,
+                                })
+                            }
                             disabled={pagination.pageIndex === 1}
                         >
                             {'<'}
@@ -90,7 +118,12 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                         </span>
                         <button
                             className="border rounded p-1"
-                            onClick={() => onPaginationChange({ pageIndex: pagination.pageIndex + 1, pageSize: pagination.pageSize })}
+                            onClick={() =>
+                                onPaginationChange({
+                                    pageIndex: pagination.pageIndex + 1,
+                                    pageSize: pagination.pageSize,
+                                })
+                            }
                             disabled={pagination.pageIndex >= totalPages}
                         >
                             {'>'}
@@ -108,17 +141,19 @@ const SortableTable = <T,>({ columns, data, pagination, totalPages, onPagination
                                     if (page < 1) page = 1;
                                     if (page > totalPages) page = totalPages;
 
-                                    onPaginationChange({ pageIndex: page, pageSize: pagination.pageSize });
+                                    onPaginationChange({
+                                        pageIndex: page,
+                                        pageSize: pagination.pageSize,
+                                    });
                                 }}
                                 className="border p-1 rounded w-16 dark:bg-form-input"
                             />
                         </span>
                     </div>
                 </div>
-
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default SortableTable;

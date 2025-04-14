@@ -29,7 +29,8 @@ export const baseGuardSchema = z.object({
 
 export const listGuardSchema = z.object({
     data: z.array(baseGuardSchema.omit({ voluntareeGuards: true })),
-    totalPages: z.number().optional()
+    totalPages: z.number().optional(),
+    totalRecords: z.number()
 });
 
 export const guardCreateFormDataSchema = baseGuardSchema.pick({

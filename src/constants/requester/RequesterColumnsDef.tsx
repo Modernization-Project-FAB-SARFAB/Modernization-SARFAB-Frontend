@@ -1,10 +1,10 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { baseColumns } from "@/constants/requester/baseColumns";
 import { RequesterType } from "@/types/requester.schema";
-import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
-import { RiEyeFill } from "@remixicon/react";
+/*import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
+import { RiEyeFill } from "@remixicon/react";*/
 
-const ActionsColumn = ({ row }: { row: any }) => {
+/*const ActionsColumn = ({ row }: { row: any }) => {
   return (
     <DropdownMenu
       items={[
@@ -16,7 +16,8 @@ const ActionsColumn = ({ row }: { row: any }) => {
       ]}
     />
   );
-};
+};*/
+
 export const requesterColumnsDef: ColumnDef<RequesterType>[] = [
   ...baseColumns,
   // {

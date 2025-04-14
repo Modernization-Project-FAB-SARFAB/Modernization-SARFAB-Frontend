@@ -28,6 +28,7 @@ export const volunteerCompletedCourse = z.object({
 export const listVoluntareerCompletedCourses = z.object({
     data: z.array(volunteerCompletedCourse),
     totalPages: z.number().int(),
+    totalRecords: z.number()
 });
 
 export const lastCourseVolunteer = z.object({
