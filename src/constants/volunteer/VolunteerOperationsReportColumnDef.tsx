@@ -20,13 +20,12 @@ export const volunteerOperationsReportColumnsDef: ColumnDef<VolunteerOperation>[
         accessorKey: "status",
         cell: ({ getValue }) => {
             const status = getValue<number>();
-            const isCompleted = status === 1;
             return (
                 <span
                     className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-semibold 
-                        ${isCompleted ? 'bg-success text-success' : 'bg-danger text-danger'}`}
+                        ${status === 1 ? 'bg-success text-success' : status === 2 ? 'bg-danger text-danger' : 'bg-warning text-warning'}`}
                 >
-                    {isCompleted ? "Asistió" : "No asistió"}
+                    {status === 1 ? "Asistió" : status === 2 ? "No asistió" : 'Pendiente'}
                 </span>
             );
         }

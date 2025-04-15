@@ -71,7 +71,10 @@ export function useVolunteerOperationsReport({
         categoryFilter,
         setCateforyFilter,
 
+        startDate,
         setStartDate,
+
+        endDate,
         setEndDate,
 
         pageIndex,

@@ -4,8 +4,7 @@ import 'jspdf-autotable';
 import escudo from '@/assets/images/signIn/escudo.png';
 import logo from '@/assets/images/signIn/logo.png';
 
-
-export const usePrintVolunteerReport = (reportTitle: string, volunteerData: any, colunms: any[], data: any[]) => {
+export const usePrintVolunteerReport = (reportTitle: string, volunteerData: any, columns: string[], data: string[][]) => {
     const doc = new jsPDF({
         orientation: "portrait",
         unit: "mm",
@@ -42,62 +41,55 @@ export const usePrintVolunteerReport = (reportTitle: string, volunteerData: any,
 
     textLines.forEach(line => {
         doc.text(line, centerX, currentY, { align: 'center' });
-        currentY += 6; // espacio entre líneas
+        currentY += 6;
     });
 
     currentY += 2;
     doc.setFontSize(13);
     doc.text(reportTitle.toUpperCase(), centerX, currentY, { align: 'center' });
 
-    const columnas = ["Nombre", "Edad", "Ciudad"];
-    const filas = [
-        ["Ana", "23", "Cochabamba"],
-        ["Luis", "30", "La Paz"],
-        ["María", "28", "Santa Cruz"],
-        ["Ana", "23", "Cochabamba"],
-        ["Luis", "30", "La Paz"],
-        ["María", "28", "Santa Cruz"],
-        ["Ana", "23", "Cochabamba"],
-        ["Luis", "30", "La Paz"],
-        ["María", "28", "Santa Cruz"],
-        ["María", "28", "Santa Cruz"],
-        ["Ana", "23", "Cochabamba"],
-        ["Luis", "30", "La Paz"],
-        ["María", "28", "Santa Cruz"],
-        ["María", "28", "Santa Cruz"],
-        ["Ana", "23", "Cochabamba"],
-        ["Luis", "30", "La Paz"],
-        ["María", "28", "Santa Cruz"],
-        ["María", "28", "Santa Cruz"],
-        ["Ana", "23", "Cochabamba"],
-        ["Luis", "30", "La Paz"],
-        ["María", "28", "Santa Cruz"],
-        ["María", "28", "Santa Cruz"],
-        ["Ana", "23", "Cochabamba"],
-        ["Luis", "30", "La Paz"],
-        ["María", "28", "Santa Cruz"],
-        ["María", "28", "Santa Cruz"],
-        ["Ana", "23", "Cochabamba"],
-        ["Luis", "30", "La Paz"],
-        ["María", "28", "Santa Cruz"],
-        ["María", "28", "Santa Cruz"],
-        ["Ana", "23", "Cochabamba"],
-        ["Luis", "30", "La Paz"],
-        ["María", "28", "Santa Cruz"],
-        ["María", "28", "Santa Cruz"],
-        ["Ana", "23", "Cochabamba"],
-        ["Luis", "30", "La Paz"],
-        ["María", "28", "Santa Cruz"],
+    const labelX1 = 20;
+    const valueX1 = 65;
+    const labelX2 = 130;
+    const valueX2 = 155;
+    let yInfo = currentY + 10;
 
-    ];
+    doc.setFontSize(10);
+
+    // Fila 1: Nombre completo y CI
+    doc.setFont('helvetica', 'bold');
+    doc.text('APELLIDOS Y NOMBRE:', labelX1, yInfo);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`${volunteerData.lastName} ${volunteerData.firstName}` || '', valueX1, yInfo);
+
+    doc.setFont('helvetica', 'bold');
+    doc.text('CI:', labelX2, yInfo);
+    doc.setFont('helvetica', 'normal');
+    doc.text(volunteerData.ci || '', valueX2, yInfo);
+
+    yInfo += 6; // siguiente fila
+
+    // Fila 2: Dirección y Teléfono
+    doc.setFont('helvetica', 'bold');
+    doc.text('DIRECCIÓN:', labelX1, yInfo);
+    doc.setFont('helvetica', 'normal');
+    doc.text(volunteerData.homeAddress || '', valueX1, yInfo);
+
+    doc.setFont('helvetica', 'bold');
+    doc.text('TELÉFONO:', labelX2, yInfo);
+    doc.setFont('helvetica', 'normal');
+    doc.text(volunteerData.phone || '', valueX2, yInfo);
+
+    const tablaStartY = yInfo + 10;
+
     autoTable(doc, {
-        head: [columnas],
-        body: filas,
+        head: [columns],
+        body: data,
         theme: 'grid',
-        startY: 55,
+        startY: tablaStartY,
         margin: { bottom: 40 },
         headStyles: {
-            fillColor: [200, 200, 200], // Gris claro
+            fillColor: [200, 200, 200],
             textColor: [0, 0, 0],
             fontStyle: 'bold'
         },
@@ -106,18 +98,15 @@ export const usePrintVolunteerReport = (reportTitle: string, volunteerData: any,
         },
     });
 
-
-
-
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
     const pageCount = doc.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
-        doc.text('FIRMA, ENCARGADO DE\nGUARDIA', 60, pageHeight - 25, { align: 'center' });
+        doc.text('FIRMA, ENCARGADO', 60, pageHeight - 25, { align: 'center' });
         doc.text('FIRMA, COMANDANTE\nDEL GRUPO SAR FAB', pageWidth - 60, pageHeight - 25, { align: 'center' });
         doc.setPage(i);
         doc.text(`Página ${i} de ${pageCount}`, pageWidth - 40, pageHeight - 10);
     }
 
-    doc.save("reporte.pdf");
+    doc.save(`${reportTitle.toLowerCase().replace(' ', '_')}_${volunteerData.lastName}_${volunteerData.firstName}.pdf`);
 };

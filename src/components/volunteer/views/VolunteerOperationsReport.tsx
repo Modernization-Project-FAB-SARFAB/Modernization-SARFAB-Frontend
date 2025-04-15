@@ -5,6 +5,8 @@ import { VolunteerOperationsReportFilters } from "../filters/VolunteerOperations
 import { useVolunteerOperationsReport } from "@/hooks/volunteer/querys/useVolunteerOperationsReport";
 import { useGetOperationCategories } from "@/hooks/configuration/querys/useGetOperationCategories";
 import BackLink from "@/components/common/BackLink/BackLink";
+import { useDownloadOperationVolunteerReport } from "@/hooks/reports/useDownloadOperationVolunteerReport";
+import Button from "@/components/common/Button/Button";
 
 export default function VolunteerOperationsReport({ breadcrumb, columns }: VolunteerListViewProps) {
     useBreadcrumb(breadcrumb);
@@ -21,7 +23,10 @@ export default function VolunteerOperationsReport({ breadcrumb, columns }: Volun
         categoryFilter,
         setCateforyFilter,
 
+        startDate,
         setStartDate,
+
+        endDate,
         setEndDate,
 
         orderByDateAsc,
@@ -43,6 +48,20 @@ export default function VolunteerOperationsReport({ breadcrumb, columns }: Volun
         }))
     ];
 
+    const { downloadReport, isDownloading } = useDownloadOperationVolunteerReport();
+
+    const handleDownload = () => {
+        if (!volunteerId) return;
+        downloadReport({
+            volunteerId: Number(volunteerId),
+            filters: {
+                query: searchValue,
+                categoryId: categoryFilter,
+                startDate,
+                endDate,
+            },
+        });
+    };
 
     return (
         <>
@@ -53,6 +72,9 @@ export default function VolunteerOperationsReport({ breadcrumb, columns }: Volun
                     link="/volunteers"
                     useRouter={true}
                 />
+                <nav>
+                    <Button variant='primary' label="Imprimir reporte" classname="mt-2" onClick={handleDownload} isLoading={isDownloading} disabled={isDownloading} />
+                </nav>
                 <VolunteerOperationsReportFilters
                     searchValue={searchValue} setSearchValue={setSearchValue}
                     categoryFilter={categoryFilter} setCategoryFilter={setCateforyFilter} categoryOptions={categoryOptions}
