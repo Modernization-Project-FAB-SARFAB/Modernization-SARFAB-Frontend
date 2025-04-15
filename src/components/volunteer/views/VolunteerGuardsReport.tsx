@@ -49,7 +49,7 @@ export default function VolunteerGuardsReport({ breadcrumb, columns }: Volunteer
                     useRouter={true}
                 />
                 <nav>
-                    <Button variant='primary' label="Imprimir reporte" classname="mt-2" onClick={handleDownload} isLoading={isDownloading} disabled={isDownloading} />
+                    <Button variant='primary' label="Descargar reporte" classname="mt-2" onClick={handleDownload} isLoading={isDownloading} disabled={isDownloading} />
                 </nav>
                 <VolunteerGuardsReportFilters
                     searchValue={searchValue} setSearchValue={setSearchValue}
