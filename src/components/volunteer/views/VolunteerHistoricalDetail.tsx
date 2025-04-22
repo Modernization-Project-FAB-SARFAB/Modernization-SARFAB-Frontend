@@ -33,7 +33,7 @@ export default function VolunteerHistoricalDetail() {
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
   const { data: totalDemeritPoint, isLoading: isLoadingTotalDemeritPoint, isError: isErrorTotalDemeritPoint } = useVolunteerTotalDemeritPoint(volunteerId);
   const { data: medicalCheckupData, isLoading: isLoadingMedicalCheckupData, isError: isErrorMedicalCheckupData } = useVolunteerMedicalCheckup(volunteerId);
-  const { data: lastCourseVolunteer, isError: isErrorLastCourse } = useLastCourseVolunteer(Number(volunteerId));
+  const { data: lastCourseVolunteer, isError: isErrorLastCourse, error: errorLastCourse } = useLastCourseVolunteer(Number(volunteerId));
 
   const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData;
   const isErrorAll = isError || isErrorTotalDemeritPoint || isErrorMedicalCheckupData;
@@ -50,7 +50,7 @@ export default function VolunteerHistoricalDetail() {
           link="/recruitment/approve-or-deny"
         />
 
-        <PersonalData data={data} lastCourse={isErrorLastCourse ? "No se pudo encontrar el último curso completado" : lastCourseVolunteer?.courseName} />
+        <PersonalData data={data} lastCourse={isErrorLastCourse ? errorLastCourse : lastCourseVolunteer?.courseName} />
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
           <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">

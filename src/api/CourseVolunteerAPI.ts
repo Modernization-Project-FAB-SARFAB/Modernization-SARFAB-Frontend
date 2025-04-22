@@ -24,8 +24,15 @@ export async function getVolunteerCompletedCourses(id: Volunteer['id'], queryPar
         }
     } catch (error) {
         if (isAxiosError(error) && error.response) {
-            throw new Error(error.response.data.error)
+            if (error.response.status === 404) {
+                throw {
+                    status: 404,
+                    message: 'El voluntario no tiene cursos registrados aún.',
+                };
+            }
+            throw new Error(error.response.data?.error || 'Error desconocido');
         }
+        throw new Error('Error al consultar los cursos completados');
     }
 }
 
@@ -40,8 +47,14 @@ export async function getLastCourseVolunteer(id: Volunteer['id']) {
         }
     } catch (error) {
         if (isAxiosError(error) && error.response) {
+            if (error.response.status === 400) {
+                throw {
+                    status: 400,
+                    message: 'No se encontró el último curso completado.',
+                };
+            }
             throw new Error(error.response.data.error || "Error desconocido del servidor")
         }
-        throw error;
+        throw new Error('Error al consultar el ultimo curso completado');
     }
 }
