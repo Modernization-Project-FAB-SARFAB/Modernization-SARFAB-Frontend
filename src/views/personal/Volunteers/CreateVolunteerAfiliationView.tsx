@@ -9,7 +9,6 @@ import { useVolunteerForm } from "@/hooks/volunteer";
 import { useCreateVolunteer } from "@/hooks/volunteer/mutations/useCreateVolunteer";
 import { VolunteerFormData } from "@/types/volunteer.schema";
 import { useState } from "react";
-import { redirect } from "react-router-dom";
 
 export default function CreateVolunteerAfiliationView() {
   const [isSubmitting, setIsSubmitting] = useState(false);
