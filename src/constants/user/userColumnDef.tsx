@@ -65,17 +65,17 @@ const ActionsColumn = ({ row }: { row: any }) => {
             <DropdownMenu
                 items={[
                     {
-                        type: "link", label: "Ver usuario",
+                        type: "button", label: "Ver usuario",
                         onClick: () => openModal(row.original.userId, 5),
                         icon: <RiEyeFill size={20} />
                     },
                     {
-                        type: "link", label: "Editar usuario",
+                        type: "button", label: "Editar usuario",
                         onClick: () => openModal(row.original.userId, 4),
                         icon: <FaUserEdit size={20} />
                     },
                     {
-                        type: "link", label: "Restaurar contraseña",
+                        type: "button", label: "Restaurar contraseña",
                         onClick: () => openModal(row.original.userId, 3),
                         icon: <RiLockPasswordFill size={20} />
                     },

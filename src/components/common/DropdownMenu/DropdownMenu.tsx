@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import { Menu, MenuItem, MenuItems, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { RiMore2Line } from "@remixicon/react";
 import clsx from "clsx";
@@ -21,9 +21,9 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ items }) => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                 >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white dark:border-strokedark dark:bg-boxdark py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                    <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white dark:border-strokedark dark:bg-boxdark py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                         {items.map((item, index) => (
-                            <Menu.Item key={index}>
+                            <MenuItem key={index}>
                                 {({ active }) =>
                                     item.renderItem ? (
                                         item.renderItem(active)
@@ -46,9 +46,9 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ items }) => {
                                         </button>
                                     )
                                 }
-                            </Menu.Item>
+                            </MenuItem>
                         ))}
-                    </Menu.Items>
+                    </MenuItems>
                 </Transition>
             </Menu>
         </div>

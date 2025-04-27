@@ -13,7 +13,7 @@ const ActionsColumn = ({ row }: { row: any; table: any }) => {
 
     const items: DropdownItem[] = [
         {
-            type: "link",
+            type: "button",
             label: "Editar chequeo",
             onClick: () => navigate(`?edit-medical-checkup=true&medicalCheckupId=${row.original.checkupId}`),
             icon: <RiEdit2Line size={20} />,
