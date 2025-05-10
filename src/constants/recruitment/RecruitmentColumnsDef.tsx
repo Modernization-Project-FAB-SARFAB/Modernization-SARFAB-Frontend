@@ -18,7 +18,7 @@ const ActionsColumn = ({ row }: { row: any }) => {
 
   if (status != "0" && status != "3") {
     menuItems.push({
-      type: "link", label: "Afiliar recluta",
+      type: "button", label: "Afiliar recluta",
       onClick: () => navigate(`/volunteers/create?recruitId=${row.original.recruitmentId}`),
       icon: <RiUserFollowLine size={20} />,
       ref: "text-success "

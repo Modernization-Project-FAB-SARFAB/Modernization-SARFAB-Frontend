@@ -33,7 +33,7 @@ export default function VolunteerActiveDetail() {
   const { data, isLoading, isError } = useDetailsVolunteer(volunteerId);
   const { data: totalDemeritPoint, isLoading: isLoadingTotalDemeritPoint, isError: isErrorTotalDemeritPoint } = useVolunteerTotalDemeritPoint(volunteerId);
   const { data: medicalCheckupData, isLoading: isLoadingMedicalCheckupData, isError: isErrorMedicalCheckupData } = useVolunteerMedicalCheckup(volunteerId);
-  const { data: lastCourseVolunteer, isLoading: isLoadingLastCourse, isError: isErrorLastCourse } = useLastCourseVolunteer(Number(volunteerId));
+  const { data: lastCourseVolunteer, isLoading: isLoadingLastCourse, isError: isErrorLastCourse, error: errorLastCourse } = useLastCourseVolunteer(Number(volunteerId));
 
   const isLoadingAll = isLoading || isLoadingTotalDemeritPoint || isLoadingMedicalCheckupData || isLoadingLastCourse;
   const isErrorAll = isError || isErrorTotalDemeritPoint || isErrorMedicalCheckupData;
@@ -50,7 +50,9 @@ export default function VolunteerActiveDetail() {
             iconSize={20}
             link="/volunteers/active-volunteers"
           />
-          <PersonalData data={data} lastCourse={isErrorLastCourse ? "No se pudo encontrar el último curso completado" : lastCourseVolunteer?.courseName}/>
+          <PersonalData data={data} lastCourse={isErrorLastCourse ? (typeof errorLastCourse === "object" && errorLastCourse !== null && "message" in errorLastCourse
+            ? (errorLastCourse as any).message
+            : "No se encontro el ultimo curso completado. Intenta nuevamente.") : lastCourseVolunteer?.courseName} />
         </div>
         <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
           <Actions volunteerId={volunteerId} setModalAction={setModalAction} />
@@ -63,7 +65,7 @@ export default function VolunteerActiveDetail() {
           )}
         </div>
         <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-1 p-4">
-          <Reports volunteerId={volunteerId} from="active"/>
+          <Reports volunteerId={volunteerId} from="active" />
         </div>
         <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:row-span-2 p-4">
           <EmergencyData data={data} />
@@ -95,8 +97,8 @@ export default function VolunteerActiveDetail() {
       <VolunteerGradePromotionModal />
       <VolunteerServiceCompletedModal />
       <VolunteerDischargeModal />
-      <VolunteerMedicalCheckupModal/>
-      <VolunteerEditMedicalCheckupModal/>
+      <VolunteerMedicalCheckupModal />
+      <VolunteerEditMedicalCheckupModal />
     </>
   );
 }

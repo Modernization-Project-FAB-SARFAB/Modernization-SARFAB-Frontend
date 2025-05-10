@@ -128,6 +128,7 @@ export const operationVolunteerSchema = z.object({
 export const listVolunteerOperationsReportSchema = z.object({
     data: z.array(operationVolunteerSchema),
     totalPages: z.number().int().positive(),
+    totalRecords: z.number().int().positive(),
 });
 
 export const totalPointsLostSchema = z.object({

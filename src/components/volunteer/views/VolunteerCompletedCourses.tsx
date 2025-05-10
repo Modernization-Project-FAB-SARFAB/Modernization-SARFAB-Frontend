@@ -14,6 +14,7 @@ export default function VolunteerCompletedCourses({ columns }: VolunteerCourseLi
         isLoading,
         isFetching,
         isError,
+        error,
         refetch,
         pageIndex,
         setPageIndex,
@@ -22,9 +23,14 @@ export default function VolunteerCompletedCourses({ columns }: VolunteerCourseLi
     } = useVolunteerCompletedCourses({ volunteerId: volunteerIdString });
 
     if (isError) {
+        const errorMessage =
+            typeof error === "object" && error !== null && "message" in error
+                ? (error as any).message
+                : "Error al cargar los cursos finalizados. Intenta nuevamente.";
+
         return (
             <div className="text-red-500 text-center p-4">
-                Error al cargar los cursos finalizados. Intenta nuevamente.
+                {errorMessage}
             </div>
         );
     }

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export function useLastCourseVolunteer(id: number) {
 
-    const { data, isLoading, isError } = useQuery({
+    const { data, isLoading, isError, error } = useQuery({
         queryKey: ["lastCourseVolunteer", id],
         queryFn: async () => {
             if (id === undefined) {
@@ -17,5 +17,5 @@ export function useLastCourseVolunteer(id: number) {
         refetchOnWindowFocus: false,
     });
 
-    return { data, isLoading, isError };
+    return { data, isLoading, isError, error };
 }

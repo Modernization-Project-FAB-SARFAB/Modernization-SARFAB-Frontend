@@ -20,7 +20,7 @@ const ActionsColumn = ({ row, openEditModal }: ActionsColumnProps) => {
     <DropdownMenu
       items={[
         {
-          type: "link", 
+          type: "button", 
           label: "Asignar voluntarios",
           onClick: () => {
             if (courseId !== undefined) {
@@ -49,7 +49,7 @@ const ActionsColumn = ({ row, openEditModal }: ActionsColumnProps) => {
           icon: <RiEdit2Line size={20} />
         },
         { 
-          type: "link", 
+          type: "button", 
           label: "Ver curso", 
           onClick: () => {
             if (courseId !== undefined) {

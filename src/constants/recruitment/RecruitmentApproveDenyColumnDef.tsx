@@ -18,14 +18,14 @@ const ActionsColumn = ({ row }: { row: any }) => {
           icon: <RiEdit2Line size={20} /> 
         },
         { 
-          type: "link", 
+          type: "button", 
           label: "Rechazar recluta", 
           onClick: () => navigate(`?denyRecruit=true&recruitId=${row.original.recruitmentId}`), 
           icon: <RiCloseCircleFill size={20} />, 
           ref: "text-danger" 
         },
         { 
-          type: "link", 
+          type: "button", 
           label: "Aprobar recluta", 
           onClick: () => navigate(`?approveRecruit=true&recruitId=${row.original.recruitmentId}`), 
           icon: <RiCheckboxCircleFill size={20} />, 

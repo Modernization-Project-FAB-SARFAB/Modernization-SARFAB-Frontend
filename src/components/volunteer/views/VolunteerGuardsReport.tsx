@@ -4,6 +4,8 @@ import { useVolunteerGuardsReport } from "@/hooks/volunteer/querys/useVolunteerG
 import { VolunteerGuardsReportFilters } from "../filters/VolunteerGuardsReportFilters";
 import { useParams } from "react-router-dom";
 import BackLink from "@/components/common/BackLink/BackLink";
+import Button from "@/components/common/Button/Button";
+import { useDownloadGuardVolunteerReport } from "@/hooks/reports/useDownloadGuardVolunteerReport";
 
 export default function VolunteerGuardsReport({ breadcrumb, columns }: VolunteerListViewProps) {
     useBreadcrumb(breadcrumb);
@@ -13,12 +15,29 @@ export default function VolunteerGuardsReport({ breadcrumb, columns }: Volunteer
         data, isLoading, refetch, isFetching, searchValue, setSearchValue,
         statusFilter, setStatusFilter,
         shiftFilter, setShiftFilter,
-        setStartDate, setEndDate,
+        startDate, setStartDate,
+        endDate, setEndDate,
         pageIndex,
         setPageIndex,
         pageSize,
         setPageSize
     } = useVolunteerGuardsReport({ initialVolunteerId: Number(volunteerId) });
+
+    const { downloadReport, isDownloading } = useDownloadGuardVolunteerReport();
+
+    const handleDownload = () => {
+        if (!volunteerId) return;
+        downloadReport({
+            volunteerId: Number(volunteerId),
+            filters: {
+                query: searchValue,
+                status: statusFilter,
+                shift: shiftFilter,
+                startDate,
+                endDate,
+            },
+        });
+    };
 
     return (
         <>
@@ -29,6 +48,9 @@ export default function VolunteerGuardsReport({ breadcrumb, columns }: Volunteer
                     link="/volunteers"
                     useRouter={true}
                 />
+                <nav>
+                    <Button variant='primary' label="Descargar reporte" classname="mt-2" onClick={handleDownload} isLoading={isDownloading} disabled={isDownloading} />
+                </nav>
                 <VolunteerGuardsReportFilters
                     searchValue={searchValue} setSearchValue={setSearchValue}
                     statusFilter={statusFilter} setStatusFilter={setStatusFilter}

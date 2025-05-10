@@ -9,7 +9,7 @@ const ActionsColumn = ({ row }: { row: any; table: any }) => {
 
     const items: DropdownItem[] = [
         {
-            type: "link",
+            type: "button",
             label: "Remover punto de demerito",
             onClick: () => navigate(`?delete-demerit-point=true&demeritPointId=${row.original.demeritId}`),
             icon: <RiIndeterminateCircleLine size={20} />,
