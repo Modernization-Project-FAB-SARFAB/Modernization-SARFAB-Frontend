@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from '@/components/common/Footer/Footer';
 import { useAuth } from '@/hooks/auth/useAuth';
 import ChangePasswordFirstLoginModal from '@/components/user/ChangePasswordFirstLoginModal';
-
+import Logo from '@/assets/images/signIn/logo.png';
 export default function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [breadcrumbItems, setBreadcrumbItems] = useState<{ label: string; path?: string }[]>([]);
@@ -17,7 +17,7 @@ export default function AppLayout() {
   if (isLoading) {
     return (
       <div className="h-screen flex flex-col items-center justify-center gap-4 text-xl font-medium">
-        <img src="/src/assets/images/signIn/logo.png" alt="Logo" className="w-32 h-32 animate-pulse" />
+        <img src={Logo} alt="Logo" className="w-32 h-32 animate-pulse" />
         <span>Cargando...</span>
       </div>
     );
