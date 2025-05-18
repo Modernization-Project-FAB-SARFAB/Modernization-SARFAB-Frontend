@@ -1,6 +1,6 @@
 import Button from "@/components/common/Button/Button";
 import Modal from "@/components/common/Modal/Modal";
-import { useServiceCompletedVolunteer } from "@/hooks/volunteer/mutations/useServiceCompletedVolunteer";
+import { useStatusChangeVolunteer } from "@/hooks/volunteer/mutations/useStatusChangeVolunteer";
 import { useCallback, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ export default function VolunteerServiceCompletedModal() {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { mutate } = useServiceCompletedVolunteer();
+    const { mutate } = useStatusChangeVolunteer("Ocurrió un error marcar como cumplido el servicio del voluntario", "Voluntario ha sido marcado como cumplido el servicio correctamente");
 
     const handleConfirm = useCallback(() => {
         setIsSubmitting(true);
@@ -24,6 +24,7 @@ export default function VolunteerServiceCompletedModal() {
             {
                 onSettled: () => {
                     setIsSubmitting(false);
+                    navigate('/volunteers/volunteer-history', { replace: true });
                 },
             }
         );

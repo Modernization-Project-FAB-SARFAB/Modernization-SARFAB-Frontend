@@ -1,13 +1,24 @@
 import { Volunteer } from "@/types/volunteer.schema";
 import { ColumnDef } from "@tanstack/react-table";
 import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
-import { RiEyeFill, RiFileUserFill, RiShakeHandsFill } from "@remixicon/react";
+import { RiArrowUpCircleLine, RiEyeFill, RiFileUserFill, RiShakeHandsFill } from "@remixicon/react";
 import ExpandableText from "@/components/common/ShowMoreText/ShowMoreText";
+import { useNavigate } from "react-router-dom";
 
 const ActionsColumn = ({ row }: { row: any }) => {
+    const navigate = useNavigate();
+
     return (
         <DropdownMenu
             items={[
+                {
+                    type: "button",
+                    label: "Reincorporar voluntario",
+                    onClick: () =>
+                        navigate(`?ReincorpotateVolunteer=true&volunteerId=${row.original.volunteerId}`),
+                    icon: <RiArrowUpCircleLine size={20} />,
+                    ref: "text-success",
+                },
                 {
                     type: "link", label: "Ver voluntario",
                     href: `/volunteers/${row.original.volunteerId}/view?historicalData=true&reason=${encodeURIComponent(row.original.reason)}&departureDate=${row.original.dapartureDate}&volunteerStatus=${row.original.volunteerStatus}`,
