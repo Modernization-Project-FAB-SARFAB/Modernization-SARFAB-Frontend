@@ -5,7 +5,7 @@ import { VolunteerTable } from "../table/VolunteerTable";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
 import { useVolunteerHistorical } from "@/hooks/volunteer/querys/useVolunteerHistorical";
 
-export default function VolunteerHistoricalListView({ breadcrumb, columns }: VolunteerListViewProps) {
+export default function VolunteerHistoricalListView({ breadcrumb, columns, modalComponent }: VolunteerListViewProps) {
     useBreadcrumb(breadcrumb);
     const { data: grades } = useGrades();
 
@@ -51,6 +51,7 @@ export default function VolunteerHistoricalListView({ breadcrumb, columns }: Vol
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
                 noItemsMessage="No existen voluntarios historicos" noItemsLinkText="Agregar nuevo voluntario" noItemsLinkUrl=""
             />
+            {modalComponent}
         </>
     )
 }
