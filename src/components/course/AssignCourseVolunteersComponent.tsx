@@ -14,11 +14,13 @@ import FilterDatalist from "../common/FilterDatalist/FilterDatalist";
 import Button from "../common/Button/Button";
 import ButtonGroup from "../common/ButtonGroup/ButtonGroup";
 import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
+import FormDate from "../common/FormDate/FormDate";
 
 interface SelectedVolunteer {
   volunteerId: number;
   fullName: string;
   rank: string;
+  completionDate: string;
 }
 
 interface VolunteerWithoutCourse {
@@ -61,12 +63,10 @@ export default function AssignCourseVolunteersComponent({ course, volunteersWith
       "volunteers",
       addedVolunteers.map(v => ({
         volunteerId: v.volunteerId,
-        completionDate: new Date().toISOString().split("T")[0],
+        completionDate: v.completionDate,
       }))
     );
-    if (addedVolunteers.length > 0) {
-      trigger("volunteers");
-    }
+    trigger("volunteers");
   }, [addedVolunteers, setValue, trigger]);
 
   const volunteerOptions = volunteersWithoutCourse.map(volunteer => ({
@@ -86,7 +86,6 @@ export default function AssignCourseVolunteersComponent({ course, volunteersWith
 
   const handleAddVolunteer = () => {
     const input = selectedVolunteerName.trim();
-
     if (!input) {
       setAddError("Debe seleccionar un voluntario válido.");
       return;
@@ -113,6 +112,7 @@ export default function AssignCourseVolunteersComponent({ course, volunteersWith
       volunteerId: volunteerData.volunteerId,
       fullName: `${volunteerData.lastName} ${volunteerData.firstName}`,
       rank: volunteerData.abbreviation,
+      completionDate: "",
     };
 
     setAddedVolunteers(prev => [...prev, newVolunteer]);
@@ -120,11 +120,27 @@ export default function AssignCourseVolunteersComponent({ course, volunteersWith
     setAddError("");
   };
 
+  const handleDateChange = (volunteerId: number, date: string) => {
+    setAddedVolunteers(prev =>
+      prev.map(v => v.volunteerId === volunteerId ? { ...v, completionDate: date } : v)
+    );
+  };
+
   const handleRemoveVolunteer = (volunteerId: number) => {
     setAddedVolunteers(prev => prev.filter(v => v.volunteerId !== volunteerId));
   };
 
   const onSubmit = (data: AssignCourseVolunteersForm) => {
+    if (addedVolunteers.length === 0) {
+      setAddError("Debe agregar al menos un voluntario.");
+      return;
+    }
+
+    if (addedVolunteers.some(v => !v.completionDate)) {
+      setAddError("Debe seleccionar la fecha de finalización para cada voluntario.");
+      return;
+    }
+
     setIsAssigning(true);
     assignMutation.mutate(data, {
       onSuccess: () => {
@@ -205,6 +221,9 @@ export default function AssignCourseVolunteersComponent({ course, volunteersWith
                     Grado
                   </th>
                   <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
+                    Fecha de finalización
+                  </th>
+                  <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
                     Acción
                   </th>
                 </tr>
@@ -220,6 +239,18 @@ export default function AssignCourseVolunteersComponent({ course, volunteersWith
                         {volunteer.rank}
                       </td>
                       <td className="py-2 px-4 border border-stroke dark:border-strokedark">
+                        <FormDate
+                          name={`completionDate-${volunteer.volunteerId}`}
+                          label=""
+                          required={false}
+                          defaultValue={volunteer.completionDate}
+                          className="text-center"
+                          register={() => ({
+                            onChange: (e: any) => handleDateChange(volunteer.volunteerId, e.target.value),
+                          })}
+                        />
+                      </td>
+                      <td className="py-2 px-4 border border-stroke dark:border-strokedark">
                         <button
                           onClick={() => handleRemoveVolunteer(volunteer.volunteerId)}
                           className="text-red-600 hover:text-red-800"
@@ -232,7 +263,7 @@ export default function AssignCourseVolunteersComponent({ course, volunteersWith
                 ) : (
                   <tr className="border border-stroke dark:border-strokedark">
                     <td
-                      colSpan={3}
+                      colSpan={4}
                       className="py-4 text-center text-gray-500 border border-stroke dark:border-strokedark"
                     >
                       Aún no se han agregado voluntarios al curso.
