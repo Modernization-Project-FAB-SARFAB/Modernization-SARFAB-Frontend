@@ -3,6 +3,8 @@ import { useVolunteerCompletedCourses } from "@/hooks/courseVolunteer/querys/use
 import { VolunteerTable } from "../table/VolunteerTable";
 import { useParams } from "react-router-dom";
 import BackLink from "@/components/common/BackLink/BackLink";
+import Button from "@/components/common/Button/Button";
+import { useDownloadCompleteCoursesReport } from "@/hooks/reports/useDownloadCompleteCoursesReport";
 
 export default function VolunteerCompletedCourses({ columns }: VolunteerCourseListViewProps) {
     const { volunteerId } = useParams();
@@ -22,6 +24,16 @@ export default function VolunteerCompletedCourses({ columns }: VolunteerCourseLi
         setPageSize,
     } = useVolunteerCompletedCourses({ volunteerId: volunteerIdString });
 
+    const { downloadReport, isDownloading } = useDownloadCompleteCoursesReport();
+
+    const handleDownload = () => {
+        if (!volunteerId) return;
+        downloadReport({
+            volunteerId: Number(volunteerId),
+            filters: {},
+        });
+    };
+
     if (isError) {
         const errorMessage =
             typeof error === "object" && error !== null && "message" in error
@@ -36,13 +48,16 @@ export default function VolunteerCompletedCourses({ columns }: VolunteerCourseLi
     }
     return (
         <>
-            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="bg-white dark:bg-boxdark rounded-lg border border-stroke shadow-default dark:border-strokedark p-4 mb-4">
                 <BackLink
                     text="Volver al listado de voluntarios"
                     iconSize={20}
                     link={`/volunteers/${volunteerIdString}/view`}
                     useRouter={true}
                 />
+                <nav>
+                    <Button variant='primary' label="Descargar reporte" classname="mt-2" onClick={handleDownload} isLoading={isDownloading} disabled={isDownloading} />
+                </nav>
                 <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
                     Cursos finalizados
                 </h3>

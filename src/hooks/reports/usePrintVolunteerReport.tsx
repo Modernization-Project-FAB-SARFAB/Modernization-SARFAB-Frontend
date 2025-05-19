@@ -22,6 +22,17 @@ export const usePrintVolunteerReport = (reportTitle: string, volunteerData: any,
 
     doc.addImage(logo, 'PNG', pageWidth - 40, 10, 30, 30);
 
+    // Reservar espacio para foto (3x3 cm) en la parte superior derecha
+    const photoBoxSize = 30; // 30 mm = 3 cm
+    const photoBoxX = pageWidth - photoBoxSize - 10; // 10 mm de margen derecho
+    const photoBoxY = 45; // debajo del logo
+
+    doc.setDrawColor(0); // color del borde
+    doc.setLineWidth(0.1);
+    doc.rect(photoBoxX, photoBoxY, photoBoxSize, photoBoxSize); // marco de la foto
+    doc.setFontSize(8);
+    doc.text('Foto 3x3 cm', photoBoxX + photoBoxSize / 2, photoBoxY + photoBoxSize / 2 + 2, { align: 'center' });
+
 
     doc.setFont('helvetica', 'bold');
 
@@ -80,7 +91,7 @@ export const usePrintVolunteerReport = (reportTitle: string, volunteerData: any,
     doc.setFont('helvetica', 'normal');
     doc.text(volunteerData.phone || '', valueX2, yInfo);
 
-    const tablaStartY = yInfo + 10;
+    const tablaStartY = yInfo + 15;
 
     autoTable(doc, {
         head: [columns],
