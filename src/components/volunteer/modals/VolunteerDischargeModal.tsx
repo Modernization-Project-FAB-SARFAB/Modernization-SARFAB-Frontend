@@ -1,6 +1,6 @@
 import Button from "@/components/common/Button/Button";
 import Modal from "@/components/common/Modal/Modal";
-import { useDischargeVolunteer } from "@/hooks/volunteer/mutations/useDischargeVolunteer";
+import { useStatusChangeVolunteer } from "@/hooks/volunteer/mutations/useStatusChangeVolunteer";
 import { useState, useMemo, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -16,7 +16,7 @@ export default function VolunteerDischargeModal() {
     const [dischargeReason, setDischargeReason] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
-    const { mutate } = useDischargeVolunteer();
+    const { mutate } = useStatusChangeVolunteer("Error al dar de baja al voluntario", "Voluntario dado de baja correctamente");
 
     const handleConfirmDismissal = useCallback(() => {
         if (!dischargeReason.trim()) {
@@ -31,6 +31,7 @@ export default function VolunteerDischargeModal() {
             {
                 onSettled: () => {
                     setIsSubmitting(false);
+                    navigate('/volunteers/volunteer-history', { replace: true });
                 },
             }
         );
