@@ -17,7 +17,7 @@ export default function AppLayout() {
   if (isLoading) {
     return (
       <div className="h-screen flex flex-col items-center justify-center gap-4 text-xl font-medium">
-        <img src="/src/assets/images/signIn/logo.png" alt="Logo" className="w-32 h-32 animate-pulse" />
+        <img src="assets/images/logo/logo.png" alt="Logo" className="w-32 h-32 animate-pulse" />
         <span>Cargando...</span>
       </div>
     );
