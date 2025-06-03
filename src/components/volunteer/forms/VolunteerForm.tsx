@@ -5,8 +5,10 @@ import FormInput from "../../common/FormInput/FormInput";
 import FormSelect from "../../common/FormSelect/FormSelect";
 import { VolunteerFormProps } from "../types/VolunteerFormProps";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
+import { useDepartments } from "@/hooks/departments/querys/useDepartments";
 
 export default function VolunteerForm({ errors, register, control, grades }: VolunteerFormProps) {
+    const { data: departments } = useDepartments();
 
     return (
         <>
@@ -85,7 +87,7 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                                 <div className="mb-4.5">
                                     <FormSelect
                                         label="Departamento"
-                                        options={[{ id: 1, name: "Cochabamba" }]}
+                                        options={departments || []}
                                         control={control}
                                         name="departmentId"
                                         required
@@ -230,7 +232,7 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                                     </div>
                                 </div>
                                 <div className="mb-4.5">
-                                    <FormInput label="Dirección del contacto" placeholder=""
+                                    <FormInput label="Dirección del contacto" placeholder="Ingresa la dirección del contacto"
                                         register={register}
                                         errors={errors}
                                         name="emergencyContactAddress"
@@ -241,7 +243,7 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                                 </div>
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Telefono de contacto de emergancia" placeholder=""
+                                        <FormInput label="Telefono de contacto de emergencia" placeholder="Ingresa el teléfono de contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactPhone"
@@ -252,7 +254,7 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Celular de contacto de emergancia" placeholder=""
+                                        <FormInput label="Celular de contacto de emergencia" placeholder="Ingresa el celular de contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactMobile"

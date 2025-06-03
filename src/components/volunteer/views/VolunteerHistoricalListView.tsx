@@ -49,7 +49,7 @@ export default function VolunteerHistoricalListView({ breadcrumb, columns, modal
                 isLoading={isLoading} isFetching={isFetching} data={data} columns={columns}
                 pageIndex={pageIndex} pageSize={pageSize}
                 setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
-                noItemsMessage="No existen voluntarios historicos" noItemsLinkText="Agregar nuevo voluntario" noItemsLinkUrl=""
+                noItemsMessage="No existen voluntarios historicos" noItemsLinkText="Agregar nuevo voluntario" noItemsLinkUrl="/volunteers/create"
             />
             {modalComponent}
         </>

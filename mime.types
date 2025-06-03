@@ -5,5 +5,6 @@ types {
     image/png               png;
     image/jpeg              jpeg jpg;
     image/gif               gif;
+    image/webp              webp;
     # Agrega otros tipos MIME según sea necesario
 }

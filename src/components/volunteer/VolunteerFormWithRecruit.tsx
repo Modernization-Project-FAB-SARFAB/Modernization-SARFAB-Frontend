@@ -6,10 +6,12 @@ import FormSelect from "../common/FormSelect/FormSelect";
 import { VolunteerFormProps } from "./types/VolunteerFormProps";
 import { useGrades } from "@/hooks/grades/querys/useGrades";
 import FormReadOnlyInput from "../common/FormReadOnlyInput/FormReadOnlyInput";
+import { useDepartments } from "@/hooks/departments/querys/useDepartments";
 
 export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue }: VolunteerFormProps) {
 
     const { data: grades } = useGrades();
+    const { data: departments } = useDepartments();
 
     return (
         <>
@@ -80,7 +82,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                 <div className="mb-4.5">
                                     <FormSelect
                                         label="Departamento"
-                                        options={[{ id: 1, name: "Cochabamba" }]}
+                                        options={departments || []}
                                         control={control}
                                         name="departmentId"
                                         required
@@ -187,7 +189,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                 </div>
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Telefono de contacto de emergancia" placeholder="Ingresa el teléfono de contacto de emergencia"
+                                        <FormInput label="Telefono de contacto de emergencia" placeholder="Ingresa el teléfono de contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactPhone"
@@ -195,7 +197,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Celular de contacto de emergancia" placeholder="Ingresa el celular de contacto de emergencia"
+                                        <FormInput label="Celular de contacto de emergencia" placeholder="Ingresa el celular de contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactMobile"

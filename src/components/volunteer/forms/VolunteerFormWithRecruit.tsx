@@ -6,8 +6,10 @@ import FormSelect from "../../common/FormSelect/FormSelect";
 import FormReadOnlyInput from "../../common/FormReadOnlyInput/FormReadOnlyInput";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import { VolunteerWithRecruitFormProps } from "../types/VolunteerFormProps";
+import { useDepartments } from "@/hooks/departments/querys/useDepartments";
 
 export default function VolunteerFormWithRecruit({ errors, register, control, recruit, setValue, typeVolunteer, grades }: VolunteerWithRecruitFormProps) {
+    const { data: departments } = useDepartments();
 
     return (
         <>
@@ -90,7 +92,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                 <div className="mb-4.5">
                                     <FormSelect
                                         label="Departamento"
-                                        options={[{ id: 1, name: "Cochabamba" }]}
+                                        options={departments || []}
                                         control={control}
                                         name="departmentId"
                                         required
@@ -239,7 +241,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                 </div>
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Telefono de contacto de emergancia" placeholder="Teléfono del contacto de emergencia"
+                                        <FormInput label="Telefono de contacto de emergencia" placeholder="Teléfono del contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactPhone"
@@ -251,7 +253,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Celular de contacto de emergancia" placeholder="Celular del contacto de emergencia"
+                                        <FormInput label="Celular de contacto de emergencia" placeholder="Celular del contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactMobile"

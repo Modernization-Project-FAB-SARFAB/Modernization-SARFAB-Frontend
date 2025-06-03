@@ -40,7 +40,7 @@ export default function VolunteerActiveListView({ breadcrumb, columns, modalComp
         isLoading={isLoading} isFetching={isFetching} data={data} columns={columns}
         pageIndex={pageIndex} pageSize={pageSize}
         setPageIndex={setPageIndex} setPageSize={setPageSize} refetch={refetch}
-        noItemsMessage="No existen voluntarios activos" noItemsLinkText="Agregar nuevo voluntario" noItemsLinkUrl=""
+        noItemsMessage="No existen voluntarios activos" noItemsLinkText="Agregar nuevo voluntario" noItemsLinkUrl="/volunteers/create"
       />
       {Array.isArray(modalComponent)
         ? modalComponent.map((component, index) =>

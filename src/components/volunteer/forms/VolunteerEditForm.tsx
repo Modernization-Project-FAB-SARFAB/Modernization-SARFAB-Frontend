@@ -7,12 +7,13 @@ import { useGrades } from "@/hooks/grades/querys/useGrades";
 import ErrorFormMessage from "@/components/common/ErrorFormMessage/ErrorFormMessage";
 import { VolunteerUpdateFormProps } from "../types/VolunteerUpdateFormProps";
 import { useEffect } from "react";
+import { useDepartments } from "@/hooks/departments/querys/useDepartments";
 
 export default function VolunteerEditForm({ errors, register, control, volunteerData, setValue }: VolunteerUpdateFormProps) {
 
     const { data: grades } = useGrades();
+    const { data: departments } = useDepartments();
 
-    const departments = [{ id: 1, name: "Cochabamba" }];
     const volunteerTypes = [{ id: "Libretista", name: "Libretista" }, { id: "Voluntario", name: "Voluntario" }];
 
     useEffect(() => {
@@ -112,7 +113,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                 <div className="mb-4.5">
                                     <FormSelect
                                         label="Departamento"
-                                        options={departments}
+                                        options={departments || []}
                                         control={control}
                                         name="departmentId"
                                         required
@@ -257,7 +258,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                     </div>
                                 </div>
                                 <div className="mb-4.5">
-                                    <FormInput label="Dirección del contacto" placeholder=""
+                                    <FormInput label="Dirección del contacto" placeholder="Ingresa la dirección del contacto"
                                         register={register}
                                         errors={errors}
                                         name="emergencyContactAddress"
@@ -268,7 +269,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                 </div>
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Telefono de contacto de emergancia" placeholder=""
+                                        <FormInput label="Telefono de contacto de emergencia" placeholder="Ingresa el teléfono de contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactPhone"
@@ -279,7 +280,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Celular de contacto de emergancia" placeholder=""
+                                        <FormInput label="Celular de contacto de emergencia" placeholder="Ingresa el celular de contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactMobile"

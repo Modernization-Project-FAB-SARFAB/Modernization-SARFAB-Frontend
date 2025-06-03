@@ -39,7 +39,7 @@ const EmergencyData: React.FC<EmergencyDataProps> = ({data}) => {
             </div>
             <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                 <div className="w-full xl:w-1/2">
-                    <FormInput label="Telefono de contacto de emergancia"
+                    <FormInput label="Telefono de contacto de emergencia"
                         name="emergencyContactPhone"
                         type="text"
                         readonly
@@ -48,7 +48,7 @@ const EmergencyData: React.FC<EmergencyDataProps> = ({data}) => {
                 </div>
 
                 <div className="w-full xl:w-1/2">
-                    <FormInput label="Celular de contacto de emergancia"
+                    <FormInput label="Celular de contacto de emergencia"
                         name="emergencyContactMobile"
                         type="text"
                         readonly

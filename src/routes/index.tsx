@@ -60,7 +60,15 @@ const AttendanceGuardView = lazy(() => import('@/views/guard/AttendanceControlGu
 //User
 const UserListView = lazy(() => import('@/views/user/UserListView'))
 
+//Errors
+const NotFoundView = lazy(() => import('@/views/errors/NotFoundView'))
+
 const coreRoutes = [
+  {
+    path: '*',
+    title: 'Página no encontrada',
+    component: NotFoundView
+  },
   {
     path: '/',
     title: 'Notificaciones',
@@ -121,7 +129,7 @@ const coreRoutes = [
     path: '/volunteers/:volunteerId/demerit-points',
     title: 'Puntos de demérito',
     component: HistoryVolunteerDemeritPointsView
-  }, 
+  },
   {
     path: '/volunteers/active-volunteers',
     title: 'Voluntarios activos',

@@ -12,7 +12,7 @@ export function NoMedicalTreatmentsMessage({ hasFilters }: NoMedicalTreatmentsMe
                     ? "No se encontraron registros con los filtros aplicados."
                     : "No existen tratamientos."}
                 {!hasFilters && (
-                    <Link to="/medical-treatments/create" className='text-primary font-bold'>Crear tratamiento</Link>
+                    <Link to="/medical-treatment/create" className='text-primary font-bold'>Crear tratamiento</Link>
                 )}
             </p>
         </div>
