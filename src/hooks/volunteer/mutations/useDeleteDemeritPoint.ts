@@ -9,12 +9,12 @@ export function useDeleteDemeritPoint() {
   return useMutation({
     mutationFn: deleteDemeritPoint,
     onError: (error) => {
-      const errorMessage = error.message?.trim() || "Ocurrió un error al eliminar punto de demerito";
+      const errorMessage = error.message?.trim() || "Ocurrió un error al eliminar la falta";
       toast.error(errorMessage);
       navigate(-1);
     },
     onSuccess: () => {
-      toast.success("Punto de demerito eliminado correctamente");
+      toast.success("Falta eliminada correctamente");
       navigate(-1);
     },
   });

@@ -26,16 +26,16 @@ export default function VolunteerDeleteDemeritPointModal() {
 
     return (
         <Modal
-            title="Remover punto de demerito"
+            title="Eliminar falta"
             isOpen={isOpen}
             onClose={() => navigate(location.pathname, { replace: true })}
         >
             <p className="text-lg font-semibold text-gray-600 mb-6">
-                ¿Deseas remover este punto de demerito?
+                ¿Deseas eliminar esta falta?
             </p>
             <div className="flex justify-end gap-4.5 mt-6">
                 <Button
-                    label={isSubmitting ? "Removiendo..." : "Sí, deseo remover punto de demerito"}
+                    label={isSubmitting ? "Eliminando..." : "Sí, deseo eliminar esta falta"}
                     onClick={handlePromote}
                     type="submit"
                     disabled={isSubmitting || !demeritPointId}
