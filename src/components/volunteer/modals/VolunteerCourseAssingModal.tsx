@@ -24,7 +24,7 @@ export default function VolunteerCourseAssingModal() {
 
     const initialValues: CourseVolunteer = {
         volunteerId: Number(volunteerId),
-        courseId: 0,
+        courseId: "",
         completionDate: "",
     };
 
