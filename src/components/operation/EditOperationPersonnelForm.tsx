@@ -127,6 +127,7 @@ export default function EditOperationPersonnelForm({
       <FilterDatalist
         name="responsible"
         label="Responsable"
+        required
         options={availableResponsibleMilitary}
         onChange={(value) => {
           if (!value) {

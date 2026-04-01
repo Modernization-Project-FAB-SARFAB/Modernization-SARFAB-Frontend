@@ -42,6 +42,7 @@ export function OperationCategoryForm({
           label="Nombre de la categoría"
           name="name"
           type="text"
+          required
           register={register}
           placeholder="Ingresa el nombre de la categoría"
         />

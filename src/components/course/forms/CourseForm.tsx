@@ -33,6 +33,7 @@ export function CourseForm({
           <FormInput
             label="Nombre del curso"
             name="name"
+            required
             register={register}
             placeholder="Ingrese el nombre del curso"
           />
@@ -45,6 +46,7 @@ export function CourseForm({
           <FormTextArea
             label="Descripción"
             name="description"
+            required
             register={register}
             placeholder="Ingrese la descripción del curso"
           />

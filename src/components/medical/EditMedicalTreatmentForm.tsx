@@ -30,6 +30,7 @@ export default function EditMedicalTreatmentForm({ volunteersData, errors, regis
                         <FormSearchableSelect
                             name="attendingPersonId"
                             label="Persona que atendió"
+                            required
                             options={volunteersOptions && volunteersOptions.length > 0
                                 ? volunteersOptions
                                 : [{ id: 0, name: "No hay opciones" }]}
@@ -44,6 +45,7 @@ export default function EditMedicalTreatmentForm({ volunteersData, errors, regis
                         <FormSearchableSelect
                             name="patientPersonId"
                             label="Persona que recibió el tratamiento"
+                            required
                             options={volunteersOptions && volunteersOptions.length > 0
                                 ? volunteersOptions
                                 : [{ id: 0, name: "No hay opciones" }]}

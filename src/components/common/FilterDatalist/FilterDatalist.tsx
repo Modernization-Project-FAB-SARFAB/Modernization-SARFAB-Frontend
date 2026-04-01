@@ -2,7 +2,7 @@ import { useEffect, useState, forwardRef } from "react";
 import type { FilterDatalistProps } from "./FilterDatalist.type";
 
 const FilterDatalist = forwardRef<HTMLInputElement, FilterDatalistProps>(
-  ({ name, label, options, value = "", onChange, showLabel = true, disabled }, ref) => {
+  ({ name, label, options, value = "", onChange, showLabel = true, disabled, required = false }, ref) => {
     const [inputValue, setInputValue] = useState(value);
 
     useEffect(() => {
@@ -18,7 +18,7 @@ const FilterDatalist = forwardRef<HTMLInputElement, FilterDatalistProps>(
       <div className="w-full">
         {label && showLabel && (
           <label htmlFor={name} className="mb-2.5 block text-black dark:text-white">
-            {label}
+            {label}{required && <span className="text-danger ml-1">*</span>}
           </label>
         )}
 

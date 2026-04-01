@@ -112,6 +112,7 @@ export default function EditGuardForm({ setVoluntaries, voluntaries, volunteersD
                         <FormSearchableSelect
                             name="responsibleId"
                             label="Responsable"
+                            required
                             options={volunteersOptions && volunteersOptions.length > 0
                                 ? volunteersOptions
                                 : [{ id: 0, name: "No hay opciones" }]}

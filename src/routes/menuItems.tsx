@@ -80,7 +80,7 @@ const menuItems: MenuItem[] = [
         icon: <RiSettings2Fill size={18} color="white" />,
         path: "/configuration",
         subItems: [
-            { label: "Tipos y categorías de operación", path: "/configuration/operation-category/list" },
+            { label: "Categorías y tipos de operación", path: "/configuration/operation-category/list" },
             { label: "Cursos", path: "/courses/list" },
             { label: "Solicitantes", path: "/configuration/requester/list" },
         ]

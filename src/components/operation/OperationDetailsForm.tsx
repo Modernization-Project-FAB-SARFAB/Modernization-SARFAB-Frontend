@@ -101,6 +101,7 @@ export default function OperationDetailsForm({
           <FilterDatalist
             name="operationCategoryId"
             label="Categoría"
+            required
             options={mappedOperationContext?.operationCategories || []}
             onChange={(value) =>
               handleSelection(
@@ -125,6 +126,7 @@ export default function OperationDetailsForm({
                 <FilterDatalist
                   {...field}
                   label="Tipo de Operación"
+                  required
                   options={filteredOperationTypes}
                   onChange={(value) => {
                     const selected = filteredOperationTypes.find(
@@ -152,6 +154,7 @@ export default function OperationDetailsForm({
           <FilterDatalist
             name="departmentId"
             label="Departamento"
+            required
             options={mappedOperationContext?.departments || []}
             onChange={(value) => {
               handleSelection(
@@ -174,6 +177,7 @@ export default function OperationDetailsForm({
           <FilterDatalist
             name="provinceId"
             label="Provincia"
+            required
             options={filteredProvinces}
             onChange={(value) =>
               handleSelection(value, filteredProvinces, setSelectedProvinceId)
@@ -196,6 +200,7 @@ export default function OperationDetailsForm({
               <FilterDatalist
                 {...field}
                 label="Municipio"
+                required
                 options={filteredMunicipalities}
                 onChange={(value) => {
                   const selected = filteredMunicipalities.find(

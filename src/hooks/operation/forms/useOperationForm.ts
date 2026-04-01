@@ -7,7 +7,7 @@ import {
 } from "@/types/operation.schema";
 import {
   getCreateOperationContext,
-  getVolunteersWithGrade,
+  getVolunteersWithActiveMedicalCheckup,
   getMilitaryWithRank,
 } from "@/api/OperationContextAPI";
 import {
@@ -45,7 +45,7 @@ export function useOperationForm(defaultValues: CreateOperationForm) {
       try {
         const [contextData, volunteersData, militaryData] = await Promise.all([
           getCreateOperationContext(),
-          getVolunteersWithGrade(),
+          getVolunteersWithActiveMedicalCheckup(),
           getMilitaryWithRank(),
         ]);
         setOperationContext(contextData);

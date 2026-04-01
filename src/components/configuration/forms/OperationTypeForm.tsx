@@ -46,6 +46,7 @@ export function OperationTypeForm({
         <FormInput
           label="Nombre del tipo de operación"
           name="name"
+          required
           register={register}
           placeholder="Ingrese el nombre del tipo de operación"
         />

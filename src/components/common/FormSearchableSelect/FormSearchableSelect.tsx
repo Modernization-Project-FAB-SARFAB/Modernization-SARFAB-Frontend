@@ -12,6 +12,7 @@ interface FormSearchableSelectProps {
     control: any;
     defaultValue?: string | number;
     disabled?: boolean;
+    required?: boolean;
     onSelectionChange?: (value: number | string) => void
 }
 
@@ -22,6 +23,7 @@ const FormSearchableSelect: React.FC<FormSearchableSelectProps> = ({
     control,
     defaultValue = "",
     disabled = false,
+    required = false,
     onSelectionChange
 }) => {
     return (
@@ -33,7 +35,7 @@ const FormSearchableSelect: React.FC<FormSearchableSelectProps> = ({
                 <div className="w-full">
                     {label && (
                         <label htmlFor={name} className="mb-2.5 block text-black dark:text-white">
-                            {label}
+                            {label} {required && <span className="text-meta-1">*</span>}
                         </label>
                     )}
                     <div className="relative z-20 bg-white dark:bg-form-input">

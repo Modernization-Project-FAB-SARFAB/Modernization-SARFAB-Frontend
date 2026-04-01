@@ -11,5 +11,6 @@ export interface FilterDatalistProps {
   onChange: (value: string) => void;
   showLabel?: boolean;
   className?: string;
-  disabled?: boolean; 
+  disabled?: boolean;
+  required?: boolean;
 }

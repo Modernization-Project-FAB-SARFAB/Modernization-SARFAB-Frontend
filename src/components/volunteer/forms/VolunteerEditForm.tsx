@@ -57,6 +57,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                             register={register}
                                             errors={errors}
                                             name="firstName"
+                                            required
                                             type="text" />
                                         {errors.firstName && (
                                             <ErrorFormMessage>{errors.firstName.message}</ErrorFormMessage>
@@ -68,6 +69,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                             register={register}
                                             errors={errors}
                                             name="lastName"
+                                            required
                                             type="text" />
                                         {errors.lastName && (
                                             <ErrorFormMessage>{errors.lastName.message}</ErrorFormMessage>
@@ -80,6 +82,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                         register={register}
                                         errors={errors}
                                         name="ci"
+                                        required
                                         type="text" />
                                     {errors.ci && (
                                         <ErrorFormMessage>{errors.ci.message}</ErrorFormMessage>
@@ -104,6 +107,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                         register={register}
                                         errors={errors}
                                         name="email"
+                                        required
                                         type="email" />
                                     {errors.email && (
                                         <ErrorFormMessage>{errors.email.message}</ErrorFormMessage>
@@ -129,6 +133,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                         register={register}
                                         errors={errors}
                                         name="homeAddress"
+                                        required
                                         type="text" />
                                     {errors.homeAddress && (
                                         <ErrorFormMessage>{errors.homeAddress.message}</ErrorFormMessage>
@@ -141,6 +146,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                             register={register}
                                             errors={errors}
                                             name="phone"
+                                            required
                                             type="tel" />
                                         {errors.phone && (
                                             <ErrorFormMessage>{errors.phone.message}</ErrorFormMessage>
@@ -152,6 +158,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                             register={register}
                                             errors={errors}
                                             name="mobilePhone"
+                                            required
                                             type="tel" />
                                         {errors.mobilePhone && (
                                             <ErrorFormMessage>{errors.mobilePhone.message}</ErrorFormMessage>
@@ -195,6 +202,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                             register={register}
                                             errors={errors}
                                             name="occupation"
+                                            required
                                             type="text" />
                                         {errors.occupation && (
                                             <ErrorFormMessage>{errors.occupation.message}</ErrorFormMessage>
@@ -206,6 +214,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                             register={register}
                                             errors={errors}
                                             name="religion"
+                                            required
                                             type="text" />
                                         {errors.religion && (
                                             <ErrorFormMessage>{errors.religion.message}</ErrorFormMessage>
@@ -218,6 +227,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                         register={register}
                                         errors={errors}
                                         name="distinctiveFeatures"
+                                        required
                                         type="text" />
                                     {errors.distinctiveFeatures && (
                                         <ErrorFormMessage>{errors.distinctiveFeatures.message}</ErrorFormMessage>
@@ -240,6 +250,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactFullName"
+                                            required
                                             type="text" />
                                         {errors.emergencyContactFullName && (
                                             <ErrorFormMessage>{errors.emergencyContactFullName.message}</ErrorFormMessage>
@@ -251,6 +262,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactRelation"
+                                            required
                                             type="text" />
                                         {errors.emergencyContactRelation && (
                                             <ErrorFormMessage>{errors.emergencyContactRelation.message}</ErrorFormMessage>
@@ -262,6 +274,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                         register={register}
                                         errors={errors}
                                         name="emergencyContactAddress"
+                                        required
                                         type="text" />
                                     {errors.emergencyContactAddress && (
                                         <ErrorFormMessage>{errors.emergencyContactAddress.message}</ErrorFormMessage>
@@ -273,6 +286,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactPhone"
+                                            required
                                             type="text" />
                                         {errors.emergencyContactPhone && (
                                             <ErrorFormMessage>{errors.emergencyContactPhone.message}</ErrorFormMessage>
@@ -284,6 +298,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactMobile"
+                                            required
                                             type="text" />
                                         {errors.emergencyContactMobile && (
                                             <ErrorFormMessage>{errors.emergencyContactMobile.message}</ErrorFormMessage>
@@ -304,6 +319,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                         register={register}
                                         errors={errors}
                                         name="allergies"
+                                        required
                                         type="text" />
                                     {errors.allergies && (
                                         <ErrorFormMessage>{errors.allergies.message}</ErrorFormMessage>
@@ -314,6 +330,7 @@ export default function VolunteerEditForm({ errors, register, control, volunteer
                                         register={register}
                                         errors={errors}
                                         name="bloodType"
+                                        required
                                         type="text" />
                                     {errors.bloodType && (
                                         <ErrorFormMessage>{errors.bloodType.message}</ErrorFormMessage>

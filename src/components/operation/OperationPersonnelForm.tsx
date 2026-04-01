@@ -83,6 +83,7 @@ export default function OperationPersonnelForm({
       <FilterDatalist
         name="responsible"
         label="Responsable"
+        required
         options={availableResponsibleMilitary}
         onChange={(value) => {
           if (!value) {
@@ -116,6 +117,7 @@ export default function OperationPersonnelForm({
             <FilterDatalist
               name="military"
               label="Seleccionar al personal militar"
+              required
               options={availableMilitary}
               onChange={(value) => setSelectedMilitary(value)}
               value={selectedMilitary}
@@ -149,6 +151,7 @@ export default function OperationPersonnelForm({
             <FilterDatalist
               name="volunteer"
               label="Seleccionar a un voluntario"
+              required
               options={availableVolunteers}
               onChange={(value) => setSelectedVolunteer(value)}
               value={selectedVolunteer}

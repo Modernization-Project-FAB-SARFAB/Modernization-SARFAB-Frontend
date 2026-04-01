@@ -41,6 +41,18 @@ export async function getVolunteersWithGrade(){
   }
 }
 
+export async function getVolunteersWithActiveMedicalCheckup(){
+  try {
+    const { data } = await api.get("/ContextData/volunteers-with-active-medical-checkup");
+    return VolunteerWithRankSchema.array().parse(data);
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data?.error || "Error fetching volunteers with active medical checkup");
+    }
+    throw error;
+  }
+}
+
 export async function getMilitaryWithRank() {
   try {
     const { data } = await api.get("/ContextData/military-personnel-with-rank");

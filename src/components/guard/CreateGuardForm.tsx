@@ -121,6 +121,7 @@ export default function CreateGuardForm({ setVoluntareeIds, volunteersData, shif
                         <FormSearchableSelect
                             name="responsibleId"
                             label="Responsable"
+                            required
                             options={volunteersOptions && volunteersOptions.length > 0
                                 ? volunteersOptions
                                 : [{ id: 0, name: "No hay opciones" }]}

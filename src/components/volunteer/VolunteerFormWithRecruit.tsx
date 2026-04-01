@@ -76,6 +76,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="email"
+                                        required
                                         type="email" />
                                 </div>
 
@@ -95,6 +96,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="homeAddress"
+                                        required
                                         type="text" />
                                 </div>
 
@@ -104,6 +106,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="phone"
+                                            required
                                             type="tel" />
                                     </div>
 
@@ -112,6 +115,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="mobilePhone"
+                                            required
                                             type="tel" />
                                     </div>
                                 </div>
@@ -133,6 +137,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="occupation"
+                                            required
                                             type="text" />
                                     </div>
 
@@ -141,6 +146,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="religion"
+                                            required
                                             type="text" />
                                     </div>
                                 </div>
@@ -150,6 +156,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="distinctiveFeatures"
+                                        required
                                         type="text" />
                                 </div>
                             </div>
@@ -169,6 +176,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactFullName"
+                                            required
                                             type="text" />
                                     </div>
 
@@ -177,6 +185,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactRelation"
+                                            required
                                             type="text" />
                                     </div>
                                 </div>
@@ -185,6 +194,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="emergencyContactAddress"
+                                        required
                                         type="text" />
                                 </div>
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
@@ -193,6 +203,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactPhone"
+                                            required
                                             type="text" />
                                     </div>
 
@@ -201,6 +212,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactMobile"
+                                            required
                                             type="text" />
                                     </div>
                                 </div>
@@ -239,6 +251,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="observations"
+                                        required
                                         type="text" />
                                 </div>
                             </div>
@@ -255,6 +268,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="allergies"
+                                        required
                                         type="text" />
                                 </div>
                                 <div className="mb-4.5">
@@ -262,6 +276,7 @@ export default function VolunteerFormWithRecruit({ errors, register, control, re
                                         register={register}
                                         errors={errors}
                                         name="bloodType"
+                                        required
                                         type="text" />
                                 </div>
                             </div>
