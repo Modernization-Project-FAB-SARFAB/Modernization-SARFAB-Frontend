@@ -67,8 +67,8 @@ export default function RecruitForm({ errors, register, control }: RecruitFormPr
                             control={control}
                             register={register}
                             options={[
-                                { label: "No, no opta por libreta de sevicio", value: false },
-                                { label: "Si, si opta por libreta de sevicio", value: true }
+                                { label: "No, no opta por libreta de servicio", value: false },
+                                { label: "Sí, sí opta por libreta de servicio", value: true }
                             ]}
                             required
                             

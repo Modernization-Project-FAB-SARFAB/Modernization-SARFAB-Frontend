@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function AttendanceControlGuardView() {
-    useBreadcrumb([{ label: "GUARDIAS", path: "/guards/list" }, { label: "Detalles de guardia" }]);
+    useBreadcrumb([{ label: "Guardias", path: "/guards/list" }, { label: "Detalles de guardia" }]);
     const goTo = useNavigate();
     const params = useParams();
     const guardId = params.guardId!;

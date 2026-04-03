@@ -24,7 +24,7 @@ export default function OperationDetails({
         </h2>
         <article className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <FormInput
-            label="Categoria de operación"
+            label="Categoría de operación"
             name="categoryName"
             type="text"
             readonly
@@ -134,7 +134,7 @@ export default function OperationDetails({
             />
           </div>
           <FormInput
-            label="Télefono"
+            label="Teléfono"
             name="requesterPhone"
             type="text"
             readonly

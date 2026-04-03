@@ -1,6 +1,6 @@
 import { MovementHistory } from "@/types/invetory.schema";
 import { ColumnDef } from "@tanstack/react-table";
-import { format } from "date-fns";
+import { convertToLocalDate } from "@/utils/common/formatDate";
 
 export const MovementHistoricalColumns: ColumnDef<MovementHistory>[] = [
   {
@@ -14,13 +14,10 @@ export const MovementHistoricalColumns: ColumnDef<MovementHistory>[] = [
   {
     header: "Fecha del movimiento",
     accessorKey: "movementDate",
-    cell: ({ getValue }) => {
-      const date = getValue() as string;
-      return format(new Date(date), "dd/MM/yyyy");
-    },
+    cell: ({ getValue }) => convertToLocalDate(getValue<string>()),
   },
   {
-    header: "Tipo de Acción",
+    header: "Tipo de acción",
     accessorKey: "action",
   },
   {

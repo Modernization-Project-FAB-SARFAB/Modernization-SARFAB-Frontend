@@ -39,7 +39,7 @@ export function MilitaryForm({
             name="firstName"
             type="text"
             register={register}
-            placeholder="Ingrese los nombres"
+            placeholder="Ingresa los nombres"
             required
           />
           {errors.firstName && (
@@ -52,7 +52,7 @@ export function MilitaryForm({
             label="Apellidos"
             name="lastName"
             type="text"
-            placeholder="Ingrese los apellidos"
+            placeholder="Ingresa los apellidos"
             register={register}
             errors={errors}
             required
@@ -67,7 +67,7 @@ export function MilitaryForm({
           label="Teléfono"
           name="mobilePhone"
           type="text"
-          placeholder="Ingrese el teléfono"
+          placeholder="Ingresa el teléfono"
           register={register}
           errors={errors}
           required

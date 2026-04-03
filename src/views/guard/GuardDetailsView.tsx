@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function GuardDetailsView() {
-    useBreadcrumb([{ label: "GUARDIAS", path: "/guards/list" }, { label: "Detalles de guardia" }]);
+    useBreadcrumb([{ label: "Guardias", path: "/guards/list" }, { label: "Detalles de guardia" }]);
     const params = useParams();
     const guardId = params.guardId!;
 

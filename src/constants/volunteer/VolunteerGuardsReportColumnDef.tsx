@@ -1,8 +1,13 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { VolunteerGuard } from "@/types/volunteer.schema";
+import { convertToLocalDate } from "@/utils/common/formatDate";
 
 export const volunteerGuardsReportColumnsDef: ColumnDef<VolunteerGuard>[] = [
-    { header: "Fecha de la guardia", accessorKey: "guardDate" },
+    {
+        header: "Fecha de la guardia",
+        accessorKey: "guardDate",
+        cell: ({ getValue }) => convertToLocalDate(getValue<string>()),
+    },
     {
         header: "Turno",
         accessorKey: "shiftName",

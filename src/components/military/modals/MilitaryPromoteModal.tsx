@@ -37,7 +37,7 @@ export const MilitaryPromoteModal = ({ isOpen, onClose, militaryId }: MilitaryPr
   ];
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Confirmar Ascenso">
+    <Modal isOpen={isOpen} onClose={onClose} title="Confirmar ascenso">
       <div className="flex flex-col items-center gap-4">
         <RiArrowUpCircleLine className="w-16 h-16 text-primary" />
         <p className="text-center">¿Estás seguro de que deseas ascender a este militar?</p>

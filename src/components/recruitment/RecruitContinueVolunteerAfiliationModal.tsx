@@ -22,7 +22,7 @@ export default function RecruitContinueVolunteerModal() {
                 ¿Deseas continuar con la afiliación del recluta como voluntario?
                 <div className="flex justify-end gap-4.5 mt-6">
                     <Button
-                        label="Si, deseo continuar con la afiliación"
+                        label="Sí, deseo continuar con la afiliación"
                         onClick={handleContinue}
                         type="submit"
                         disabled={!recruitId}

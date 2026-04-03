@@ -6,7 +6,7 @@ export default function MilitaryListView() {
     <MilitaryListComponent
       breadcrumb={[
         { label: 'Personal Militar', path: '/military/list' },
-        { label: 'Listar personal militar' },
+        { label: 'Listado de personal militar' },
       ]}
       initialStatusFilter="1"
       columns={columns}

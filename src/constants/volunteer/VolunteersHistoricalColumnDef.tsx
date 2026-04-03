@@ -4,6 +4,7 @@ import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
 import { RiArrowUpCircleLine, RiEyeFill, RiFileUserFill, RiShakeHandsFill } from "@remixicon/react";
 import ExpandableText from "@/components/common/ShowMoreText/ShowMoreText";
 import { useNavigate } from "react-router-dom";
+import { convertToLocalDate } from "@/utils/common/formatDate";
 
 const ActionsColumn = ({ row }: { row: any }) => {
     const navigate = useNavigate();
@@ -43,7 +44,11 @@ export const volunteerColumnsDef: ColumnDef<Volunteer>[] = [
     { header: "Apellidos", accessorKey: "lastName" },
     { header: "Nombres", accessorKey: "name" },
     { header: "Grado", accessorKey: "gradeName" },
-    { header: "Fecha de salida", accessorKey: "dapartureDate", },
+    {
+        header: "Fecha de salida",
+        accessorKey: "dapartureDate",
+        cell: ({ getValue }) => convertToLocalDate(getValue<string>()),
+    },
     {
         header: "Observación de salida", accessorKey: "reason",
         cell: ({ getValue }) => {

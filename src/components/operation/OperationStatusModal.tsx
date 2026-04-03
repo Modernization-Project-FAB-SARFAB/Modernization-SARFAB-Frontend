@@ -64,7 +64,7 @@ export const OperationStatusModal = ({
   );
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Finalizar Operación">
+    <Modal isOpen={isOpen} onClose={onClose} title="Finalizar operación">
       <div className="flex flex-col items-center gap-4">
         <RiArrowUpCircleFill className="w-16 h-16 text-primary" />
         <p className="text-center">

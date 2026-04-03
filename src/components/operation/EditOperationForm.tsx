@@ -175,7 +175,7 @@ export default function EditOperationForm({
               <div className="flex flex-col">
                 <FilterDatalist
                   {...field}
-                  label="Tipo de Operación"
+                  label="Tipo de operación"
                   options={filteredOperationTypes}
                   onChange={(value) => {
                     const selected = filteredOperationTypes.find(
@@ -273,10 +273,10 @@ export default function EditOperationForm({
           <FormInput
             name="address"
             label="Dirección"
-            placeholder="Ingrese la dirección"
+            placeholder="Ingresa la dirección"
             register={register}
             errors={errors}
-           
+
             required
           />
           {errors.address && (

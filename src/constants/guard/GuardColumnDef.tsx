@@ -2,7 +2,7 @@ import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
 import { RiCloseCircleLine, RiEdit2Line, RiEyeFill } from "@remixicon/react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Guard } from "@/types/guard.schema";
-import { format, parseISO } from "date-fns";
+import { convertToLocalDate } from "@/utils/common/formatDate";
 
 const statusConfig: Record<number, { text: string; className: string }> = {
     1: { text: "Programado", className: "bg-warning text-warning" },
@@ -13,12 +13,7 @@ export const guardColumnDef: ColumnDef<Guard>[] = [
     {
         header: "Fecha de guardia",
         accessorKey: "guardDate",
-        cell: ({ getValue }) => {
-            const date = getValue<string>();
-            const parsedDate = parseISO(date);
-
-            return parsedDate ? format(parsedDate, "dd/MM/yyyy") : "-";
-        }
+        cell: ({ getValue }) => convertToLocalDate(getValue<string>()) || "-",
     },
     { header: "Turno", accessorKey: "shiftName" },
     { header: "Responsable", accessorKey: "responsibleFullname" },

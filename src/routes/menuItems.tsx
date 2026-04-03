@@ -23,7 +23,7 @@ const menuItems: MenuItem[] = [
         path: "/volunteers",
         subItems: [
             { label: "Ver voluntarios activos", path: "/volunteers/active-volunteers" },
-            { label: "Historico de voluntarios", path: "/volunteers/volunteer-history" },
+            { label: "Histórico de voluntarios", path: "/volunteers/volunteer-history" },
             { label: "Añadir nueva afiliación", path: "/volunteers/create" },
         ],
     },

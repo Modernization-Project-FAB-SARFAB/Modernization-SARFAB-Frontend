@@ -106,7 +106,7 @@ export default function VolunteerHistoricalDetail() {
       </div>
       <div className="rounded-lg border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark lg:col-span-2 lg:row-span-1 lg:row-start-6 p-4">
         <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
-          Chequeos medicos
+          Chequeos médicos
         </h3>
         {medicalCheckupData && (<SimpleSortableTable columns={volunteerHistoricalMedicalCheckupColumnsDef}
           data={medicalCheckupData}

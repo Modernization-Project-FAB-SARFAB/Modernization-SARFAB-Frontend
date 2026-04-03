@@ -137,7 +137,7 @@ const coreRoutes = [
   },
   {
     path: '/volunteers/volunteer-history',
-    title: 'Historico de voluntarios',
+    title: 'Histórico de voluntarios',
     component: HistoricalVolunteersView
   },
   {

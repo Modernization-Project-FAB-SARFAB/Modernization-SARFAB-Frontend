@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { RiEdit2Line } from "@remixicon/react";
 import { MedicalCheckup } from "@/types/volunteerMedicalCheckup";
 import ExpandableText from "@/components/common/ShowMoreText/ShowMoreText";
+import { convertToLocalDate } from "@/utils/common/formatDate";
 
 const ActionsColumn = ({ row }: { row: any; table: any }) => {
     const navigate = useNavigate();
@@ -24,7 +25,11 @@ const ActionsColumn = ({ row }: { row: any; table: any }) => {
 };
 
 export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
-    { header: "Fecha de chequeo", accessorKey: "checkupDate" },
+    {
+        header: "Fecha de chequeo",
+        accessorKey: "checkupDate",
+        cell: ({ getValue }) => convertToLocalDate(getValue<string>()),
+    },
     {
         header: "Fecha de expiración",
         accessorKey: "expirationDate",
@@ -56,7 +61,7 @@ export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
 
             return (
                 <div className="flex flex-col items-center gap-2">
-                    <span>{row.original.expirationDate}</span>
+                    <span>{convertToLocalDate(row.original.expirationDate)}</span>
                     <span className={`text-sm ${statusStyle}`}>{statusText}</span>
                 </div>
             );
@@ -79,8 +84,16 @@ export const volunteerMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
 ];
 
 export const volunteerHistoricalMedicalCheckupColumnsDef: ColumnDef<MedicalCheckup>[] = [
-    { header: "Fecha de chequeo", accessorKey: "checkupDate" },
-    { header: "Fecha de expiración", accessorKey: "expirationDate" },
+    {
+        header: "Fecha de chequeo",
+        accessorKey: "checkupDate",
+        cell: ({ getValue }) => convertToLocalDate(getValue<string>()),
+    },
+    {
+        header: "Fecha de expiración",
+        accessorKey: "expirationDate",
+        cell: ({ getValue }) => convertToLocalDate(getValue<string>()),
+    },
     {
         header: "Observaciones", accessorKey: "observations",
         cell: ({ getValue }) => {

@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function CreateGuardView() {
     const goTo = useNavigate();
-    useBreadcrumb([{ label: "GUARDIAS", path: "/guards/list" }, { label: "Registrar guardia" }]);
+    useBreadcrumb([{ label: "Guardias", path: "/guards/list" }, { label: "Registrar guardia" }]);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [voluntareeIds, setVoluntareeIds] = useState<number[]>([]);

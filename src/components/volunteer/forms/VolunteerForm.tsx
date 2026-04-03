@@ -77,7 +77,7 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                                 </div>
 
                                 <div className="mb-4.5">
-                                    <FormInput label="Correo electrónico" placeholder="Ingresa el correo del voluntario del voluntario"
+                                    <FormInput label="Correo electrónico" placeholder="Ingresa el correo del voluntario"
                                         register={register}
                                         errors={errors}
                                         name="email"
@@ -184,7 +184,7 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Religion" placeholder="Católico, adventista, cristiano, no practica, etc."
+                                        <FormInput label="Religión" placeholder="Católico, adventista, cristiano, no practica, etc."
                                             register={register}
                                             errors={errors}
                                             name="religion"
@@ -232,7 +232,7 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                                     </div>
 
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Parentezco" placeholder="Madre, padre, hermana, hermano, tio, etc."
+                                        <FormInput label="Parentesco" placeholder="Madre, padre, hermana, hermano, tío, etc."
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactRelation"
@@ -256,7 +256,7 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                                 </div>
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
-                                        <FormInput label="Telefono de contacto de emergencia" placeholder="Ingresa el teléfono de contacto de emergencia"
+                                        <FormInput label="Teléfono de contacto de emergencia" placeholder="Ingresa el teléfono de contacto de emergencia"
                                             register={register}
                                             errors={errors}
                                             name="emergencyContactPhone"
@@ -285,14 +285,14 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                     <div className="col-span-2 col-start-4 row-start-3">
                         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                             <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
-                                Chequeo medico
+                                Chequeo médico
                             </h3>
                             <div className="p-6.5">
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
                                         <FormDate
-                                            label="Fecha de realización del chequeo medico"
-                                            placeholder="Ingresa la fecha en la que se realizó el reclutamiento"
+                                            label="Fecha de realización del chequeo médico"
+                                            placeholder="Ingresa la fecha en la que se realizó el chequeo médico"
                                             required
                                             register={register}
                                             name="checkupDate"
@@ -304,8 +304,8 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
 
                                     <div className="w-full xl:w-1/2">
                                         <FormDate
-                                            label="Fecha de caducidad del chequeo medico"
-                                            placeholder="Ingres la fecha de caducidad del reclutamiento"
+                                            label="Fecha de caducidad del chequeo médico"
+                                            placeholder="Ingresa la fecha de caducidad del chequeo médico"
                                             required
                                             register={register}
                                             name="expirationDate"
@@ -332,7 +332,7 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                     <div className="col-span-2 col-start-4 row-start-4">
                         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                             <h3 className="px-6.5 mt-3 dark:text-white text-2xl font-semibold text-black">
-                                Datos medicos
+                                Datos médicos
                             </h3>
                             <div className="p-6.5">
                                 <div className="mb-4.5">
@@ -347,7 +347,7 @@ export default function VolunteerForm({ errors, register, control, grades }: Vol
                                     )}
                                 </div>
                                 <div className="mb-4.5">
-                                    <FormInput label="Grupo sanguineo" placeholder="A+, A-, B+, B-, AB+, AB-, O+, O-"
+                                    <FormInput label="Grupo sanguíneo" placeholder="A+, A-, B+, B-, AB+, AB-, O+, O-"
                                         register={register}
                                         errors={errors}
                                         name="bloodType"

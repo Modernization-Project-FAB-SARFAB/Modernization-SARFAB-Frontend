@@ -73,7 +73,7 @@ export default function VolunteerCourseAssingModal() {
                                     <div className="flex flex-wrap gap-2">
                                         <div className="flex-col w-full">
                                             <FormSelect
-                                                label="Seleciona un curso"
+                                                label="Selecciona un curso"
                                                 options={data}
                                                 control={control}
                                                 name="courseId"

@@ -125,7 +125,7 @@ export default function OperationDetailsForm({
               <div className="flex flex-col">
                 <FilterDatalist
                   {...field}
-                  label="Tipo de Operación"
+                  label="Tipo de operación"
                   required
                   options={filteredOperationTypes}
                   onChange={(value) => {
@@ -227,7 +227,7 @@ export default function OperationDetailsForm({
           <FormInput
             name="address"
             label="Dirección"
-            placeholder="Ingrese la dirección"
+            placeholder="Ingresa la dirección"
             register={register}
             errors={errors}
             required

@@ -51,7 +51,7 @@ const PersonalData: React.FC<PersonalDataProps> = ({data, lastCourse}) => {
             </div>
 
             <div className="mb-4.5">
-                <FormInput label="Correo electronico"
+                <FormInput label="Correo electrónico"
                     name="email"
                     type="email"
                     readonly
@@ -128,7 +128,7 @@ const PersonalData: React.FC<PersonalDataProps> = ({data, lastCourse}) => {
                 </div>
 
                 <div className="w-full xl:w-1/2">
-                    <FormInput label="Religion"
+                    <FormInput label="Religión"
                         name="religion"
                         type="text" readonly
                         defaultValue={data.religion}

@@ -298,7 +298,7 @@ export default function EditOperationPersonnelForm({
       <FormTextArea
         name="observations"
         label="Observaciones"
-        placeholder="Ingrese observaciones"
+        placeholder="Ingresa las observaciones"
         register={register}
         defaultValue={operation?.observations || ""}
         required

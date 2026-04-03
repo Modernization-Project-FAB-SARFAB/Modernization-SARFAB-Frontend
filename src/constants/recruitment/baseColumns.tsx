@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Recruit } from "@/types/index";
+import { convertToLocalDate } from "@/utils/common/formatDate";
 
 export const baseColumns: ColumnDef<Recruit>[] = [
   { header: "ID", accessorKey: "recruitmentId", enableHiding: true },
@@ -13,7 +14,11 @@ export const baseColumns: ColumnDef<Recruit>[] = [
     }
   },
   { header: "CI", accessorKey: "ci" },
-  { header: "Fecha de Nacimiento", accessorKey: "birthDate" },
+  {
+    header: "Fecha de Nacimiento",
+    accessorKey: "birthDate",
+    cell: ({ getValue }) => convertToLocalDate(getValue<string>()),
+  },
   {
     header: "Opta por libreta de servicio militar",
     accessorKey: "wantsMilitaryService",

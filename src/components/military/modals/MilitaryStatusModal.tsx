@@ -16,7 +16,7 @@ export const MilitaryStatusModal = ({ isOpen, onClose, militaryId, currentStatus
   
   const isActivating = currentStatus === 0;
   const newStatus = isActivating ? 1 : 0;
-  const title = isActivating ? "Activar Personal Militar" : "Desactivar Personal Militar";
+  const title = isActivating ? "Activar personal militar" : "Desactivar personal militar";
   const description = isActivating
     ? "¿Estás seguro de que deseas activar a este personal militar?"
     : "¿Estás seguro de que deseas desactivar a este personal militar?";

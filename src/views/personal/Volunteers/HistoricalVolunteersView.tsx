@@ -5,7 +5,7 @@ import { volunteerColumnsDef as columns } from "@/constants/volunteer/Volunteers
 export default function HistoricalVolunteersView() {
     return (
         <VolunteerHistoricalListView
-            breadcrumb={[{ label: "Voluntarios", path: "/volunteers/volunteer-history" }, { label: "Listado historico de voluntarios" }]}
+            breadcrumb={[{ label: "Voluntarios", path: "/volunteers/volunteer-history" }, { label: "Listado histórico de voluntarios" }]}
             columns={columns}
             modalComponent={[<VolunteerReincorpotateModal/>]}
         />

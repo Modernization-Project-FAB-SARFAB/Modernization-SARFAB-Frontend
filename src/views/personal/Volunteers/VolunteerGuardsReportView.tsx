@@ -13,7 +13,7 @@ export default function VolunteerGuardsReportView() {
                   { label: "Reporte de guardias" },
               ]
             : [
-                  { label: "Voluntarios - Historico", path: "/volunteers/volunteer-history" },
+                  { label: "Voluntarios - Histórico", path: "/volunteers/volunteer-history" },
                   { label: "Reporte de guardias" },
               ];
 

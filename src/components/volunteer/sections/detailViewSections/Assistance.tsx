@@ -27,8 +27,8 @@ const Assistance: React.FC<AssistanceProps> = ({ volunteerId, totalDemeritPoint,
   return (
     <div className="flex-row items-center h-full justify-center p-6">
       <div className="px-6 mt-5">
-        <h3 className="dark:text-white text-2xl font-semibold text-black">Cantidad total de faltas acomuladas</h3>
-        <p className="text-gray-500">Total de faltas acomuladas en operativos y guardias</p>
+        <h3 className="dark:text-white text-2xl font-semibold text-black">Cantidad total de faltas acumuladas</h3>
+        <p className="text-gray-500">Total de faltas acumuladas en operativos y guardias</p>
         <p className={`text-title-xxl text-center font-bold mt-5 ${textColor}`}>
           {pointsLost} {pointsLost === 1 ? "Falta" : "Faltas"}
         </p>

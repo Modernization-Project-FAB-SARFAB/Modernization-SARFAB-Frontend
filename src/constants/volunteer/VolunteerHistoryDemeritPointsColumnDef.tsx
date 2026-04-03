@@ -3,6 +3,7 @@ import { DemeritPointList } from "@/types/demeritPoint.schema";
 import { ColumnDef } from "@tanstack/react-table";
 import { RiIndeterminateCircleLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { convertToLocalDate } from "@/utils/common/formatDate";
 
 const ActionsColumn = ({ row }: { row: any; table: any }) => {
     const navigate = useNavigate();
@@ -22,7 +23,11 @@ const ActionsColumn = ({ row }: { row: any; table: any }) => {
 
 export const VolunteerHistoryDemeritPointsColumnDef: ColumnDef<DemeritPointList>[] = [
     { header: "Razón", accessorKey: "reason" },
-    { header: "Fecha", accessorKey: "date" },
+    {
+        header: "Fecha",
+        accessorKey: "date",
+        cell: ({ getValue }) => convertToLocalDate(getValue<string>()),
+    },
     { header: "Puntos perdidos", accessorKey: "pointsLost" },
     { header: "Observación", accessorKey: "observation" },
     {

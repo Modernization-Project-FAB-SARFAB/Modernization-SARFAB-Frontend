@@ -218,7 +218,7 @@ export default function OperationAbsenceInfo({
           </p>
           <FormTextArea
             label="Observaciones"
-            placeholder="Ingrese observaciones..."
+            placeholder="Ingresa las observaciones..."
             name="observation"
             defaultValue={observation}
             className="mb-4"

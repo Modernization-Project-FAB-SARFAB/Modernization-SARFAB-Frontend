@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditGuardView() {
-    useBreadcrumb([{ label: "GUARDIAS", path: "/guards/list" }, { label: "Editar guardia" }]);
+    useBreadcrumb([{ label: "Guardias", path: "/guards/list" }, { label: "Editar guardia" }]);
     const goTo = useNavigate();
     const params = useParams();
     const guardId = params.guardId!;

@@ -105,7 +105,7 @@ export default function CreateGuardForm({ setVoluntareeIds, volunteersData, shif
                         </div>
                     </div>
                     <div className="mb-4.5 flex flex-col">
-                        <FormInput register={register} label="Ubicacion" required
+                        <FormInput register={register} label="Ubicación" required
                             placeholder="Ingresa la ubicación"
                             name="location" />
                         {errors.location && (

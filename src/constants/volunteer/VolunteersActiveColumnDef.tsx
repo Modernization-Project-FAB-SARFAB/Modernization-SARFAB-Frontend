@@ -62,7 +62,7 @@ export const volunteerColumnsDef: ColumnDef<Volunteer>[] = [
     { header: "Nombres", accessorKey: "name" },
     { header: "CI", accessorKey: "ci" },
     { header: "Número de celular", accessorKey: "mobilePhone" },
-    { header: "Correo elétronico", accessorKey: "email" },
+    { header: "Correo electrónico", accessorKey: "email" },
     { header: "Grado", accessorKey: "gradeName" },
     {
         id: "actions",

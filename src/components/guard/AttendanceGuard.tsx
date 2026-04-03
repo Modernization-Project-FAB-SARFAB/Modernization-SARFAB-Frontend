@@ -3,7 +3,7 @@ import BackLink from "../common/BackLink/BackLink";
 import ErrorFormMessage from "../common/ErrorFormMessage/ErrorFormMessage";
 import FormInput from "../common/FormInput/FormInput";
 import { AttendanceGuardProps } from "./types/AttendanceGuardProps.type";
-import { format } from "date-fns";
+import { convertToLocalDate } from "@/utils/common/formatDate";
 import { FaRegCircleCheck, FaRegCircleXmark } from "react-icons/fa6";
 import Modal from "../common/Modal/Modal";
 import FormTextArea from "../common/FormTextArea/FormTextArea";
@@ -82,7 +82,7 @@ export default function AttendanceControlGuard({ data, volunteerAttendances, set
                             name="date"
                             type="text"
                             readonly
-                            defaultValue={format(data ? new Date(data.guardDate) : new Date(), "dd/MM/yyyy")}
+                            defaultValue={convertToLocalDate(data?.guardDate)}
                             className="bg-gray text-black dark:text-white text-center"
                         />
                         <FormInput
@@ -121,7 +121,7 @@ export default function AttendanceControlGuard({ data, volunteerAttendances, set
                                         Grado
                                     </th>
                                     <th className="py-4 px-4 text-center font-bold text-black dark:text-white border border-stroke dark:border-strokedark">
-                                        Asistio
+                                        Asistió
                                     </th>
                                 </tr>
                             </thead>
@@ -173,11 +173,11 @@ export default function AttendanceControlGuard({ data, volunteerAttendances, set
                 onClose={() => setIsOpenModal(false)}
             >
                 <p className="text-gray-600 mb-4">
-                    ¿Estás seguro de que <strong>{person?.voluntareeFullname}</strong> NO asistió a la operación?
+                    ¿Estás seguro de que <strong>{person?.voluntareeFullname}</strong> NO asistió a la guardia?
                 </p>
                 <FormTextArea
                     label="Observaciones"
-                    placeholder="Ingrese observaciones..."
+                    placeholder="Ingresa las observaciones..."
                     name="observation"
                     defaultValue={observation}
                     className="mb-4"

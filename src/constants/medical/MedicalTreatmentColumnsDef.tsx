@@ -2,9 +2,14 @@ import DropdownMenu from "@/components/common/DropdownMenu/DropdownMenu";
 import { RiEdit2Line, RiEyeFill } from "@remixicon/react";
 import { ColumnDef } from "@tanstack/react-table";
 import { MedicalTreatment } from "@/types/medicalTreatment.schema";
+import { convertToLocalDate } from "@/utils/common/formatDate";
 
 export const medicalTreatmentColumnDef: ColumnDef<MedicalTreatment>[] = [
-  { header: "Fecha del tratamiento", accessorKey: "treatmentDate" },
+  {
+    header: "Fecha del tratamiento",
+    accessorKey: "treatmentDate",
+    cell: ({ getValue }) => convertToLocalDate(getValue<string>()),
+  },
   { header: "Paciente", accessorKey: "patientPersonFullname" },
   { header: "Persona que atendió", accessorKey: "attendingPersonFullname" },
   { 
